@@ -1,0 +1,190 @@
+This file contains notes from meetings and random thoughts. Not used ot be understood by a third party.
+
+gannt chart - 
+
+research what a gantt chart is
+
+different between  team gantt chart and a student one
+
+needs to be integrated on the websited (D3 etc needs to be a library that works with the workflow)
+
+stakeholder project
+
+running test with students
+
+
+javascript HTML - database in the background needs to be looked into further 
+
+
+
+
+
+reasearching what makes a gantt chart
+what process should someone follow 
+
+project network diagram
+
+dependencies 
+
+category/tags possibly
+
+
+not team gantt chart
+
+make it for indiviudals
+
+First stage - research gantt charts 
+- project manage literture
+
+
+THen look at what we will be doing
+
+what quesiosns on my interface
+
+put in touch with kaiven to know my technology stack
+ethics done
+
+cans I have the same data in a a gantt chart as in a network diagram
+
+interactive relation stuff will need to be using d3 libary, d3.js
+
+
+https://observablehq.com/@bensimonds/gantt-chart - example code
+
+TODO
+Evaluation
+comparative analysis
+What is the project about and what feature will it have
+do I want it to be a question based system or a interactive drag and drop?
+- question which one they will prefer
+- question if it will be useful
+- what works and doesn't work
+- 
+start drafting things for the ethics
+
+TODO for w/b 29/09/2025
+Look at the literature on gantt charts
+look at interactive visualations - https://observablehq.com/@aaronkyle/google-gantt, https://observablehq.com/@bensimonds/gantt-chart, d3 is lowlevel so its easy to make a dragdrop
+write the requirements and give it back to him to see if I'm on the right tracks
+
+TODO for w/b 06/10/2025
+Speak to Kevin possibly
+Draft questions for Kevin to being coding 
+Complete ethics form 
+-start with title and descripting of the project, this will be the usability study of this project, im using human participants no third party datasets or special equipment. in use of participants will be talking to 2 sets of people 1 being the person who has created a pre existing system, 2 is will be doing a basic usability evaluation, I will be making sure I am making them sign consent form (possibly get their demographics like education level and prior knowledge to gantt charts, nothing too personal) 
+
+- can give them more than 1 day to wait for them to say yes to accepting the usability test to give them time to look over the consent and test, advise participants they can withdraw at any time, all data on hwu systems 
+- for GDPR ot using any personal data, not using any 3rd party datasets, only possibly using made up data 
+
+
+can he give access to the code base 
+WHAt am I doing to track down my project tasks
+
+
+MAKE SURE TO GET THE THISNGS U READ 
+
+make like  "speadsheet" with time coded bits to ensure if there is any misinterpretations that this can be proved
+
+write down the reference 
+keep track of my research 
+
+
+
+The study will employ the following methods:
+Stakeholder Consultation Interviews
+Comparative Analysis
+Usability Testing
+User Feedback Collection
+System Performance Evaluation
+
+Participants will interact with the system using fictitious project data created for evaluation purposes. No third-party datasets or personal data will be used. Prior to participation, all participants will receive detailed information sheets and consent forms, with adequate time (minimum one day) to review materials before deciding to participate. Participants will be informed of their right to withdraw at any time without consequence. Basic demographic information (education level, prior experience with Gantt charts) will be collected to contextualise findings, but no personally identifiable information will be stored. All data will be stored securely on HWU systems in compliance with GDPR regulations.
+
+
+
+todo for w/b 20/10/2025
+
+to store data in a sql data in the query
+look into sql lite - mobile applications (cheap local stuff as its all in 1 file)
+background uses sql, our goal is to say that I did it, so it can potentially goes into an existing project
+
+sql is a limitation 
+
+Must requirement - 
+Should requirement - as a student it should tell the user if they are late or early 
+Could requirement - 
+
+kanban boards - look into this to make it for the progress tracker
+
+progress tracker bar
+
+https://sqlite.org/ - LOOK AT DATA SAVED FOR THE GANTT CHARE IN THE DATABASE
+
+
+Core Data Entities
+
+Projects Table
+
+project_id (primary key)
+project_name
+project_description (optional)
+start_date
+end_date
+created_at
+updated_at
+
+
+Tasks Table
+
+task_id (primary key)
+project_id (foreign key)
+task_name
+description (optional)
+start_date
+end_date/duration
+progress_percentage (0-100)
+is_milestone (boolean)
+parent_task_id (self-referencing for subtasks/hierarchy, nullable)
+display_order (for custom sorting)
+
+
+Dependencies Table
+
+dependency_id (primary key)
+predecessor_task_id (foreign key to tasks)
+successor_task_id (foreign key to tasks)
+dependency_type (e.g., 'finish-to-start', 'start-to-start', etc.)
+lag_time (optional - days/hours to wait after predecessor)
+
+
+Resources Table (optional but recommended)
+
+resource_id (primary key)
+resource_name
+resource_type
+capacity (optional)
+
+
+Task_Resources Table (for many-to-many relationship)
+
+assignment_id (primary key)
+task_id (foreign key)
+resource_id (foreign key)
+allocation_percentage (optional)
+
+Pierre is a client/stakeholder 
+Kayvan is a stakeholder
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
