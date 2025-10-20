@@ -177,9 +177,65 @@ Kayvan is a stakeholder
 
  
 
+https://www.youtube.com/watch?v=WpLBpSiGW0k
 
 
 
+w/b 278/10
+
+project id and student id, full control on outside fully independent implementation
+
+projected is a unique integer number
+student id is a unique number
+
+project id is just named "id"
+
+rogue key
+
+requiement
+taskas r depending on other tasks so if task A is dependent on task B I cnat make task B start before task A
+
+milestones with deliverables and tasks
+
+
+entity framework is used with it its a Microsoft project that can be defined
+
+local authentication for email login
+
+
+nvc
+nvvm
+nvw
+
+this is to separate view from eachother to spererat the componets of the project and if  1 is updated itll updated the number
+
+new is the data
+
+interface is the code
+
+view is the logic
+
+tiragle form information to stop erorrs and to update everthing
+
+form in from sends thinformatio to the backend
+backend then processes it and sends it to the client 
+
+asb.net to do this but it may be s
+
+
+mvc framework, asp.net
+
+[INCUDE IN LITERTURE REVIEW background research]
+
+what will happen is that there would be a button on the porjects page just above the view ethichs form part that when you perss it itll take you to the 
+
+
+microsofts planner is what it is stupposed to look like
+
+
+need to consider a task table tostore the tasks
+
+consider supervisor view (they are not able to edit it, then the student will be the edit mode person)
 
 
 
