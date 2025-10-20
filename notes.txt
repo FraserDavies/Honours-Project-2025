@@ -230,15 +230,17 @@ mvc framework, asp.net
 what will happen is that there would be a button on the porjects page just above the view ethichs form part that when you perss it itll take you to the 
 
 
-microsofts planner is what it is stupposed to look like
+microsofts planner is what it is supposed to look like
 
 
-need to consider a task table tostore the tasks
+need to consider a task table to store the tasks
 
 consider supervisor view (they are not able to edit it, then the student will be the edit mode person)
 
 
+pedilogical tool, they need to learn it 
 
+needs to be clear understandable and usuable by students
 
 
 
