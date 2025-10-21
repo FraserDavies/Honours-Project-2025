@@ -17,3 +17,7 @@ This project will require proficientcy with web programming, data management, UI
 Supervisor: Pierre Le Bras
 
 Current stakeholders: Kayvan Karim, Pierre Le Bras
+
+
+Database structure:
+projectId 
