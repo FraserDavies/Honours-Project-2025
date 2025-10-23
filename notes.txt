@@ -147,7 +147,7 @@ parent_task_id (self-referencing for subtasks/hierarchy, nullable)
 display_order (for custom sorting)
 
 
-Dependencies Table
+Dependencies Table 
 
 dependency_id (primary key)
 predecessor_task_id (foreign key to tasks)
@@ -155,21 +155,6 @@ successor_task_id (foreign key to tasks)
 dependency_type (e.g., 'finish-to-start', 'start-to-start', etc.)
 lag_time (optional - days/hours to wait after predecessor)
 
-
-Resources Table (optional but recommended)
-
-resource_id (primary key)
-resource_name
-resource_type
-capacity (optional)
-
-
-Task_Resources Table (for many-to-many relationship)
-
-assignment_id (primary key)
-task_id (foreign key)
-resource_id (foreign key)
-allocation_percentage (optional)
 
 Pierre is a client/stakeholder 
 Kayvan is a stakeholder
@@ -242,7 +227,14 @@ pedilogical tool, they need to learn it
 
 needs to be clear understandable and usuable by students
 
+Table thoughts
+
+projects table
+tasks table 
+dependencies table (maybe, can be included in tasks I think or projects idk)
 
 
+TODO for w/b 27/10/2025
 
+not too much todo for it, focus on other coruse works but keep in mind deadline is in a month
 
