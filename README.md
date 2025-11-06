@@ -21,3 +21,4 @@ Current stakeholders: Kayvan Karim, Pierre Le Bras
 
 Database structure:
 projectId 
+
