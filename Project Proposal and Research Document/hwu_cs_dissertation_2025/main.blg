@@ -1,0 +1,59 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: main.aux
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Reallocating 'name_of_file' (item size: 1) to 21 items.
+The style file: ACM-Reference-Format.bst
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 6000 items.
+Database file #1: references.bib
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Reallocating 'glb_str_end' (item size: 4) to 20 items.
+Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
+Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--empty address in BednjanecAndrea2013AoGc
+You've used 7 entries,
+            6273 wiz_defined-function locations,
+            1556 strings with 19388 characters,
+and the built_in function-call counts, 5567 in all, are:
+= -- 614
+> -- 131
+< -- 0
++ -- 36
+- -- 55
+* -- 317
+:= -- 580
+add.period$ -- 38
+call.type$ -- 7
+change.case$ -- 36
+chr.to.int$ -- 6
+cite$ -- 8
+duplicate$ -- 528
+empty$ -- 375
+format.name$ -- 59
+if$ -- 1213
+int.to.chr$ -- 3
+int.to.str$ -- 1
+missing$ -- 5
+newline$ -- 116
+num.names$ -- 48
+pop$ -- 173
+preamble$ -- 1
+purify$ -- 90
+quote$ -- 0
+skip$ -- 231
+stack$ -- 0
+substring$ -- 412
+swap$ -- 44
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 204
+warning$ -- 1
+while$ -- 51
+width$ -- 0
+write$ -- 184
+(There was 1 warning)

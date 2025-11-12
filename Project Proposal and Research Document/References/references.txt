@@ -1,0 +1,21 @@
+Bednjanec, A. and Tretinjak, M.F. (2013) ‘Application of Gantt charts in the educational process’, in 2013 36th International Convention on Information and Communication Technology, Electronics and Microelectronics (MIPRO). MIPRO, pp. 631–635.
+
+@inproceedings{BednjanecAndrea2013AoGc,
+abstract = {Gantt charts, a project management tool for planning and scheduling projects, can be used in educational processes. With the increasing duties, individuals are responsible to effectively manage time and complete tasks. An advantage of Gantt charts is their graphical overview. They visualize beginning dates, ending dates and the important duration parameters helping to track various projects over specific time periods. In the educational process there are many tasks which need to be planned such as school activities, school curriculum, competitions, school projects, intern's activities, internship worksheets, teaching process, introducing curriculum fields, allocating time of the certain curriculum fields and subjects, defining efficient class strategies showing how many time will be spent doing various activities, guidance for lesson development, self-evaluation, etc.. Gantt chart's graphical representation is also very useful in the field of the teacher preparation. There are three components important in teacher preparation: teacher knowledge of the subject to be taught, knowledge and skill in how to teach and determining the time educational content will be introduced. Experience from the School of Electrical Engineering in Zagreb shows that use Gantt chart's in self-evaluation, intern's activities planning, lesson planning and teacher preparing make teaching more effective.},
+pages = {631--635},
+publisher = {MIPRO},
+booktitle = {2013 36th International Convention on Information and Communication Technology, Electronics and Microelectronics (MIPRO)},
+isbn = {9789532330731},
+year = {2013},
+title = {Application of Gantt charts in the educational process},
+language = {eng},
+author = {Bednjanec, Andrea and Tretinjak, Martina Filipovic},
+keywords = {Educational institutions ; Computers ; Correlation ; Electrical engineering ; Schedules},
+}
+
+
+"Gantt Charts: What They Are and How to Make Them," Coursera, Mar. 11, 2025. [Online]. Available: https://www.coursera.org/articles/gantt-charts. [Accessed: Nov. 11, 2025]
+
+
+
+Wadhwa, K. (2024) The role of Gantt chart in project management. Master's thesis. Vaasa University of Applied Sciences.

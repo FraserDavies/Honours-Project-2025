@@ -1,0 +1,148 @@
+% formatting and package settings
+
+
+% document details
+\def\docDate{\nth{\the\day}~\ifcase\the\month\or
+  January\or February\or March\or April\or May\or June\or
+  July\or August\or September\or October\or November\or
+  December\fi~\the\year}
+\def\docInstitution{Heriot-Watt University}
+\def\docSchool{School of Mathematical and Computer Sciences}
+\author{\docAuthor}
+\title{\docTitle}
+\date{\docDate}
+
+% change geometry of ACM template
+\geometry{twoside=true, head=13pt, foot=2pc,
+     paperwidth=21cm, paperheight=29.7cm,
+     includeheadfoot,
+     top=78pt, bottom=114pt, inner=81pt, outer=81pt,
+     marginparwidth=4pc,heightrounded
+ }%
+
+% to make sections start on new pages
+% \AddToHook{cmd/section/before}{\newpage}
+
+% colors
+% main text
+\def\textColor{\color[HTML]{212121}} 
+\def\secTextColor{\color[HTML]{424242}}
+% footer and header
+\def\headerColor{\color[HTML]{565656}} 
+% title, chapters, sections
+\def\titleColor{\color[HTML]{212121}}
+
+% set line spacing
+% \onehalfspacing
+% \singlespacing
+
+% set table cells padding
+\def\arraystretch{1.5}
+
+% set headings format
+% unset to follow ACM format
+% \titleformat{\chapter}{\singlespacing\normalfont\huge\bfseries\titleColor}{\chaptertitlename\ \thechapter}{1em}{}
+% \titleformat{\chapter}{\singlespacing\normalfont\huge\bfseries\titleColor}{\thechapter}{1em}{}
+% \titleformat{\section}{\singlespacing\normalfont\large\bfseries\titleColor}{\thesection}{1em}{}
+% \titleformat{\subsection}{\singlespacing\normalfont\large\bfseries}{\thesubsection}{1em}{}
+% \titleformat{\subsubsection}{\singlespacing\normalfont\normalsize\bfseries}{\thesubsubsection}{1em}{}
+% \titlespacing*{\chapter}{0pt}{0pt}{10pt}
+
+% set paragraph indent
+% unset to follow ACM format
+% \setlength{\parindent}{18pt} 
+
+% set the text colour
+% \textColor 
+
+% set hyperlinks + pdf metadata
+\hypersetup{
+    pdftitle={\docTitle},
+    pdfauthor={\docAuthor},
+    pdfkeywords={computer science dissertation},
+    colorlinks=true,%
+    citecolor=[HTML]{152845},%
+    linkcolor=[HTML]{152845},%
+    urlcolor=[HTML]{1976D2}
+}
+
+% styling the code listings
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\singlespacing,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+% reset names for code listing
+\renewcommand{\lstlistingname}{Code Listing}
+\renewcommand{\lstlistlistingname}{List of \lstlistingname s}
+
+% set cref for listing
+\crefname{lstlisting}{\lstlistingname}{\lstlistingname s}
+\Crefname{lstlisting}{\lstlistingname}{\lstlistingname s}
+
+% set cross-references labels with cleveref
+\crefname{appendixchapter}{Appendix}{Appendices}
+\Crefname{appendixchapter}{Appendix}{Appendices}
+
+
+% set custom headers/footers
+% unset to follow ACM template
+% \pagestyle{fancy}
+% \fancyhf{}
+% \renewcommand{\headrulewidth}{0pt}
+% \renewcommand{\footrulewidth}{0pt}
+% \fancyhead[R]{\headerColor \docType}
+% \fancyhead[L]{\headerColor \docAuthor}
+% \fancyfoot[C]{\headerColor \thepage}
+% % Redefine the plain page style for chapter pages
+% \fancypagestyle{plain}{%
+%     \fancyhf{}%
+%     \fancyfoot[C]{\headerColor \thepage}
+% }
+
+% custom section heading for front-matter content with addition to the ToC
+\newcommand{\frontmattersection}[2]{
+    \thispagestyle{plain} % remove the header on page
+    % \vspace*{1cm} % to align vertically
+    \phantomsection
+    \begin{center} 
+        \textsc{#1} 
+        \addcontentsline{toc}{section}{#1}
+    \end{center}
+    #2 % Main Text
+    \clearpage % leave blank space underneath
+}
+
+\renewcommand{\abstract}[1]{
+    \frontmattersection{Abstract}{#1}
+}
+
+\newcommand{\acknowledgements}[1]{
+    \frontmattersection{Acknowledgements}{#1}
+}
+
+% formatting the table of content
+\dottedcontents{section}[1em]{\bfseries}{1.2em}{0pc}
+\dottedcontents{subsection}[3em]{}{2.2em}{1pc}
+
+\renewcommand{\contentsname}{Table of Contents}

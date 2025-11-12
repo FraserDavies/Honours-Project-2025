@@ -1,0 +1,145 @@
+\documentclass[12pt,nonacm,acmlarge,titlepage,screen]{acmart}
+
+% make ACM settings and load extra packages
+\input{hwu_template/acm_settings}
+\input{hwu_template/packages}
+
+% document details
+% replace those with your details
+\def\docTitle{Interactive Gantt Chart Builder}
+\def\docAuthor{Fraser \textsc{Davies}}
+\def\docAuthorID{H00403114}
+\def\docSupervisor{Prof. Pierre  \textsc{Le Bras}}
+\def\docDegree{BSc (Hons) Computer Science}
+%\def\docDegree{MSc Cookery}
+\def\docType{Research Report}
+% \def\docType{Honours Dissertation}
+% \def\docType{Masters Dissertation}
+\def\docCourse{F20PA - Honours Project}
+% \def\docCourse{F21RP - Research Methods and Project Planning}
+% \def\docCourse{F21MP - Masters Project and Dissertation}
+
+% load extra formatting
+\input{hwu_template/format}
+
+\begin{document}
+
+\setlength{\parskip}{1em}  % Space between paragraphs
+\setlength{\parindent}{0pt}  % No indentation
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FRONT MATTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{hwu_template/titlepage}
+
+\newpage
+\pagenumbering{roman}
+
+\input{hwu_template/declaration}
+
+% Acknowledgements
+\acknowledgements{
+Acknowledgements text.
+}
+
+% Abstract
+\abstract{
+Abstract text.
+}
+
+\input{hwu_template/contents}
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MAIN BODY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\pagenumbering{arabic}
+
+% Introduction
+%%%%%%%%%%%%%%%%%%%%
+\section{Introduction} \label{cha:intro}
+
+%   Introduction: summarising the context and motivation of the project, stating the aim and objectives of the project, identifying the problems to be solved to achieve the objectives, and sketching the organisation of the dissertation.
+
+
+\subsection{Background and Motivation} \label{sec:intro_motiv}
+
+Project management is critical for students in higher education, particularly those undertaking substantial individual projects such as honours dissertations. Dissertations present unique challenges as they are often the largest and most complex projects students have encountered, requiring sustained effort over extended periods while juggling multiple responsibilities \cite{Shives2015}. Effective planning, scheduling, and progress monitoring are essential skills that students must develop to successfully navigate these complex, long-term academic endeavours. However, many students struggle with translating abstract project requirements into concrete, manageable tasks with realistic timelines and dependencies, finding themselves overwhelmed by the scope and duration of dissertation work \cite{Shives2015}.
+
+Gantt charts have emerged as one of the most widely adopted project management tools, originally developed by Henry Gantt in the early 20th century to visualise project schedules through horizontal bar representations \cite{coursera_gantt_2025, geeksforgeeks_gantt_2025}. These visual tools effectively display task durations, dependencies, and timelines, making them invaluable for planning and tracking project progress \cite{aims_ganttchart_2025}. In educational contexts, Gantt charts serve as pedagogical tools that help students manage their increasing responsibilities while developing time management skills. Their graphical representation visualises beginning dates, ending dates, and duration parameters, helping to track various projects over specific time periods \cite{BednjanecAndrea2013AoGc}.
+
+
+Despite their proven utility in professional project management, traditional Gantt chart tools often present usability challenges for students who lack prior project management experience. Many existing solutions are designed for team-based projects and enterprise environments, making them overly complex for individual academic projects. Furthermore, the widespread adoption of visualisation tools in educational settings has been hindered by usability problems and the time required for instructors and students to learn and incorporate these tools into their workflows.
+
+
+At Heriot-Watt University (HWU), honours project students are currently required to submit project management plans as part of their dissertation deliverables. However, the existing project management system lacks integrated tools that guide students through the process of creating well-structured Gantt charts with appropriate task hierarchies, dependencies, and milestones. This gap in the current system motivated the development of an interactive Gantt chart builder specifically tailored to the needs of honours project students and their supervisors.
+
+
+\subsection{Aim and Objectives} \label{sec:intro_aim}
+
+The primary aim of this project is to design, develop, and evaluate an interactive Gantt chart builder that will be integrated into the existing HWU honours project management system. This tool will provide structured guidance to help students create comprehensive project plans while offering supervisors visibility into student progress and planning quality.
+
+The specific objectives of this project are:
+\begin{enumerate}
+    \item To conduct comprehensive background research on Gantt chart design principles, project management methodologies, and interactive visualisation techniques relevant to educational contexts
+    \item To gather and analyse requirements from key stakeholders, including current system developers, supervisors, and students, to ensure the tool meets the needs of its target users
+    \item To design an intuitive user interface that guides students through the process of defining milestones, tasks, task hierarchies, and dependencies without requiring prior project management expertise
+    \item To develop an interactive Gantt chart visualisation using D3.js (Data-Driven Documents), a powerful JavaScript library that enables the creation of dynamic and interactive data visualisations in web browsers using HTML, SVG, and CSS \cite{geeksforgeeks_d3js_2025, w3schools_d3js_2025}, ensuring seamless integration with the existing HWU project system's technological stack
+    \item To implement functionality that allows students and supervisors to explore project timelines, track progress, and reevaluate goals as projects evolve
+    \item To provide export capabilities that enable students to include their Gantt charts and associated data in their project documentation
+    \item To conduct a rigorous usability evaluation through user studies with students and supervisors to assess the effectiveness of the tool and its guidance features
+\end{enumerate}
+
+\subsection{Organisation} \label{sec:intro_orga}
+
+The organisation of this research report is as follows:
+\begin{itemize}
+    \item Chapter \ref{cha:intro}: Introduces the project, outlining the background and motivation, aim and objectives, and the organisation of the report.
+    \item Chapter \ref{cha:back}: Presents the background research, discussing related work found in the technical literature and its relevance to the project.
+\end{itemize}
+
+% Background Research
+%%%%%%%%%%%%%%%%%%%%
+\section{Background Research} \label{cha:back}
+% Background Research: discussing related work found in the technical literature and its relevance to your project.
+
+\subsection{Gantt Charts and Project Management} \label{sec:back_gantt_and_proj}
+% Gantt Charts and Project Management
+% What to cover:
+% - History and evolution of Gantt charts (Henry Gantt)
+% - Core components of Gantt charts (tasks, milestones, dependencies, timelines)
+% - Types of dependencies (finish-to-start, start-to-start, finish-to-finish, start-to-finish)
+% - Gantt charts vs. other project management tools (Kanban boards, network diagrams/PERT charts)
+% - Role of Gantt charts in project management \cite{wadhwa_role_2024}
+% - Review of existing work in the area of your project
+
+
+\section{Methodology} \label{cha:method}
+% Methodology / work plan: describe in detail the necessary methods, requirements or research questions that will be employed or be needed to complete the project. You should link these back to your project aim and objectives. If needed include suitable research questions, use cases, research methods that are going to be employed, stakeholder research, requirements, and / or Moscow analysis.
+
+
+\section{Feasibility} \label{cha:feasibility}
+%  Feasibility: include a summary of preliminary work carried out in preparation for your project to validate the feasibility of your project. This includes design, evaluation strategy and preliminary work (e.g.  focus groups, stakeholder information, tests of software, evaluation of tools, possible datasets or algorithms, and early prototypes) – this section will complement the information in your second deliverable.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BACK MATTER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% References
+\input{hwu_template/references}
+
+% Appendices
+\newpage
+\appendix
+
+\crefalias{chapter}{appendixchapter} % for appendix crossreferences
+
+\section{Project Management}
+
+\subsection{Gantt Chart}
+
+\section{Generative AI}
+
+% Rest of appendices...
+
+\end{document}

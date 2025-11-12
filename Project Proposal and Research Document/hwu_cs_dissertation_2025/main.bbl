@@ -1,0 +1,131 @@
+%%% -*-BibTeX-*-
+%%% Do NOT edit. File created by BibTeX with style
+%%% ACM-Reference-Format-Journals [18-Jan-2012].
+
+\begin{thebibliography}{7}
+
+%%% ====================================================================
+%%% NOTE TO THE USER: you can override these defaults by providing
+%%% customized versions of any of these macros before the \bibliography
+%%% command.  Each of them MUST provide its own final punctuation,
+%%% except for \shownote{} and \showURL{}.  The latter two
+%%% do not use final punctuation, in order to avoid confusing it with
+%%% the Web address.
+%%%
+%%% To suppress output of a particular field, define its macro to expand
+%%% to an empty string, or better, \unskip, like this:
+%%%
+%%% \newcommand{\showURL}[1]{\unskip}   % LaTeX syntax
+%%%
+%%% \def \showURL #1{\unskip}           % plain TeX syntax
+%%%
+%%% ====================================================================
+
+\ifx \showCODEN    \undefined \def \showCODEN     #1{\unskip}     \fi
+\ifx \showISBNx    \undefined \def \showISBNx     #1{\unskip}     \fi
+\ifx \showISBNxiii \undefined \def \showISBNxiii  #1{\unskip}     \fi
+\ifx \showISSN     \undefined \def \showISSN      #1{\unskip}     \fi
+\ifx \showLCCN     \undefined \def \showLCCN      #1{\unskip}     \fi
+\ifx \shownote     \undefined \def \shownote      #1{#1}          \fi
+\ifx \showarticletitle \undefined \def \showarticletitle #1{#1}   \fi
+\ifx \showURL      \undefined \def \showURL       {\relax}        \fi
+% The following commands are used for tagged output and should be
+% invisible to TeX
+\providecommand\bibfield[2]{#2}
+\providecommand\bibinfo[2]{#2}
+\providecommand\natexlab[1]{#1}
+\providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Bednjanec and Tretinjak(2013)]%
+        {BednjanecAndrea2013AoGc}
+\bibfield{author}{\bibinfo{person}{Andrea Bednjanec} {and}
+  \bibinfo{person}{Martina~Filipovic Tretinjak}.}
+  \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Application of Gantt charts in the educational
+  process}. In \bibinfo{booktitle}{\emph{2013 36th International Convention on
+  Information and Communication Technology, Electronics and Microelectronics
+  (MIPRO)}}. \bibinfo{publisher}{MIPRO}, \bibinfo{pages}{631--635}.
+\newblock
+\showISBNx{9789532330731}
+
+
+\bibitem[for International Modern Studies~(AIMS)(2025)]%
+        {aims_ganttchart_2025}
+\bibfield{author}{\bibinfo{person}{Academy for International Modern
+  Studies~(AIMS)}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{What is Gantt Chart Project Management?}
+\newblock
+  \bibinfo{howpublished}{\url{https://aims.education/what-is-gantt-chart-project-management/}}.
+\newblock
+\newblock
+\shownote{Accessed: 08/11/2025}.
+
+
+\bibitem[GeeksforGeeks(2025a)]%
+        {geeksforgeeks_d3js_2025}
+\bibfield{author}{\bibinfo{person}{GeeksforGeeks}.}
+  \bibinfo{year}{2025}\natexlab{a}.
+\newblock \bibinfo{booktitle}{\emph{D3.js in JavaScript}}.
+\newblock
+\urldef\tempurl%
+\url{https://www.geeksforgeeks.org/javascript/d3-js/}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Accessed: 25/09/2025}.
+
+
+\bibitem[GeeksforGeeks(2025b)]%
+        {geeksforgeeks_gantt_2025}
+\bibfield{author}{\bibinfo{person}{GeeksforGeeks}.}
+  \bibinfo{year}{2025}\natexlab{b}.
+\newblock \bibinfo{title}{What is Gantt Chart in Project Management?}
+\newblock
+  \bibinfo{howpublished}{\url{https://www.geeksforgeeks.org/business-studies/what-is-gantt-chart-in-project-management/}}.
+\newblock
+\newblock
+\shownote{Last updated: 23 Jul 2025. Accessed: 08/11/2025}.
+
+
+\bibitem[Shives(2015)]%
+        {Shives2015}
+\bibfield{author}{\bibinfo{person}{Katie Shives}.}
+  \bibinfo{year}{2015}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Using Project Management Approaches to Tame
+  Your Dissertation}}.
+\newblock
+\urldef\tempurl%
+\url{https://www.insidehighered.com/blogs/gradhacker/using-project-management-approaches-tame-your-dissertation}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Accessed: 08/11/2025}.
+
+
+\bibitem[Staff(2025)]%
+        {coursera_gantt_2025}
+\bibfield{author}{\bibinfo{person}{Coursera Staff}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{Gantt Charts: What They Are and How to Make Them}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.coursera.org/articles/gantt-charts}}.
+\newblock
+\newblock
+\shownote{Accessed: 08/11/2025}.
+
+
+\bibitem[W3Schools(2025)]%
+        {w3schools_d3js_2025}
+\bibfield{author}{\bibinfo{person}{W3Schools}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{D3.js Tutorial}}.
+\newblock
+\urldef\tempurl%
+\url{https://www.w3schools.com/js/js_graphics_d3js.asp}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Accessed: 25/09/2025}.
+
+
+\end{thebibliography}
