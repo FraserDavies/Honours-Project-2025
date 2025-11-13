@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{7}
+\begin{thebibliography}{11}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -36,6 +36,17 @@
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
 
+\bibitem[Asana(2025)]%
+        {asana_gantt_chart_2025}
+\bibfield{author}{\bibinfo{person}{Asana}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{What is a Gantt Chart? Guide to Project Timelines}.
+\newblock
+  \bibinfo{howpublished}{\url{https://asana.com/resources/gantt-chart-basics}}.
+\newblock
+\newblock
+\shownote{Accessed: 12/11/2025}.
+
+
 \bibitem[Bednjanec and Tretinjak(2013)]%
         {BednjanecAndrea2013AoGc}
 \bibfield{author}{\bibinfo{person}{Andrea Bednjanec} {and}
@@ -49,10 +60,10 @@
 \showISBNx{9789532330731}
 
 
-\bibitem[for International Modern Studies~(AIMS)(2025)]%
-        {aims_ganttchart_2025}
+\bibitem[for International Modern Studies~(AIMS)({[n.\,d.]})]%
+        {aims_ganttchart}
 \bibfield{author}{\bibinfo{person}{Academy for International Modern
-  Studies~(AIMS)}.} \bibinfo{year}{2025}\natexlab{}.
+  Studies~(AIMS)}.} \bibinfo{year}{[n.\,d.]}\natexlab{}.
 \newblock \bibinfo{title}{What is Gantt Chart Project Management?}
 \newblock
   \bibinfo{howpublished}{\url{https://aims.education/what-is-gantt-chart-project-management/}}.
@@ -87,6 +98,32 @@
 \shownote{Last updated: 23 Jul 2025. Accessed: 08/11/2025}.
 
 
+\bibitem[Neumeyer({[n.\,d.]})]%
+        {tacticalpm_fs_dependency}
+\bibfield{author}{\bibinfo{person}{Adrian Neumeyer}.}
+  \bibinfo{year}{[n.\,d.]}\natexlab{}.
+\newblock \bibinfo{title}{Finish-to-Start Dependency Explained (with
+  Examples)}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.tacticalprojectmanager.com/finish-to-start-dependency/}}.
+\newblock
+\newblock
+\shownote{Accessed: 12/11/2025}.
+
+
+\bibitem[ProjectManager(2021)]%
+        {projectmanager_dependencies_2024}
+\bibfield{author}{\bibinfo{person}{ProjectManager}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \bibinfo{title}{Gantt Chart Dependencies: Understanding Task
+  Dependency Types}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.projectmanager.com/blog/gantt-chart-dependencies}}.
+\newblock
+\newblock
+\shownote{Accessed: 12/11/2025}.
+
+
 \bibitem[Shives(2015)]%
         {Shives2015}
 \bibfield{author}{\bibinfo{person}{Katie Shives}.}
@@ -100,6 +137,20 @@
 \tempurl}
 \newblock
 \shownote{Accessed: 08/11/2025}.
+
+
+\bibitem[Smartsheet(2020)]%
+        {smartsheet_gantt_dependencies_2020}
+\bibfield{author}{\bibinfo{person}{Smartsheet}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Gantt Chart with Dependencies}}.
+\newblock
+\urldef\tempurl%
+\url{https://www.youtube.com/watch?v=U4QftGiN5Nk}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Uploaded on YouTube by Smartsheet. Accessed: 30/09/2025}.
 
 
 \bibitem[Staff(2025)]%

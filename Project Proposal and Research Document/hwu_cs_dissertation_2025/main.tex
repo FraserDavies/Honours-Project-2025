@@ -66,7 +66,7 @@ Abstract text.
 
 Project management is critical for students in higher education, particularly those undertaking substantial individual projects such as honours dissertations. Dissertations present unique challenges as they are often the largest and most complex projects students have encountered, requiring sustained effort over extended periods while juggling multiple responsibilities \cite{Shives2015}. Effective planning, scheduling, and progress monitoring are essential skills that students must develop to successfully navigate these complex, long-term academic endeavours. However, many students struggle with translating abstract project requirements into concrete, manageable tasks with realistic timelines and dependencies, finding themselves overwhelmed by the scope and duration of dissertation work \cite{Shives2015}.
 
-Gantt charts have emerged as one of the most widely adopted project management tools, originally developed by Henry Gantt in the early 20th century to visualise project schedules through horizontal bar representations \cite{coursera_gantt_2025, geeksforgeeks_gantt_2025}. These visual tools effectively display task durations, dependencies, and timelines, making them invaluable for planning and tracking project progress \cite{aims_ganttchart_2025}. In educational contexts, Gantt charts serve as pedagogical tools that help students manage their increasing responsibilities while developing time management skills. Their graphical representation visualises beginning dates, ending dates, and duration parameters, helping to track various projects over specific time periods \cite{BednjanecAndrea2013AoGc}.
+Gantt charts have emerged as one of the most widely adopted project management tools, originally developed by Henry Gantt in the early 20th century to visualise project schedules through horizontal bar representations \cite{coursera_gantt_2025, geeksforgeeks_gantt_2025}. These visual tools effectively display task durations, dependencies, and timelines, making them invaluable for planning and tracking project progress \cite{aims_ganttchart}. In educational contexts, Gantt charts serve as pedagogical tools that help students manage their increasing responsibilities while developing time management skills. Their graphical representation visualises beginning dates, ending dates, and duration parameters, helping to track various projects over specific time periods \cite{BednjanecAndrea2013AoGc}.
 
 
 Despite their proven utility in professional project management, traditional Gantt chart tools often present usability challenges for students who lack prior project management experience. Many existing solutions are designed for team-based projects and enterprise environments, making them overly complex for individual academic projects. Furthermore, the widespread adoption of visualisation tools in educational settings has been hindered by usability problems and the time required for instructors and students to learn and incorporate these tools into their workflows.
@@ -106,17 +106,42 @@ The organisation of this research report is as follows:
 \subsection{Gantt Charts and Project Management} \label{sec:back_gantt_and_proj}
 % Gantt Charts and Project Management
 % What to cover:
-% - History and evolution of Gantt charts (Henry Gantt)
-% - Core components of Gantt charts (tasks, milestones, dependencies, timelines)
-% - Types of dependencies (finish-to-start, start-to-start, finish-to-finish, start-to-finish)
-% - Gantt charts vs. other project management tools (Kanban boards, network diagrams/PERT charts)
+% [DONE]- History and evolution of Gantt charts (Henry Gantt thigns) 
+% [DONE]- Core components of Gantt charts (tasks, milestones, dependencies, timelines)
+% [DONE]- Types of dependencies (finish2start start2start finish2finish start2finish)
+% - Gantt charts vs. other project management tools (Kanban boards, PERT charts)
 % - Role of Gantt charts in project management \cite{wadhwa_role_2024}
-% - Review of existing work in the area of your project
+% - Review of existing work in the area of your project (student project management tools education)
+Building upon Henry Gantt's original design, modern Gantt charts have evolved to incorporate sophisticated features that support complex project planning. A comprehensive Gantt chart integrates multiple elements: \cite{coursera_gantt_2025, aims_ganttchart}
+\begin{itemize}
+    \item A vertical list of tasks or activities on the left side.
+    \item A horizontal timeline indicating project duration (days, weeks, or months) 
+    \item Graphical bars representing individual task durations and their temporal placement.
+    \item Lines or arrows indicating dependencies between tasks.
+    \item Labels showing team members or assignees.
+    \item Special markers (typically diamonds) that denote milestones or important project achievements. 
+\end{itemize}
+
+Task dependencies are fundamental to effective Gantt chart usage, defining the relationships between tasks and dictating the order in which activities must occur. Project management identifies four primary dependency types \cite{smartsheet_gantt_dependencies_2020, projectmanager_dependencies_2024}. The Finish-to-Start (FS) dependency, where a successor task cannot commence until its predecessor concludes, represents the most common relationship type \cite{tacticalpm_fs_dependency}. Start-to-Start (SS) dependencies allow a task to begin only after another task has also began, enabling parallel workflows that share a start point. Finish-to-Finish (FF) relationships constrain task completion, requiring one task to finish before another can conclude. Finally, the Start-to-Finish (SF) dependency, the least common type, denotes that a task cannot finish until another task begins, typically appearing in handover or transition scenarios.
+
+Beyond dependencies, Gantt charts visualise the critical path the longest sequence of dependent tasks that determines the project's minimum completion time. This enables project managers to distinguish between tasks that are critical to meeting deadlines and those that possess scheduling flexibility \cite{asana_gantt_chart_2025}. This distinction proves particularly valuable for resource allocation and risk management decisions.
+
+\subsection{Gantt Charts in Educational Contexts} \label{sec:back_gantt_edu}
+% Gantt Charts in Educational Contexts
+% - Use of Gantt charts for student project planning
+% - Pedagogical benefits of visual project management tools
+% - Challenges students face with project management
+% - Difference between team-based and individual Gantt charts
+%  \cite{BednjanecAndrea2013AoGc, Shives2015}
+
+\subsection{Interactive Data Visualisation} \label{sec:back_data_vis}
+
 
 
 \section{Methodology} \label{cha:method}
 % Methodology / work plan: describe in detail the necessary methods, requirements or research questions that will be employed or be needed to complete the project. You should link these back to your project aim and objectives. If needed include suitable research questions, use cases, research methods that are going to be employed, stakeholder research, requirements, and / or Moscow analysis.
 
+\subsection{Requirement Analysis} \label{sec:meth_req_anal}
 
 \section{Feasibility} \label{cha:feasibility}
 %  Feasibility: include a summary of preliminary work carried out in preparation for your project to validate the feasibility of your project. This includes design, evaluation strategy and preliminary work (e.g.  focus groups, stakeholder information, tests of software, evaluation of tools, possible datasets or algorithms, and early prototypes) – this section will complement the information in your second deliverable.

@@ -15,45 +15,49 @@ Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
 Reallocating 'global_strs' (item size: 1) to 4000000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Warning--empty address in BednjanecAndrea2013AoGc
-You've used 7 entries,
+Warning--empty year in aims_ganttchart
+Warning--using n.d. in aims_ganttchart
+Warning--empty year in tacticalpm_fs_dependency
+Warning--using n.d. in tacticalpm_fs_dependency
+You've used 11 entries,
             6273 wiz_defined-function locations,
-            1556 strings with 19388 characters,
-and the built_in function-call counts, 5567 in all, are:
-= -- 614
-> -- 131
+            1576 strings with 20046 characters,
+and the built_in function-call counts, 8392 in all, are:
+= -- 914
+> -- 199
 < -- 0
-+ -- 36
-- -- 55
-* -- 317
-:= -- 580
-add.period$ -- 38
-call.type$ -- 7
-change.case$ -- 36
-chr.to.int$ -- 6
-cite$ -- 8
-duplicate$ -- 528
-empty$ -- 375
-format.name$ -- 59
-if$ -- 1213
++ -- 52
+- -- 83
+* -- 473
+:= -- 888
+add.period$ -- 61
+call.type$ -- 11
+change.case$ -- 56
+chr.to.int$ -- 10
+cite$ -- 16
+duplicate$ -- 796
+empty$ -- 574
+format.name$ -- 87
+if$ -- 1845
 int.to.chr$ -- 3
 int.to.str$ -- 1
 missing$ -- 5
-newline$ -- 116
-num.names$ -- 48
-pop$ -- 173
+newline$ -- 159
+num.names$ -- 76
+pop$ -- 293
 preamble$ -- 1
-purify$ -- 90
+purify$ -- 132
 quote$ -- 0
-skip$ -- 231
+skip$ -- 333
 stack$ -- 0
-substring$ -- 412
-swap$ -- 44
+substring$ -- 588
+swap$ -- 62
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 204
-warning$ -- 1
-while$ -- 51
+type$ -- 324
+warning$ -- 5
+while$ -- 79
 width$ -- 0
-write$ -- 184
-(There was 1 warning)
+write$ -- 266
+(There were 5 warnings)
