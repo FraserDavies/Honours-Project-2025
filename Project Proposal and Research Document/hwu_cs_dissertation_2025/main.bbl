@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{11}
+\begin{thebibliography}{12}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -58,6 +58,18 @@
   (MIPRO)}}. \bibinfo{publisher}{MIPRO}, \bibinfo{pages}{631--635}.
 \newblock
 \showISBNx{9789532330731}
+
+
+\bibitem[Coursera{\ }Staff(2025)]%
+        {coursera_gantt_2025}
+\bibfield{author}{\bibinfo{person}{Coursera{\ }Staff}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{Gantt Charts: What They Are and How to Make Them}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.coursera.org/articles/gantt-charts}}.
+\newblock
+\newblock
+\shownote{Accessed: 08/11/2025}.
 
 
 \bibitem[for International Modern Studies~(AIMS)({[n.\,d.]})]%
@@ -153,16 +165,15 @@
 \shownote{Uploaded on YouTube by Smartsheet. Accessed: 30/09/2025}.
 
 
-\bibitem[Staff(2025)]%
-        {coursera_gantt_2025}
-\bibfield{author}{\bibinfo{person}{Coursera Staff}.}
+\bibitem[Visualising{\ }Data{\ }Ltd.(2025)]%
+        {visualisingdata_resources}
+\bibfield{author}{\bibinfo{person}{Visualising{\ }Data{\ }Ltd.}}
   \bibinfo{year}{2025}\natexlab{}.
-\newblock \bibinfo{title}{Gantt Charts: What They Are and How to Make Them}.
+\newblock \bibinfo{title}{Data Visualisation Resources}.
+\newblock \bibinfo{howpublished}{\url{https://visualisingdata.com/resources/}}.
 \newblock
-  \bibinfo{howpublished}{\url{https://www.coursera.org/articles/gantt-charts}}.
 \newblock
-\newblock
-\shownote{Accessed: 08/11/2025}.
+\shownote{Accessed: 25/09/2025}.
 
 
 \bibitem[W3Schools(2025)]%
