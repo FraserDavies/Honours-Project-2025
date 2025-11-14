@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{12}
+\begin{thebibliography}{18}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -35,6 +35,20 @@
 \providecommand\bibinfo[2]{#2}
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[Academiac(2018)]%
+        {academiac_gantt_phd_2018}
+\bibfield{author}{\bibinfo{person}{Academiac}.}
+  \bibinfo{year}{2018}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Are Gantt charts useful for PhD students?}}
+\newblock
+\urldef\tempurl%
+\url{https://academiac.net/2018/10/23/are-gantt-charts-useful-for-phd-students/}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Published on academiac.net, Accessed: 14/11/2025}.
+
 
 \bibitem[Asana(2025)]%
         {asana_gantt_chart_2025}
@@ -110,6 +124,33 @@
 \shownote{Last updated: 23 Jul 2025. Accessed: 08/11/2025}.
 
 
+\bibitem[Landau(2024)]%
+        {projectmanager_gantt_pert_network_2024}
+\bibfield{author}{\bibinfo{person}{Peter Landau}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{Gantt Chart vs. PERT Chart vs. Network Diagram: What
+  Are the Differences?}
+\newblock
+  \bibinfo{howpublished}{\url{https://www.projectmanager.com/blog/gantt-vs-pert-vs-network-diagram}}.
+\newblock
+\newblock
+\shownote{Published on projectmanager.com, Accessed: 14/11/2025}.
+
+
+\bibitem[Meardon(2025)]%
+        {atlassian_gantt_2025}
+\bibfield{author}{\bibinfo{person}{Eddie Meardon}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Gantt chart: Key features and benefits}}.
+\newblock
+\urldef\tempurl%
+\url{https://www.atlassian.com/agile/project-management/gantt-chart}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Published on atlassian.com, Accessed: 14/11/2025}.
+
+
 \bibitem[Neumeyer({[n.\,d.]})]%
         {tacticalpm_fs_dependency}
 \bibfield{author}{\bibinfo{person}{Adrian Neumeyer}.}
@@ -134,6 +175,30 @@
 \newblock
 \newblock
 \shownote{Accessed: 12/11/2025}.
+
+
+\bibitem[Ramos(2021)]%
+        {smartsheet_pert_gantt_2021}
+\bibfield{author}{\bibinfo{person}{Diana Ramos}.}
+  \bibinfo{year}{2021}\natexlab{}.
+\newblock \bibinfo{title}{PERT Charts vs. Gantt Charts}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.smartsheet.com/content/pert-vs-gantt}}.
+\newblock
+\newblock
+\shownote{Published on smarsheet.com, Accessed: 14/11/2025}.
+
+
+\bibitem[Richter(2025)]%
+        {smartsheet_gantt_kanban_2025}
+\bibfield{author}{\bibinfo{person}{Lulu Richter}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{Gantt Chart vs. Kanban Board}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.smartsheet.com/content/gantt-vs-kanban}}.
+\newblock
+\newblock
+\shownote{Published on smarsheet.com, Accessed: 14/11/2025}.
 
 
 \bibitem[Shives(2015)]%
@@ -163,6 +228,20 @@
 \tempurl}
 \newblock
 \shownote{Uploaded on YouTube by Smartsheet. Accessed: 30/09/2025}.
+
+
+\bibitem[TeamHub(2023)]%
+        {teamhub_interactive_gantt_2023}
+\bibfield{author}{\bibinfo{person}{TeamHub}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{Discover the Benefits of an Interactive
+  Gantt Chart Platform}}.
+\newblock
+\urldef\tempurl%
+\url{https://teamhub.com/blog/discover-the-benefits-of-an-interactive-gantt-chart-platform/}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Published on TeamHub, Accessed: 14/11/2025}.
 
 
 \bibitem[Visualising{\ }Data{\ }Ltd.(2025)]%
