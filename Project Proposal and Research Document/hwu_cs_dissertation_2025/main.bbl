@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{18}
+\begin{thebibliography}{19}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -267,6 +267,21 @@
 \tempurl}
 \newblock
 \shownote{Accessed: 25/09/2025}.
+
+
+\bibitem[Wilson(2003)]%
+        {WILSON2003430}
+\bibfield{author}{\bibinfo{person}{James~M. Wilson}.}
+  \bibinfo{year}{2003}\natexlab{}.
+\newblock \showarticletitle{Gantt charts: A centenary appreciation}.
+\newblock \bibinfo{journal}{\emph{European Journal of Operational Research}}
+  \bibinfo{volume}{149}, \bibinfo{number}{2} (\bibinfo{year}{2003}),
+  \bibinfo{pages}{430--437}.
+\newblock
+\showISSN{0377-2217}
+\href{https://doi.org/10.1016/S0377-2217(02)00769-5}{doi:\nolinkurl{10.1016/S0377-2217(02)00769-5}}
+\newblock
+\shownote{Sequencing and Scheduling}.
 
 
 \end{thebibliography}
