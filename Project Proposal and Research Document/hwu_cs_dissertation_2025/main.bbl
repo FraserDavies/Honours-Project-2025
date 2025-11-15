@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{19}
+\begin{thebibliography}{21}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -72,6 +72,20 @@
   (MIPRO)}}. \bibinfo{publisher}{MIPRO}, \bibinfo{pages}{631--635}.
 \newblock
 \showISBNx{9789532330731}
+
+
+\bibitem[Besner and Hobbs(2008)]%
+        {https://doi.org/10.1002/pmj.20033}
+\bibfield{author}{\bibinfo{person}{Claude Besner} {and} \bibinfo{person}{Brian
+  Hobbs}.} \bibinfo{year}{2008}\natexlab{}.
+\newblock \showarticletitle{Project management practice, generic or contextual:
+  A reality check}.
+\newblock \bibinfo{journal}{\emph{Project Management Journal}}
+  \bibinfo{volume}{39}, \bibinfo{number}{1} (\bibinfo{year}{2008}),
+  \bibinfo{pages}{16--33}.
+\newblock
+\showeprint{https://onlinelibrary.wiley.com/doi/pdf/10.1002/pmj.20033}
+\href{https://doi.org/10.1002/pmj.20033}{doi:\nolinkurl{10.1002/pmj.20033}}
 
 
 \bibitem[Coursera{\ }Staff(2025)]%
@@ -267,6 +281,17 @@
 \tempurl}
 \newblock
 \shownote{Accessed: 25/09/2025}.
+
+
+\bibitem[Wadhwa(2024)]%
+        {wadhwa_role_2024}
+\bibfield{author}{\bibinfo{person}{Kanika Wadhwa}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \emph{\bibinfo{title}{The role of Gantt chart in project
+  management}}.
+\newblock Master's thesis. \bibinfo{school}{Vaasa University of Applied
+  Sciences}.
+\newblock
 
 
 \bibitem[Wilson(2003)]%
