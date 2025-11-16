@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  15 NOV 2025 22:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  15 NOV 2025 23:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1262,7 +1262,10 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[3.8] [4.9] (hwu_template/references.tex
+[3.8]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4.9] (hwu_template/references.tex
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1284,25 +1287,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 80--89
  []
 
 LaTeX Info: Redefining \tempurl on input line 122.
-LaTeX Info: Redefining \tempurl on input line 161.
-LaTeX Info: Redefining \tempurl on input line 226.
+LaTeX Info: Redefining \tempurl on input line 186.
+LaTeX Info: Redefining \tempurl on input line 251.
 
-Underfull \hbox (badness 10000) in paragraph at lines 220--231
+Underfull \hbox (badness 10000) in paragraph at lines 245--256
 []\T1/LinuxLibertineT-TLF/m/n/10 (+20) Katie Shives. 2015.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Us-ing Project Man-age-ment Ap-proaches to Tame Your Dis-ser-ta-tion\T1/LinuxLibertineT-TLF/m/n/10 (+20) .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 220--231
+Underfull \hbox (badness 10000) in paragraph at lines 245--256
 [][]$\T1/LinuxLibertineT-TLF/m/n/10 (+20) https : / / www . insidehighered . com / blogs / gradhacker / using -[] project -[] management -[] approaches -[] tame -[]
  []
 
-LaTeX Info: Redefining \tempurl on input line 240.
-LaTeX Info: Redefining \tempurl on input line 254.
+LaTeX Info: Redefining \tempurl on input line 265.
 LaTeX Info: Redefining \tempurl on input line 279.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [6.11]))
+ [6.11]
+LaTeX Info: Redefining \tempurl on input line 304.
+))
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1323,17 +1327,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: B8B379CB87373DC0B1A5AE131A79C20B;2995.
  ) 
 Here is how much of TeX's memory you used:
- 25845 strings out of 467871
- 437625 string characters out of 5418375
+ 25860 strings out of 467871
+ 437868 string characters out of 5418375
  914782 words of memory out of 5000000
- 53704 multiletter control sequences out of 15000+600000
- 801798 words of font info for 364 fonts, out of 8000000 for 9000
+ 53711 multiletter control sequences out of 15000+600000
+ 802344 words of font info for 368 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 90i,13n,131p,1385b,759s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,13n,131p,1380b,755s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinBiolinumT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTB.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txsys.pfb>
-Output written on main.pdf (13 pages, 444773 bytes).
+Output written on main.pdf (13 pages, 447829 bytes).
 PDF statistics:
- 339 PDF objects out of 1000 (max. 8388607)
- 64 named destinations out of 1000 (max. 500000)
+ 347 PDF objects out of 1000 (max. 8388607)
+ 66 named destinations out of 1000 (max. 500000)
  100526 words of extra memory for PDF output out of 106986 (max. 10000000)
 

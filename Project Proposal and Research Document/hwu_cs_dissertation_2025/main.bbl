@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{21}
+\begin{thebibliography}{23}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -75,7 +75,7 @@
 
 
 \bibitem[Besner and Hobbs(2008)]%
-        {https://doi.org/10.1002/pmj.20033}
+        {besner_2008}
 \bibfield{author}{\bibinfo{person}{Claude Besner} {and} \bibinfo{person}{Brian
   Hobbs}.} \bibinfo{year}{2008}\natexlab{}.
 \newblock \showarticletitle{Project management practice, generic or contextual:
@@ -136,6 +136,31 @@
 \newblock
 \newblock
 \shownote{Last updated: 23 Jul 2025. Accessed: 08/11/2025}.
+
+
+\bibitem[Hassen(2024)]%
+        {hassen_use_2024}
+\bibfield{author}{\bibinfo{person}{Hela Hassen}.}
+  \bibinfo{year}{2024}\natexlab{}.
+\newblock \showarticletitle{The use of a project management tool in distance
+  education to enhance students’ engagement in group work}.
+\newblock \bibinfo{journal}{\emph{Journal of Learning Development in Higher
+  Education}} \bibinfo{number}{30} (\bibinfo{date}{Mar.} \bibinfo{year}{2024}).
+\newblock
+\href{https://doi.org/10.47408/jldhe.vi30.1146}{doi:\nolinkurl{10.47408/jldhe.vi30.1146}}
+
+
+\bibitem[Johnston and Wierschem(2007)]%
+        {Johnston_2007}
+\bibfield{author}{\bibinfo{person}{Charles Johnston} {and}
+  \bibinfo{person}{David Wierschem}.} \bibinfo{year}{2007}\natexlab{}.
+\newblock \showarticletitle{Project Management Practices in the Information
+  Technology Departments of Various Size Institutions of Higher Education}.
+\newblock \bibinfo{journal}{\emph{Journal of International Technology and
+  Information Management}}  \bibinfo{volume}{16} (\bibinfo{date}{01}
+  \bibinfo{year}{2007}).
+\newblock
+\href{https://doi.org/10.58729/1941-6679.1209}{doi:\nolinkurl{10.58729/1941-6679.1209}}
 
 
 \bibitem[Landau(2024)]%

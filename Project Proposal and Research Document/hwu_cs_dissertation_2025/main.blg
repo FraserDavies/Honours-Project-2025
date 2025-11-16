@@ -17,47 +17,49 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Warning--empty address in BednjanecAndrea2013AoGc
 Warning--empty year in aims_ganttchart
 Warning--using n.d. in aims_ganttchart
+Warning--unusual to have number, but no volume, for hassen_use_2024
+Warning--page numbers missing in both pages and numpages fields in hassen_use_2024
 Warning--empty year in tacticalpm_fs_dependency
 Warning--using n.d. in tacticalpm_fs_dependency
-You've used 21 entries,
+You've used 23 entries,
             6273 wiz_defined-function locations,
-            1640 strings with 22021 characters,
-and the built_in function-call counts, 16886 in all, are:
-= -- 2015
-> -- 383
+            1658 strings with 22585 characters,
+and the built_in function-call counts, 18863 in all, are:
+= -- 2348
+> -- 431
 < -- 0
-+ -- 101
-- -- 200
-* -- 945
-:= -- 1759
-add.period$ -- 117
-call.type$ -- 21
-change.case$ -- 107
-chr.to.int$ -- 20
-cite$ -- 26
-duplicate$ -- 1548
-empty$ -- 1109
-format.name$ -- 168
-if$ -- 3782
++ -- 118
+- -- 221
+* -- 1072
+:= -- 1934
+add.period$ -- 127
+call.type$ -- 23
+change.case$ -- 118
+chr.to.int$ -- 22
+cite$ -- 30
+duplicate$ -- 1710
+empty$ -- 1227
+format.name$ -- 193
+if$ -- 4310
 int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 13
-newline$ -- 268
-num.names$ -- 146
-pop$ -- 515
+missing$ -- 21
+newline$ -- 286
+num.names$ -- 160
+pop$ -- 579
 preamble$ -- 1
-purify$ -- 263
+purify$ -- 290
 quote$ -- 0
-skip$ -- 646
+skip$ -- 693
 stack$ -- 0
-substring$ -- 1297
-swap$ -- 123
+substring$ -- 1419
+swap$ -- 131
 text.length$ -- 76
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 596
-warning$ -- 5
-while$ -- 157
+type$ -- 628
+warning$ -- 7
+while$ -- 171
 width$ -- 0
-write$ -- 475
-(There were 5 warnings)
+write$ -- 513
+(There were 7 warnings)
