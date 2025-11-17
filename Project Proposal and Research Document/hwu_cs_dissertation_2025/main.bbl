@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{23}
+\begin{thebibliography}{24}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -143,7 +143,7 @@
 \bibfield{author}{\bibinfo{person}{Hela Hassen}.}
   \bibinfo{year}{2024}\natexlab{}.
 \newblock \showarticletitle{The use of a project management tool in distance
-  education to enhance students’ engagement in group work}.
+  education to enhance students' engagement in group work}.
 \newblock \bibinfo{journal}{\emph{Journal of Learning Development in Higher
   Education}} \bibinfo{number}{30} (\bibinfo{date}{Mar.} \bibinfo{year}{2024}).
 \newblock
@@ -238,6 +238,19 @@
 \newblock
 \newblock
 \shownote{Published on smarsheet.com, Accessed: 14/11/2025}.
+
+
+\bibitem[Riol and Thuillier(2015)]%
+        {riol_thuillier_2015}
+\bibfield{author}{\bibinfo{person}{Hélène Riol} {and} \bibinfo{person}{Denis
+  Thuillier}.} \bibinfo{year}{2015}\natexlab{}.
+\newblock \showarticletitle{Project management for academic research projects:
+  Balancing structure and flexibility}.
+\newblock \bibinfo{journal}{\emph{International Journal of Project Organisation
+  and Management}}  \bibinfo{volume}{7} (\bibinfo{date}{01}
+  \bibinfo{year}{2015}), \bibinfo{pages}{251}.
+\newblock
+\href{https://doi.org/10.1504/IJPOM.2015.070792}{doi:\nolinkurl{10.1504/IJPOM.2015.070792}}
 
 
 \bibitem[Shives(2015)]%
