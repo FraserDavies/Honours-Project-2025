@@ -10,10 +10,10 @@
 \contentsline {subsection}{\numberline {2.1}Gantt Charts and Project Management}{2}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Gantt Charts in Educational Contexts}{4}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Interactive Data Visualisation}{6}{subsection.2.3}%
-\contentsline {section}{\numberline {3}Methodology}{6}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Requirement Analysis}{6}{subsection.3.1}%
-\contentsline {section}{\numberline {4}Feasibility}{6}{section.4}%
-\contentsline {section}{References}{7}{section*.8}%
+\contentsline {section}{\numberline {3}Methodology}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Requirement Analysis}{7}{subsection.3.1}%
+\contentsline {section}{\numberline {4}Feasibility}{7}{section.4}%
+\contentsline {section}{References}{8}{section*.8}%
 \contentsline {section}{\numberline {A}Project Management}{9}{appendix.A}%
 \contentsline {subsection}{\numberline {A.1}Gantt Chart}{9}{subsection.A.1}%
 \contentsline {section}{\numberline {B}Generative AI}{9}{appendix.B}%

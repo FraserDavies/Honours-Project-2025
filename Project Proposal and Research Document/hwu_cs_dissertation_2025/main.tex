@@ -77,6 +77,8 @@ At Heriot-Watt University (HWU), honours project students are currently required
 
 \subsection{Aim and Objectives} \label{sec:intro_aim}
 
+% do i need t o state if this is a proposal or actual project?
+
 The primary aim of this project is to design, develop, and evaluate an interactive Gantt chart builder that will be integrated into the existing HWU honours project management system. This tool will provide structured guidance to help students create comprehensive project plans while offering supervisors visibility into student progress and planning quality.
 
 The specific objectives of this project are:
@@ -136,6 +138,8 @@ Within project management practice, Gantt charts serve multiple critical functio
 
 The application of Gantt charts and project management tools in educational contexts, particularly for individual student projects, remains an underexplored area in academic literature. While Bednjanec and Tretinjak demonstrate educators' use of Gantt charts for planning school activities and curriculum development \cite{BednjanecAndrea2013AoGc}, research on project management tools in higher education focuses predominantly on institutional IT departments \cite{Johnston_2007} and collaborative group work \cite{hassen_use_2024}. This focus on institutional and collaborative applications leaves a gap in understanding how individual students might effectively use Gantt charts for dissertation management. Existing project management research centres on professional contexts \cite{besner_2008}, where tools are designed for team-based environments with different requirements than individual academic projects.
 
+% maybe talk about team gantt here as an already existing
+
 \subsection{Gantt Charts in Educational Contexts} \label{sec:back_gantt_edu}
 % Gantt Charts in Educational Contexts
 % - [DONE] Use of Gantt charts for student project planning
@@ -158,14 +162,44 @@ The distinction between individual and collaborative project contexts significan
 % Interactive visualisation vs. static visualisation
 % Benefits of interactivity in educational tools
 % User interaction paradigms (drag-and-drop, form-based, direct manipulation)
-
-
+Effective data visualisation relies on fundamental principles that ensure clarity and comprehension. Key design principles include knowing the audience, maintaining simplicity, choosing appropriate chart types, using colour strategically whilst maintaining accessibility, and providing proper context through titles, labels and scales \cite{justinmind_dataviz_2025}. Interactive visualisation differs fundamentally from static visualisation in its approach to user engagement: whilst static visualisation employs an author-driven approach where a single data story is communicated, interactive visualisation adopts a reader-driven approach that enables users to extract multiple views and explore data stories dynamically through inputs such as mouse clicks or keyboard commands \cite{mahajan_comparative_2018}. Interactive graphics can provide crucial information that cannot be obtained from static graphics, making them valuable tools for promoting transparency and enabling additional exploration of datasets \cite{weissgerber_interactive_2016}. The benefits of interactivity in educational contexts are substantial, as:
+\begin{itemize}
+    \item Interactive visualisations transform data into engaging learning experiences that enhance comprehension, improve retention, and enable personalised exploration of complex concepts \cite{innovare_interactive_2025}. 
+    \item User interaction paradigms for visualisation tools encompass several distinct approaches: drag-and-drop interactions enable intuitive grouping, reordering and moving of objects through direct manipulation, providing clear signifiers and immediate visual feedback throughout the interaction \cite{nngroup_dragdrop_2023}.
+    \item Form-based interfaces present users with structured options through menus and input fields that guide interaction, allowing menu selection by keying in associated numbers or letters whilst graphical menus employ pointing devices \cite{methodist_interaction_paradigm}.
+    \item Direct manipulation interfaces allow users to act on displayed objects using physical, incremental actions with immediate visual feedback—exemplified by resizing graphical elements or repositioning items by dragging \cite{shneiderman_directmanip_2024}. 
+\end{itemize}
+These interaction paradigms collectively support varied user needs and task requirements, with direct manipulation particularly valued for its ability to exploit perceptual and motor skills whilst reducing reliance on linguistic comprehension \cite{shneiderman_directmanip_2024}.
 
 \section{Methodology} \label{cha:method}
 % Methodology / work plan: describe in detail the necessary methods, requirements or research questions that will be employed or be needed to complete the project. You should link these back to your project aim and objectives. If needed include suitable research questions, use cases, research methods that are going to be employed, stakeholder research, requirements, and / or Moscow analysis.
+% pilot study???
 
 \subsection{Requirement Analysis} \label{sec:meth_req_anal}
 % wcag - keyword for people wiht imparements
+The requirement analysis for the Interactive Gantt Chart Builder was conducted through examination of existing literature on project management tools in educational contexts, consultation of stakeholder needs identified through preliminary discussions with the current system developers, and analysis of the challenges students face when managing individual dissertation projects. This process identified five core functional requirements that form the foundation of the proposed system.
+\begin{itemize}
+    \item Task Hierarchy and Dependency Management
+\end{itemize}
+The system must enable students to create hierarchical task structures with parent tasks and subtasks, and define dependencies between tasks using standard dependency types (Finish-to-Start, Start-to-Start, Finish-to-Finish, Start-to-Finish). Task dependencies are fundamental to Gantt chart functionality, as they define the relationships between activities and dictate the order in which work must occur \cite{smartsheet_gantt_dependencies_2020, projectmanager_dependencies_2024}. Without dependency management, the tool cannot prevent logical errors such as scheduling a task to begin before its predecessor has completed. 
+
+\begin{itemize}
+    \item Milestone Definition and Tracking
+\end{itemize}
+For dissertation projects, where research phases naturally depend on previous work (e.g., data collection cannot begin until ethics approval is obtained), dependency tracking is essential for creating realistic, achievable project plans. The hierarchical structure allows students to decompose their complex dissertation into manageable components, directly addressing the challenge where students struggle with translating abstract project requirements into concrete, manageable tasks \cite{Shives2015}. This requirement aligns with established project management practice, as surveys of project managers identify task scheduling and dependencies as among the most frequently used project management tools \cite{besner_2008}.
+
+\begin{itemize}
+    \item Interactive Visualisation with Temporal Adjustment
+\end{itemize}
+
+\begin{itemize}
+    \item Integration with HWU Project Management System
+\end{itemize}
+
+\begin{itemize}
+    \item guided Task Creation Interface
+\end{itemize}
+
 
 
 \section{Feasibility} \label{cha:feasibility}
@@ -178,6 +212,7 @@ The distinction between individual and collaborative project contexts significan
 
 \cite{visualisingdata_resources}
 
+help
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BACK MATTER

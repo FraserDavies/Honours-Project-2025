@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{24}
+\begin{thebibliography}{31}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -35,6 +35,20 @@
 \providecommand\bibinfo[2]{#2}
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[met({[n.\,d.]})]%
+        {methodist_interaction_paradigm}
+ \bibinfo{year}{[n.\,d.]}\natexlab{}.
+\newblock \bibinfo{title}{UNIT-I: Interaction Paradigms: Computing
+  Environments, Analysing Interaction Paradigms, Interaction Frameworks and
+  Styles}.
+\newblock
+  \bibinfo{howpublished}{\url{https://methodist.edu.in/web/uploads/files/HCI%20Unit%201.pdf}}.
+\newblock
+\newblock
+\shownote{Human-Computer Interaction Course Materials, Methodist College.
+  Accessed: 17/11/2025}.
+
 
 \bibitem[Academiac(2018)]%
         {academiac_gantt_phd_2018}
@@ -150,6 +164,18 @@
 \href{https://doi.org/10.47408/jldhe.vi30.1146}{doi:\nolinkurl{10.47408/jldhe.vi30.1146}}
 
 
+\bibitem[Innovare(2023)]%
+        {innovare_interactive_2025}
+\bibfield{author}{\bibinfo{person}{Innovare}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \bibinfo{title}{Interactive Data Visualization in Education: A
+  Complete Guide}.
+\newblock
+  \bibinfo{howpublished}{\url{https://innovaresip.com/resources/blog/interactive-data-visualization-in-education-guide/}}.
+\newblock
+\newblock
+\shownote{Accessed: 17/11/2025}.
+
+
 \bibitem[Johnston and Wierschem(2007)]%
         {Johnston_2007}
 \bibfield{author}{\bibinfo{person}{Charles Johnston} {and}
@@ -163,6 +189,19 @@
 \href{https://doi.org/10.58729/1941-6679.1209}{doi:\nolinkurl{10.58729/1941-6679.1209}}
 
 
+\bibitem[Justinmind(2025)]%
+        {justinmind_dataviz_2025}
+\bibfield{author}{\bibinfo{person}{Justinmind}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{Principles and examples to master data
+  visualization}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.justinmind.com/blog/data-visualization-examples-principles/}}.
+\newblock
+\newblock
+\shownote{Accessed: 17/11/2025}.
+
+
 \bibitem[Landau(2024)]%
         {projectmanager_gantt_pert_network_2024}
 \bibfield{author}{\bibinfo{person}{Peter Landau}.}
@@ -174,6 +213,31 @@
 \newblock
 \newblock
 \shownote{Published on projectmanager.com, Accessed: 14/11/2025}.
+
+
+\bibitem[Laubheimer(2020)]%
+        {nngroup_dragdrop_2023}
+\bibfield{author}{\bibinfo{person}{Page Laubheimer}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{Drag-and-Drop: How to Design for Ease of Use}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.nngroup.com/articles/drag-drop/}}.
+\newblock
+\newblock
+\shownote{Nielsen Norman Group. Accessed: 18/11/2025}.
+
+
+\bibitem[Mahajan and Gokhale(2018)]%
+        {mahajan_comparative_2018}
+\bibfield{author}{\bibinfo{person}{Kirti Mahajan} {and} \bibinfo{person}{Leena
+  Gokhale}.} \bibinfo{year}{2018}\natexlab{}.
+\newblock \showarticletitle{Comparative Study of Static and Interactive
+  VisualizationApproaches}.
+\newblock \bibinfo{journal}{\emph{International Journal on Computer Science and
+  Engineering}}  \bibinfo{volume}{10} (\bibinfo{date}{03}
+  \bibinfo{year}{2018}), \bibinfo{pages}{85--91}.
+\newblock
+\href{https://doi.org/10.21817/ijcse/2018/v10i3/181003016}{doi:\nolinkurl{10.21817/ijcse/2018/v10i3/181003016}}
 
 
 \bibitem[Meardon(2025)]%
@@ -253,6 +317,18 @@
 \href{https://doi.org/10.1504/IJPOM.2015.070792}{doi:\nolinkurl{10.1504/IJPOM.2015.070792}}
 
 
+\bibitem[Sherugar and Budiu(2024)]%
+        {shneiderman_directmanip_2024}
+\bibfield{author}{\bibinfo{person}{Samyukta Sherugar} {and}
+  \bibinfo{person}{Raluca Budiu}.} \bibinfo{year}{2024}\natexlab{}.
+\newblock \bibinfo{title}{Direct Manipulation: Definition}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.nngroup.com/articles/direct-manipulation/}}.
+\newblock
+\newblock
+\shownote{Nielsen Norman Group. Accessed: 17/11/2025}.
+
+
 \bibitem[Shives(2015)]%
         {Shives2015}
 \bibfield{author}{\bibinfo{person}{Katie Shives}.}
@@ -330,6 +406,21 @@
 \newblock Master's thesis. \bibinfo{school}{Vaasa University of Applied
   Sciences}.
 \newblock
+
+
+\bibitem[Weissgerber et~al\mbox{.}(2016)]%
+        {weissgerber_interactive_2016}
+\bibfield{author}{\bibinfo{person}{Tracey~L. Weissgerber},
+  \bibinfo{person}{Vesna~D. Garovic}, \bibinfo{person}{Marko Savic},
+  \bibinfo{person}{Stacey~J. Winham}, {and} \bibinfo{person}{Natasa~M. Milic}.}
+  \bibinfo{year}{2016}\natexlab{}.
+\newblock \showarticletitle{From Static to Interactive: Transforming Data
+  Visualization to Improve Transparency}.
+\newblock \bibinfo{journal}{\emph{PLOS Biology}} \bibinfo{volume}{14},
+  \bibinfo{number}{6} (\bibinfo{date}{06} \bibinfo{year}{2016}),
+  \bibinfo{pages}{1--8}.
+\newblock
+\href{https://doi.org/10.1371/journal.pbio.1002484}{doi:\nolinkurl{10.1371/journal.pbio.1002484}}
 
 
 \bibitem[Wilson(2003)]%

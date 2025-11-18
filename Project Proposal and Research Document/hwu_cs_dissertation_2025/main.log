@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  17 NOV 2025 14:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  18 NOV 2025 10:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -819,12 +819,12 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 LaTeX Warning: Unused global option(s):
     [titlepage].
 
-(main.aux)
+No file main.aux.
 \openout1 = `main.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 25.
 LaTeX Font Info:    Trying to load font information for OML+nxlmi on input line 25.
- (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/newtx\omlnxlmi.fd
+(C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/newtx\omlnxlmi.fd
 File: omlnxlmi.fd 2013/11/19 Fontinst v1.933 font definitions for OML/nxlmi.
 )
 LaTeX Font Info:    ... okay on input line 25.
@@ -960,7 +960,6 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 Package hyperref Info: Link coloring ON on input line 25.
- (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
@@ -1048,7 +1047,7 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 14.4pt on input line 12.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 14.4pt on input line 13.
-<images/hwcoa_bw.jpg, id=82, 61.6704pt x 65.5248pt>
+<images/hwcoa_bw.jpg, id=6, 61.6704pt x 65.5248pt>
 File: images/hwcoa_bw.jpg Graphic file (type jpg)
 <use images/hwcoa_bw.jpg>
 Package pdftex.def Info: images/hwcoa_bw.jpg  used on input line 22.
@@ -1207,11 +1206,12 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 
 ] [3.4
 
-] (hwu_template/contents.tex (main.toc)
+] (hwu_template/contents.tex
+No file main.toc.
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
- [4.5
+[4.5
 
 ])
 LaTeX Font Info:    Trying to load font information for T1+LinuxBiolinumT-TLF on input line 60.
@@ -1227,16 +1227,35 @@ Package microtype Info: Loading generic protrusion settings for font family
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 14.4pt on input line 60.
 
+
+Package natbib Warning: Citation `Shives2015' on page 1 undefined on input line 67.
+
+
+Package natbib Warning: Citation `Shives2015' on page 1 undefined on input line 67.
+
+
+Package natbib Warning: Citation `coursera_gantt_2025' on page 1 undefined on input line 69.
+
+
+Package natbib Warning: Citation `geeksforgeeks_gantt_2025' on page 1 undefined on input line 69.
+
+
+Package natbib Warning: Citation `aims_ganttchart' on page 1 undefined on input line 69.
+
+
+Package natbib Warning: Citation `BednjanecAndrea2013AoGc' on page 1 undefined on input line 69.
+
+
 Underfull \vbox (badness 1895) has occurred while \output is active []
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 82.
-LaTeX Font Info:    Trying to load font information for TS1+LinuxBiolinumT-TLF on input line 82.
+(Font)              scaled to size 10.0pt on input line 84.
+LaTeX Font Info:    Trying to load font information for TS1+LinuxBiolinumT-TLF on input line 84.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/libertine\ts1linuxbiolinumt-tlf.fd
 File: TS1LinuxBiolinumT-TLF.fd 2017/03/20 (autoinst) Font definitions for TS1/LinuxBiolinumT-TLF.
 )
 LaTeX Font Info:    Font shape `TS1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 82.
+(Font)              scaled to size 10.0pt on input line 84.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxBiolinumT-TLF' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
@@ -1252,9 +1271,63 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [1.6{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_afusau.enc}
 
 ]
+
+Package natbib Warning: Citation `geeksforgeeks_d3js_2025' on page 2 undefined on input line 89.
+
+
+Package natbib Warning: Citation `w3schools_d3js_2025' on page 2 undefined on input line 89.
+
+
+LaTeX Warning: Reference `cha:back' on page 1 undefined on input line 99.
+
+
+LaTeX Warning: Reference `cha:method' on page 1 undefined on input line 100.
+
+
+LaTeX Warning: Reference `cha:feasibility' on page 1 undefined on input line 101.
+
+
+Package natbib Warning: Citation `WILSON2003430' on page 2 undefined on input line 119.
+
+
+Package natbib Warning: Citation `WILSON2003430' on page 2 undefined on input line 119.
+
+
+Package natbib Warning: Citation `WILSON2003430' on page 2 undefined on input line 119.
+
+
+Package natbib Warning: Citation `WILSON2003430' on page 2 undefined on input line 119.
+
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/sc' will be
-(Font)              scaled to size 10.0pt on input line 118.
- [2.7{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_omcwp2.enc}]
+(Font)              scaled to size 10.0pt on input line 120.
+[2.7{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_omcwp2.enc}]
+
+Package natbib Warning: Citation `coursera_gantt_2025' on page 3 undefined on input line 121.
+
+
+Package natbib Warning: Citation `aims_ganttchart' on page 3 undefined on input line 121.
+
+
+Package natbib Warning: Citation `smartsheet_gantt_dependencies_2020' on page 3 undefined on input line 131.
+
+
+Package natbib Warning: Citation `projectmanager_dependencies_2024' on page 3 undefined on input line 131.
+
+
+Package natbib Warning: Citation `tacticalpm_fs_dependency' on page 3 undefined on input line 131.
+
+
+Package natbib Warning: Citation `asana_gantt_chart_2025' on page 3 undefined on input line 133.
+
+
+Package natbib Warning: Citation `smartsheet_gantt_kanban_2025' on page 3 undefined on input line 135.
+
+
+Package natbib Warning: Citation `smartsheet_pert_gantt_2021' on page 3 undefined on input line 135.
+
+
+Package natbib Warning: Citation `projectmanager_gantt_pert_network_2024' on page 3 undefined on input line 135.
+
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1263,47 +1336,81 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
 [3.8]
+
+Package natbib Warning: Citation `wadhwa_role_2024' on page 4 undefined on input line 137.
+
+
+Package natbib Warning: Citation `wadhwa_role_2024' on page 4 undefined on input line 137.
+
+
+Package natbib Warning: Citation `wadhwa_role_2024' on page 4 undefined on input line 137.
+
+
+Package natbib Warning: Citation `wadhwa_role_2024' on page 4 undefined on input line 137.
+
+
+Package natbib Warning: Citation `besner_2008' on page 4 undefined on input line 137.
+
+
+Package natbib Warning: Citation `wadhwa_role_2024' on page 4 undefined on input line 137.
+
+
+Package natbib Warning: Citation `BednjanecAndrea2013AoGc' on page 4 undefined on input line 139.
+
+
+Package natbib Warning: Citation `Johnston_2007' on page 4 undefined on input line 139.
+
+
+Package natbib Warning: Citation `hassen_use_2024' on page 4 undefined on input line 139.
+
+
+Package natbib Warning: Citation `besner_2008' on page 4 undefined on input line 139.
+
+
+Package natbib Warning: Citation `BednjanecAndrea2013AoGc' on page 4 undefined on input line 151.
+
+
+Package natbib Warning: Citation `Shives2015' on page 4 undefined on input line 151.
+
+
+Package natbib Warning: Citation `BednjanecAndrea2013AoGc' on page 4 undefined on input line 151.
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4.9]
 
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 14.0pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.0pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
-
-[5.10] (hwu_template/references.tex [6.11] (main.bbl
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 10.0pt on input line 43.
-
-Underfull \hbox (badness 10000) in paragraph at lines 80--89
-[]\T1/LinuxLibertineT-TLF/m/n/10 (+20) Claude Besner and Brian Hobbs. 2008.  Project man-age-ment prac-tice, generic
- []
+Package natbib Warning: Citation `academiac_gantt_phd_2018' on page 5 undefined on input line 153.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 80--89
-\T1/LinuxLibertineT-TLF/m/n/10 (+20) or con-tex-tual: A re-al-ity check.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Project Man-age-ment Jour-nal \T1/LinuxLibertineT-TLF/m/n/10 (+20) 39, 1 (2008), 16--33.
- []
-
-LaTeX Info: Redefining \tempurl on input line 122.
-LaTeX Info: Redefining \tempurl on input line 186.
-LaTeX Info: Redefining \tempurl on input line 264.
-
-Underfull \hbox (badness 10000) in paragraph at lines 258--269
-[]\T1/LinuxLibertineT-TLF/m/n/10 (+20) Katie Shives. 2015.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Us-ing Project Man-age-ment Ap-proaches to Tame Your Dis-ser-ta-tion\T1/LinuxLibertineT-TLF/m/n/10 (+20) .
- []
+Package natbib Warning: Citation `academiac_gantt_phd_2018' on page 5 undefined on input line 153.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 258--269
-[][]$\T1/LinuxLibertineT-TLF/m/n/10 (+20) https : / / www . insidehighered . com / blogs / gradhacker / using -[] project -[] management -[] approaches -[] tame -[]
- []
+Package natbib Warning: Citation `atlassian_gantt_2025' on page 5 undefined on input line 155.
 
-LaTeX Info: Redefining \tempurl on input line 278.
-LaTeX Info: Redefining \tempurl on input line 292.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Package natbib Warning: Citation `teamhub_interactive_gantt_2023' on page 5 undefined on input line 155.
 
+
+Package natbib Warning: Citation `teamhub_interactive_gantt_2023' on page 5 undefined on input line 155.
+
+
+Package natbib Warning: Citation `hassen_use_2024' on page 5 undefined on input line 157.
+
+
+Package natbib Warning: Citation `hassen_use_2024' on page 5 undefined on input line 157.
+
+
+Package natbib Warning: Citation `riol_thuillier_2015' on page 5 undefined on input line 157.
+
+
+Package natbib Warning: Citation `riol_thuillier_2015' on page 5 undefined on input line 157.
+
+
+Package natbib Warning: Citation `besner_2008' on page 5 undefined on input line 157.
+
+
+Package natbib Warning: Citation `academiac_gantt_phd_2018' on page 5 undefined on input line 157.
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1312,40 +1419,150 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[7.12]
-LaTeX Info: Redefining \tempurl on input line 317.
-)) [8.13]
+[5.10]
+
+Package natbib Warning: Citation `justinmind_dataviz_2025' on page 6 undefined on input line 165.
+
+
+Package natbib Warning: Citation `mahajan_comparative_2018' on page 6 undefined on input line 165.
+
+
+Package natbib Warning: Citation `weissgerber_interactive_2016' on page 6 undefined on input line 165.
+
+
+Package natbib Warning: Citation `innovare_interactive_2025' on page 6 undefined on input line 167.
+
+
+Package natbib Warning: Citation `nngroup_dragdrop_2023' on page 6 undefined on input line 168.
+
+
+Package natbib Warning: Citation `methodist_interaction_paradigm' on page 6 undefined on input line 169.
+
+
+Package natbib Warning: Citation `shneiderman_directmanip_2024' on page 6 undefined on input line 170.
+
+
+Package natbib Warning: Citation `shneiderman_directmanip_2024' on page 6 undefined on input line 172.
+
+
+Underfull \vbox (badness 3601) has occurred while \output is active []
+
+ [6.11]
+
+Package natbib Warning: Citation `smartsheet_gantt_dependencies_2020' on page 7 undefined on input line 184.
+
+
+Package natbib Warning: Citation `projectmanager_dependencies_2024' on page 7 undefined on input line 184.
+
+
+Package natbib Warning: Citation `Shives2015' on page 7 undefined on input line 189.
+
+
+Package natbib Warning: Citation `besner_2008' on page 7 undefined on input line 189.
+
+
+Package natbib Warning: Citation `visualisingdata_resources' on page 7 undefined on input line 213.
+
+(hwu_template/references.tex
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
 (fancyhdr)                \setlength{\headheight}{14.0pt}.
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[7.12] (main.bbl)
+Runaway argument?
+{\url {https://methodist.edu.in/web/uploads/files/HCI\newblock \newblock \ETC.
+hwu_template/references.tex:7: File ended while scanning use of \@firstofone.
+<inserted text> 
+                \par 
+l.7 \bibliography{references}
+                             
+I suspect you have forgotten a `}', causing me
+to read past where you wanted me to stop.
+I'll try to recover; but if the error is serious,
+you'd better type `E' or `X' now and fix your file.
+
+) [8.13]
+
+Package natbib Warning: There were undefined citations.
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[9.14]
+
+c:/Users/frase/Documents/GitHub/Honours-Project-2025/Project Proposal and Research Document/hwu_cs_dissertation_2025/main.tex:238: LaTeX Error: \begin{thebibliography} on input line 5 ended by \end{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.238 \end{document}
+                    
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
 
 (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) [9.14] (main.aux)
+)
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
+(Font)              scaled to size 10.0pt on input line 238.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 7.3pt on input line 238.
+ [10.14] (main.aux
+
+Package natbib Warning: Citation(s) may have changed.
+(natbib)                Rerun to get citations correct.
+
+)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
  ***********
-Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: B8B379CB87373DC0B1A5AE131A79C20B;2995.
- ) 
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
+
+LaTeX Warning: Temporary extra page added at the end. Rerun to get it removed.
+
+
+Package rerunfilecheck Warning: File `main.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `main.out':
+(rerunfilecheck)             Before: <no file>
+(rerunfilecheck)             After:  B8B379CB87373DC0B1A5AE131A79C20B;2995.
+ )
+(\end occurred inside a group at level 1)
+
+### semi simple group (level 1) entered at line 5 (\begingroup)
+### bottom level 
 Here is how much of TeX's memory you used:
- 25874 strings out of 467871
- 438198 string characters out of 5418375
- 913782 words of memory out of 5000000
- 53714 multiletter control sequences out of 15000+600000
- 803261 words of font info for 374 fonts, out of 8000000 for 9000
+ 25754 strings out of 467871
+ 434886 string characters out of 5418375
+ 902782 words of memory out of 5000000
+ 53613 multiletter control sequences out of 15000+600000
+ 808248 words of font info for 381 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 90i,13n,131p,2239b,755s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,13n,131p,2251b,793s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinBiolinumT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTB.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txsys.pfb>
-Output written on main.pdf (14 pages, 452904 bytes).
+Output written on main.pdf (15 pages, 409624 bytes).
 PDF statistics:
- 360 PDF objects out of 1000 (max. 8388607)
- 68 named destinations out of 1000 (max. 500000)
- 100526 words of extra memory for PDF output out of 106986 (max. 10000000)
+ 157 PDF objects out of 1000 (max. 8388607)
+ 45 named destinations out of 1000 (max. 500000)
+ 104470 words of extra memory for PDF output out of 106986 (max. 10000000)
 
