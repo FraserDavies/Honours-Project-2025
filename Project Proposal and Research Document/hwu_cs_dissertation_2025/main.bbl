@@ -36,20 +36,6 @@
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
 
-\bibitem[met({[n.\,d.]})]%
-        {methodist_interaction_paradigm}
- \bibinfo{year}{[n.\,d.]}\natexlab{}.
-\newblock \bibinfo{title}{UNIT-I: Interaction Paradigms: Computing
-  Environments, Analysing Interaction Paradigms, Interaction Frameworks and
-  Styles}.
-\newblock
-  \bibinfo{howpublished}{\url{https://methodist.edu.in/web/uploads/files/HCI%20Unit%201.pdf}}.
-\newblock
-\newblock
-\shownote{Human-Computer Interaction Course Materials, Methodist College.
-  Accessed: 17/11/2025}.
-
-
 \bibitem[Academiac(2018)]%
         {academiac_gantt_phd_2018}
 \bibfield{author}{\bibinfo{person}{Academiac}.}
@@ -102,16 +88,18 @@
 \href{https://doi.org/10.1002/pmj.20033}{doi:\nolinkurl{10.1002/pmj.20033}}
 
 
-\bibitem[Coursera{\ }Staff(2025)]%
-        {coursera_gantt_2025}
-\bibfield{author}{\bibinfo{person}{Coursera{\ }Staff}.}
-  \bibinfo{year}{2025}\natexlab{}.
-\newblock \bibinfo{title}{Gantt Charts: What They Are and How to Make Them}.
+\bibitem[Collage({[n.\,d.]})]%
+        {methodist_interaction_paradigm}
+\bibfield{author}{\bibinfo{person}{Methodist Collage}.}
+  \bibinfo{year}{[n.\,d.]}\natexlab{}.
+\newblock \bibinfo{title}{UNIT-I: Interaction Paradigms: Computing
+  Environments, Analysing Interaction Paradigms, Interaction Frameworks and
+  Styles}.
+\newblock \bibinfo{howpublished}{\url{https://methodist.edu.in}}.
 \newblock
-  \bibinfo{howpublished}{\url{https://www.coursera.org/articles/gantt-charts}}.
 \newblock
-\newblock
-\shownote{Accessed: 08/11/2025}.
+\shownote{Human-Computer Interaction Course Materials, Methodist College.
+  Accessed: 17/11/2025}.
 
 
 \bibitem[for International Modern Studies~(AIMS)({[n.\,d.]})]%
@@ -225,6 +213,17 @@
 \newblock
 \newblock
 \shownote{Nielsen Norman Group. Accessed: 18/11/2025}.
+
+
+\bibitem[Ltd.(2025)]%
+        {visualisingdata_resources}
+\bibfield{author}{\bibinfo{person}{Visualising~Data Ltd.}}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{Data Visualisation Resources}.
+\newblock \bibinfo{howpublished}{\url{https://visualisingdata.com/resources/}}.
+\newblock
+\newblock
+\shownote{Accessed: 25/09/2025}.
 
 
 \bibitem[Mahajan and Gokhale(2018)]%
@@ -358,6 +357,18 @@
 \shownote{Uploaded on YouTube by Smartsheet. Accessed: 30/09/2025}.
 
 
+\bibitem[Staff(2025)]%
+        {coursera_gantt_2025}
+\bibfield{author}{\bibinfo{person}{Coursera Staff}.}
+  \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{Gantt Charts: What They Are and How to Make Them}.
+\newblock
+  \bibinfo{howpublished}{\url{https://www.coursera.org/articles/gantt-charts}}.
+\newblock
+\newblock
+\shownote{Accessed: 08/11/2025}.
+
+
 \bibitem[TeamHub(2023)]%
         {teamhub_interactive_gantt_2023}
 \bibfield{author}{\bibinfo{person}{TeamHub}.} \bibinfo{year}{2023}\natexlab{}.
@@ -370,17 +381,6 @@
 \tempurl}
 \newblock
 \shownote{Published on TeamHub, Accessed: 14/11/2025}.
-
-
-\bibitem[Visualising{\ }Data{\ }Ltd.(2025)]%
-        {visualisingdata_resources}
-\bibfield{author}{\bibinfo{person}{Visualising{\ }Data{\ }Ltd.}}
-  \bibinfo{year}{2025}\natexlab{}.
-\newblock \bibinfo{title}{Data Visualisation Resources}.
-\newblock \bibinfo{howpublished}{\url{https://visualisingdata.com/resources/}}.
-\newblock
-\newblock
-\shownote{Accessed: 25/09/2025}.
 
 
 \bibitem[W3Schools(2025)]%
