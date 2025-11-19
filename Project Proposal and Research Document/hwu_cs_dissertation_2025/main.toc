@@ -12,17 +12,17 @@
 \contentsline {subsection}{\numberline {2.3}Interactive Data Visualisation}{6}{subsection.2.3}%
 \contentsline {section}{\numberline {3}Methodology}{7}{section.3}%
 \contentsline {subsection}{\numberline {3.1}Stakeholders and Use Cases}{7}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Requirement Analysis}{7}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Evaluation Method}{9}{subsection.3.3}%
-\contentsline {section}{\numberline {4}Feasibility}{11}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Stakeholder Meetings}{11}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Tools}{11}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Interface Mock-ups}{11}{subsection.4.3}%
-\contentsline {section}{\numberline {5}Conclusion}{11}{section.5}%
-\contentsline {section}{References}{12}{section*.8}%
-\contentsline {section}{\numberline {A}Project Management}{15}{appendix.A}%
-\contentsline {subsection}{\numberline {A.1}Gantt Chart}{15}{subsection.A.1}%
-\contentsline {subsection}{\numberline {A.2}Risks}{15}{subsection.A.2}%
-\contentsline {subsection}{\numberline {A.3}PLES Issues}{15}{subsection.A.3}%
-\contentsline {section}{\numberline {B}Generative AI}{15}{appendix.B}%
+\contentsline {subsection}{\numberline {3.2}Requirement Analysis}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Evaluation Method}{11}{subsection.3.3}%
+\contentsline {section}{\numberline {4}Feasibility}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Stakeholder Meetings}{13}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Tools}{13}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Interface Mock-ups}{14}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Conclusion}{14}{section.5}%
+\contentsline {section}{References}{15}{section*.10}%
+\contentsline {section}{\numberline {A}Project Management}{18}{appendix.A}%
+\contentsline {subsection}{\numberline {A.1}Gantt Chart}{18}{subsection.A.1}%
+\contentsline {subsection}{\numberline {A.2}Risks}{18}{subsection.A.2}%
+\contentsline {subsection}{\numberline {A.3}PLES Issues}{18}{subsection.A.3}%
+\contentsline {section}{\numberline {B}Generative AI}{18}{appendix.B}%
 \contentsfinish 

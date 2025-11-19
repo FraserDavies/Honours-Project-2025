@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive D3 Gantt Chart</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load D3.js for Charting -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Configure Custom Colour and Font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#65A2FB',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for the Gantt structure */
+        .gantt-grid {
+            display: grid;
+            grid-template-columns: 200px 1fr; 
+            grid-auto-rows: 50px;
+            overflow-x: auto;
+            min-width: 1000px;
+        }
+        .task-list-header {
+            grid-column: 1 / 2;
+            position: sticky;
+            left: 0;
+            z-index: 10;
+        }
+        .timeline-cell {
+            grid-column: 2 / -1;
+            height: 50px; 
+            border-top: 1px solid rgb(209 213 219);
+        }
+        .timeline-header-dates {
+            width: 1000px;
+            display: flex;
+        }
+
+        /* D3 styles */
+        .gantt-bar {
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .gantt-bar:hover {
+            opacity: 0.8;
+        }
+        .milestone {
+            fill: #fcd34d;
+            stroke: #d97706;
+            stroke-width: 2px;
+        }
+    </style>
+</head>
+<body class="bg-white text-black font-sans min-h-screen">
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-white border-b border-gray-200 shadow-md sticky top-0 z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center flex-wrap">
+            
+            <!-- Project Title/View Selector -->
+            <div class="flex items-center space-x-4 mb-2 md:mb-0">
+                <h1 class="text-xl font-bold text-gray-800">Project Alpha Planning</h1>
+                
+                <!-- View Selector Buttons -->
+                <button class="px-3 py-1 text-sm font-semibold rounded-lg bg-primary-blue text-white shadow-md hover:bg-blue-600 transition-colors">
+                    Gantt Chart
+                </button>
+                <button class="px-3 py-1 text-sm font-semibold rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-100 transition-colors">
+                    Kanban Board
+                </button>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center space-x-3 flex-wrap">
+                <button class="px-4 py-2 text-sm font-semibold rounded-lg text-gray-700 border border-gray-300 hover:bg-gray-100 transition-colors flex items-center space-x-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 8h4m-4 0H8m0 0V4m0 8v8m8-8V4m0 8v8m-4-8v8m0-4h4m-4 0H8m0 0V4m0 8h4m-4 0H8"></path></svg>
+                    <span>Add New Task</span>
+                </button>
+                <button class="px-4 py-2 text-sm font-semibold rounded-lg text-gray-700 border border-gray-300 hover:bg-gray-100 transition-colors flex items-center space-x-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    <span>Add Dependency</span>
+                </button>
+                <button class="px-4 py-2 text-sm font-semibold rounded-lg text-gray-700 border border-gray-300 hover:bg-gray-100 transition-colors flex items-center space-x-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4M17 3h4M19 5h-4M17 21h4M3 17h4"></path></svg>
+                    <span>Add Milestone</span>
+                </button>
+
+                <!-- Settings Button -->
+                <button class="p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37a1.724 1.724 0 002.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area: Gantt Chart -->
+    <main class="p-4 sm:p-6 lg:p-8 overflow-y-auto h-[calc(100vh-69px)]"> 
+        <div id="gantt-container" class="gantt-grid bg-white border border-gray-300 rounded-xl overflow-hidden shadow-lg">
+            
+            <!-- ROW 1: Headers -->
+            <div class="task-list-header p-3 font-bold text-center border-r border-gray-300 bg-gray-50 flex items-center justify-between">
+                Task Name
+                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h18M3 8h18M3 12h18M3 16h18M3 20h18"></path></svg>
+            </div>
+            
+            <!-- Timeline Headers (Drawn by JS) -->
+            <div id="timeline-header" class="timeline-cell flex text-sm text-center border-b border-gray-300 bg-gray-50 sticky top-0 overflow-hidden">
+                <div class="timeline-header-dates">
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = d3.select("#gantt-container");
+            const timelineHeader = d3.select("#timeline-header .timeline-header-dates");
+            
+            // --- Configuration ---
+            const CELL_WIDTH = 50;
+            const NUM_DAYS = 20;
+            const CHART_WIDTH = CELL_WIDTH * NUM_DAYS;
+            const CHART_HEIGHT = 50;
+            const TASK_BAR_HEIGHT = 20;
+
+            // --- Data Setup ---
+            const parseDate = d3.timeParse("%Y-%m-%d");
+
+            const taskData = [
+                { id: 1, name: "Design Mockups", start: "2025-01-02", end: "2025-01-05", colour: 'bg-primary-blue' },
+                { id: 2, name: "Setup Database", start: "2025-01-06", end: "2025-01-11", colour: 'bg-primary-blue/80' },
+                { id: 3, name: "Implement API Endpoints", start: "2025-01-13", end: "2025-01-17", colour: 'bg-primary-blue' },
+                { id: 4, name: "Final QA Testing", start: "2025-01-18", end: "2025-01-20", colour: 'bg-green-500' },
+                { id: 5, name: "Documentation", start: "2025-01-10", end: "2025-01-12", colour: 'bg-gray-400' },
+            ];
+
+            taskData.forEach(d => {
+                d.start_date = parseDate(d.start);
+                d.end_date = parseDate(d.end);
+            });
+
+            const startDate = parseDate("2025-01-01"); 
+            const endDate = d3.timeDay.offset(startDate, NUM_DAYS);
+
+            // --- Scales ---
+            const xScale = d3.scaleTime()
+                .domain([startDate, endDate])
+                .range([0, CHART_WIDTH]);
+
+            // 1. Draw Date Headers
+            function drawDateHeaders() {
+                const days = d3.timeDays(startDate, endDate);
+
+                timelineHeader.selectAll('div')
+                    .data(days)
+                    .enter()
+                    .append('div')
+                    .attr('class', d => {
+                        const isWeekend = (d.getDay() === 0 || d.getDay() === 6) ? 'bg-gray-200' : 'bg-white';
+                        return `flex-shrink-0 w-[${CELL_WIDTH}px] h-full flex flex-col justify-center items-center border-r border-gray-200 ${isWeekend}`;
+                    })
+                    .style('width', `${CELL_WIDTH}px`)
+                    .html(d => {
+                        const dayOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'][d.getDay()];
+                        return `<span class="font-medium">${dayOfWeek}</span><span class="text-xs text-gray-600">${d.getDate()}</span>`;
+                    });
+            }
+
+
+            // 2. Draw Task Rows and D3 Visualization
+            function drawGanttChart() {
+                const rows = container.selectAll('.gantt-row')
+                    .data(taskData)
+                    .enter()
+                    .append('div')
+                    .attr('class', 'gantt-row contents');
+
+                // Task Name Cell (Column 1) - Appended first to ensure correct grid order
+                rows.append('div')
+                    .attr('class', 'task-list-header p-3 border-r border-t border-gray-300 bg-white hover:bg-gray-50 transition-colors flex items-center')
+                    .html(d => `<span class="truncate">${d.name}</span>`);
+                
+                // Timeline Cell (Column 2) - Appended second
+                const timelineCells = rows.append('div')
+                    .attr('class', 'timeline-cell relative');
+
+                const svg = timelineCells.append('svg')
+                    .attr('width', CHART_WIDTH)
+                    .attr('height', CHART_HEIGHT);
+
+                // Draw Background Grid Lines
+                svg.selectAll('.grid-line')
+                    .data(d3.timeDays(startDate, endDate))
+                    .enter()
+                    .append('line')
+                    .attr('class', 'grid-line')
+                    .attr('x1', d => xScale(d))
+                    .attr('y1', 0)
+                    .attr('x2', d => xScale(d))
+                    .attr('y2', CHART_HEIGHT)
+                    .attr('stroke', (d) => (d.getDay() === 0 || d.getDay() === 6) ? '#d1d5db' : '#e5e7eb')
+                    .attr('stroke-width', 1);
+
+                // Draw the Task Bars
+                svg.selectAll('.gantt-bar')
+                    .data(d => [d])
+                    .enter()
+                    .append('rect')
+                    .attr('class', 'gantt-bar rounded')
+                    .attr('x', d => xScale(d.start_date))
+                    .attr('y', (CHART_HEIGHT - TASK_BAR_HEIGHT) / 2)
+                    .attr('rx', 4)
+                    .attr('ry', 4)
+                    .attr('width', d => xScale(d.end_date) - xScale(d.start_date))
+                    .attr('height', TASK_BAR_HEIGHT)
+                    .attr('fill', d => {
+                        // Use the 'colour' property in data and map it to SVG fill
+                        if (d.colour.includes('green')) return '#10b981';
+                        if (d.colour.includes('/80')) return 'rgba(101, 162, 251, 0.8)';
+                        if (d.colour.includes('gray')) return '#9ca3af';
+                        return '#65A2FB';
+                    })
+                    .append('title')
+                    .text(d => `${d.name}: ${d.start} to ${d.end}`);
+
+                // Draw Milestone Mockup (Day 12/Jan 12)
+                const milestoneDate = parseDate("2025-01-12");
+                svg.append('polygon')
+                    .attr('class', 'milestone')
+                    .attr('points', (d) => {
+                        const cx = xScale(milestoneDate);
+                        const size = 12;
+                        return `${cx},${CHART_HEIGHT/2 - size/2} ${cx + size/2},${CHART_HEIGHT/2} ${cx},${CHART_HEIGHT/2 + size/2} ${cx - size/2},${CHART_HEIGHT/2}`;
+                    })
+                    .append('title')
+                    .text('Milestone: Core Schema Complete (Jan 12)');
+
+            }
+
+            // --- Initialise ---
+            drawDateHeaders();
+            drawGanttChart();
+        });
+    </script>
+</body>
+</html>

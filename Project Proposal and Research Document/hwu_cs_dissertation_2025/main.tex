@@ -72,7 +72,7 @@ Gantt charts have emerged as one of the most widely adopted project management t
 Despite their proven utility in professional project management, traditional Gantt chart tools often present usability challenges for students who lack prior project management experience. Many existing solutions are designed for team-based projects and enterprise environments, making them overly complex for individual academic projects. Furthermore, the widespread adoption of visualisation tools in educational settings has been hindered by usability problems and the time required for instructors and students to learn and incorporate these tools into their workflows.
 
 
-At Heriot-Watt University (HWU), honours project students are currently required to submit project management plans as part of their dissertation deliverables. However, the existing project management system lacks integrated tools that guide students through the process of creating well-structured Gantt charts with appropriate task hierarchies, dependencies, and milestones. This gap in the current system motivated the development of an interactive Gantt chart builder specifically tailored to the needs of honours project students and their supervisors.
+At Heriot-Watt University (HWU), honours project students are currently required to submit project management plans as part of their dissertation deliverables. However, the existing project management system (\href{https://projects.hw.ac.uk/}{projects.hw.ac.uk})lacks integrated tools that guide students through the process of creating well-structured Gantt charts with appropriate task hierarchies, dependencies, and milestones. This gap in the current system motivated the development of an interactive Gantt chart builder specifically tailored to the needs of honours project students and their supervisors.
 
 
 \subsection{Aim and Objectives} \label{sec:intro_aim}
@@ -179,11 +179,53 @@ These interaction paradigms collectively support varied user needs and task requ
 
 \subsection{Stakeholders and Use Cases} \label{cha:stakeholders_and_use_case}
 
-% context of the actual system
-Students
-Supervisors
-Project system developers
+The Interactive Gantt Chart Builder system serves distinct stakeholder groups within the academic environment, each with specific needs and interactions with the system. Understanding these stakeholders and their use cases is essential for establishing clear system boundaries and functional requirements.
 
+The primary stakeholders for this system include:
+\begin{itemize}
+    \item \textbf{Students:} The primary users who create and manage dissertation project timelines, track progress, and maintain schedules throughout the academic year. The system must accommodate varying levels of experience with project management tools.
+    \item \textbf{Supervisors:} Academic staff who monitor student progress through view-only access to Gantt charts. This enables supervisors to assess progress, identify issues, and provide timely guidance across multiple students without administrative burden.
+    \item \textbf{Project System Developers:} The technical team responsible for system maintenance and enhancement. The Gantt chart builder must integrate seamlessly with existing HWU infrastructure while maintaining data consistency and extensibility.    
+    \item \textbf{HWU Project Database:} The external system storing student project information, supervisor assignments, and submission records. Bidirectional data synchronisation ensures consistency across the project management ecosystem.
+\end{itemize}
+
+Figure \ref{fig:Use_Case_Diagram_Create_and_Manage_Gantt_Chart} illustrates the primary use cases for the Interactive Gantt Chart Builder system, organised around the key functional areas identified in the requirements analysis. The use case diagram employs standard UML notation to represent actors, use cases, and their relationships, providing a visual representation of system functionality from the users' perspective.
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=.7\textwidth]{images/Create and Manage Gantt Chart Use Case Diagram.png}}
+
+    % add a caption
+    \caption{Create and Manage Project Use Case Diagram.}
+    \label{fig:Use_Case_Diagram_Create_and_Manage_Gantt_Chart}
+    \Description{A Use Case Diagram of the functionality of the Interactive Gantt Chart Builder system. The diagram shows three actors: Students, Supervisors, and The HWU project database. The Students actor has use cases for Create Project, Define Milestones, Add Tasks, Set Task Dependencies, and View the details of the Gantt Chart.}
+\end{figure}
+
+\begin{itemize}
+ 
+
+    \item \textbf{Create Project} represents the foundational use case where students establish their dissertation project with essential metadata including title, description, and dates. The diagram shows this extends to editing project details as understanding evolves. 
+
+    \item \textbf{Create Tasks} allows students to break down their dissertation into manageable components with name, description, dates, and duration. The diagram shows this extends to editing and deleting tasks, with guided input to assist inexperienced users. 
+
+    \item \textbf{Create Milestone} enables students to mark significant deliverables and deadlines. 
+
+    \item \textbf{Create Task Dependency} enables students to define the task relationships discussed previously \cite{besner_2008}. 
+
+    \item \textbf{Update Task Status} provides progress tracking, allowing students to mark tasks as not started, in progress, or completed. 
+
+    \item \textbf{View Project Overview} offers students a comprehensive summary of tasks, milestones, and progress. This viewing capability extends from project creation and connects to Gantt chart visualisation, providing quick status checks for supervision meetings. 
+
+    \item \textbf{View Schedule Status} enables students to assess whether they are ahead, on track, or behind schedule based on completion status and dates. The system provides visual indicators highlighting schedule health, helping students develop time management skills through explicit feedback. 
+
+    \item \textbf{Add Supervisor Comments} enables supervisors to provide feedback directly within the planning context. 
+
+    \item \textbf{Save Data to Project} ensures all project information persists to the HWU database. 
+
+\end{itemize}
+
+The relationships employ standard UML conventions: \textit{extend} indicates optional functionality building upon a base use case, while \textit{include} represents mandatory sub-processes \cite{ArchiMetric_2024}. 
 
 \subsection{Requirement Analysis} \label{cha:meth_req_anal}
 % wcag - keyword for people wiht imparements
@@ -338,7 +380,7 @@ Critical areas for system testing include:
 \begin{itemize}
     \item \textbf{Data persistence and integrity}: Verifying that project data, tasks, dependencies, and milestones are correctly saved to and retrieved from the SQLite database (FR5).
     \item \textbf{Dependency management}: Validating that task dependencies function correctly, including automatic adjustment of dependent tasks when parent tasks are modified (FR3, FR9) and prevention of logically impossible schedules (FR15).
-    \item \textbf{Interactive visualization}: Confirming that the D3.js-based Gantt chart accurately represents task data and responds correctly to user interactions such as drag-and-drop timeline adjustments (FR4, FR8).
+    \item \textbf{Interactive visualisation}: Confirming that the D3.js-based Gantt chart accurately represents task data and responds correctly to user interactions such as drag-and-drop timeline adjustments (FR4, FR8).
     \item \textbf{Progress tracking functionality}: Testing the status update mechanisms and schedule comparison features to ensure accurate tracking of project progress (FR10, FR11).
 \end{itemize}
 Performance testing will be conducted to validate NFR3, measuring system response times under various conditions including different numbers of tasks (up to 100) and multiple concurrent users. Browser compatibility testing across Chrome, Firefox, Safari, and Edge will verify NFR1, while responsive design testing on various screen sizes will assess NFR5. Accessibility evaluation will be conducted against WCAG 2.1 Level AA standards, ensuring compliance with requirements such as keyboard navigation, screen reader support, and sufficient color contrast. In line with these standards, Garrido et al. \cite{garrido_2013} demonstrate how client-side refactoring can enhance usability for visually impaired users, underscoring the importance of adaptable interfaces in meeting accessibility needs. Together, these evaluations ensure that the system is tested not only for performance and compatibility but also for adaptability and accessibility, providing a comprehensive validation of the non-functional requirements.
@@ -381,15 +423,31 @@ This combination of requirements-based system testing and user-centered usabilit
 % SQL lite to make a mock database
 % All prep work - \cite{dk8996_ganttchart_2014, visualisingdata_resources, google_timeline_2024, google_ganttchart_2024} 
 \subsection{Stakeholder Meetings}
+The technical infrastructure and integration requirements were established through consultation with Kayvan Karim, a key stakeholder in the university's honours project management system. Karim provided guidance on technical constraints and integration approach while leaving the specific design and implementation details open-ended, with no prescribed visual requirements or timeline expectations.
+
+While the existing honours project system architecture uses CHTML, there are no restrictions on using standard HTML and modern web technologies for the Gantt chart component. Integration will occur through a dedicated access point on the existing projects page, positioned above the ethics form section. The system will inherit existing authentication infrastructure using local email-based login.
 
 \subsection{Tools}
 
+The system will be implemented using ASP.NET MVC framework with Entity Framework for database operations. SQLite will serve as the database solution. The frontend will use standard HTML and JavaScript, with D3.js providing interactive visualisation capabilities for drag-and-drop interactions and dynamic chart rendering. 
+
 \subsection{Interface Mock-ups}
 
+Preliminary interface mock-ups were created to visualise the layout and interaction flow of the Gantt chart builder. These mock-ups incorporated key features such as project creation forms, task management interfaces, and the interactive Gantt chart display area.
 
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=.7\textwidth]{images/Mock-ups.png}}
 
-\cite{visualisingdata_resources}
+    % add a caption
+    \caption{Rough Mock-ups of the Interactive Gantt Chart Builder Interface.}
+    \label{fig:Gant_Chart_Builder_Mock-up}
+    \Description{A screenshot of a mock-up of the Interactive Gantt Chart Builder interface. The mock-up shows a overview of the Interactive Gantt Chart builder with a Gantt chart displaying tasks as horizontal bars along a timeline, with milestones marked as diamonds.}
+\end{figure}
 
+The mock-up is designed to match the current HWU honours project system's visual style, ensuring consistency. It illustrates the user workflow through project setup, task definition, and timeline interaction. While the coloured boxes currently carry no meaning and lack interactive functionality, the mock-up demonstrates how visual elements such as diamonds and horizontal bars may appear in the final implementation. The design was created using D3.js, drawing inspiration from examples in Data Visualisation Resources and The Chartmaker Directory \cite{visualisingdata_resources, chartmaker_directory}.
 \section{Conclusion} \label{cha:conclusion}
 conclude
 

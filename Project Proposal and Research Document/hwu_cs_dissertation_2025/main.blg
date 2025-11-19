@@ -14,6 +14,8 @@ Reallocating 'glb_str_end' (item size: 4) to 20 items.
 Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
 Reallocating 'global_strs' (item size: 1) to 4000000 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--empty year in chartmaker_directory
+Warning--using n.d. in chartmaker_directory
 Warning--empty address in BednjanecAndrea2013AoGc
 Warning--empty year in methodist_interaction_paradigm
 Warning--using n.d. in methodist_interaction_paradigm
@@ -26,45 +28,45 @@ Warning--page numbers missing in both pages and numpages fields in hassen_use_20
 Warning--empty address in myers_2012
 Warning--empty year in tacticalpm_fs_dependency
 Warning--using n.d. in tacticalpm_fs_dependency
-You've used 41 entries,
+You've used 43 entries,
             6273 wiz_defined-function locations,
-            1780 strings with 26558 characters,
-and the built_in function-call counts, 36444 in all, are:
-= -- 4624
-> -- 977
+            1789 strings with 26888 characters,
+and the built_in function-call counts, 37853 in all, are:
+= -- 4771
+> -- 1011
 < -- 0
-+ -- 298
-- -- 427
-* -- 2276
-:= -- 3696
-add.period$ -- 225
-call.type$ -- 41
-change.case$ -- 234
-chr.to.int$ -- 39
-cite$ -- 53
-duplicate$ -- 3258
-empty$ -- 2323
-format.name$ -- 439
-if$ -- 8539
++ -- 308
+- -- 441
+* -- 2356
+:= -- 3848
+add.period$ -- 236
+call.type$ -- 43
+change.case$ -- 244
+chr.to.int$ -- 41
+cite$ -- 57
+duplicate$ -- 3390
+empty$ -- 2421
+format.name$ -- 453
+if$ -- 8851
 int.to.chr$ -- 4
 int.to.str$ -- 1
 missing$ -- 64
-newline$ -- 457
-num.names$ -- 289
-pop$ -- 1148
+newline$ -- 480
+num.names$ -- 303
+pop$ -- 1208
 preamble$ -- 1
-purify$ -- 542
+purify$ -- 563
 quote$ -- 0
-skip$ -- 1270
+skip$ -- 1323
 stack$ -- 0
-substring$ -- 2640
-swap$ -- 269
+substring$ -- 2728
+swap$ -- 279
 text.length$ -- 76
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1048
-warning$ -- 12
-while$ -- 294
+type$ -- 1108
+warning$ -- 14
+while$ -- 308
 width$ -- 0
-write$ -- 880
-(There were 12 warnings)
+write$ -- 922
+(There were 14 warnings)
