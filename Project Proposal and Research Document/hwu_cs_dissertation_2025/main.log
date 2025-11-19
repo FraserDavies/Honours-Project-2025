@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  18 NOV 2025 22:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  19 NOV 2025 17:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1306,7 +1306,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [7.13]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [8.14] (hwu_template/references.tex
+ [8.14]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1317,7 +1317,20 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[9.15] [10.16] (main.bbl
+[9.15] [10.16]
+Overfull \hbox (6.17804pt too wide) in paragraph at lines 364--365
+[]\T1/LinuxLibertineT-TLF/m/n/12 (-20) Qualitative feed-back will be gath-ered through post-task ques-tion-naires and semi-structured
+ []
+
+(hwu_template/references.tex
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[11.17] (main.bbl
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 10.0pt on input line 43.
 
@@ -1330,13 +1343,28 @@ Underfull \hbox (badness 10000) in paragraph at lines 80--89
 \T1/LinuxLibertineT-TLF/m/n/10 (+20) or con-tex-tual: A re-al-ity check.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Project Man-age-ment Jour-nal \T1/LinuxLibertineT-TLF/m/n/10 (+20) 39, 1 (2008), 16--33.
  []
 
-LaTeX Info: Redefining \tempurl on input line 134.
-LaTeX Info: Redefining \tempurl on input line 259.
-LaTeX Info: Redefining \tempurl on input line 288.
+LaTeX Info: Redefining \tempurl on input line 175.
+LaTeX Info: Redefining \tempurl on input line 190.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
+ [12.18]
+LaTeX Info: Redefining \tempurl on input line 342.
+LaTeX Info: Redefining \tempurl on input line 383.
+LaTeX Info: Redefining \tempurl on input line 460.
 
+Underfull \hbox (badness 10000) in paragraph at lines 454--465
+[]\T1/LinuxLibertineT-TLF/m/n/10 (+20) Katie Shives. 2015.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Us-ing Project Man-age-ment Ap-proaches to Tame Your Dis-ser-ta-tion\T1/LinuxLibertineT-TLF/m/n/10 (+20) .
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 454--465
+[][]$\T1/LinuxLibertineT-TLF/m/n/10 (+20) https : / / www . insidehighered . com / blogs / gradhacker / using -[] project -[] management -[] approaches -[] tame -[]
+ []
+
+LaTeX Info: Redefining \tempurl on input line 474.
+LaTeX Info: Redefining \tempurl on input line 500.
+LaTeX Info: Redefining \tempurl on input line 527.
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1344,22 +1372,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[11.17]
-LaTeX Info: Redefining \tempurl on input line 365.
-
-Underfull \hbox (badness 10000) in paragraph at lines 359--370
-[]\T1/LinuxLibertineT-TLF/m/n/10 (+20) Katie Shives. 2015.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Us-ing Project Man-age-ment Ap-proaches to Tame Your Dis-ser-ta-tion\T1/LinuxLibertineT-TLF/m/n/10 (+20) .
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 359--370
-[][]$\T1/LinuxLibertineT-TLF/m/n/10 (+20) https : / / www . insidehighered . com / blogs / gradhacker / using -[] project -[] management -[] approaches -[] tame -[]
- []
-
-LaTeX Info: Redefining \tempurl on input line 379.
-LaTeX Info: Redefining \tempurl on input line 405.
-LaTeX Info: Redefining \tempurl on input line 419.
-)) [12.18]
+[13.19])) [14.20]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1371,7 +1384,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) [13.19] (main.aux)
+) [15.21] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
@@ -1380,17 +1393,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: D5CA608D9B996EE276454607C04990C2;4202.
  ) 
 Here is how much of TeX's memory you used:
- 26078 strings out of 467871
- 442862 string characters out of 5418375
- 913782 words of memory out of 5000000
- 53850 multiletter control sequences out of 15000+600000
- 806841 words of font info for 400 fonts, out of 8000000 for 9000
+ 26130 strings out of 467871
+ 444033 string characters out of 5418375
+ 915782 words of memory out of 5000000
+ 53875 multiletter control sequences out of 15000+600000
+ 808556 words of font info for 411 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 90i,13n,131p,2239b,759s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,13n,131p,2239b,799s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinBiolinumT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTB.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txsys.pfb>
-Output written on main.pdf (19 pages, 484460 bytes).
+Output written on main.pdf (21 pages, 497810 bytes).
 PDF statistics:
- 466 PDF objects out of 1000 (max. 8388607)
- 90 named destinations out of 1000 (max. 500000)
+ 499 PDF objects out of 1000 (max. 8388607)
+ 100 named destinations out of 1000 (max. 500000)
  100590 words of extra memory for PDF output out of 106986 (max. 10000000)
 

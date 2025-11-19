@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{33}
+\begin{thebibliography}{41}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -88,6 +88,32 @@
 \href{https://doi.org/10.1002/pmj.20033}{doi:\nolinkurl{10.1002/pmj.20033}}
 
 
+\bibitem[Brooke(1995)]%
+        {brooke_1995}
+\bibfield{author}{\bibinfo{person}{John Brooke}.}
+  \bibinfo{year}{1995}\natexlab{}.
+\newblock \showarticletitle{SUS: A quick and dirty usability scale}.
+\newblock \bibinfo{journal}{\emph{Usability Eval. Ind.}}  \bibinfo{volume}{189}
+  (\bibinfo{date}{11} \bibinfo{year}{1995}).
+\newblock
+
+
+\bibitem[Castillo et~al\mbox{.}(2025)]%
+        {Castillo_2025}
+\bibfield{author}{\bibinfo{person}{Tom{\'a}s Castillo},
+  \bibinfo{person}{Benjam{\'i}n Chamorro}, \bibinfo{person}{Ignacio
+  Catal{\'a}n}, \bibinfo{person}{Pablo Schwarzenberg}, \bibinfo{person}{Luis
+  Rojas}, {and} \bibinfo{person}{Fei Luo}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \showarticletitle{A Serious Game Approach for Teaching Requirements
+  Engineering: User Experience Evaluation}. In \bibinfo{booktitle}{\emph{Social
+  Computing and Social Media}}, \bibfield{editor}{\bibinfo{person}{Adela Coman}
+  {and} \bibinfo{person}{Simona Vasilache}} (Eds.).
+  \bibinfo{publisher}{Springer Nature Switzerland}, \bibinfo{address}{Cham},
+  \bibinfo{pages}{20--36}.
+\newblock
+\showISBNx{978-3-031-93539-8}
+
+
 \bibitem[Cohn(2009)]%
         {cohn_user_2009}
 \bibfield{author}{\bibinfo{person}{Mike Cohn}.}
@@ -124,6 +150,21 @@
 \shownote{Accessed: 08/11/2025}.
 
 
+\bibitem[Garrido et~al\mbox{.}(2013)]%
+        {garrido_2013}
+\bibfield{author}{\bibinfo{person}{Alejandra Garrido}, \bibinfo{person}{Sergio
+  Firmenich}, \bibinfo{person}{Gustavo Rossi}, \bibinfo{person}{Julián
+  Grigera}, \bibinfo{person}{Nuria Medina-Medina}, {and} \bibinfo{person}{Ivana
+  Harari}.} \bibinfo{year}{2013}\natexlab{}.
+\newblock \showarticletitle{Personalized Web Accessibility using Client-Side
+  Refactoring}.
+\newblock \bibinfo{journal}{\emph{IEEE Internet Computing}}
+  \bibinfo{volume}{17} (\bibinfo{date}{07} \bibinfo{year}{2013}),
+  \bibinfo{pages}{58--66}.
+\newblock
+\href{https://doi.org/10.1109/MIC.2012.143}{doi:\nolinkurl{10.1109/MIC.2012.143}}
+
+
 \bibitem[GeeksforGeeks(2025a)]%
         {geeksforgeeks_d3js_2025}
 \bibfield{author}{\bibinfo{person}{GeeksforGeeks}.}
@@ -139,15 +180,41 @@
 
 
 \bibitem[GeeksforGeeks(2025b)]%
-        {geeksforgeeks_gantt_2025}
+        {geeksforgeeks_unit_vs_system_testing}
 \bibfield{author}{\bibinfo{person}{GeeksforGeeks}.}
   \bibinfo{year}{2025}\natexlab{b}.
+\newblock \bibinfo{booktitle}{\emph{Difference between Unit Testing and System
+  Testing}}.
+\newblock
+\urldef\tempurl%
+\url{https://www.geeksforgeeks.org/software-testing/difference-between-unit-testing-and-system-testing/}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Accessed: 19/11/2025}.
+
+
+\bibitem[GeeksforGeeks(2025c)]%
+        {geeksforgeeks_gantt_2025}
+\bibfield{author}{\bibinfo{person}{GeeksforGeeks}.}
+  \bibinfo{year}{2025}\natexlab{c}.
 \newblock \bibinfo{title}{What is Gantt Chart in Project Management?}
 \newblock
   \bibinfo{howpublished}{\url{https://www.geeksforgeeks.org/business-studies/what-is-gantt-chart-in-project-management/}}.
 \newblock
 \newblock
 \shownote{Last updated: 23 Jul 2025. Accessed: 08/11/2025}.
+
+
+\bibitem[Gotel and Finkelstein(1994)]%
+        {gotel_1994}
+\bibfield{author}{\bibinfo{person}{O.C.Z. Gotel} {and} \bibinfo{person}{C.W.
+  Finkelstein}.} \bibinfo{year}{1994}\natexlab{}.
+\newblock \showarticletitle{An analysis of the requirements traceability
+  problem}. In \bibinfo{booktitle}{\emph{Proceedings of IEEE International
+  Conference on Requirements Engineering}}. \bibinfo{pages}{94--101}.
+\newblock
+\href{https://doi.org/10.1109/ICRE.1994.292398}{doi:\nolinkurl{10.1109/ICRE.1994.292398}}
 
 
 \bibitem[Hassen(2024)]%
@@ -160,6 +227,22 @@
   Education}} \bibinfo{number}{30} (\bibinfo{date}{Mar.} \bibinfo{year}{2024}).
 \newblock
 \href{https://doi.org/10.47408/jldhe.vi30.1146}{doi:\nolinkurl{10.47408/jldhe.vi30.1146}}
+
+
+\bibitem[Humayoun et~al\mbox{.}(2012)]%
+        {humayoun_2012}
+\bibfield{author}{\bibinfo{person}{Shah~Rukh Humayoun}, \bibinfo{person}{Yael
+  Dubinsky}, \bibinfo{person}{Tiziana Catarci}, \bibinfo{person}{Eli Nazarov},
+  {and} \bibinfo{person}{Assaf Israel}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Using a High Level Formal Language for Task
+  Model-Based Usability Evaluation}. In \bibinfo{booktitle}{\emph{Information
+  Systems: Crossroads for Organization, Management, Accounting and
+  Engineering}}, \bibfield{editor}{\bibinfo{person}{Marco De~Marco},
+  \bibinfo{person}{Dov Te'eni}, \bibinfo{person}{Valentina Albano}, {and}
+  \bibinfo{person}{Stefano Za}} (Eds.). \bibinfo{publisher}{Physica-Verlag HD},
+  \bibinfo{address}{Heidelberg}, \bibinfo{pages}{199--207}.
+\newblock
+\showISBNx{978-3-7908-2789-7}
 
 
 \bibitem[Innovare(2023)]%
@@ -261,6 +344,18 @@
 \tempurl}
 \newblock
 \shownote{Published on atlassian.com, Accessed: 14/11/2025}.
+
+
+\bibitem[Myers et~al\mbox{.}(2012)]%
+        {myers_2012}
+\bibfield{author}{\bibinfo{person}{Glenford~J. Myers}, \bibinfo{person}{Corey
+  Sandler}, {and} \bibinfo{person}{Tom Badgett}.}
+  \bibinfo{year}{2012}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{The Art of Software Testing}
+  (\bibinfo{edition}{3rd} ed.)}.
+\newblock \bibinfo{publisher}{John Wiley \& Sons}.
+\newblock
+\href{https://doi.org/10.1002/9781119202486}{doi:\nolinkurl{10.1002/9781119202486}}
 
 
 \bibitem[Neumeyer({[n.\,d.]})]%
@@ -407,6 +502,19 @@
 \tempurl}
 \newblock
 \shownote{Published on TeamHub, Accessed: 14/11/2025}.
+
+
+\bibitem[Vlachogianni and Tselios(2023)]%
+        {Vlachogianni_2023}
+\bibfield{author}{\bibinfo{person}{Prokopia Vlachogianni} {and}
+  \bibinfo{person}{Nikolaos Tselios}.} \bibinfo{year}{2023}\natexlab{}.
+\newblock \showarticletitle{Perceived Usability Evaluation of Educational
+  Technology Using the Post-Study System Usability Questionnaire (PSSUQ): A
+  Systematic Review}.
+\newblock \bibinfo{journal}{\emph{Sustainability}}  \bibinfo{volume}{15}
+  (\bibinfo{date}{08} \bibinfo{year}{2023}), \bibinfo{pages}{12954}.
+\newblock
+\href{https://doi.org/10.3390/su151712954}{doi:\nolinkurl{10.3390/su151712954}}
 
 
 \bibitem[W3Schools(2025)]%

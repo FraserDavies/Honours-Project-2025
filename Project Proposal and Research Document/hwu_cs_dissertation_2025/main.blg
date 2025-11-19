@@ -19,49 +19,52 @@ Warning--empty year in methodist_interaction_paradigm
 Warning--using n.d. in methodist_interaction_paradigm
 Warning--empty year in aims_ganttchart
 Warning--using n.d. in aims_ganttchart
+Warning--empty publisher in gotel_1994
+Warning--empty address in gotel_1994
 Warning--unusual to have number, but no volume, for hassen_use_2024
 Warning--page numbers missing in both pages and numpages fields in hassen_use_2024
+Warning--empty address in myers_2012
 Warning--empty year in tacticalpm_fs_dependency
 Warning--using n.d. in tacticalpm_fs_dependency
-You've used 33 entries,
+You've used 41 entries,
             6273 wiz_defined-function locations,
-            1719 strings with 24667 characters,
-and the built_in function-call counts, 27593 in all, are:
-= -- 3504
-> -- 673
+            1780 strings with 26558 characters,
+and the built_in function-call counts, 36444 in all, are:
+= -- 4624
+> -- 977
 < -- 0
-+ -- 191
-- -- 320
-* -- 1618
-:= -- 2827
-add.period$ -- 184
-call.type$ -- 33
-change.case$ -- 175
-chr.to.int$ -- 32
-cite$ -- 42
-duplicate$ -- 2482
-empty$ -- 1780
-format.name$ -- 308
-if$ -- 6391
-int.to.chr$ -- 3
++ -- 298
+- -- 427
+* -- 2276
+:= -- 3696
+add.period$ -- 225
+call.type$ -- 41
+change.case$ -- 234
+chr.to.int$ -- 39
+cite$ -- 53
+duplicate$ -- 3258
+empty$ -- 2323
+format.name$ -- 439
+if$ -- 8539
+int.to.chr$ -- 4
 int.to.str$ -- 1
-missing$ -- 35
-newline$ -- 385
-num.names$ -- 230
-pop$ -- 845
+missing$ -- 64
+newline$ -- 457
+num.names$ -- 289
+pop$ -- 1148
 preamble$ -- 1
-purify$ -- 422
+purify$ -- 542
 quote$ -- 0
-skip$ -- 983
+skip$ -- 1270
 stack$ -- 0
-substring$ -- 2023
-swap$ -- 190
+substring$ -- 2640
+swap$ -- 269
 text.length$ -- 76
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 871
-warning$ -- 9
-while$ -- 242
+type$ -- 1048
+warning$ -- 12
+while$ -- 294
 width$ -- 0
-write$ -- 717
-(There were 9 warnings)
+write$ -- 880
+(There were 12 warnings)

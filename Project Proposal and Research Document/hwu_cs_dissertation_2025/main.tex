@@ -167,7 +167,7 @@ Effective data visualisation relies on fundamental principles that ensure clarit
     \item Interactive visualisations transform data into engaging learning experiences that enhance comprehension, improve retention, and enable personalised exploration of complex concepts \cite{innovare_interactive_2025}. 
     \item User interaction paradigms for visualisation tools encompass several distinct approaches: drag-and-drop interactions enable intuitive grouping, reordering and moving of objects through direct manipulation, providing clear signifiers and immediate visual feedback throughout the interaction \cite{nngroup_dragdrop_2023}.
     \item Form-based interfaces present users with structured options through menus and input fields that guide interaction, allowing menu selection by keying in associated numbers or letters whilst graphical menus employ pointing devices \cite{methodist_interaction_paradigm}.
-    \item Direct manipulation interfaces allow users to act on displayed objects using physical, incremental actions with immediate visual feedback—exemplified by resizing graphical elements or repositioning items by dragging \cite{shneiderman_directmanip_2024}. 
+    \item Direct manipulation interfaces let users interact with on-screen objects through physical, step-by-step actions that provide instant visual feedback. For example, users can resize a graphic or drag an item to a new position \cite{shneiderman_directmanip_2024}.
 \end{itemize}
 These interaction paradigms collectively support varied user needs and task requirements, with direct manipulation particularly valued for its ability to exploit perceptual and motor skills whilst reducing reliance on linguistic comprehension \cite{shneiderman_directmanip_2024}.
 
@@ -293,28 +293,28 @@ The requirements are categorised using the MoSCoW method into Must have (M), Sho
     \item	\textbf{	FR22	}	-	\textbf{	C	}	-	\textbf{	Supervisor Comment and Feedback System	}		
     
     As a supervisor, I could add comments and feedback on specific tasks or the overall project plan so that I can provide guidance directly within the tool.
-
-    \item	\textbf{	NFR2	}	-	\textbf{	M	}	-	\textbf{	Web Browser Compatibility	}		
+    \item	\textbf{	NFR1	}	-	\textbf{	M	}	-	\textbf{	Web Browser Compatibility	}		
+    
     As a student, I must be able to access and use the Gantt chart builder on any modern web browser (Chrome, Firefox, Safari, Edge) without installing additional plugins or software so that I can work on my project plan from any computer.
     
-    \item	\textbf{	NFR3	}	-	\textbf{	M	}	-	\textbf{	Data Security and GDPR Compliance	}		
+    \item	\textbf{	NFR2	}	-	\textbf{	M	}	-	\textbf{	Data Security and GDPR Compliance	}		
+    
     As a student, the system must store all my project data securely and be GDPR-compliant.
+    \item	\textbf{	NFR3	}	-	\textbf{	S	}	-	\textbf{	Response Time Performance	}		
     
-    \item	\textbf{	NFR4	}	-	\textbf{	S	}	-	\textbf{	Response Time Performance	}		
     As a student, the system should render my Gantt chart and respond to my interactions within 2 seconds (for projects with up to 100 tasks) so that I can work efficiently without frustrating delays that discourage regular use.
+    \item	\textbf{	NFR4	}	-	\textbf{	S	}	-	\textbf{	Intuitive User Interface	}		
     
-    \item	\textbf{	NFR5	}	-	\textbf{	S	}	-	\textbf{	Intuitive User Interface	}		
     As a student, the system should provide a clear, intuitive interface that I can use effectively without extensive training so that I can focus on planning my dissertation rather than learning how to use the tool.
+    \item	\textbf{	NFR5	}	-	\textbf{	S	}	-	\textbf{	Mobile-Friendly Responsive Design	}		 
     
-    \item	\textbf{	NFR6	}	-	\textbf{	S	}	-	\textbf{	Mobile-Friendly Responsive Design	}		 
     As a student, the system should adapt its interface for my tablet and mobile devices so that I can view and ideally edit my project plan while away from my computer.
+    \item	\textbf{	NFR6	}	-	\textbf{	C	}	-	\textbf{	Accessibility Compliance	}		
     
-    \item	\textbf{	NFR7	}	-	\textbf{	C	}	-	\textbf{	Accessibility Compliance	}		
     As a student with disabilities, the system could meet WCAG 2.1 Level AA accessibility standards with keyboard navigation, screen reader support, and sufficient color contrast so that I can use the tool effectively regardless of my accessibility needs.
+    \item	\textbf{	NFR7	}	-	\textbf{	C	}	-	\textbf{	Scalability for Multiple Concurrent Users	}		
     
-    \item	\textbf{	NFR8	}	-	\textbf{	C	}	-	\textbf{	Scalability for Multiple Concurrent Users	}		
-    As a student, the system could support at least 200 concurrent users without performance degradation so that I can access my Gantt chart reliably even during peak usage periods like the start of semester or project deadlines.
-
+    As a student, the system could support at least 200 concurrent users without performance degradation so that I can access my Gantt chart reliably even during peak usage periods like the start of semester or project deadlines
 \end{itemize}
 
 
@@ -326,13 +326,51 @@ The requirements are categorised using the MoSCoW method into Must have (M), Sho
 \subsection{Evaluation Method} \label{cha:eval_meth}
 % Evaluation method
 
-
 % Usability evaluation
 % Include what form will be used for usability study
-
 % Requirement evaluation
 % Unit test over or System testing [look into which one I will do]
+System testing will be employed to validate that the implemented system satisfies its specified functional requirements (FR1-FR22) and non-functional requirements (NFR1-NFR7). System testing is appropriate for this project as it evaluates the complete, integrated system against its requirements specification \cite{geeksforgeeks_unit_vs_system_testing}, which is essential for verifying that the web-based application functions correctly as a whole rather than merely as isolated components.
 
+The system testing approach will utilise a requirements traceability matrix that maps each functional requirement to specific test cases, ensuring comprehensive coverage. This approach builds on the concept of requirements traceability as discussed by Gotel and Finkelstein \cite{gotel_1994}. Test cases will be designed to verify both positive scenarios (expected use cases) and negative scenarios (error handling and validation), following the principles outlined by Myers \cite{myers_2012}. Particular attention will be given to the interactive features that distinguish this system from static project management tools.
+
+Critical areas for system testing include:
+\begin{itemize}
+    \item \textbf{Data persistence and integrity}: Verifying that project data, tasks, dependencies, and milestones are correctly saved to and retrieved from the SQLite database (FR5).
+    \item \textbf{Dependency management}: Validating that task dependencies function correctly, including automatic adjustment of dependent tasks when parent tasks are modified (FR3, FR9) and prevention of logically impossible schedules (FR15).
+    \item \textbf{Interactive visualization}: Confirming that the D3.js-based Gantt chart accurately represents task data and responds correctly to user interactions such as drag-and-drop timeline adjustments (FR4, FR8).
+    \item \textbf{Progress tracking functionality}: Testing the status update mechanisms and schedule comparison features to ensure accurate tracking of project progress (FR10, FR11).
+\end{itemize}
+Performance testing will be conducted to validate NFR3, measuring system response times under various conditions including different numbers of tasks (up to 100) and multiple concurrent users. Browser compatibility testing across Chrome, Firefox, Safari, and Edge will verify NFR1, while responsive design testing on various screen sizes will assess NFR5. Accessibility evaluation will be conducted against WCAG 2.1 Level AA standards, ensuring compliance with requirements such as keyboard navigation, screen reader support, and sufficient color contrast. In line with these standards, Garrido et al. \cite{garrido_2013} demonstrate how client-side refactoring can enhance usability for visually impaired users, underscoring the importance of adaptable interfaces in meeting accessibility needs. Together, these evaluations ensure that the system is tested not only for performance and compatibility but also for adaptability and accessibility, providing a comprehensive validation of the non-functional requirements.
+
+Usability evaluation is essential for assessing whether the system achieves its core objective of helping students create comprehensive project plans through an intuitive, easy-to-use interface (NFR4) \cite{Vlachogianni_2023}. The usability study will recruit participants from the target user population-honours students at Heriot-Watt University who are planning or currently undertaking dissertation projects.
+
+The usability evaluation will employ a task-based assessment methodology where participants complete a series of realistic scenarios using the Interactive Gantt Chart Builder \cite{humayoun_2012}. These scenarios will be designed to exercise key functional requirements including:
+\begin{itemize}
+    \item Creating a new project and defining initial project parameters (FR1)
+    \item Adding tasks with dependencies and milestones (FR2, FR3, FR6)
+    \item Using interactive features to adjust the timeline (FR8)
+    \item Tracking progress and interpreting schedule status (FR10, FR11)
+    \item Exporting the Gantt chart for documentation purposes (FR12)
+\end{itemize}
+
+Quantitative usability metrics will be collected during these tasks, including:
+\begin{itemize}
+    \item Task completion rates and time-on-task measurements
+    \item Number of errors encountered during task completion
+    \item System Usability Scale (SUS) scores to provide standardised usability assessment \cite{brooke_1995}
+\end{itemize}
+
+Qualitative feedback will be gathered through post-task questionnaires and semi-structured interviews, focusing on participants' perceptions of the system's usefulness for dissertation planning, ease of learning (addressing NFR4), and the value of interactive features compared to static planning approaches. The questionnaire will be designed to gather specific feedback on:
+\begin{itemize}
+    \item The clarity and helpfulness of the guided task creation interface (FR7)
+    \item The effectiveness of the visual Gantt chart representation (FR4)
+    \item The usefulness of interactive timeline adjustment compared to form-based editing (FR8)
+    \item Overall satisfaction with the tool for managing dissertation projects
+\end{itemize}
+
+
+This combination of requirements-based system testing and user-centered usability evaluation provides comprehensive assessment of both technical correctness and practical utility, ensuring that the system not only functions as specified but also effectively supports students in planning their honours projects \cite{Castillo_2025}.
 
 \section{Feasibility} \label{cha:feasibility}
 %  Feasibility: include a summary of preliminary work carried out in preparation for your project to validate the feasibility of your project. This includes design, evaluation strategy and preliminary work (e.g.  focus groups, stakeholder information, tests of software, evaluation of tools, possible datasets or algorithms, and early prototypes) – this section will complement the information in your second deliverable.
