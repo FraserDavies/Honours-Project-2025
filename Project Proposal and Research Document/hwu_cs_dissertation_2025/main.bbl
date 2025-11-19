@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{31}
+\begin{thebibliography}{33}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -86,6 +86,16 @@
 \newblock
 \showeprint{https://onlinelibrary.wiley.com/doi/pdf/10.1002/pmj.20033}
 \href{https://doi.org/10.1002/pmj.20033}{doi:\nolinkurl{10.1002/pmj.20033}}
+
+
+\bibitem[Cohn(2009)]%
+        {cohn_user_2009}
+\bibfield{author}{\bibinfo{person}{Mike Cohn}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{User Stories Applied: For Agile Software
+  Development}}.
+\newblock \bibinfo{publisher}{Addison-Wesley}, \bibinfo{address}{Boston}.
+\newblock
 
 
 \bibitem[Collage({[n.\,d.]})]%
@@ -264,6 +274,22 @@
 \newblock
 \newblock
 \shownote{Accessed: 12/11/2025}.
+
+
+\bibitem[ProductPlan(2020)]%
+        {moscow_method_2020}
+\bibfield{author}{\bibinfo{person}{ProductPlan}.}
+  \bibinfo{year}{2020}\natexlab{}.
+\newblock \bibinfo{title}{What is MoSCoW Prioritization Method? Definition,
+  Overview, and Best Practices}.
+\newblock \bibinfo{howpublished}{YouTube video}.
+\newblock
+\urldef\tempurl%
+\url{https://www.youtube.com/watch?v=pm4GbSRMElc&t=1s}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Accessed: 18/11/2025}.
 
 
 \bibitem[ProjectManager(2021)]%

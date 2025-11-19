@@ -23,45 +23,45 @@ Warning--unusual to have number, but no volume, for hassen_use_2024
 Warning--page numbers missing in both pages and numpages fields in hassen_use_2024
 Warning--empty year in tacticalpm_fs_dependency
 Warning--using n.d. in tacticalpm_fs_dependency
-You've used 31 entries,
+You've used 33 entries,
             6273 wiz_defined-function locations,
-            1707 strings with 24380 characters,
-and the built_in function-call counts, 26133 in all, are:
-= -- 3348
-> -- 639
+            1719 strings with 24667 characters,
+and the built_in function-call counts, 27593 in all, are:
+= -- 3504
+> -- 673
 < -- 0
-+ -- 183
-- -- 306
-* -- 1531
-:= -- 2667
-add.period$ -- 172
-call.type$ -- 31
-change.case$ -- 165
-chr.to.int$ -- 30
-cite$ -- 40
-duplicate$ -- 2336
-empty$ -- 1676
-format.name$ -- 294
-if$ -- 6071
++ -- 191
+- -- 320
+* -- 1618
+:= -- 2827
+add.period$ -- 184
+call.type$ -- 33
+change.case$ -- 175
+chr.to.int$ -- 32
+cite$ -- 42
+duplicate$ -- 2482
+empty$ -- 1780
+format.name$ -- 308
+if$ -- 6391
 int.to.chr$ -- 3
 int.to.str$ -- 1
-missing$ -- 33
-newline$ -- 363
-num.names$ -- 216
-pop$ -- 796
+missing$ -- 35
+newline$ -- 385
+num.names$ -- 230
+pop$ -- 845
 preamble$ -- 1
-purify$ -- 396
+purify$ -- 422
 quote$ -- 0
-skip$ -- 927
+skip$ -- 983
 stack$ -- 0
-substring$ -- 1917
-swap$ -- 179
+substring$ -- 2023
+swap$ -- 190
 text.length$ -- 76
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 826
+type$ -- 871
 warning$ -- 9
-while$ -- 228
+while$ -- 242
 width$ -- 0
-write$ -- 673
+write$ -- 717
 (There were 9 warnings)

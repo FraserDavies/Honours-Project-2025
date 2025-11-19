@@ -188,27 +188,137 @@ Project system developers
 \subsection{Requirement Analysis} \label{cha:meth_req_anal}
 % wcag - keyword for people wiht imparements
 The requirement analysis for the Interactive Gantt Chart Builder was conducted through examination of existing literature on project management tools in educational contexts, consultation of stakeholder needs identified through preliminary discussions with the current system developers, and analysis of the challenges students face when managing individual dissertation projects. This process identified five core functional requirements that form the foundation of the proposed system.
-\begin{itemize}
-    \item Task Hierarchy and Dependency Management
-\end{itemize}
-The system must enable students to create hierarchical task structures with parent tasks and subtasks, and define dependencies between tasks using standard dependency types (Finish-to-Start, Start-to-Start, Finish-to-Finish, Start-to-Finish). Task dependencies are fundamental to Gantt chart functionality, as they define the relationships between activities and dictate the order in which work must occur \cite{smartsheet_gantt_dependencies_2020, projectmanager_dependencies_2024}. Without dependency management, the tool cannot prevent logical errors such as scheduling a task to begin before its predecessor has completed. 
+
+The requirements are categorised using the MoSCoW method into Must have (M), Should have (S), Could have (C), and Won't have (W) \cite{moscow_method_2020}. To label them they are indicated FR[\#] to represent Functional Requirement number [\#] and NFR[\#] to represent Non-Functional Requirement number [\#]. Each requirement has a User Story\cite{cohn_user_2009} format description to clarify the requirements purpose and context.
+% \begin{table}[h]
+%     \centering
+%     \begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
+%         \hline
+%         \multicolumn{4}{|c|}{Functional Requirements} \\
+%         \hline
+%         Requriement No&Priority&Description&Reason\\
+%         \hline
+%         FR1	&	M	&	Project Data Creation and Management	&	As a student, I must be able to create and store my project information (title, description, start date, end date) so that I have a foundation for my Gantt chart.	\\
+%         FR2	&	M	&	Task Creation and Editing	&	As a student, I must be able to create, edit, and delete tasks with names, descriptions, start dates, and end dates so that I can break down my dissertation into manageable components.	\\
+%         FR3	&	M	&	Task Dependencies	&	As a student, I must be able to define dependencies between tasks (Finish-to-Start relationships) so that my project plan reflects the logical sequence of work.	\\
+%         FR4	&	M	&	Gantt Chart Visualisation	&	As a student, I must be able to view my tasks and milestones as a visual Gantt chart using D3.js so that I can understand my project timeline at a glance.	\\
+%         FR5	&	M	&	Data Saving	&	As a student, I must be able to save my project data to a database (SQLite) so that my work is not lost between sessions.	\\
+%         FR6	&	M	&	Milestone Creation	&	As a student, I must be able to create milestones with specific dates so that I can mark key deliverables and deadlines in my dissertation timeline.	\\
+%         FR7	&	S	&	Guided Task Creation Interface	&	As a student, I should receive contextual help and validation when creating tasks so that I create well-structured, realistic project plans.	\\
+%         FR8	&	S	&	Interactive Timeline Adjustment	&	As a student, I should be able to drag and drop tasks on the Gantt chart to adjust dates and durations so that I can quickly adapt my plan as circumstances change.	\\
+%         FR9	&	S	&	Automatic Dependency Adjustment	&	As a student, when I modify a task's dates, the system should automatically update dependent tasks so that I maintain a logically consistent schedule.	\\
+%         FR10	&	S	&	Progress Tracking and Status Updates	&	As a student, I should be able to mark tasks as not started, in progress, or completed so that I can track my actual progress against my plan.	\\
+%         FR11	&	S	&	Progress Indicator and Timeline Comparison	&	As a student, the system should tell me if I am ahead of schedule, on track, or behind schedule so that I can take corrective action when needed.	\\
+%         FR12	&	S	&	Gantt Chart Export (PNG/JPEG)	&	As a student, I should be able to export my Gantt chart as an image (PNG/JPEG) so that I can include it in my dissertation appendix and supervision meeting documents.	\\
+%         FR13	&	S	&	Supervisor View-Only Access	&	As a supervisor, I should be able to view my students' Gantt charts in read-only mode so that I can monitor their progress and provide guidance.	\\
+%         FR14	&	S	&	Task Hierarchy 	&	As a student, I should be able to create subtasks under parent tasks so that I can organise complex phases of work hierarchically.	\\
+%         FR15	&	S	&	Impossible Dependencies	&	As a student, the system should prevent me from creating logically impossible schedules.	\\
+%         FR16	&	S	&	Timeline Zoom and Pan Controls	&	As a student, I should be able to zoom in/out and pan across the timeline so that I can view different levels of detail from my entire project to individual weeks.	\\
+%         FR17	&	S	&	Hover Tooltips with Task Details	&	As a student, when I hover over a task bar, I should see detailed information (task name, dates, duration, dependencies) so that I can quickly access task details without navigating away.	\\
+%         FR18	&	C	&	Kanban Board View	&	As a student, I could have an alternative Kanban board view of my tasks so that I can visualise my work in a different format that shows current work in progress.	\\
+%         FR19	&	C	&	Task Categories/Tags	&	As a student, I could assign categories or tags to tasks (e.g., "Research", "Writing", "Data Collection") so that I can filter and organise my work by type.	\\
+%         FR20	&	C	&	Multiple Dependency Types	&	As a student, I could define different dependency types (Start-to-Start, Finish-to-Finish, Start-to-Finish) beyond the basic Finish-to-Start so that I can model more complex task relationships.	\\
+%         FR21	&	C	&	Critical Path Highlighting \cite{besner_2008}	&	As a student, I could view the critical path highlighted on my Gantt chart so that I can identify which tasks have no scheduling flexibility \cite{besner_2008}.	\\
+%         FR22	&	C	&	Supervisor Comment and Feedback System	&	As a supervisor, I could add comments and feedback on specific tasks or the overall project plan so that I can provide guidance directly within the tool.	\\
+
+%         \hline
+%     \end{tabular}
+% \end{table}
 
 \begin{itemize}
-    \item Milestone Definition and Tracking
-\end{itemize}
-For dissertation projects, where research phases naturally depend on previous work (e.g., data collection cannot begin until ethics approval is obtained), dependency tracking is essential for creating realistic, achievable project plans. The hierarchical structure allows students to decompose their complex dissertation into manageable components, directly addressing the challenge where students struggle with translating abstract project requirements into concrete, manageable tasks \cite{Shives2015}. This requirement aligns with established project management practice, as surveys of project managers identify task scheduling and dependencies as among the most frequently used project management tools \cite{besner_2008}.
 
-\begin{itemize}
-    \item Interactive Visualisation with Temporal Adjustment
+    \item	\textbf{	FR1	}	-	\textbf{	M	}	-	\textbf{	Project Data Creation and Management	}		
+    
+    As a student, I must be able to create and store my project information (title, description, start date, end date) so that I have a foundation for my Gantt chart.
+    \item	\textbf{	FR2	}	-	\textbf{	M	}	-	\textbf{	Task Creation and Editing	}		
+    
+    As a student, I must be able to create, edit, and delete tasks with names, descriptions, start dates, and end dates so that I can break down my dissertation into manageable components.
+    \item	\textbf{	FR3	}	-	\textbf{	M	}	-	\textbf{	Task Dependencies	}		
+   
+    As a student, I must be able to define dependencies between tasks (Finish-to-Start relationships) so that my project plan reflects the logical sequence of work.
+    \item	\textbf{	FR4	}	-	\textbf{	M	}	-	\textbf{	Gantt Chart Visualisation	}		
+    
+    As a student, I must be able to view my tasks and milestones as a visual Gantt chart using D3.js so that I can understand my project timeline at a glance.
+    \item	\textbf{	FR5	}	-	\textbf{	M	}	-	\textbf{	Data Saving	}		
+    
+    As a student, I must be able to save my project data to a database (SQLite) so that my work is not lost between sessions.
+    \item	\textbf{	FR6	}	-	\textbf{	M	}	-	\textbf{	Milestone Creation	}		
+    
+    As a student, I must be able to create milestones with specific dates so that I can mark key deliverables and deadlines in my dissertation timeline.
+    \item	\textbf{	FR7	}	-	\textbf{	S	}	-	\textbf{	Guided Task Creation Interface	}		
+    
+    As a student, I should receive contextual help and validation when creating tasks so that I create well-structured, realistic project plans.
+    \item	\textbf{	FR8	}	-	\textbf{	S	}	-	\textbf{	Interactive Timeline Adjustment	}		
+    
+    As a student, I should be able to drag and drop tasks on the Gantt chart to adjust dates and durations so that I can quickly adapt my plan as circumstances change.
+    \item	\textbf{	FR9	}	-	\textbf{	S	}	-	\textbf{	Automatic Dependency Adjustment	}		
+    
+    As a student, when I modify a task's dates, the system should automatically update dependent tasks so that I maintain a logically consistent schedule.
+    \item	\textbf{	FR10	}	-	\textbf{	S	}	-	\textbf{	Progress Tracking and Status Updates	}		
+    
+    As a student, I should be able to mark tasks as not started, in progress, or completed so that I can track my actual progress against my plan.
+    \item	\textbf{	FR11	}	-	\textbf{	S	}	-	\textbf{	Progress Indicator and Timeline Comparison	}		
+    
+    As a student, the system should tell me if I am ahead of schedule, on track, or behind schedule so that I can take corrective action when needed.
+    \item	\textbf{	FR12	}	-	\textbf{	S	}	-	\textbf{	Gantt Chart Export (PNG/JPEG)	}		
+    
+    As a student, I should be able to export my Gantt chart as an image (PNG/JPEG) so that I can include it in my dissertation appendix and supervision meeting documents.
+    \item	\textbf{	FR13	}	-	\textbf{	S	}	-	\textbf{	Supervisor View-Only Access	}		
+    
+    As a supervisor, I should be able to view my students' Gantt charts in read-only mode so that I can monitor their progress and provide guidance.
+    \item	\textbf{	FR14	}	-	\textbf{	S	}	-	\textbf{	Task Hierarchy 	}		
+    
+    As a student, I should be able to create subtasks under parent tasks so that I can organise complex phases of work hierarchically.
+    \item	\textbf{	FR15	}	-	\textbf{	S	}	-	\textbf{	Impossible Dependencies	}		
+    
+    As a student, the system should prevent me from creating logically impossible schedules.
+    \item	\textbf{	FR16	}	-	\textbf{	S	}	-	\textbf{	Timeline Zoom and Pan Controls	}		
+    
+    As a student, I should be able to zoom in/out and pan across the timeline so that I can view different levels of detail from my entire project to individual weeks.
+    \item	\textbf{	FR17	}	-	\textbf{	S	}	-	\textbf{	Hover Tooltips with Task Details	}		
+    
+    As a student, when I hover over a task bar, I should see detailed information (task name, dates, duration, dependencies) so that I can quickly access task details without navigating away.
+    \item	\textbf{	FR18	}	-	\textbf{	C	}	-	\textbf{	Kanban Board View	}		
+    
+    As a student, I could have an alternative Kanban board view of my tasks so that I can visualise my work in a different format that shows current work in progress.
+    \item	\textbf{	FR19	}	-	\textbf{	C	}	-	\textbf{	Task Categories/Tags	}		
+    
+    As a student, I could assign categories or tags to tasks (e.g., "Research", "Writing", "Data Collection") so that I can filter and organise my work by type.
+    \item	\textbf{	FR20	}	-	\textbf{	C	}	-	\textbf{	Multiple Dependency Types	}		
+    
+    As a student, I could define different dependency types (Start-to-Start, Finish-to-Finish, Start-to-Finish) beyond the basic Finish-to-Start so that I can model more complex task relationships.
+    \item	\textbf{	FR21	}	-	\textbf{	C	}	-	\textbf{	Critical Path Highlighting \cite{besner_2008}	}		
+    
+    As a student, I could view the critical path highlighted on my Gantt chart so that I can identify which tasks have no scheduling flexibility \cite{besner_2008}.
+    \item	\textbf{	FR22	}	-	\textbf{	C	}	-	\textbf{	Supervisor Comment and Feedback System	}		
+    
+    As a supervisor, I could add comments and feedback on specific tasks or the overall project plan so that I can provide guidance directly within the tool.
+
+    \item	\textbf{	NFR2	}	-	\textbf{	M	}	-	\textbf{	Web Browser Compatibility	}		
+    As a student, I must be able to access and use the Gantt chart builder on any modern web browser (Chrome, Firefox, Safari, Edge) without installing additional plugins or software so that I can work on my project plan from any computer.
+    
+    \item	\textbf{	NFR3	}	-	\textbf{	M	}	-	\textbf{	Data Security and GDPR Compliance	}		
+    As a student, the system must store all my project data securely and be GDPR-compliant.
+    
+    \item	\textbf{	NFR4	}	-	\textbf{	S	}	-	\textbf{	Response Time Performance	}		
+    As a student, the system should render my Gantt chart and respond to my interactions within 2 seconds (for projects with up to 100 tasks) so that I can work efficiently without frustrating delays that discourage regular use.
+    
+    \item	\textbf{	NFR5	}	-	\textbf{	S	}	-	\textbf{	Intuitive User Interface	}		
+    As a student, the system should provide a clear, intuitive interface that I can use effectively without extensive training so that I can focus on planning my dissertation rather than learning how to use the tool.
+    
+    \item	\textbf{	NFR6	}	-	\textbf{	S	}	-	\textbf{	Mobile-Friendly Responsive Design	}		 
+    As a student, the system should adapt its interface for my tablet and mobile devices so that I can view and ideally edit my project plan while away from my computer.
+    
+    \item	\textbf{	NFR7	}	-	\textbf{	C	}	-	\textbf{	Accessibility Compliance	}		
+    As a student with disabilities, the system could meet WCAG 2.1 Level AA accessibility standards with keyboard navigation, screen reader support, and sufficient color contrast so that I can use the tool effectively regardless of my accessibility needs.
+    
+    \item	\textbf{	NFR8	}	-	\textbf{	C	}	-	\textbf{	Scalability for Multiple Concurrent Users	}		
+    As a student, the system could support at least 200 concurrent users without performance degradation so that I can access my Gantt chart reliably even during peak usage periods like the start of semester or project deadlines.
+
 \end{itemize}
 
-\begin{itemize}
-    \item Integration with HWU Project Management System
-\end{itemize}
 
-\begin{itemize}
-    \item Guided Task Creation Interface
-\end{itemize}
+
 
 % break down functional non-function requirements, by user stories then by MOSCW prioritisation, must - creating data representing data guiding student - should making the gantt interactivitty adjust to timings, export gantt as png or jpeg - should, could - kanban board display, as a student it should tell the user if they are late or early, creating of 
 
