@@ -39,12 +39,29 @@
 
 % Acknowledgements
 \acknowledgements{
-Acknowledgements text.
+I am profoundly grateful to express my sincere appreciation to all those who have contributed to the successful completion of this dissertation.
+
+First and foremost, I would like to express my deepest gratitude to my supervisor, Dr Pierre Le Bras, for his exceptional guidance and unwavering support throughout this research endeavour. His weekly meeting check-ups, insightful feedback, and constant encouragement have been instrumental in shaping and refining this work. Dr Le Bras's understanding nature, patience, and dedication to academic excellence have been a source of motivation, enabling me to navigate through the challenges encountered along the way.
+
+I extend my heartfelt appreciation to Dr Kayvan Karim for setting aside his valuable time to support this project. His extraordinary patience and willingness to explain the intricacies of the backend architecture of the current Heriot-Watt University project system have been invaluable. Dr Karim's understanding approach, technical expertise, and thoughtful feedback have been crucial to the feasibility and implementation aspects of this research.
+
+I would like to express my sincere thanks to Dr Richmond M. O. Davies for providing guidance and feedback on the overall dissertation. His helpful improvements and insightful contributions have significantly enhanced the quality of this work.
+
+I am deeply grateful to Sarrah "Saly" Citro\"en for her invaluable assistance with travel arrangements between campus and home. Her help in managing timekeeping and coordinating transportation to the university campus has enabled me to focus on my research and maintain productivity throughout this demanding period.
+
+Finally, I extend my appreciation to Heriot-Watt University and the School of Mathematical and Computer Sciences for providing the conducive learning environment and extensive resources that have been indispensable throughout this academic journey.
+
+Thank you all for your support and belief in this project.
 }
 
 % Abstract
 \abstract{
-Abstract text.
+Project management is critical for students in higher education, particularly those undertaking substantial individual projects such as honours dissertations. Despite the widespread adoption of Gantt charts as the fourth most used project management tool among professionals, their application in individual student dissertation contexts remains underexplored in academic literature. This dissertation investigates the development of an Interactive Gantt Chart Builder specifically designed for honours project students at Heriot-Watt University. The primary objective is to design, develop, and evaluate an interactive web-based tool that guides students through creating comprehensive project plans whilst offering supervisors visibility into student progress and planning quality.
+% TODO: citation doesnt work here no clue why
+
+The research methodology combines systematic requirement analysis using MoSCoW prioritisation, identifying 22 functional and 7 non-functional requirements organised as user stories, with comprehensive background research examining Gantt chart design principles, project management methodologies, and interactive visualisation techniques in educational contexts. The proposed system will be implemented using ASP.NET MVC framework with Entity Framework and SQLite, integrating D3.js for interactive visualisation capabilities that enable drag-and-drop interactions and dynamic chart rendering.
+
+The evaluation methodology combines system testing to validate functional correctness with user-centred usability evaluation employing the System Usability Scale (SUS) and task-based assessment with honours students. This research addresses genuine challenges faced by students managing extended individual projects, including the psychological barriers to maintaining detailed project schedules and the tension between planning effort and adaptive flexibility. The findings will contribute to understanding how interactive project management tools can effectively support individual academic projects whilst developing students' project management competencies.
 }
 
 \input{hwu_template/contents}
@@ -383,13 +400,22 @@ While the existing honours project system architecture uses CHTML, there are no 
 
 \subsection{Tools}
 
+% referacne asp
 The system will be implemented using ASP.NET MVC framework with Entity Framework for database operations. SQLite will serve as the database solution. The frontend will use standard HTML and JavaScript, with D3.js providing interactive visualisation capabilities for drag-and-drop interactions and dynamic chart rendering. 
 
 \subsection{Interface Mock-ups}
 
 Preliminary interface mock-ups were created using D3.js to visualise the layout and interaction flow of the Gantt chart builder, drawing inspiration from examples in Data Visualisation Resources and The Chartmaker Directory \cite{visualisingdata_resources, chartmaker_directory}.
 
-The mock-up matches the current HWU honours project system's visual style, ensuring consistency. It illustrates the user workflow from project setup through task definition to timeline interaction, demonstrating how visual elements such as milestones (amber diamonds) and tasks (coloured horizontal bars) may appear in the final implementation.\section{Conclusion} \label{cha:conclusion}
+The mock-up matches the current HWU honours project system's visual style, ensuring consistency. It illustrates the user workflow from project setup through task definition to timeline interaction, demonstrating how visual elements such as milestones (amber diamonds) and tasks (coloured horizontal bars) may appear in the final implementation.
+
+\subsection{Limitations and Risks}
+
+The primary limitations of this project relate to scope and evaluation constraints. The system will focus exclusively on individual honours project management, with collaborative features and advanced dependency types (Start-to-Start, Finish-to-Finish) deferred to future development. The evaluation will be conducted with a limited sample of honours students within a single academic cycle, which may not capture long-term usability patterns or the full range of dissertation project types.
+
+Technical risks are minimal given the use of established technologies (ASP.NET MVC, Entity Framework, D3.js) and straightforward integration with existing HWU infrastructure. The main implementation risk involves ensuring the interactive visualisation performs adequately with complex project schedules containing numerous tasks and dependencies, though preliminary testing with D3.js mock-ups suggests this is manageable within the specified performance requirements (NFR3).
+
+\section{Conclusion} \label{cha:conclusion}
 
 This report establishes the foundation for developing an Interactive Gantt Chart Builder specifically designed for honours project students at Heriot-Watt University. The background research demonstrates that whilst Gantt charts rank as the fourth most widely used project management tool among professionals \cite{besner_2008}, their application in individual student dissertation contexts remains underexplored in academic literature.
 
@@ -398,6 +424,7 @@ The proposed system addresses genuine challenges faced by students managing subs
 The feasibility analysis confirms technical viability through ASP.NET MVC framework with Entity Framework and SQLite, ensuring seamless integration with HWU's existing infrastructure. The evaluation methodology combines system testing \cite{geeksforgeeks_unit_vs_system_testing} to validate functional correctness with user-centred usability evaluation \cite{brooke_1995} to assess practical utility, ensuring the system effectively supports students in planning and managing their honours projects.
 
 Future work will focus on system implementation, comprehensive testing, and rigorous usability evaluation with honours students and supervisors to assess the tool's effectiveness in supporting successful dissertation project completion.
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BACK MATTER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

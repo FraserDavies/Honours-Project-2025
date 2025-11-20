@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  20 NOV 2025 00:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  20 NOV 2025 01:24
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1059,7 +1059,7 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 14.4pt on input line 12.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 14.4pt on input line 13.
-<images/hwcoa_bw.jpg, id=122, 61.6704pt x 65.5248pt>
+<images/hwcoa_bw.jpg, id=126, 61.6704pt x 65.5248pt>
 File: images/hwcoa_bw.jpg Graphic file (type jpg)
 <use images/hwcoa_bw.jpg>
 Package pdftex.def Info: images/hwcoa_bw.jpg  used on input line 22.
@@ -1256,7 +1256,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 [5.6{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_afusau.enc}])
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 60.
+(Font)              scaled to size 14.4pt on input line 77.
 
 Underfull \vbox (badness 1895) has occurred while \output is active []
 
@@ -1272,7 +1272,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 ]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/sc' will be
-(Font)              scaled to size 10.0pt on input line 120.
+(Font)              scaled to size 10.0pt on input line 137.
  [2.8{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_omcwp2.enc}]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1308,7 +1308,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 [7.13]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 218.
+(Font)              scaled to size 12.0pt on input line 235.
 
 Underfull \vbox (badness 1009) has occurred while \output is active []
 
@@ -1335,7 +1335,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
 [11.17]
-Overfull \hbox (6.17804pt too wide) in paragraph at lines 362--363
+Overfull \hbox (6.17804pt too wide) in paragraph at lines 379--380
 []\T1/LinuxLibertineT-TLF/m/n/12 (-20) Qualitative feed-back will be gath-ered through post-task ques-tion-naires and semi-structured
  []
 
@@ -1343,9 +1343,6 @@ Overfull \hbox (6.17804pt too wide) in paragraph at lines 362--363
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [12.18]
-Underfull \vbox (badness 1430) has occurred while \output is active []
-
-
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1414,26 +1411,26 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
 [17.23]
-<images/Log in Use Case Diagram.png, id=480, 691.383pt x 392.667pt>
+<images/Log in Use Case Diagram.png, id=486, 691.383pt x 392.667pt>
 File: images/Log in Use Case Diagram.png Graphic file (type png)
 <use images/Log in Use Case Diagram.png>
-Package pdftex.def Info: images/Log in Use Case Diagram.png  used on input line 421.
+Package pdftex.def Info: images/Log in Use Case Diagram.png  used on input line 448.
 (pdftex.def)             Requested size: 435.50787pt x 247.34557pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 421--422
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 448--449
  [][] 
  []
 
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 10.95pt on input line 424.
+(Font)              scaled to size 10.95pt on input line 451.
 [18.24 <./images/Log in Use Case Diagram.png>]
-<images/Create and Manage Gantt Chart Use Case Diagram.png, id=488, 671.50874pt x 515.526pt>
+<images/Create and Manage Gantt Chart Use Case Diagram.png, id=494, 671.50874pt x 515.526pt>
 File: images/Create and Manage Gantt Chart Use Case Diagram.png Graphic file (type png)
 <use images/Create and Manage Gantt Chart Use Case Diagram.png>
-Package pdftex.def Info: images/Create and Manage Gantt Chart Use Case Diagram.png  used on input line 435.
+Package pdftex.def Info: images/Create and Manage Gantt Chart Use Case Diagram.png  used on input line 462.
 (pdftex.def)             Requested size: 435.50787pt x 334.3485pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 435--436
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 462--463
  [][] 
  []
 
@@ -1447,13 +1444,13 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [19.25
 
  <./images/Create and Manage Gantt Chart Use Case Diagram.png>]
-<images/Mock-ups.png, id=495, 1155.1155pt x 684.75826pt>
+<images/Mock-ups.png, id=501, 1155.1155pt x 684.75826pt>
 File: images/Mock-ups.png Graphic file (type png)
 <use images/Mock-ups.png>
-Package pdftex.def Info: images/Mock-ups.png  used on input line 450.
+Package pdftex.def Info: images/Mock-ups.png  used on input line 477.
 (pdftex.def)             Requested size: 435.50787pt x 258.17337pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 450--451
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 477--478
  [][] 
  []
 
@@ -1477,20 +1474,20 @@ LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
  ***********
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 4DADAE1CE0190F450AF4F1EAE8E7EC57;4447.
+(rerunfilecheck)             Checksum: 2528E497E5BAD935973AA532884ED5D4;4639.
  ) 
 Here is how much of TeX's memory you used:
- 26244 strings out of 467871
- 447199 string characters out of 5418375
+ 26246 strings out of 467871
+ 447229 string characters out of 5418375
  916782 words of memory out of 5000000
- 53921 multiletter control sequences out of 15000+600000
+ 53922 multiletter control sequences out of 15000+600000
  823971 words of font info for 447 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  90i,13n,131p,2239b,798s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinBiolinumT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTB.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txsys.pfb>
-Output written on main.pdf (27 pages, 681212 bytes).
+Output written on main.pdf (27 pages, 686504 bytes).
 PDF statistics:
- 568 PDF objects out of 1000 (max. 8388607)
- 113 named destinations out of 1000 (max. 500000)
- 108813 words of extra memory for PDF output out of 128383 (max. 10000000)
+ 574 PDF objects out of 1000 (max. 8388607)
+ 114 named destinations out of 1000 (max. 500000)
+ 108821 words of extra memory for PDF output out of 128383 (max. 10000000)
 
