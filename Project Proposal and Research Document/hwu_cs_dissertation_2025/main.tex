@@ -45,7 +45,7 @@ First and foremost, I would like to express my deepest gratitude to my superviso
 
 I extend my heartfelt appreciation to Dr Kayvan Karim for setting aside his valuable time to support this project. His extraordinary patience and willingness to explain the intricacies of the backend architecture of the current Heriot-Watt University project system have been invaluable. Dr Karim's understanding approach, technical expertise, and thoughtful feedback have been crucial to the feasibility and implementation aspects of this research.
 
-I would like to express my sincere thanks to Dr Richmond M. O. Davies for providing guidance and feedback on the overall dissertation. His helpful improvements and insightful contributions have significantly enhanced the quality of this work.
+I would like to express my sincere thanks to Dr Richmond Davies for providing guidance and feedback on the overall dissertation. His helpful improvements and insightful contributions have significantly enhanced the quality of this work.
 
 I am deeply grateful to Sarrah "Saly" Citro\"en for her invaluable assistance with travel arrangements between campus and home. Her help in managing timekeeping and coordinating transportation to the university campus has enabled me to focus on my research and maintain productivity throughout this demanding period.
 
@@ -56,7 +56,7 @@ Thank you all for your support and belief in this project.
 
 % Abstract
 \abstract{
-Project management is critical for students in higher education, particularly those undertaking substantial individual projects such as honours dissertations. Despite the widespread adoption of Gantt charts as the fourth most used project management tool among professionals, their application in individual student dissertation contexts remains underexplored in academic literature. This dissertation investigates the development of an Interactive Gantt Chart Builder specifically designed for honours project students at Heriot-Watt University. The primary objective is to design, develop, and evaluate an interactive web-based tool that guides students through creating comprehensive project plans whilst offering supervisors visibility into student progress and planning quality.
+Project management is critical for students in higher education, particularly those undertaking substantial individual projects such as honours dissertations. Despite the widespread adoption of Gantt charts as the fourth most used project management tool among professionals\cite{besner_2008}, their application in individual student dissertation contexts remains underexplored in academic literature. This dissertation investigates the development of an Interactive Gantt Chart Builder specifically designed for honours project students at Heriot-Watt University. The primary objective is to design, develop, and evaluate an interactive web-based tool that guides students through creating comprehensive project plans whilst offering supervisors visibility into student progress and planning quality.
 % TODO: citation doesnt work here no clue why
 
 The research methodology combines systematic requirement analysis using MoSCoW prioritisation, identifying 22 functional and 7 non-functional requirements organised as user stories, with comprehensive background research examining Gantt chart design principles, project management methodologies, and interactive visualisation techniques in educational contexts. The proposed system will be implemented using ASP.NET MVC framework with Entity Framework and SQLite, integrating D3.js for interactive visualisation capabilities that enable drag-and-drop interactions and dynamic chart rendering.
@@ -206,7 +206,7 @@ The primary stakeholders for Interactive Gantt Chart Builder include:
     \item \textbf{HWU Project Database:} The external system storing student project information, supervisor assignments, and submission records. Bidirectional data synchronisation ensures consistency across the project management ecosystem.
 \end{itemize}
 
-Figure \ref{fig:Use_Case_Diagram_Create_and_Manage_Gantt_Chart} in the appendix illustrates the primary use cases for the Interactive Gantt Chart Builder system, organised around the key functional areas identified in the requirements analysis. The use case diagram employs standard UML notation to represent actors, use cases, and their relationships, providing a visual representation of system functionality from the users' perspective.
+Use cases are availible in the appendix \cref{cha:use_case_diagram}. Figure \ref{fig:Use_Case_Diagram_Create_and_Manage_Gantt_Chart} in the appendix illustrates the primary use cases for the Interactive Gantt Chart Builder system, organised around the key functional areas identified in the requirements analysis. The use case diagram employs standard UML notation to represent actors, use cases, and their relationships, providing a visual representation of system functionality from the users' perspective.
 
 
 \begin{itemize}
@@ -421,7 +421,7 @@ This report establishes the foundation for developing an Interactive Gantt Chart
 
 The proposed system addresses genuine challenges faced by students managing substantial individual projects over extended periods \cite{Shives2015}. Through systematic requirement analysis using MoSCoW prioritisation \cite{moscow_method_2020}, this research has identified 22 functional and 7 non-functional requirements organised as user stories \cite{cohn_user_2009}. These encompass core capabilities including project data management, task dependencies, interactive D3.js-based visualisation \cite{geeksforgeeks_d3js_2025}, progress tracking, and supervisor access.
 
-The feasibility analysis confirms technical viability through ASP.NET MVC framework with Entity Framework and SQLite, ensuring seamless integration with HWU's existing infrastructure. The evaluation methodology combines system testing \cite{geeksforgeeks_unit_vs_system_testing} to validate functional correctness with user-centred usability evaluation \cite{brooke_1995} to assess practical utility, ensuring the system effectively supports students in planning and managing their honours projects.
+The feasibility analysis confirms technical viability through ASP.NET MVC framework with Entity Framework and SQLite, ensuring seamless integration with HWU's existing infrastructure. The evaluation methodology combines system testing \cite{geeksforgeeks_unit_vs_system_testing} to validate functional correctness with user-centred usability evaluation \cite{brooke_1995} to assess practical utility, ensuring the system effectively supports students in planning and managing their honours projects. Collectively, these strategies establish a robust framework for achieving the seven objectives defined in \cref{sec:intro_aim}.
 
 Future work will focus on system implementation, comprehensive testing, and rigorous usability evaluation with honours students and supervisors to assess the tool's effectiveness in supporting successful dissertation project completion.
 
@@ -516,20 +516,20 @@ Future work will focus on system implementation, comprehensive testing, and rigo
         \hline
         Initial Supervisor Meeting & 22 Sep 2025 \\
         \hline
-        Literature Search & 25 Sep -- 09 Oct \\
+        Literature Search & 25 Sep - 09 Oct \\
         \hline
-        Draft Ethics Application & 10 Oct -- 20 Oct \\
+        Draft Ethics Application & 10 Oct - 20 Oct \\
         \hline
         \textbf{Ethics Submission (Deadline)} & \textbf{24 Oct 2025} \\
         \hline
         
         \multicolumn{2}{|l|}{\textit{\textbf{Semester 1: First Deliverables}}} \\
         \hline
-        Draft Introduction (D1) & 27 Oct -- 06 Nov \\
+        Draft Introduction (D1) & 27 Oct - 06 Nov \\
         \hline
-        Draft Lit Review (D2) & 30 Oct -- 13 Nov \\
+        Draft Lit Review (D2) & 30 Oct - 13 Nov \\
         \hline
-        Review Drafts & 15 Nov -- 19 Nov \\
+        Review Drafts & 15 Nov - 19 Nov \\
         \hline
         \textbf{First Deliverables (D1/D2) (Deadline)} & \textbf{20 Nov 2025} \\
         \hline
@@ -624,7 +624,7 @@ The development and evaluation of the Interactive Gantt Chart Builder addresses 
 \section{Generative AI}
 
 % Rest of appendices...
-Generative artificial intelligence tools were used during the preparation of this dissertation to assist with literature search and reference discovery, and to support writing quality through spelling, grammar, punctuation, and sentence structure improvements. All references identified through AI assistance were systematically verified by hand to ensure legitimacy, relevance, and that cited content accurately supported the claims made. Generative AI functioned solely as a supportive tool rather than a generator of primary content or ideas.
+Generative artificial intelligence tools were used during the preparation of this dissertation to assist with literature search and reference discovery, and to support writing quality through spelling, grammar, punctuation, and sentence structure improvements. Generative AI was also used in troubleshooting isues with text editors such as LaTex in the creation of this document. All references identified through AI assistance were systematically verified by hand to ensure legitimacy, relevance, and that cited content accurately supported the claims made. Generative AI functioned solely as a supportive tool rather than a generator of primary content or ideas.
 
 
 
