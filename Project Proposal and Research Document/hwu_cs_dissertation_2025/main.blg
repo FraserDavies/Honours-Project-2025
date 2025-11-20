@@ -8,6 +8,12 @@ Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'wiz_functions' (item size: 4) to 6000 items.
 Database file #1: references.bib
+Warning--entry type for "Data_Protection_Act_2018" isn't style-file defined
+--line 604 of file references.bib
+Warning--entry type for "EU_GDPR_2016" isn't style-file defined
+--line 612 of file references.bib
+Warning--entry type for "Equality_Act_2010" isn't style-file defined
+--line 629 of file references.bib
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
 Reallocating 'glb_str_end' (item size: 4) to 20 items.
@@ -28,45 +34,45 @@ Warning--page numbers missing in both pages and numpages fields in hassen_use_20
 Warning--empty address in myers_2012
 Warning--empty year in tacticalpm_fs_dependency
 Warning--using n.d. in tacticalpm_fs_dependency
-You've used 43 entries,
+You've used 49 entries,
             6273 wiz_defined-function locations,
-            1789 strings with 26888 characters,
-and the built_in function-call counts, 37853 in all, are:
-= -- 4771
-> -- 1011
+            1825 strings with 27942 characters,
+and the built_in function-call counts, 42318 in all, are:
+= -- 5265
+> -- 1135
 < -- 0
-+ -- 308
-- -- 441
-* -- 2356
-:= -- 3848
-add.period$ -- 236
-call.type$ -- 43
-change.case$ -- 244
-chr.to.int$ -- 41
-cite$ -- 57
-duplicate$ -- 3390
-empty$ -- 2421
-format.name$ -- 453
-if$ -- 8851
++ -- 341
+- -- 488
+* -- 2628
+:= -- 4322
+add.period$ -- 266
+call.type$ -- 49
+change.case$ -- 277
+chr.to.int$ -- 47
+cite$ -- 63
+duplicate$ -- 3801
+empty$ -- 2718
+format.name$ -- 504
+if$ -- 9822
 int.to.chr$ -- 4
 int.to.str$ -- 1
 missing$ -- 64
-newline$ -- 480
-num.names$ -- 303
-pop$ -- 1208
+newline$ -- 557
+num.names$ -- 345
+pop$ -- 1342
 preamble$ -- 1
-purify$ -- 563
+purify$ -- 644
 quote$ -- 0
-skip$ -- 1323
+skip$ -- 1507
 stack$ -- 0
-substring$ -- 2728
-swap$ -- 279
+substring$ -- 3042
+swap$ -- 307
 text.length$ -- 76
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1108
+type$ -- 1288
 warning$ -- 14
-while$ -- 308
+while$ -- 346
 width$ -- 0
-write$ -- 922
-(There were 14 warnings)
+write$ -- 1054
+(There were 17 warnings)

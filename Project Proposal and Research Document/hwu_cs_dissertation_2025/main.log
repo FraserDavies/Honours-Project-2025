@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  20 NOV 2025 01:24
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  20 NOV 2025 05:23
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -813,7 +813,7 @@ Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PDF
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
-))) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+)) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
 Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \col@sep=\dimen272
 \ar@mcellbox=\box66
@@ -822,15 +822,24 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \extratabsurround=\skip89
 \backup@length=\skip90
 \ar@cellbox=\box67
+)) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+\TX@col@width=\dimen274
+\TX@old@table=\dimen275
+\TX@old@col=\dimen276
+\TX@target=\dimen277
+\TX@delta=\dimen278
+\TX@cols=\count356
+\TX@ftn=\toks44
 ) (hwu_template/format.tex
 Package hyperref Info: Option `colorlinks' set `true' on input line 67.
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 25.
 Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 25.
-\c@theorem=\count356
+\c@theorem=\count357
  Include comment 'screenonly' Excluding comment 'printonly' Include comment 'anonsuppress' (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count357
+\l__color_backend_stack_int=\count358
 )
 
 LaTeX Warning: Unused global option(s):
@@ -983,17 +992,17 @@ Package hyperref Info: Link coloring ON on input line 25.
 
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count358
-\scratchdimen=\dimen274
+\scratchcounter=\count359
+\scratchdimen=\dimen279
 \scratchbox=\box68
-\nofMPsegments=\count359
-\nofMParguments=\count360
-\everyMPshowfont=\toks44
-\MPscratchCnt=\count361
-\MPscratchDim=\dimen275
-\MPnumerator=\count362
-\makeMPintoPDFobject=\count363
-\everyMPtoPDFconversion=\toks45
+\nofMPsegments=\count360
+\nofMParguments=\count361
+\everyMPshowfont=\toks45
+\MPscratchCnt=\count362
+\MPscratchDim=\dimen280
+\MPnumerator=\count363
+\makeMPintoPDFobject=\count364
+\everyMPtoPDFconversion=\toks46
 ) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -1034,8 +1043,8 @@ File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@mv@tabular=\count364
-\c@mv@boldtabular=\count365
+\c@mv@tabular=\count365
+\c@mv@boldtabular=\count366
 (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/upquote\upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
 )
@@ -1043,7 +1052,7 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count366
+\c@lstlisting=\count367
  (hwu_template/titlepage.tex
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 24.88pt on input line 7.
@@ -1369,8 +1378,10 @@ Underfull \hbox (badness 10000) in paragraph at lines 107--116
 \T1/LinuxLibertineT-TLF/m/n/10 (+20) or con-tex-tual: A re-al-ity check.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Project Man-age-ment Jour-nal \T1/LinuxLibertineT-TLF/m/n/10 (+20) 39, 1 (2008), 16--33.
  []
 
-LaTeX Info: Redefining \tempurl on input line 202.
-LaTeX Info: Redefining \tempurl on input line 217.
+LaTeX Info: Redefining \tempurl on input line 126.
+LaTeX Info: Redefining \tempurl on input line 191.
+LaTeX Info: Redefining \tempurl on input line 232.
+LaTeX Info: Redefining \tempurl on input line 247.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1383,26 +1394,31 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
 [15.21]
-LaTeX Info: Redefining \tempurl on input line 369.
-LaTeX Info: Redefining \tempurl on input line 410.
-LaTeX Info: Redefining \tempurl on input line 487.
+LaTeX Info: Redefining \tempurl on input line 296.
+LaTeX Info: Redefining \tempurl on input line 310.
+LaTeX Info: Redefining \tempurl on input line 379.
+LaTeX Info: Redefining \tempurl on input line 440.
+LaTeX Info: Redefining \tempurl on input line 479.
+LaTeX Info: Redefining \tempurl on input line 495.
+LaTeX Info: Redefining \tempurl on input line 572.
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--492
+Underfull \hbox (badness 10000) in paragraph at lines 566--577
 []\T1/LinuxLibertineT-TLF/m/n/10 (+20) Katie Shives. 2015.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Us-ing Project Man-age-ment Ap-proaches to Tame Your Dis-ser-ta-tion\T1/LinuxLibertineT-TLF/m/n/10 (+20) .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 481--492
+Underfull \hbox (badness 10000) in paragraph at lines 566--577
 [][]$\T1/LinuxLibertineT-TLF/m/n/10 (+20) https : / / www . insidehighered . com / blogs / gradhacker / using -[] project -[] management -[] approaches -[] tame -[]
  []
 
-LaTeX Info: Redefining \tempurl on input line 501.
-LaTeX Info: Redefining \tempurl on input line 527.
-LaTeX Info: Redefining \tempurl on input line 554.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [16.22]))
+ [16.22]
+LaTeX Info: Redefining \tempurl on input line 586.
+LaTeX Info: Redefining \tempurl on input line 612.
+LaTeX Info: Redefining \tempurl on input line 639.
+))
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1411,7 +1427,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
 [17.23]
-<images/Log in Use Case Diagram.png, id=486, 691.383pt x 392.667pt>
+<images/Log in Use Case Diagram.png, id=499, 691.383pt x 392.667pt>
 File: images/Log in Use Case Diagram.png Graphic file (type png)
 <use images/Log in Use Case Diagram.png>
 Package pdftex.def Info: images/Log in Use Case Diagram.png  used on input line 448.
@@ -1424,7 +1440,7 @@ Overfull \hbox (6.79999pt too wide) in paragraph at lines 448--449
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
 (Font)              scaled to size 10.95pt on input line 451.
 [18.24 <./images/Log in Use Case Diagram.png>]
-<images/Create and Manage Gantt Chart Use Case Diagram.png, id=494, 671.50874pt x 515.526pt>
+<images/Create and Manage Gantt Chart Use Case Diagram.png, id=507, 671.50874pt x 515.526pt>
 File: images/Create and Manage Gantt Chart Use Case Diagram.png Graphic file (type png)
 <use images/Create and Manage Gantt Chart Use Case Diagram.png>
 Package pdftex.def Info: images/Create and Manage Gantt Chart Use Case Diagram.png  used on input line 462.
@@ -1444,7 +1460,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 [19.25
 
  <./images/Create and Manage Gantt Chart Use Case Diagram.png>]
-<images/Mock-ups.png, id=501, 1155.1155pt x 684.75826pt>
+<images/Mock-ups.png, id=514, 1155.1155pt x 684.75826pt>
 File: images/Mock-ups.png Graphic file (type png)
 <use images/Mock-ups.png>
 Package pdftex.def Info: images/Mock-ups.png  used on input line 477.
@@ -1455,6 +1471,18 @@ Overfull \hbox (6.79999pt too wide) in paragraph at lines 477--478
  []
 
 [20.26 <./images/Mock-ups.png>]
+<images/Gantt Chart.png, id=521, 3083.52pt x 1646.15pt>
+File: images/Gantt Chart.png Graphic file (type png)
+<use images/Gantt Chart.png>
+Package pdftex.def Info: images/Gantt Chart.png  used on input line 494.
+(pdftex.def)             Requested size: 435.50787pt x 232.494pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 494--495
+ [][] 
+ []
+
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 10.95pt on input line 505.
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1462,11 +1490,31 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-(C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-pdfdoc.def
+[21.27
+
+ <./images/Gantt Chart.png>]
+Underfull \hbox (badness 10000) in paragraph at lines 599--599
+[]|\T1/LinuxLibertineT-TLF/m/n/10.95 (+20) Usability Eval-u-a-tion
+ []
+
+
+Underfull \hbox (badness 3701) in paragraph at lines 599--599
+[]|\T1/LinuxLibertineT-TLF/m/n/10.95 (+20) Requirements clearly doc-u-mented and pri-ori-tised.
+ []
+
+[22.28{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_ki75ao.enc}]
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[23.29] (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) [21.27
+) [24.30
 
 ] (main.aux)
  ***********
@@ -1477,17 +1525,17 @@ Package rerunfilecheck Info: File `main.out' has not changed.
 (rerunfilecheck)             Checksum: 2528E497E5BAD935973AA532884ED5D4;4639.
  ) 
 Here is how much of TeX's memory you used:
- 26246 strings out of 467871
- 447229 string characters out of 5418375
- 916782 words of memory out of 5000000
- 53922 multiletter control sequences out of 15000+600000
- 823971 words of font info for 447 fonts, out of 8000000 for 9000
+ 26519 strings out of 467871
+ 453205 string characters out of 5418375
+ 915782 words of memory out of 5000000
+ 54079 multiletter control sequences out of 15000+600000
+ 867010 words of font info for 534 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 90i,13n,131p,2239b,798s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinBiolinumT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTB.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txsys.pfb>
-Output written on main.pdf (27 pages, 686504 bytes).
+ 90i,13n,131p,2239b,800s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinBiolinumT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTB.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTBI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txsys.pfb>
+Output written on main.pdf (30 pages, 991763 bytes).
 PDF statistics:
- 574 PDF objects out of 1000 (max. 8388607)
- 114 named destinations out of 1000 (max. 500000)
- 108821 words of extra memory for PDF output out of 128383 (max. 10000000)
+ 619 PDF objects out of 1000 (max. 8388607)
+ 126 named destinations out of 1000 (max. 500000)
+ 129306 words of extra memory for PDF output out of 154059 (max. 10000000)
 
