@@ -119,7 +119,6 @@ body {
 
 .card-header h1 {
     color: var(--text-primary);
-    font-size: 26px;
     font-weight: 600;
     margin-bottom: 0.5rem;
 }
@@ -130,9 +129,13 @@ body {
     font-weight: 300;
 }
 
-.card-body {
-    padding: 2.5rem 2rem;
+.card-header p i {
+    color: var(--text-secondary);
 }
+
+/* .card-body {
+    padding: 2.5rem 2rem;
+} */
 
 /* ========================================
    6. FORMS

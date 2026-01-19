@@ -117,8 +117,8 @@ function hideMessage() {
 // Set loading state
 function setLoading(loading) {
     loginBtn.disabled = loading;
-    btnText.style.display = loading ? 'none' : 'inline';
-    btnSpinner.style.display = loading ? 'block' : 'none';
+    btnText.hidden = loading;
+    btnSpinner.hidden = !loading;
 }
 
 // Allow Enter key to submit
