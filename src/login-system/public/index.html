@@ -19,9 +19,14 @@
         <div class="header-container">
             <div class="header-logo">
                 <a href="https://www.hw.ac.uk/">
-                    <img src="https://www.hw.ac.uk/legacy/img/logos/global-logo-blue.svg" alt="Heriot-Watt University" height="50">
+                    <img src="https://www.hw.ac.uk/legacy/img/logos/global-logo-blue.svg" alt="Heriot-Watt University" height="50px">
                 </a>
-                <span class="header-title">Gantt Chart Builder</span>
+            </div>
+
+            <!-- User Greeting (shown when logged in) -->
+            <div class="header-user" id="headerUser" style="display: none;">
+                <span class="user-greeting">Hello <span id="headerUserName"></span></span>
+                <a href="#" class="sign-out-link" id="headerSignOut">Sign out</a>
             </div>
         </div>
     </header>
@@ -106,7 +111,8 @@
     <footer class="footer">
         <p>Gantt Chart Builder - Honours Project System</p>
         <p>Developed in Department of Computer Science, School of Mathematical and Computer Sciences</p>
-        <p>Heriot-Watt University © 2025</p>
+        <p>Heriot-Watt University</p>
+        <p>This is an adaptation of the real site <a href="https://projects.hw.ac.uk/">projects.hw.ac.uk</a> made by a student Fraser Davies (fd2010@hw.ac.uk) for a final year dissertation project</p>
     </footer>
 
     <!-- JavaScript -->
