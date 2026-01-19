@@ -1,0 +1,24 @@
+{
+  "name": "gantt-chart-builder",
+  "version": "1.0.0",
+  "description": "Interactive Gantt Chart Builder for Heriot-Watt University",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "setup-db": "node database/setup.js",
+    "dev": "node database/setup.js && node server.js"
+  },
+  "keywords": [
+    "gantt",
+    "chart",
+    "project-management",
+    "heriot-watt"
+  ],
+  "author": "Fraser Davies",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "sqlite3": "^5.0.2"
+  }
+}

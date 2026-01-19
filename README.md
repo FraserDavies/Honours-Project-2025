@@ -22,3 +22,9 @@ Current stakeholders: Kayvan Karim, Pierre Le Bras
 Database structure:
 projectId 
 
+# To run
+
+cd \Users\frase\Documents\GitHub\Honours-Project-2025\src\login-system
+(mihgt need to change the file path but it follows \Honours-Project-2025\src\login-system)
+npm run dev
+
