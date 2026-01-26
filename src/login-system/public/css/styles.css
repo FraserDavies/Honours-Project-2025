@@ -361,16 +361,63 @@ body {
     margin-bottom: 0.75rem;
 }
 
+.projects-section {
+    margin: 1rem 0;
+}
+
+.projects-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.75rem;
+}
+
+.projects-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
 .project-badge {
     display: inline-flex;
     align-items: center;
     gap: 0.375rem;
-    background: var(--bg-white);
-    color: var(--primary-color);
+    background: var(--bg-gray);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border-radius: 8px;
     font-size: 0.875rem;
     font-weight: 500;
+    transition: all 0.15s ease;
+}
+
+.project-badge:hover {
+    background: var(--bg-white);
+    border-color: var(--primary-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.project-badge svg {
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.project-badge .project-id {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.project-badge .project-name {
+    color: var(--text-primary);
+    font-weight: 400;
+}
+
+.no-projects {
+    color: var(--text-primary);
+    font-style: italic;
 }
 
 .divider {
@@ -380,7 +427,7 @@ body {
 }
 
 .dashboard-message {
-    color: var(--text-secondary);
+    color: var(--text-primary);
     margin-bottom: 1rem;
 }
 

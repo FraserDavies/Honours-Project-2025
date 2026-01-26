@@ -26,9 +26,9 @@ app.post('/api/login', (req, res) => {
     const { email } = req.body;
 
     if (!email) {
-        return res.status(400).json({ 
-            success: false, 
-            message: 'Email is required' 
+        return res.status(400).json({
+            success: false,
+            message: 'Email is required'
         });
     }
 
@@ -36,29 +36,43 @@ app.post('/api/login', (req, res) => {
     const normalisedEmail = email.toLowerCase().trim();
 
     db.get(
-        'SELECT student_id, email, name, project_id FROM students WHERE LOWER(email) = ?',
+        'SELECT student_id, email, name FROM students WHERE LOWER(email) = ?',
         [normalisedEmail],
         (err, row) => {
             if (err) {
                 console.error('Database error:', err);
-                return res.status(500).json({ 
-                    success: false, 
-                    message: 'Database error' 
+                return res.status(500).json({
+                    success: false,
+                    message: 'Database error'
                 });
             }
 
             if (row) {
-                // User found - successful login
-                res.json({
-                    success: true,
-                    message: 'Login successful',
-                    user: {
-                        student_id: row.student_id,
-                        email: row.email,
-                        name: row.name,
-                        project_id: row.project_id
+                // User found - now get their projects
+                db.all(
+                    'SELECT project_id, project_name, project_description FROM student_projects WHERE student_id = ? ORDER BY project_id',
+                    [row.student_id],
+                    (err, projects) => {
+                        if (err) {
+                            console.error('Database error fetching projects:', err);
+                            return res.status(500).json({
+                                success: false,
+                                message: 'Database error'
+                            });
+                        }
+
+                        res.json({
+                            success: true,
+                            message: 'Login successful',
+                            user: {
+                                student_id: row.student_id,
+                                email: row.email,
+                                name: row.name,
+                                projects: projects || []
+                            }
+                        });
                     }
-                });
+                );
             } else {
                 // User not found
                 res.status(401).json({
@@ -70,19 +84,37 @@ app.post('/api/login', (req, res) => {
     );
 });
 
-// Get user info endpoint (for session validation)
+// Get user info endpoint
 app.get('/api/user/:email', (req, res) => {
     const email = req.params.email.toLowerCase().trim();
 
     db.get(
-        'SELECT student_id, email, name, project_id FROM students WHERE LOWER(email) = ?',
+        'SELECT student_id, email, name FROM students WHERE LOWER(email) = ?',
         [email],
         (err, row) => {
             if (err) {
                 return res.status(500).json({ success: false, message: 'Database error' });
             }
             if (row) {
-                res.json({ success: true, user: row });
+                // Get user's projects
+                db.all(
+                    'SELECT project_id, project_name, project_description FROM student_projects WHERE student_id = ? ORDER BY project_id',
+                    [row.student_id],
+                    (err, projects) => {
+                        if (err) {
+                            return res.status(500).json({ success: false, message: 'Database error' });
+                        }
+                        res.json({
+                            success: true,
+                            user: {
+                                student_id: row.student_id,
+                                email: row.email,
+                                name: row.name,
+                                projects: projects || []
+                            }
+                        });
+                    }
+                );
             } else {
                 res.status(404).json({ success: false, message: 'User not found' });
             }

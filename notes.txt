@@ -255,3 +255,15 @@ title, author, date published, url, and give the date the information was access
 
 
 
+for wb 26/01/2026
+look inot using svg's to make the gantt chart
+using svgs to like have pixel values to then generate lines and such
+
+observablehq - to look for examples of using svg's to genrate gantt chartts
+
+- you can group elements, apply transformatons to the grous liek scaling roations etc
+
+- axis genrerators to generate the axis
+
+- d3 scales
+
