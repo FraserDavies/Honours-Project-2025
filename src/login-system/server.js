@@ -70,7 +70,7 @@ app.post('/api/login', (req, res) => {
     );
 });
 
-// Get user info endpoint (for session validation)
+// Get user info endpoint 
 app.get('/api/user/:email', (req, res) => {
     const email = req.params.email.toLowerCase().trim();
 

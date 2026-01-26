@@ -1,9 +1,10 @@
 // Database Setup Script for Gantt Chart Project
-// Run ts to create the SQLite database and tables
 
+// Create database connection
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 
+// Create db path
 const dbPath = path.join(__dirname, 'gantt.db');
 const db = new sqlite3.Database(dbPath);
 
