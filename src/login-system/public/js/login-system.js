@@ -71,10 +71,12 @@ loginForm.addEventListener('submit', async (e) => {
     }
 });
 
-// Handle logout from dashboard button
-logoutBtn.addEventListener('click', () => {
-    logout();
-});
+// Handle logout from dashboard button (if it exists)
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+        logout();
+    });
+}
 
 // Handle logout from header link
 headerSignOut.addEventListener('click', (e) => {
@@ -93,7 +95,25 @@ function showDashboard(user) {
     // Update dashboard content
     document.getElementById('userName').textContent = user.name;
     document.getElementById('userEmail').textContent = user.email;
-    document.getElementById('userProjectId').textContent = user.project_id;
+
+    // Display user's projects
+    const projectsContainer = document.getElementById('userProjects');
+    projectsContainer.innerHTML = '';
+
+    if (user.projects && user.projects.length > 0) {
+        user.projects.forEach(project => {
+            const projectBadge = document.createElement('div');
+            projectBadge.className = 'project-badge';
+            projectBadge.innerHTML = `
+                <span class="project-id">${project.project_id}</span>
+                
+                ${project.project_name ? `<span class="project-name"> ${project.project_name}</span>` : ''}
+            `;
+            projectsContainer.appendChild(projectBadge);
+        });
+    } else {
+        projectsContainer.innerHTML = '<p class="no-projects">No projects assigned</p>';
+    }
 
     // Get initials for avatar
     const initials = user.name
