@@ -9,7 +9,8 @@ const dbPath = path.join(__dirname, 'gantt.db');
 const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
-    // Drop existing tables to reset schema (for migration)
+    // Drop existing tables to reset schema (if they exist)
+    db.run(`DROP TABLE IF EXISTS dependencies`);
     db.run(`DROP TABLE IF EXISTS tasks`);
     db.run(`DROP TABLE IF EXISTS student_projects`);
     db.run(`DROP TABLE IF EXISTS students`);
@@ -55,6 +56,18 @@ db.serialize(() => {
         )
     `);
 
+    // Create dependencies table for task relationships
+    db.run(`
+        CREATE TABLE IF NOT EXISTS dependencies (
+            dependency_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            predecessor_task_id INTEGER NOT NULL,
+            successor_task_id INTEGER NOT NULL,
+            dependency_type TEXT NOT NULL DEFAULT 'finish-to-start',
+            FOREIGN KEY (predecessor_task_id) REFERENCES tasks(task_id),
+            FOREIGN KEY (successor_task_id) REFERENCES tasks(task_id)
+        )
+    `);
+
     // Sample students data
     const sampleStudents = [
         { email: 'fd2010@hw.ac.uk', name: 'Fraser Davies' },
@@ -75,15 +88,16 @@ db.serialize(() => {
     insertStudentStmt.finalize();
 
     // Sample project assignments (students can have multiple projects)
+    // todo: lowkenuinly ask if there should be a staff mode (boolean variable)
     const sampleProjectAssignments = [
         { email: 'fd2010@hw.ac.uk', project_id: 1001, project_name: 'Gantt Chart Builder', project_description: 'A web-based tool for creating and managing Gantt charts for project planning' },
         { email: 'fd2010@hw.ac.uk', project_id: 1002, project_name: 'AI Research Tool', project_description: 'Machine learning platform for academic research analysis' },
-        { email: 'fd2010@hw.ac.uk', project_id: 1003, project_name: 'Database Manager', project_description: 'SQLite database management and visualization tool' },
+        { email: 'fd2010@hw.ac.uk', project_id: 1003, project_name: 'Database Manager', project_description: 'SQLite database management and visualisation tool' },
         { email: 'test@hw.ac.uk', project_id: 1004, project_name: 'Test Project', project_description: 'A sample project for testing purposes' },
         { email: 'test@hw.ac.uk', project_id: 1005, project_name: 'Another Test', project_description: 'Secondary test project for validation' },
         { email: 'demo@hw.ac.uk', project_id: 1006, project_name: 'Demo Project', project_description: 'Demonstration project showcasing system features' },
-        { email: 'aa2212@hw.ac.uk', project_id: 1007, project_name: 'Aadham Project 1', project_description: 'First project assignment for Aadham' },
-        { email: 'aa2212@hw.ac.uk', project_id: 1008, project_name: 'Aadham Project 2', project_description: 'Second project assignment for Aadham' }
+        { email: 'aa2212@hw.ac.uk', project_id: 1007, project_name: 'Aadham Project 1', project_description: 'First project assignment' },
+        { email: 'aa2212@hw.ac.uk', project_id: 1008, project_name: 'Aadham Project 2', project_description: 'Second project assignment' }
     ];
 
     // Insert project assignments after getting student IDs
@@ -149,6 +163,32 @@ db.serialize(() => {
 
         insertTaskStmt.finalize();
 
+        //todo: lowkenuinly ask if dependency type is necessary since it's referenced in the dissertation
+        // Sample dependencies 
+        const sampleDependencies = [
+            { predecessor_task_id: 1, successor_task_id: 2, dependency_type: 'finish-to-start' },  
+            { predecessor_task_id: 2, successor_task_id: 3, dependency_type: 'finish-to-start' },    
+            { predecessor_task_id: 4, successor_task_id: 5, dependency_type: 'finish-to-start' },    
+            { predecessor_task_id: 3, successor_task_id: 6, dependency_type: 'finish-to-start' },    
+            { predecessor_task_id: 7, successor_task_id: 8, dependency_type: 'start-to-start' },     
+            { predecessor_task_id: 7, successor_task_id: 9, dependency_type: 'finish-to-start' },   
+            { predecessor_task_id: 8, successor_task_id: 9, dependency_type: 'finish-to-start' },   
+            { predecessor_task_id: 6, successor_task_id: 10, dependency_type: 'finish-to-start' },   
+            { predecessor_task_id: 10, successor_task_id: 11, dependency_type: 'finish-to-start' }   
+        ];
+
+
+        const insertDepStmt = db.prepare(`
+            INSERT INTO dependencies (predecessor_task_id, successor_task_id, dependency_type)
+            VALUES (?, ?, ?)
+        `);
+
+        sampleDependencies.forEach(dep => {
+            insertDepStmt.run(dep.predecessor_task_id, dep.successor_task_id, dep.dependency_type);
+        });
+
+        insertDepStmt.finalize();
+
         console.log('Le Database is setup!!!!!!!!');
         console.log(`Database file location: ${dbPath}`);
         console.log('\nStudents:');
@@ -184,7 +224,25 @@ db.serialize(() => {
                         return;
                     }
                     console.table(taskRows);
-                    db.close();
+
+                    console.log('\nDependencies:');
+                    db.all(`
+                        SELECT d.dependency_id,
+                               t1.task_name AS predecessor,
+                               t2.task_name AS successor,
+                               d.dependency_type
+                        FROM dependencies d
+                        JOIN tasks t1 ON d.predecessor_task_id = t1.task_id
+                        JOIN tasks t2 ON d.successor_task_id = t2.task_id
+                        ORDER BY d.dependency_id
+                    `, [], (err, depRows) => {
+                        if (err) {
+                            console.error(err);
+                            return;
+                        }
+                        console.table(depRows);
+                        db.close();
+                    });
                 });
             });
         });

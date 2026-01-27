@@ -122,6 +122,48 @@ app.get('/api/user/:email', (req, res) => {
     );
 });
 
+// Get tasks for a project
+app.get('/api/projects/:projectId/tasks', (req, res) => {
+    const projectId = req.params.projectId;
+
+    db.all(
+        `SELECT task_id, project_id, task_name, description, start_date, end_date, duration,
+                progress_percentage, is_milestone, parent_task_id, display_order
+         FROM tasks
+         WHERE project_id = ?
+         ORDER BY display_order`,
+        [projectId],
+        (err, tasks) => {
+            if (err) {
+                console.error('Database error fetching tasks:', err);
+                return res.status(500).json({ success: false, message: 'Database error' });
+            }
+            res.json({ success: true, tasks: tasks || [] });
+        }
+    );
+});
+
+// Get dependencies for a project's tasks
+app.get('/api/projects/:projectId/dependencies', (req, res) => {
+    const projectId = req.params.projectId;
+
+    db.all(
+        `SELECT d.dependency_id, d.predecessor_task_id, d.successor_task_id, d.dependency_type
+         FROM dependencies d
+         JOIN tasks t ON d.predecessor_task_id = t.task_id
+         WHERE t.project_id = ?
+         ORDER BY d.dependency_id`,
+        [projectId],
+        (err, dependencies) => {
+            if (err) {
+                console.error('Database error fetching dependencies:', err);
+                return res.status(500).json({ success: false, message: 'Database error' });
+            }
+            res.json({ success: true, dependencies: dependencies || [] });
+        }
+    );
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
