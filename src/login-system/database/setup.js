@@ -90,7 +90,7 @@ db.serialize(() => {
     // Sample project assignments (students can have multiple projects)
     // todo: lowkenuinly ask if there should be a staff mode (boolean variable)
     const sampleProjectAssignments = [
-        { email: 'fd2010@hw.ac.uk', project_id: 1001, project_name: 'Gantt Chart Builder', project_description: 'A web-based tool for creating and managing Gantt charts for project planning' },
+        { email: 'fd2010@hw.ac.uk', project_id: 1001, project_name: 'Interactive Gantt Chart Builder', project_description: 'This project will see the development, evaluation and integration of an interactive Gantt chart builder for the current HWU project system. Some of the requirements may include: - Build an interface that guides students in writing correct milestones, detailed tasks, task hierarchies, and dependencies. - Generate an interactive Gantt chart for students and supervisors to explore. - Provide an export functionality to include the chart or data in a documentation. - Provide functionalities for students and supervisors to reflect on the progress of a project and reevaluate goals if needed. - Evaluate the tool and its guidance feature with a user study. - Develop and integrate the tool within the existing technological stack on which the HWU project system is built. This project will require a willingness to organise and run meetings with stakeholders (current system developers, supervisors, students, etc.). You should also be proficient with web programming, data management, UI/UX and willing to develop bespoke interactive data visualisation systems.' },
         { email: 'fd2010@hw.ac.uk', project_id: 1002, project_name: 'AI Research Tool', project_description: 'Machine learning platform for academic research analysis' },
         { email: 'fd2010@hw.ac.uk', project_id: 1003, project_name: 'Database Manager', project_description: 'SQLite database management and visualisation tool' },
         { email: 'test@hw.ac.uk', project_id: 1004, project_name: 'Test Project', project_description: 'A sample project for testing purposes' },
@@ -202,7 +202,7 @@ db.serialize(() => {
 
             console.log('\nStudent Projects:');
             db.all(`
-                SELECT s.name, s.email, sp.project_id, sp.project_name, sp.project_description
+                SELECT s.name, s.email, sp.project_id, sp.project_name
                 FROM student_projects sp
                 JOIN students s ON sp.student_id = s.student_id
                 ORDER BY s.name, sp.project_id

@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3 Gantt Chart Builder</title>
+    
+    <!-- Load D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Google Fonts - Using distinctive typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ============================================
+           CSS Variables & Base Styles
+           ============================================ */
+        :root {
+            --color-bg: #fafafa;
+            --color-surface: #ffffff;
+            --color-border: #e2e8f0;
+            --color-border-light: #f1f5f9;
+            --color-text: #1e293b;
+            --color-text-muted: #64748b;
+            --color-primary: #3b82f6;
+            --color-primary-hover: #2563eb;
+            --color-accent: #10b981;
+            --color-warning: #f59e0b;
+            --color-milestone: #8b5cf6;
+            --color-weekend: #f8fafc;
+            --color-today: rgba(59, 130, 246, 0.1);
+            
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 8px 24px rgba(0,0,0,0.12);
+            
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            --transition: 150ms ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--color-bg);
+            color: var(--color-text);
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        /* ============================================
+           Header Styles
+           ============================================ */
+        .app-header {
+            background: var(--color-surface);
+            border-bottom: 1px solid var(--color-border);
+            padding: 16px 24px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .project-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-text);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .project-title::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--color-primary);
+            border-radius: 2px;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            font-family: var(--font-sans);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: var(--color-text);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .btn:hover {
+            background: var(--color-bg);
+            border-color: var(--color-text-muted);
+        }
+
+        .btn-primary {
+            background: var(--color-primary);
+            border-color: var(--color-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--color-primary-hover);
+            border-color: var(--color-primary-hover);
+        }
+
+        .btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        /* ============================================
+           Main Content & Gantt Container
+           ============================================ */
+        .main-content {
+            padding: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gantt-wrapper {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        .gantt-container {
+            display: flex;
+            overflow-x: auto;
+            overflow-y: visible;
+        }
+
+        /* ============================================
+           Task List Panel (Left Side)
+           ============================================ */
+        .task-list-panel {
+            min-width: 280px;
+            max-width: 280px;
+            border-right: 1px solid var(--color-border);
+            background: var(--color-surface);
+            flex-shrink: 0;
+            position: sticky;
+            left: 0;
+            z-index: 10;
+        }
+
+        .task-list-header {
+            padding: 12px 16px;
+            background: var(--color-bg);
+            border-bottom: 1px solid var(--color-border);
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--color-text-muted);
+        }
+
+        .task-list-item {
+            padding: 0 16px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid var(--color-border-light);
+            cursor: pointer;
+            transition: background var(--transition);
+        }
+
+        .task-list-item:hover {
+            background: var(--color-bg);
+        }
+
+        .task-list-item.selected {
+            background: var(--color-today);
+        }
+
+        .task-color-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .task-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            flex: 1;
+        }
+
+        .task-dates {
+            font-size: 0.7rem;
+            font-family: var(--font-mono);
+            color: var(--color-text-muted);
+            margin-left: 8px;
+        }
+
+        /* ============================================
+           Chart Panel (Right Side - SVG Area)
+           ============================================ */
+        .chart-panel {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .chart-svg {
+            display: block;
+        }
+
+        /* ============================================
+           D3/SVG Styles
+           ============================================ */
+        
+        /* Axis Styles */
+        .axis-x .domain {
+            stroke: var(--color-border);
+        }
+
+        .axis-x .tick line {
+            stroke: var(--color-border-light);
+        }
+
+        .axis-x .tick text {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            fill: var(--color-text-muted);
+        }
+
+        /* Grid Lines */
+        .grid-line {
+            stroke: var(--color-border-light);
+            stroke-width: 1;
+        }
+
+        .grid-line.weekend {
+            stroke: var(--color-border);
+        }
+
+        /* Today Indicator */
+        .today-line {
+            stroke: var(--color-primary);
+            stroke-width: 2;
+            stroke-dasharray: 4, 4;
+        }
+
+        .today-marker {
+            fill: var(--color-primary);
+            font-family: var(--font-mono);
+            font-size: 10px;
+            font-weight: 500;
+        }
+
+        /* Task Bars */
+        .task-bar {
+            cursor: pointer;
+            transition: opacity var(--transition), filter var(--transition);
+        }
+
+        .task-bar:hover {
+            filter: brightness(1.1);
+        }
+
+        .task-bar.highlighted {
+            stroke: var(--color-text);
+            stroke-width: 2;
+        }
+
+        .task-bar-progress {
+            pointer-events: none;
+        }
+
+        .task-label {
+            font-family: var(--font-sans);
+            font-size: 11px;
+            font-weight: 500;
+            fill: white;
+            pointer-events: none;
+        }
+
+
+
+        /* Row backgrounds */
+        .row-bg {
+            fill: transparent;
+            transition: fill var(--transition);
+        }
+
+        .row-bg:hover {
+            fill: rgba(59, 130, 246, 0.03);
+        }
+
+        .row-bg.even {
+            fill: rgba(0, 0, 0, 0.01);
+        }
+
+        /* ============================================
+           Tooltip
+           ============================================ */
+        .tooltip {
+            position: fixed;
+            padding: 10px 14px;
+            background: var(--color-text);
+            color: white;
+            border-radius: var(--radius-md);
+            font-size: 0.8rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity var(--transition);
+            z-index: 1000;
+            box-shadow: var(--shadow-lg);
+            max-width: 250px;
+        }
+
+        .tooltip.visible {
+            opacity: 1;
+        }
+
+        .tooltip-title {
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .tooltip-dates {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            opacity: 0.8;
+        }
+
+        .tooltip-progress {
+            margin-top: 6px;
+            font-size: 0.75rem;
+        }
+
+        /* ============================================
+           Legend
+           ============================================ */
+        .legend {
+            display: flex;
+            gap: 20px;
+            padding: 12px 16px;
+            background: var(--color-bg);
+            border-top: 1px solid var(--color-border);
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="app-header">
+        <div class="header-content">
+            <h1 class="project-title">Honours Project Planning</h1>
+            <div class="header-actions">
+                <button class="btn" id="btn-add-task">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                    </svg>
+                    Add Task
+                </button>
+                <button class="btn btn-primary" id="btn-zoom-fit">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"/>
+                    </svg>
+                    Fit View
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="gantt-wrapper">
+            <div class="gantt-container">
+                <!-- Task List Panel -->
+                <div class="task-list-panel">
+                    <div class="task-list-header">Tasks</div>
+                    <div id="task-list"></div>
+                </div>
+                
+                <!-- Chart Panel (SVG will be rendered here) -->
+                <div class="chart-panel" id="chart-panel"></div>
+            </div>
+            
+            <!-- Legend -->
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--color-primary)"></div>
+                    <span>In Progress</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--color-accent)"></div>
+                    <span>Completed</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: var(--color-warning)"></div>
+                    <span>At Risk</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tooltip Element -->
+    <div class="tooltip" id="tooltip">
+        <div class="tooltip-title"></div>
+        <div class="tooltip-dates"></div>
+        <div class="tooltip-progress"></div>
+    </div>
+
+    <script>
+    'use strict';
+
+    /**
+     * ============================================
+     * GanttChart Class
+     * Following the Lab patterns for reusable D3 visualisations
+     * ============================================
+     */
+    class GanttChart {
+        // Class attributes
+        width;
+        height;
+        margin;
+        svg;
+        chartArea;
+        axisX;
+        scaleX;
+        scaleY;
+        data;
+        rowHeight;
+        barHeight;
+        
+        // Selections
+        gridLines;
+        rowBackgrounds;
+        taskBars;
+        taskLabels;
+        todayLine;
+        
+        // Callbacks for linked interactions
+        taskHover = () => {};
+        taskOut = () => {};
+        taskClick = () => {};
+
+        /**
+         * Constructor - sets up the SVG and chart structure
+         * @param {string} container - CSS selector for container element
+         * @param {number} width - Chart width
+         * @param {number} height - Chart height  
+         * @param {Array} margin - [top, bottom, left, right] margins
+         */
+        constructor(container, width, height, margin) {
+            this.width = width;
+            this.height = height;
+            this.margin = margin;
+            this.rowHeight = 48;
+            this.barHeight = 24;
+            
+            // Create the SVG element
+            this.svg = d3.select(container)
+                .append('svg')
+                .attr('class', 'chart-svg')
+                .attr('width', this.width)
+                .attr('height', this.height);
+            
+            // Create the main chart group with margin translation
+            this.chartArea = this.svg.append('g')
+                .attr('transform', `translate(${this.margin[2]}, ${this.margin[0]})`);
+            
+            // Create layer groups in correct z-order (bottom to top)
+            this.rowBackgrounds = this.chartArea.append('g').attr('class', 'rows-layer');
+            this.gridLines = this.chartArea.append('g').attr('class', 'grid-layer');
+            this.taskBars = this.chartArea.append('g').attr('class', 'bars-layer');
+            this.taskLabels = this.chartArea.append('g').attr('class', 'labels-layer');
+            this.todayLine = this.chartArea.append('g').attr('class', 'today-layer');
+            
+            // Create X axis group
+            this.axisX = this.svg.append('g')
+                .attr('class', 'axis-x')
+                .attr('transform', `translate(${this.margin[2]}, ${this.margin[0] - 5})`);
+            
+            // Initialise empty data
+            this.data = [];
+        }
+
+        /**
+         * Get chart dimensions (excluding margins)
+         */
+        get chartWidth() {
+            return this.width - this.margin[2] - this.margin[3];
+        }
+
+        get chartHeight() {
+            return this.height - this.margin[0] - this.margin[1];
+        }
+
+        /**
+         * Update scales based on data
+         */
+        #updateScales() {
+            // Find the date extent from tasks
+            const allDates = [
+                ...this.data.map(d => d.startDate),
+                ...this.data.map(d => d.endDate)
+            ];
+            
+            const minDate = d3.min(allDates);
+            const maxDate = d3.max(allDates);
+            
+            // Add padding to dates (1 day before and after)
+            const domainStart = d3.timeDay.offset(minDate, -1);
+            const domainEnd = d3.timeDay.offset(maxDate, 2);
+            
+            // X Scale: Time scale for dates
+            this.scaleX = d3.scaleTime()
+                .domain([domainStart, domainEnd])
+                .range([0, this.chartWidth]);
+            
+            // Y Scale: Band scale for task rows
+            this.scaleY = d3.scaleBand()
+                .domain(this.data.map(d => d.id))
+                .range([0, this.data.length * this.rowHeight])
+                .padding(0.2);
+        }
+
+        /**
+         * Update the X axis
+         */
+        #updateAxis() {
+            const axisGen = d3.axisTop(this.scaleX)
+                .ticks(d3.timeDay.every(1))
+                .tickSize(0)
+                .tickFormat(d => {
+                    const day = d.getDate();
+                    const month = d3.timeFormat('%b')(d);
+                    return day === 1 ? `${month} ${day}` : day;
+                });
+            
+            this.axisX.call(axisGen)
+                .selectAll('.tick text')
+                .attr('dy', -8);
+            
+            // Hide the axis domain line
+            this.axisX.select('.domain').attr('stroke', 'none');
+        }
+
+        /**
+         * Draw vertical grid lines
+         */
+        #updateGridLines() {
+            const days = d3.timeDays(this.scaleX.domain()[0], this.scaleX.domain()[1]);
+            
+            this.gridLines.selectAll('.grid-line')
+                .data(days, d => d.getTime())
+                .join(
+                    enter => enter.append('line')
+                        .attr('class', d => {
+                            const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+                            return `grid-line ${isWeekend ? 'weekend' : ''}`;
+                        })
+                        .attr('x1', d => this.scaleX(d))
+                        .attr('y1', 0)
+                        .attr('x2', d => this.scaleX(d))
+                        .attr('y2', this.chartHeight),
+                    update => update
+                        .attr('x1', d => this.scaleX(d))
+                        .attr('x2', d => this.scaleX(d))
+                        .attr('y2', this.chartHeight),
+                    exit => exit.remove()
+                );
+        }
+
+        /**
+         * Draw row backgrounds for alternating colours and hover effects
+         */
+        #updateRowBackgrounds() {
+            this.rowBackgrounds.selectAll('.row-bg')
+                .data(this.data, d => d.id)
+                .join(
+                    enter => enter.append('rect')
+                        .attr('class', (d, i) => `row-bg ${i % 2 === 0 ? 'even' : 'odd'}`)
+                        .attr('x', 0)
+                        .attr('y', d => this.scaleY(d.id) - this.scaleY.bandwidth() * 0.1)
+                        .attr('width', this.chartWidth)
+                        .attr('height', this.rowHeight),
+                    update => update
+                        .attr('y', d => this.scaleY(d.id) - this.scaleY.bandwidth() * 0.1)
+                        .attr('width', this.chartWidth),
+                    exit => exit.remove()
+                );
+        }
+
+        /**
+         * Draw task bars with animations
+         */
+        #updateBars() {
+            const self = this;
+            
+            // Bind data and join rectangles
+            const bars = this.taskBars.selectAll('.task-bar-group')
+                .data(this.data, d => d.id)
+                .join(
+                    enter => {
+                        const g = enter.append('g')
+                            .attr('class', 'task-bar-group');
+                        
+                        // Background bar (full task duration)
+                        g.append('rect')
+                            .attr('class', 'task-bar')
+                            .attr('x', d => this.scaleX(d.startDate))
+                            .attr('y', d => this.scaleY(d.id) + (this.scaleY.bandwidth() - this.barHeight) / 2)
+                            .attr('width', 0) // Start with 0 width for animation
+                            .attr('height', this.barHeight)
+                            .attr('rx', 4)
+                            .attr('ry', 4)
+                            .attr('fill', d => d.colour);
+                        
+                        // Progress bar overlay
+                        g.append('rect')
+                            .attr('class', 'task-bar-progress')
+                            .attr('x', d => this.scaleX(d.startDate))
+                            .attr('y', d => this.scaleY(d.id) + (this.scaleY.bandwidth() - this.barHeight) / 2)
+                            .attr('width', 0)
+                            .attr('height', this.barHeight)
+                            .attr('rx', 4)
+                            .attr('ry', 4)
+                            .attr('fill', 'rgba(255,255,255,0.3)');
+                        
+                        return g;
+                    },
+                    update => update,
+                    exit => exit.transition().duration(300)
+                        .style('opacity', 0)
+                        .remove()
+                );
+            
+            // Animate bar positions and sizes
+            bars.select('.task-bar')
+                .transition().duration(500)
+                .attr('x', d => this.scaleX(d.startDate))
+                .attr('y', d => this.scaleY(d.id) + (this.scaleY.bandwidth() - this.barHeight) / 2)
+                .attr('width', d => Math.max(0, this.scaleX(d.endDate) - this.scaleX(d.startDate)))
+                .attr('fill', d => d.colour);
+            
+            // Animate progress overlay
+            bars.select('.task-bar-progress')
+                .transition().duration(500)
+                .attr('x', d => this.scaleX(d.startDate))
+                .attr('y', d => this.scaleY(d.id) + (this.scaleY.bandwidth() - this.barHeight) / 2)
+                .attr('width', d => {
+                    const fullWidth = this.scaleX(d.endDate) - this.scaleX(d.startDate);
+                    return Math.max(0, fullWidth * (d.progress / 100));
+                });
+            
+            // Attach event listeners
+            this.#updateBarEvents();
+        }
+
+        /**
+         * Attach event handlers to bars
+         */
+        #updateBarEvents() {
+            const self = this;
+            
+            this.taskBars.selectAll('.task-bar')
+                .on('mouseover', function(event, d) {
+                    d3.select(this).classed('highlighted', true);
+                    self.taskHover(event, d);
+                })
+                .on('mouseout', function(event, d) {
+                    d3.select(this).classed('highlighted', false);
+                    self.taskOut(event, d);
+                })
+                .on('click', function(event, d) {
+                    self.taskClick(event, d);
+                });
+        }
+
+        /**
+         * Draw task labels inside bars
+         */
+        #updateLabels() {
+            this.taskLabels.selectAll('.task-label')
+                .data(this.data, d => d.id)
+                .join(
+                    enter => enter.append('text')
+                        .attr('class', 'task-label')
+                        .attr('x', d => this.scaleX(d.startDate) + 8)
+                        .attr('y', d => this.scaleY(d.id) + this.scaleY.bandwidth() / 2)
+                        .attr('dy', '0.35em')
+                        .text(d => {
+                            const barWidth = this.scaleX(d.endDate) - this.scaleX(d.startDate);
+                            return barWidth > 60 ? d.name : '';
+                        })
+                        .style('opacity', 0),
+                    update => update,
+                    exit => exit.remove()
+                )
+                .transition().duration(500)
+                .attr('x', d => this.scaleX(d.startDate) + 8)
+                .attr('y', d => this.scaleY(d.id) + this.scaleY.bandwidth() / 2)
+                .text(d => {
+                    const barWidth = this.scaleX(d.endDate) - this.scaleX(d.startDate);
+                    return barWidth > 60 ? d.name : '';
+                })
+                .style('opacity', 1);
+        }
+
+        /**
+         * Draw today indicator line
+         */
+        #updateTodayLine() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            // Check if today is within the chart domain
+            const domain = this.scaleX.domain();
+            if (today < domain[0] || today > domain[1]) {
+                this.todayLine.selectAll('*').remove();
+                return;
+            }
+            
+            const x = this.scaleX(today);
+            
+            // Draw the line
+            this.todayLine.selectAll('.today-line')
+                .data([today])
+                .join('line')
+                .attr('class', 'today-line')
+                .attr('x1', x)
+                .attr('y1', 0)
+                .attr('x2', x)
+                .attr('y2', this.chartHeight);
+            
+            // Draw the label
+            this.todayLine.selectAll('.today-marker')
+                .data([today])
+                .join('text')
+                .attr('class', 'today-marker')
+                .attr('x', x)
+                .attr('y', -10)
+                .attr('text-anchor', 'middle')
+                .text('Today');
+        }
+
+        /**
+         * Main render method
+         * @param {Array} taskData - Array of task objects
+         */
+        render(taskData) {
+            this.data = taskData;
+            
+            // Update SVG height based on number of tasks
+            const newHeight = Math.max(300, this.data.length * this.rowHeight + this.margin[0] + this.margin[1]);
+            this.height = newHeight;
+            this.svg.attr('height', newHeight);
+            
+            // Update all components
+            this.#updateScales();
+            this.#updateAxis();
+            this.#updateGridLines();
+            this.#updateRowBackgrounds();
+            this.#updateBars();
+            this.#updateLabels();
+            this.#updateTodayLine();
+            
+            return this;
+        }
+
+        /**
+         * Highlight specific tasks
+         * @param {Array} taskIds - Array of task IDs to highlight
+         */
+        highlightTasks(taskIds = []) {
+            this.taskBars.selectAll('.task-bar')
+                .classed('highlighted', false)
+                .filter(d => taskIds.includes(d.id))
+                .classed('highlighted', true);
+            return this;
+        }
+
+        /**
+         * Set hover callback
+         */
+        setTaskHover(callback = () => {}) {
+            this.taskHover = callback;
+            this.#updateBarEvents();
+            return this;
+        }
+
+        /**
+         * Set mouseout callback
+         */
+        setTaskOut(callback = () => {}) {
+            this.taskOut = callback;
+            this.#updateBarEvents();
+            return this;
+        }
+
+        /**
+         * Set click callback
+         */
+        setTaskClick(callback = () => {}) {
+            this.taskClick = callback;
+            this.#updateBarEvents();
+            return this;
+        }
+    }
+
+    /**
+     * ============================================
+     * Task List Component
+     * Renders the task names on the left panel
+     * ============================================
+     */
+    class TaskList {
+        container;
+        data;
+        itemHover = () => {};
+        itemOut = () => {};
+        itemClick = () => {};
+
+        constructor(container) {
+            this.container = d3.select(container);
+            this.data = [];
+        }
+
+        render(taskData) {
+            this.data = taskData;
+            const self = this;
+            
+            this.container.selectAll('.task-list-item')
+                .data(this.data, d => d.id)
+                .join(
+                    enter => enter.append('div')
+                        .attr('class', 'task-list-item')
+                        .html(d => `
+                            <div class="task-color-dot" style="background: ${d.colour}"></div>
+                            <span class="task-name">${d.name}</span>
+                            <span class="task-dates">${d3.timeFormat('%d %b')(d.startDate)}</span>
+                        `),
+                    update => update
+                        .html(d => `
+                            <div class="task-color-dot" style="background: ${d.colour}"></div>
+                            <span class="task-name">${d.name}</span>
+                            <span class="task-dates">${d3.timeFormat('%d %b')(d.startDate)}</span>
+                        `),
+                    exit => exit.remove()
+                )
+                .on('mouseover', function(event, d) {
+                    d3.select(this).classed('selected', true);
+                    self.itemHover(event, d);
+                })
+                .on('mouseout', function(event, d) {
+                    d3.select(this).classed('selected', false);
+                    self.itemOut(event, d);
+                })
+                .on('click', function(event, d) {
+                    self.itemClick(event, d);
+                });
+            
+            return this;
+        }
+
+        highlightItem(taskId) {
+            this.container.selectAll('.task-list-item')
+                .classed('selected', d => d.id === taskId);
+            return this;
+        }
+
+        setItemHover(callback = () => {}) {
+            this.itemHover = callback;
+            return this;
+        }
+
+        setItemOut(callback = () => {}) {
+            this.itemOut = callback;
+            return this;
+        }
+
+        setItemClick(callback = () => {}) {
+            this.itemClick = callback;
+            return this;
+        }
+    }
+
+    /**
+     * ============================================
+     * Tooltip Manager
+     * ============================================
+     */
+    class TooltipManager {
+        element;
+
+        constructor(selector) {
+            this.element = d3.select(selector);
+        }
+
+        show(event, data) {
+            const title = this.element.select('.tooltip-title');
+            const dates = this.element.select('.tooltip-dates');
+            const progress = this.element.select('.tooltip-progress');
+            
+            title.text(data.name);
+            dates.text(`${d3.timeFormat('%d %b %Y')(data.startDate)} → ${d3.timeFormat('%d %b %Y')(data.endDate)}`);
+            progress.text(`Progress: ${data.progress}%`);
+            
+            // Position tooltip
+            const x = event.clientX + 15;
+            const y = event.clientY + 15;
+            
+            this.element
+                .style('left', `${x}px`)
+                .style('top', `${y}px`)
+                .classed('visible', true);
+        }
+
+        hide() {
+            this.element.classed('visible', false);
+        }
+    }
+
+    /**
+     * ============================================
+     * Application Initialisation
+     * ============================================
+     */
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Sample Data ---
+        const parseDate = d3.timeParse('%Y-%m-%d');
+        
+        const taskData = [
+            { 
+                id: 1, 
+                name: 'Research & Literature Review', 
+                start: '2025-01-06', 
+                end: '2025-01-17', 
+                colour: '#3b82f6',
+                progress: 100
+            },
+            { 
+                id: 2, 
+                name: 'Requirements Gathering', 
+                start: '2025-01-13', 
+                end: '2025-01-20', 
+                colour: '#3b82f6',
+                progress: 75
+            },
+            { 
+                id: 3, 
+                name: 'Database Design', 
+                start: '2025-01-20', 
+                end: '2025-01-27', 
+                colour: '#f59e0b',
+                progress: 30
+            },
+            { 
+                id: 4, 
+                name: 'UI/UX Mockups', 
+                start: '2025-01-22', 
+                end: '2025-01-31', 
+                colour: '#3b82f6',
+                progress: 15
+            },
+            { 
+                id: 5, 
+                name: 'Backend Development', 
+                start: '2025-01-28', 
+                end: '2025-02-14', 
+                colour: '#64748b',
+                progress: 0
+            },
+            { 
+                id: 6, 
+                name: 'Frontend Development', 
+                start: '2025-02-03', 
+                end: '2025-02-21', 
+                colour: '#64748b',
+                progress: 0
+            },
+            { 
+                id: 7, 
+                name: 'Testing & QA', 
+                start: '2025-02-17', 
+                end: '2025-02-28', 
+                colour: '#10b981',
+                progress: 0
+            },
+            { 
+                id: 8, 
+                name: 'Documentation', 
+                start: '2025-02-24', 
+                end: '2025-03-07', 
+                colour: '#64748b',
+                progress: 0
+            }
+        ];
+
+        // Parse dates
+        taskData.forEach(d => {
+            d.startDate = parseDate(d.start);
+            d.endDate = parseDate(d.end);
+        });
+
+        // --- Calculate Chart Dimensions ---
+        const chartPanel = document.getElementById('chart-panel');
+        const chartWidth = Math.max(1200, chartPanel.clientWidth);
+        const margin = [50, 20, 0, 20]; // top, bottom, left, right
+
+        // --- Instantiate Components ---
+        const ganttChart = new GanttChart('#chart-panel', chartWidth, 500, margin);
+        const taskList = new TaskList('#task-list');
+        const tooltip = new TooltipManager('#tooltip');
+
+        // --- Render Initial Data ---
+        ganttChart.render(taskData);
+        taskList.render(taskData);
+
+        // --- Setup Linked Interactions ---
+        
+        // When hovering on chart bar, highlight task list item
+        const handleTaskHover = (event, d) => {
+            tooltip.show(event, d);
+            taskList.highlightItem(d.id);
+        };
+
+        const handleTaskOut = (event, d) => {
+            tooltip.hide();
+            taskList.highlightItem(null);
+        };
+
+        const handleTaskClick = (event, d) => {
+            console.log('Task clicked:', d);
+            // Could open a modal or detail panel here
+        };
+
+        // When hovering on task list item, highlight chart bar
+        const handleListHover = (event, d) => {
+            ganttChart.highlightTasks([d.id]);
+        };
+
+        const handleListOut = (event, d) => {
+            ganttChart.highlightTasks([]);
+        };
+
+        // Wire up the callbacks
+        ganttChart
+            .setTaskHover(handleTaskHover)
+            .setTaskOut(handleTaskOut)
+            .setTaskClick(handleTaskClick);
+
+        taskList
+            .setItemHover(handleListHover)
+            .setItemOut(handleListOut);
+
+        // --- Button Event Handlers ---
+        document.getElementById('btn-zoom-fit').addEventListener('click', () => {
+            // Re-render to fit all tasks
+            ganttChart.render(taskData);
+        });
+
+        document.getElementById('btn-add-task').addEventListener('click', () => {
+            alert('Add Task functionality would open a modal form here.');
+        });
+
+        // --- Log for demonstration ---
+        console.log('Gantt Chart initialised with D3.js');
+        console.log('Tasks:', taskData.length);
+    });
+    </script>
+</body>
+</html>

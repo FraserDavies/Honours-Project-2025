@@ -1,0 +1,110 @@
+/* ========================================
+    GANTT CHART PAGE SPECIFIC STYLES
+    ======================================== */
+
+.main {
+    align-items: flex-start;
+    padding: 1.5rem;
+}
+
+.gantt-page-container {
+    width: 100%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+}
+
+/* Project Header Info */
+.project-header {
+    margin-bottom: 1.5rem;
+}
+
+.project-number {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+}
+
+.project-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.project-name {
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--text-secondary);
+}
+
+/* Description toggle (more/less) */
+.desc-toggle {
+    display: inline;
+    margin-left: 0.25rem;
+    padding: 0.1rem 0.4rem;
+    background: var(--primary-color);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: background 0.15s ease;
+}
+
+.desc-toggle:hover {
+    background: var(--primary-hover);
+}
+
+/* Gantt Chart Container */
+.gantt-container {
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gantt-placeholder {
+    text-align: center;
+    color: var(--text-secondary);
+}
+
+.gantt-placeholder svg {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.gantt-placeholder p {
+    font-size: 1rem;
+}
+
+/* Back Link */
+.back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--primary-color);
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    transition: color 0.15s ease;
+}
+
+.back-link:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+.back-link svg {
+    width: 16px;
+    height: 16px;
+}

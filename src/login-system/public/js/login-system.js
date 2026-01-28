@@ -102,11 +102,11 @@ function showDashboard(user) {
 
     if (user.projects && user.projects.length > 0) {
         user.projects.forEach(project => {
-            const projectBadge = document.createElement('div');
+            const projectBadge = document.createElement('a');
             projectBadge.className = 'project-badge';
+            projectBadge.href = `../../gantt-builder/public/gantt-chart.html?project=${encodeURIComponent(project.project_id)}`;
             projectBadge.innerHTML = `
                 <span class="project-id">${project.project_id}</span>
-                
                 ${project.project_name ? `<span class="project-name"> ${project.project_name}</span>` : ''}
             `;
             projectsContainer.appendChild(projectBadge);

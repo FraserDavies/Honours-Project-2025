@@ -3,7 +3,7 @@
    ======================================== */
 
 /* ========================================
-   1. CSS VARIABLES (EASY COLOR CHANGES)
+   1. CSS VARIABLES
    ======================================== */
 :root {
     /* Brand Colors - Change these to update the entire theme */
@@ -392,12 +392,15 @@ body {
     font-size: 0.875rem;
     font-weight: 500;
     transition: all 0.15s ease;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 .project-badge:hover {
     background: var(--bg-white);
     border-color: var(--primary-color);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transform: translateY(-1px);
 }
 
 .project-badge svg {

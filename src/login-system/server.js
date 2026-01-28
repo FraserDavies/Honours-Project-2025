@@ -10,6 +10,8 @@ const PORT = 3000;
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+// Serve gantt-builder files
+app.use('/gantt-builder', express.static(path.join(__dirname, '..', 'gantt-builder')));
 
 // Database connection
 const dbPath = path.join(__dirname, 'database', 'gantt.db');

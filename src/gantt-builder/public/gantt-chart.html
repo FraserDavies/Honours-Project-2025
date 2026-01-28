@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gantt Chart Builder</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/gantt-builder/public/css/styles.css">
+</head>
+<body>
+    <!-- ========== HEADER ========== -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-logo">
+                <a href="https://www.hw.ac.uk/">
+                    <img src="https://www.hw.ac.uk/legacy/img/logos/global-logo-blue.svg" alt="Heriot-Watt University" height="50px">
+                </a>
+            </div>
+
+            <!-- User Greeting -->
+            <div class="header-user" id="headerUser">
+                <span class="user-greeting">Hello <span id="headerUserName"></span></span>
+                <a href="#" class="sign-out-link" id="headerSignOut">Sign out</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ========== MAIN CONTENT ========== -->
+    <main class="main">
+        <div class="gantt-page-container">
+            <!-- Back to Dashboard Link -->
+            <a href="/index.html" class="back-link">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+                Back to Projects
+            </a>
+
+            <!-- Project Header Info -->
+            <div class="project-header">
+                <p class="project-number" id="projectNumber">Project ID</p>
+                <h1 class="project-title" id="projectTitle">Project Title</h1>
+                <p class="project-name" id="projectDesc">Project description</p>
+            </div>
+
+            <!-- Gantt Chart Container  -->
+            <div class="gantt-container" id="ganttContainer">
+                <div class="gantt-placeholder">
+                    <p>Gantt Chart will lowkenuinly be here soon...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer">
+        <p>Gantt Chart Builder - Honours Project System</p>
+        <p>Developed in Department of Computer Science, School of Mathematical and Computer Sciences</p>
+        <p>Heriot-Watt University</p>
+        <p>This is an adaptation of the real site <a href="https://projects.hw.ac.uk/">projects.hw.ac.uk</a> made by a student Fraser Davies (fd2010@hw.ac.uk) for a final year dissertation project</p>
+    </footer>
+
+    <script src="/gantt-builder/public/js/load-gantt.js"></script>
+
+</body>
+</html>
