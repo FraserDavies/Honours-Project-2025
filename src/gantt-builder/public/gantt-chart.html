@@ -10,6 +10,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700&display=swap" rel="stylesheet">
 
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/gantt-builder/public/css/styles.css">
 </head>
@@ -50,10 +53,40 @@
             </div>
 
             <!-- Gantt Chart Container  -->
-            <div class="gantt-container" id="ganttContainer">
-                <div class="gantt-placeholder">
-                    <p>Gantt Chart will lowkenuinly be here soon...</p>
+            <div class="gantt-wrapper">
+                <div class="gantt-container" id="ganttContainer">
+                    <!-- Task List Panel (Left Side - Fixed) -->
+                    <div class="task-list-panel">
+                        <div class="task-list-header">Tasks</div>
+                        <div id="taskList"></div>
+                    </div>
+
+                    <!-- Chart Panel (Right Side - Scrollable) -->
+                    <div class="chart-panel" id="chartPanel"></div>
                 </div>
+
+                <!-- Legend -->
+                <div class="gantt-legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #3b82f6"></div>
+                        <span>In Progress</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #10b981"></div>
+                        <span>Completed</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #f59e0b"></div>
+                        <span>At Risk</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tooltip Element -->
+            <div class="gantt-tooltip" id="ganttTooltip">
+                <div class="tooltip-title"></div>
+                <div class="tooltip-dates"></div>
+                <div class="tooltip-progress"></div>
             </div>
         </div>
     </main>
@@ -67,6 +100,7 @@
     </footer>
 
     <script src="/gantt-builder/public/js/load-gantt.js"></script>
+    <script src="/gantt-builder/public/js/interactive-chart.js"></script>
 
 </body>
 </html>

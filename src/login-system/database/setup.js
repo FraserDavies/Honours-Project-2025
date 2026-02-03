@@ -51,6 +51,7 @@ db.serialize(() => {
             is_milestone INTEGER DEFAULT 0,
             parent_task_id INTEGER,
             display_order INTEGER DEFAULT 0,
+            colour TEXT DEFAULT '#4a90d9',
             FOREIGN KEY (project_id) REFERENCES student_projects(project_id),
             FOREIGN KEY (parent_task_id) REFERENCES tasks(task_id)
         )
@@ -128,22 +129,22 @@ db.serialize(() => {
 
         // Sample tasks for Gantt Chart Builder project (project_id: 1001)
         const sampleTasks = [
-            { project_id: 1001, task_name: 'Project Planning', description: 'Initial project planning and requirements gathering', start_date: '2025-01-06', end_date: '2025-01-12', duration: 7, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 1 },
-            { project_id: 1001, task_name: 'Requirements Complete', description: 'Requirements documentation finalized', start_date: '2025-01-12', end_date: '2025-01-12', duration: 0, progress_percentage: 100, is_milestone: 1, parent_task_id: null, display_order: 2 },
-            { project_id: 1001, task_name: 'Design Phase', description: 'UI/UX design and system architecture', start_date: '2025-01-13', end_date: '2025-01-26', duration: 14, progress_percentage: 75, is_milestone: 0, parent_task_id: null, display_order: 3 },
-            { project_id: 1001, task_name: 'Database Design', description: 'Design database schema and relationships', start_date: '2025-01-13', end_date: '2025-01-19', duration: 7, progress_percentage: 100, is_milestone: 0, parent_task_id: 3, display_order: 4 },
-            { project_id: 1001, task_name: 'UI Mockups', description: 'Create user interface mockups', start_date: '2025-01-20', end_date: '2025-01-26', duration: 7, progress_percentage: 50, is_milestone: 0, parent_task_id: 3, display_order: 5 },
-            { project_id: 1001, task_name: 'Development Phase', description: 'Core development work', start_date: '2025-01-27', end_date: '2025-03-09', duration: 42, progress_percentage: 20, is_milestone: 0, parent_task_id: null, display_order: 6 },
-            { project_id: 1001, task_name: 'Backend Implementation', description: 'Server-side development', start_date: '2025-01-27', end_date: '2025-02-16', duration: 21, progress_percentage: 30, is_milestone: 0, parent_task_id: 6, display_order: 7 },
-            { project_id: 1001, task_name: 'Frontend Implementation', description: 'Client-side development', start_date: '2025-02-10', end_date: '2025-03-02', duration: 21, progress_percentage: 10, is_milestone: 0, parent_task_id: 6, display_order: 8 },
-            { project_id: 1001, task_name: 'Integration', description: 'Integrate frontend and backend', start_date: '2025-03-03', end_date: '2025-03-09', duration: 7, progress_percentage: 0, is_milestone: 0, parent_task_id: 6, display_order: 9 },
-            { project_id: 1001, task_name: 'Testing Phase', description: 'Testing and bug fixes', start_date: '2025-03-10', end_date: '2025-03-23', duration: 14, progress_percentage: 0, is_milestone: 0, parent_task_id: null, display_order: 10 },
-            { project_id: 1001, task_name: 'Project Delivery', description: 'Final project submission', start_date: '2025-03-24', end_date: '2025-03-24', duration: 0, progress_percentage: 0, is_milestone: 1, parent_task_id: null, display_order: 11 }
+            { project_id: 1001, task_name: 'Project Planning', description: 'Initial project planning and requirements gathering', start_date: '2025-01-06', end_date: '2025-01-12', duration: 7, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 1, colour: '#4a90d9' },
+            { project_id: 1001, task_name: 'Requirements Complete', description: 'Requirements documentation finalized', start_date: '2025-01-12', end_date: '2025-01-12', duration: 0, progress_percentage: 100, is_milestone: 1, parent_task_id: null, display_order: 2, colour: '#f5a623' },
+            { project_id: 1001, task_name: 'Design Phase', description: 'UI/UX design and system architecture', start_date: '2025-01-13', end_date: '2025-01-26', duration: 14, progress_percentage: 75, is_milestone: 0, parent_task_id: null, display_order: 3, colour: '#7ed321' },
+            { project_id: 1001, task_name: 'Database Design', description: 'Design database schema and relationships', start_date: '2025-01-13', end_date: '2025-01-19', duration: 7, progress_percentage: 100, is_milestone: 0, parent_task_id: 3, display_order: 4, colour: '#7ed321' },
+            { project_id: 1001, task_name: 'UI Mockups', description: 'Create user interface mockups', start_date: '2025-01-20', end_date: '2025-01-26', duration: 7, progress_percentage: 50, is_milestone: 0, parent_task_id: 3, display_order: 5, colour: '#7ed321' },
+            { project_id: 1001, task_name: 'Development Phase', description: 'Core development work', start_date: '2025-01-27', end_date: '2025-03-09', duration: 42, progress_percentage: 20, is_milestone: 0, parent_task_id: null, display_order: 6, colour: '#9013fe' },
+            { project_id: 1001, task_name: 'Backend Implementation', description: 'Server-side development', start_date: '2025-01-27', end_date: '2025-02-16', duration: 21, progress_percentage: 30, is_milestone: 0, parent_task_id: 6, display_order: 7, colour: '#9013fe' },
+            { project_id: 1001, task_name: 'Frontend Implementation', description: 'Client-side development', start_date: '2025-02-10', end_date: '2025-03-02', duration: 21, progress_percentage: 10, is_milestone: 0, parent_task_id: 6, display_order: 8, colour: '#9013fe' },
+            { project_id: 1001, task_name: 'Integration', description: 'Integrate frontend and backend', start_date: '2025-03-03', end_date: '2025-03-09', duration: 7, progress_percentage: 0, is_milestone: 0, parent_task_id: 6, display_order: 9, colour: '#9013fe' },
+            { project_id: 1001, task_name: 'Testing Phase', description: 'Testing and bug fixes', start_date: '2025-03-10', end_date: '2025-03-23', duration: 14, progress_percentage: 0, is_milestone: 0, parent_task_id: null, display_order: 10, colour: '#d0021b' },
+            { project_id: 1001, task_name: 'Project Delivery', description: 'Final project submission', start_date: '2025-03-24', end_date: '2025-03-24', duration: 0, progress_percentage: 0, is_milestone: 1, parent_task_id: null, display_order: 11, colour: '#f5a623' }
         ];
 
         const insertTaskStmt = db.prepare(`
-            INSERT INTO tasks (project_id, task_name, description, start_date, end_date, duration, progress_percentage, is_milestone, parent_task_id, display_order)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO tasks (project_id, task_name, description, start_date, end_date, duration, progress_percentage, is_milestone, parent_task_id, display_order, colour)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `);
 
         sampleTasks.forEach(task => {
@@ -157,7 +158,8 @@ db.serialize(() => {
                 task.progress_percentage,
                 task.is_milestone,
                 task.parent_task_id,
-                task.display_order
+                task.display_order,
+                task.colour
             );
         });
 
@@ -215,7 +217,7 @@ db.serialize(() => {
 
                 console.log('\nTasks:');
                 db.all(`
-                    SELECT task_id, project_id, task_name, start_date, end_date, duration, progress_percentage, is_milestone, parent_task_id, display_order
+                    SELECT task_id, project_id, task_name, start_date, end_date, duration, progress_percentage, is_milestone, parent_task_id, display_order, colour
                     FROM tasks
                     ORDER BY project_id, display_order
                 `, [], (err, taskRows) => {
