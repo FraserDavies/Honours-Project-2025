@@ -267,3 +267,29 @@ observablehq - to look for examples of using svg's to genrate gantt chartts
 
 - d3 scales
 
+for wb/ 08/02/2026
+
+- look at prpogress bar
+ideas:
+
+hihger contrast of colours, textures, or bolder outline
+
+task types/tag
+
+do expected activities for a dissertation proposal
+
+development, evaluation, writing, implemation, designing
+
+princible of continuity gaps 
+
+d3.curveStepAfter
+
+OUTLINES OF THE TAKS FOR COMPLETED AT RIST AND IN PROGRESS
+
+
+to do:
+milestones
+dependencies
+edit, zoom 
+
+user eval participants (12-20 people)

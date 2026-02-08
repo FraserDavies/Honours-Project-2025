@@ -71,6 +71,95 @@
     overflow: hidden;
 }
 
+/* Gantt Toolbar */
+.gantt-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 16px;
+    background: var(--bg-gray);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.zoom-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.zoom-label {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin-right: 4px;
+}
+
+.zoom-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    color: var(--text-secondary);
+}
+
+.zoom-btn:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.zoom-btn:active {
+    transform: scale(0.95);
+}
+
+.zoom-btn.zoom-reset {
+    width: auto;
+    padding: 0 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+}
+
+.zoom-level {
+    min-width: 45px;
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: monospace;
+}
+
+.today-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.today-btn:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+.today-btn:active {
+    transform: scale(0.95);
+}
+
 /* Gantt Chart Container - Horizontal Scroll */
 .gantt-container {
     display: flex;
@@ -129,6 +218,14 @@
     border-radius: 50%;
     margin-right: 12px;
     flex-shrink: 0;
+}
+
+.task-color-diamond {
+    width: 10px;
+    height: 10px;
+    margin-right: 12px;
+    flex-shrink: 0;
+    transform: rotate(45deg);
 }
 
 .task-name {
@@ -222,6 +319,42 @@
     font-weight: 500;
     fill: white;
     pointer-events: none;
+}
+
+/* Milestone Diamond */
+.milestone-diamond {
+    cursor: pointer;
+    transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+.milestone-diamond:hover {
+    filter: brightness(1.1);
+}
+
+.milestone-diamond.highlighted {
+    stroke: var(--text-primary);
+    stroke-width: 2;
+}
+
+.milestone-label {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    fill: var(--text-primary);
+    pointer-events: none;
+}
+
+/* Dependency Lines */
+.dependency-line {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 2;
+    pointer-events: none;
+}
+
+.dependency-line:hover {
+    stroke: var(--primary-color);
+    stroke-width: 2.5;
 }
 
 /* Row backgrounds */

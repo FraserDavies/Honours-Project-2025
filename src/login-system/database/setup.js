@@ -128,6 +128,8 @@ db.serialize(() => {
         insertProjectStmt.finalize();
 
         // Sample tasks for Gantt Chart Builder project (project_id: 1001)
+        // Task IDs will be: 1=Planning, 2=Requirements Milestone, 3=Design Phase, 4=Database Design,
+        // 5=UI Mockups, 6=Development Phase, 7=Backend, 8=Frontend, 9=Integration, 10=Testing, 11=Delivery Milestone
         const sampleTasks = [
             { project_id: 1001, task_name: 'Project Planning', description: 'Initial project planning and requirements gathering', start_date: '2025-01-06', end_date: '2025-01-12', duration: 7, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 1, colour: '#4a90d9' },
             { project_id: 1001, task_name: 'Requirements Complete', description: 'Requirements documentation finalized', start_date: '2025-01-12', end_date: '2025-01-12', duration: 0, progress_percentage: 100, is_milestone: 1, parent_task_id: null, display_order: 2, colour: '#f5a623' },
@@ -139,6 +141,7 @@ db.serialize(() => {
             { project_id: 1001, task_name: 'Frontend Implementation', description: 'Client-side development', start_date: '2025-02-10', end_date: '2025-03-02', duration: 21, progress_percentage: 10, is_milestone: 0, parent_task_id: 6, display_order: 8, colour: '#9013fe' },
             { project_id: 1001, task_name: 'Integration', description: 'Integrate frontend and backend', start_date: '2025-03-03', end_date: '2025-03-09', duration: 7, progress_percentage: 0, is_milestone: 0, parent_task_id: 6, display_order: 9, colour: '#9013fe' },
             { project_id: 1001, task_name: 'Testing Phase', description: 'Testing and bug fixes', start_date: '2025-03-10', end_date: '2025-03-23', duration: 14, progress_percentage: 0, is_milestone: 0, parent_task_id: null, display_order: 10, colour: '#d0021b' },
+            { project_id: 1001, task_name: 'Integration', description: 'Integrate frontend and backend', start_date: '2026-03-03', end_date: '2026-03-09', duration: 7, progress_percentage: 0, is_milestone: 0, parent_task_id: 6, display_order: 9, colour: '#9013fe' },
             { project_id: 1001, task_name: 'Project Delivery', description: 'Final project submission', start_date: '2025-03-24', end_date: '2025-03-24', duration: 0, progress_percentage: 0, is_milestone: 1, parent_task_id: null, display_order: 11, colour: '#f5a623' }
         ];
 
@@ -165,18 +168,16 @@ db.serialize(() => {
 
         insertTaskStmt.finalize();
 
-        //todo: lowkenuinly ask if dependency type is necessary since it's referenced in the dissertation
-        // Sample dependencies 
         const sampleDependencies = [
-            { predecessor_task_id: 1, successor_task_id: 2, dependency_type: 'finish-to-start' },  
-            { predecessor_task_id: 2, successor_task_id: 3, dependency_type: 'finish-to-start' },    
-            { predecessor_task_id: 4, successor_task_id: 5, dependency_type: 'finish-to-start' },    
-            { predecessor_task_id: 3, successor_task_id: 6, dependency_type: 'finish-to-start' },    
-            { predecessor_task_id: 7, successor_task_id: 8, dependency_type: 'start-to-start' },     
-            { predecessor_task_id: 7, successor_task_id: 9, dependency_type: 'finish-to-start' },   
-            { predecessor_task_id: 8, successor_task_id: 9, dependency_type: 'finish-to-start' },   
-            { predecessor_task_id: 6, successor_task_id: 10, dependency_type: 'finish-to-start' },   
-            { predecessor_task_id: 10, successor_task_id: 11, dependency_type: 'finish-to-start' }   
+            { predecessor_task_id: 1, successor_task_id: 2, dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 2, successor_task_id: 3, dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 4, successor_task_id: 5, dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 3, successor_task_id: 6, dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 7, successor_task_id: 8, dependency_type: 'start-to-start' }, 
+            { predecessor_task_id: 7, successor_task_id: 9, dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 8, successor_task_id: 9, dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 9, successor_task_id: 10, dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 10, successor_task_id: 11, dependency_type: 'finish-to-start' }
         ];
 
 
