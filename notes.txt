@@ -293,3 +293,10 @@ dependencies
 edit, zoom 
 
 user eval participants (12-20 people)
+
+todo for w/b 23/02/2026
+
+edit mode
+Gantt Builder
+Usibility study thjigsn like questionaire - add a part for if you have experiance with gantt charts and charts and industry (demographics)
+

@@ -13,6 +13,9 @@
     <!-- D3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
+    <!-- jsPDF (for PDF export) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/gantt-builder/public/css/styles.css">
 </head>
@@ -76,15 +79,25 @@
                         </button>
                         <button class="zoom-btn zoom-reset" id="zoomReset" title="Reset Zoom">Reset</button>
                     </div>
-                    <button class="today-btn" id="goToToday" title="Scroll to Today">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                            <line x1="16" y1="2" x2="16" y2="6"/>
-                            <line x1="8" y1="2" x2="8" y2="6"/>
-                            <line x1="3" y1="10" x2="21" y2="10"/>
-                        </svg>
-                        Today
-                    </button>
+                    <div class="toolbar-right">
+                        <button class="today-btn" id="goToToday" title="Scroll to Today">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            Today
+                        </button>
+                        <button class="today-btn" id="exportBtn" title="Export Chart">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                <polyline points="7 10 12 15 17 10"/>
+                                <line x1="12" y1="15" x2="12" y2="3"/>
+                            </svg>
+                            Export
+                        </button>
+                    </div>
                 </div>
 
                 <div class="gantt-container" id="ganttContainer">
@@ -116,6 +129,43 @@
                 <div class="tooltip-title"></div>
                 <div class="tooltip-dates"></div>
                 <div class="tooltip-progress"></div>
+            </div>
+        </div>
+
+        <!-- Export Modal -->
+        <div class="export-modal-overlay" id="exportModal">
+            <div class="export-modal">
+                <h3 class="export-modal-title">Export Chart</h3>
+
+                <div class="export-format-group">
+                    <label class="export-label">Format</label>
+                    <div class="export-format-options">
+                        <button class="export-format-btn active" data-format="pdf">PDF</button>
+                        <button class="export-format-btn" data-format="jpeg">JPEG</button>
+                    </div>
+                </div>
+
+                <div class="export-dimensions">
+                    <div class="export-field">
+                        <label class="export-label" for="exportWidth">Width (px)</label>
+                        <input type="number" id="exportWidth" class="export-input" value="1200" min="400" max="4000">
+                    </div>
+                    <div class="export-field">
+                        <label class="export-label" for="exportHeight">Height (px)</label>
+                        <input type="number" id="exportHeight" class="export-input" value="500" min="200" max="3000">
+                    </div>
+                </div>
+
+                <div class="export-text-group">
+                    <div class="export-text">
+                        <p> (Adjusting the width and height improves the image quality) </p>
+                    </div>
+                </div>
+
+                <div class="export-actions">
+                    <button class="export-cancel-btn" id="exportCancel">Cancel</button>
+                    <button class="export-confirm-btn" id="exportConfirm">Export</button>
+                </div>
             </div>
         </div>
     </main>
