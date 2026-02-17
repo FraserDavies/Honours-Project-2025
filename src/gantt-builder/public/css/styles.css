@@ -58,6 +58,18 @@
     background: var(--primary-hover);
 }
 
+/* Legend styles */
+.completed {
+    background: var(--bg-gray);; 
+    border: solid var(--completed);
+} 
+
+.at-risk {
+    background: var(--bg-gray);; 
+    border: solid var(--at-risk);
+} 
+
+
 /* ========================================
    GANTT CHART SVG STYLES
    ======================================== */

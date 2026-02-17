@@ -30,6 +30,10 @@
     --header-height: 70px;
     --card-max-width: 450px;
     --container-max-width: 1200px;
+
+    /* Legend colours */
+    --completed: #10b981;
+    --at-risk: #f59e0b;
 }
 
 /* ========================================
