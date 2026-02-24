@@ -424,12 +424,19 @@
 /* Legend */
 .gantt-legend {
     display: flex;
-    gap: 20px;
-    padding: 12px 16px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
     background: var(--bg-gray);
     border-top: 1px solid var(--border-color);
     font-size: 0.75rem;
     color: var(--text-secondary);
+}
+
+.legend-items {
+    display: flex;
+    gap: 20px;
+    align-items: center;
 }
 
 .legend-item {
@@ -442,6 +449,140 @@
     width: 12px;
     height: 12px;
     border-radius: 3px;
+}
+
+/* Edit Mode Button (bottom right of legend) */
+.edit-mode-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px;
+    background: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    font-family: 'Source Sans Pro', sans-serif;
+}
+
+.edit-mode-btn:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: white;
+}
+
+/* Edit Mode Banner */
+.edit-mode-banner {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background: #eff6ff;
+    border-bottom: 1px solid #bfdbfe;
+    font-size: 0.8rem;
+    color: #1d4ed8;
+}
+
+.edit-mode-banner.visible {
+    display: flex;
+}
+
+.edit-banner-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+}
+
+.edit-banner-actions {
+    display: flex;
+    gap: 8px;
+}
+
+.edit-cancel-btn {
+    padding: 5px 12px;
+    border: 1px solid #93c5fd;
+    border-radius: 6px;
+    background: white;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: #1d4ed8;
+    cursor: pointer;
+    font-family: 'Source Sans Pro', sans-serif;
+    transition: all 0.15s ease;
+}
+
+.edit-cancel-btn:hover {
+    background: #dbeafe;
+}
+
+.edit-save-btn {
+    padding: 5px 14px;
+    border: none;
+    border-radius: 6px;
+    background: var(--primary-color);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    font-family: 'Source Sans Pro', sans-serif;
+    transition: all 0.15s ease;
+}
+
+.edit-save-btn:hover {
+    background: var(--primary-hover);
+}
+
+.edit-save-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.edit-save-error {
+    margin-left: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #dc2626;
+    background: #fee2e2;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* Task name input (edit mode in task list) */
+.task-name-input {
+    flex: 1;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: 'Source Sans Pro', sans-serif;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    padding: 2px 6px;
+    color: var(--text-primary);
+    background: white;
+    outline: none;
+    min-width: 0;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+}
+
+/* Task list item in edit mode */
+.task-list-item.edit-mode {
+    cursor: default;
+    background: rgba(59, 130, 246, 0.03);
+}
+
+/* Dragging state for task bar group */
+.task-bar-group.dragging .task-bar {
+    filter: brightness(1.15);
+    opacity: 0.9;
+}
+
+/* Edit mode cursor on bars */
+.chart-svg.edit-mode .task-bar,
+.chart-svg.edit-mode .milestone-diamond {
+    cursor: ew-resize;
 }
 
 /* Placeholder (fallback when no data) */

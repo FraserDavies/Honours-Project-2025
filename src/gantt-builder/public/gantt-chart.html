@@ -57,6 +57,21 @@
 
             <!-- Gantt Chart Container  -->
             <div class="gantt-wrapper">
+                <!-- Edit Mode Banner (hidden until edit mode is active) -->
+                <div class="edit-mode-banner" id="editModeBanner">
+                    <div class="edit-banner-info">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                        <span>Edit Mode — drag bars to reschedule, click names to rename</span>
+                    </div>
+                    <div class="edit-banner-actions">
+                        <button class="edit-cancel-btn" id="editCancelBtn">Cancel</button>
+                        <button class="edit-save-btn" id="editSaveBtn">Save Changes</button>
+                    </div>
+                </div>
+
                 <!-- Zoom Controls Toolbar -->
                 <div class="gantt-toolbar">
                     <div class="zoom-controls">
@@ -113,14 +128,23 @@
 
                 <!-- Legend -->
                 <div class="gantt-legend">
-                    <div class="legend-item">
-                        <div class="legend-color completed"></div>
-                        <span>Completed</span>
+                    <div class="legend-items">
+                        <div class="legend-item">
+                            <div class="legend-color completed"></div>
+                            <span>Completed</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color at-risk"></div>
+                            <span>At Risk</span>
+                        </div>
                     </div>
-                    <div class="legend-item">
-                        <div class="legend-color at-risk"></div>
-                        <span>At Risk</span>
-                    </div>
+                    <button class="edit-mode-btn" id="editModeBtn" title="Edit tasks">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                        </svg>
+                        Edit
+                    </button>
                 </div>
             </div>
 
@@ -179,6 +203,9 @@
     </footer>
 
     <script src="/gantt-builder/public/js/load-gantt.js"></script>
+    <script src="/gantt-builder/public/js/gantt-chart.js"></script>
+    <script src="/gantt-builder/public/js/task-list.js"></script>
+    <script src="/gantt-builder/public/js/tooltip.js"></script>
     <script src="/gantt-builder/public/js/interactive-chart.js"></script>
 
 </body>

@@ -166,6 +166,40 @@ app.get('/api/projects/:projectId/dependencies', (req, res) => {
     );
 });
 
+// Update a task (name, dates)
+app.patch('/api/tasks/:taskId', (req, res) => {
+    const { taskId } = req.params;
+    const { task_name, start_date, end_date } = req.body;
+
+    const updates = [];
+    const values = [];
+
+    if (task_name !== undefined) { updates.push('task_name = ?'); values.push(task_name); }
+    if (start_date !== undefined) { updates.push('start_date = ?'); values.push(start_date); }
+    if (end_date !== undefined)   { updates.push('end_date = ?');   values.push(end_date);   }
+
+    if (updates.length === 0) {
+        return res.status(400).json({ success: false, message: 'No fields to update' });
+    }
+
+    values.push(taskId);
+
+    db.run(
+        `UPDATE tasks SET ${updates.join(', ')} WHERE task_id = ?`,
+        values,
+        function(err) {
+            if (err) {
+                console.error('Error updating task:', err);
+                return res.status(500).json({ success: false, message: 'Database error' });
+            }
+            if (this.changes === 0) {
+                return res.status(404).json({ success: false, message: 'Task not found' });
+            }
+            res.json({ success: true });
+        }
+    );
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
