@@ -148,6 +148,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         ganttChart.highlightTasks([]);
     };
 
+    const handleListClick = (event, d) => {
+        if (isEditMode) return;
+        ganttChart.scrollToTask(d.id);
+    };
+
     ganttChart
         .setTaskHover(handleTaskHover)
         .setTaskOut(handleTaskOut)
@@ -155,7 +160,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     taskList
         .setItemHover(handleListHover)
-        .setItemOut(handleListOut);
+        .setItemOut(handleListOut)
+        .setItemClick(handleListClick);
 
     // Scroll to today on load
     setTimeout(() => {

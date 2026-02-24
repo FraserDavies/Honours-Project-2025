@@ -907,6 +907,23 @@ class GanttChart {
         return this;
     }
 
+    // Scroll to centre a task's bar in the viewport
+    scrollToTask(taskId) {
+        const task = this.data.find(d => d.id === taskId);
+        if (!task) return this;
+
+        // Centre on the midpoint of the task bar
+        const startX = this.scaleX(task.startDate);
+        const endX   = task.isMilestone ? startX : this.scaleX(task.endDate);
+        const midX   = (startX + endX) / 2;
+
+        const containerWidth = this.container.node().clientWidth;
+        const scrollX = Math.max(0, midX - containerWidth / 2);
+
+        this.container.node().parentElement.scrollLeft = scrollX;
+        return this;
+    }
+
     // Scroll to today's date
     scrollToToday() {
         const today = new Date();
