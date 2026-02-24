@@ -303,3 +303,106 @@ Usibility study thjigsn like questionaire - add a part for if you have experianc
 monitor participant while they do the unibility to makr any prolem areas
 
  
+
+Questions to paste into the ms form
+
+I think that I would like to use this system. 
+I found the system unnecessarily complex.
+I think that the system was easy to use. 
+I think I would need the support of a technical person to be able to use this system.
+I found the various functions in the system were well integrated.
+I thought there was too much inconsistency in this system.
+I would imagine that most people would learn to use this system very quickly.
+I found the system very cumbersome to use. 
+I felt confident using the system.
+I needed to learn a lot of things before I could get going with this system. 
+
+DRAFT SCRIPT
+---                                                                                                                                                                           User Testing Script — Gantt Chart Builder                                                                                                                                                                                                                                                                                                                   Before You Start                                                                                                                                                                                                                                                                                                                                          
+- Have the app running and the login page open
+- Advise participant: "Please think out loud as you go - say what you're looking at, what you expect to happen, and what confuses you."
+
+---
+Step 1: Login
+
+1. Direct participant to the login page
+2. Ask participant to log in using the provided email credentials (fd2010@hw.ac.uk)
+
+Observe: Is the form clear? Does the participant know where to type?
+
+---
+Step 2: Project Selection
+
+1. After login, participant should see a project list
+2. Ask participant to find and open Project 1001
+
+Observe: Is it obvious how to select a project? Do they click correctly?
+
+---
+Step 3: Reading the Gantt Chart
+
+1. Once the chart loads, ask participant to identify:
+- A specific task by name
+- The start/end date of a task
+- Any task dependencies (connecting lines)
+- Navigate to today's date is on the chart
+
+Observe: Can they interpret the chart without help?
+
+---
+Step 4: Hovering / Tooltips
+
+1. Ask participant to hover over a task bar
+
+Observe: Do they notice the tooltip? Is the information useful?
+
+---
+Step 5: Enabling Edit Mode
+
+1. Ask: "If you wanted to make changes to a task, where would you start?"
+2. Let them find the edit mode toggle themselves
+
+Observe: Is the edit mode button discoverable? Do they understand what it does?
+
+---
+Step 6: Rename a Task
+
+1. In edit mode, ask them to change the name of a task
+2. They should click on the task label/bar to trigger the rename input
+
+Observe: Is it clear how to rename? Is the input easy to use?
+
+---
+Step 7: Move a Task (Drag to Change Dates)
+
+1. Ask them to move a task to a different date by dragging it
+
+Observe:
+- Do they attempt to drag? Is the drag handle obvious?
+- Do they understand the task has snapped to a new date after releasing?
+- Do they look for confirmation that the change was saved?
+
+---
+Step 8: Resize a Task (Change Duration)
+
+1. Ask them to try extending or shortening a task's duration
+
+Observe: Do they find the resize handle on the edge of the bar?
+
+---
+Step 9: Exiting Edit Mode / Saving
+
+1. Ask them to stop editing and return to the normal view
+
+Observe: Is it clear how to exit edit mode? Do they expect a "Save" button?
+
+---
+Step 10: Wrap-up Questions
+
+After the test, ask:
+- "What was the most confusing part?"
+- "Was there anything you expected to find that wasn't there?"
+- "On a scale of 1–5, how confident did you feel using the chart?"
+- "Is there anything you'd change?"
+
+---
