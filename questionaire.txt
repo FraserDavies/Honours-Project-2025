@@ -1,3 +1,42 @@
+Step 0 - Introduction and Consent
+ - info about study
+ - what are you asking
+ - complete consent form
+
+Step 1 - Creating Gantt Chart
+ - open an empty project
+ - ask participant to create milestone
+ - ask participant to create a task
+ - ask participant to create dependency
+ - measure correctness + time
+
+Step 2 - Reading Gantt Chart
+ - open pre-create gantt chart
+ - Find task by name
+ - Retrieve dates of a task
+ - Find tasks that are dependents
+ - Find tasks that it is depending on
+ - Go to today's date
+ - Estimate progression rate of task
+ - Estimate progression rate of project (behind schedule, ahead of schedule, right on time ...)
+ - measure correctness + time
+
+Step 3 - Edit Gantt Chart
+ - keep gantt chart from step 2
+ - instruct to go in edit mode
+ - rename task
+ - move task
+ - resize task
+ - update a dependency
+ - create new task
+ - create new dependency
+ - instruct to save and exit
+ - measure correctness + time
+
+After study - check DB for correctness
+
+Step 4 - SUS
+
 I think that I would like to use this system. 
 I found the system unnecessarily complex.
 I think that the system was easy to use. 
@@ -7,8 +46,14 @@ I thought there was too much inconsistency in this system.
 I would imagine that most people would learn to use this system very quickly.
 I found the system very cumbersome to use. 
 I felt confident using the system.
-I needed to learn a lot of things before I could get going with this system. 
+I needed to learn a lot of things before I could get going with this system.
 
+Step 5 - Additional questions
+- "What was the easiest/straightforward part?
+- "What was the most difficult/confusing part?"
+- "Was there anything you expected to find that wasn't there?"
+- "Is there anything you'd change?"
+- "Would you reuse this system for your university projects?"
 
 
 DRAFT SCRIPT
