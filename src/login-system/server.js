@@ -130,7 +130,7 @@ app.get('/api/projects/:projectId/tasks', (req, res) => {
 
     db.all(
         `SELECT task_id, project_id, task_name, description, start_date, end_date, duration,
-                progress_percentage, is_milestone, parent_task_id, display_order, colour
+                progress_percentage, is_milestone, parent_task_id, display_order, colour, tag
          FROM tasks
          WHERE project_id = ?
          ORDER BY display_order`,

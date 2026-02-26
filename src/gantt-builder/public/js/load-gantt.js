@@ -1,5 +1,41 @@
+// Panel resizer — drag the right edge of the task list panel to resize it
+function initPanelResizer() {
+    const resizer = document.getElementById('panelResizer');
+    const panel   = document.getElementById('taskListPanel');
+    if (!resizer || !panel) return;
+
+    let isResizing = false;
+    let startX     = 0;
+    let startWidth = 0;
+
+    resizer.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        startX     = e.clientX;
+        startWidth = panel.offsetWidth;
+        resizer.classList.add('resizing');
+        document.body.style.cursor    = 'col-resize';
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isResizing) return;
+        const newWidth = Math.max(150, Math.min(500, startWidth + (e.clientX - startX)));
+        panel.style.width = `${newWidth}px`;
+    });
+
+    document.addEventListener('mouseup', () => {
+        if (!isResizing) return;
+        isResizing = false;
+        resizer.classList.remove('resizing');
+        document.body.style.cursor    = '';
+        document.body.style.userSelect = '';
+    });
+}
+
 // Get project data from URL parameters and localStorage
 document.addEventListener('DOMContentLoaded', () => {
+    initPanelResizer();
     // Check if user is logged in
     const savedUser = localStorage.getItem('gantt_user');
     if (!savedUser) {

@@ -182,14 +182,43 @@
 
 /* Task List Panel (Left Side - Fixed Position) */
 .task-list-panel {
-    min-width: 250px;
-    max-width: 250px;
+    width: 250px;
+    min-width: 150px;
     border-right: 1px solid var(--border-color);
     background: var(--bg-white);
     flex-shrink: 0;
     position: sticky;
     left: 0;
     z-index: 10;
+}
+
+/* Panel Resizer Handle */
+.panel-resizer {
+    position: absolute;
+    top: 0;
+    right: -4px;
+    width: 8px;
+    height: 100%;
+    cursor: col-resize;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.panel-resizer::after {
+    content: '';
+    width: 3px;
+    height: 36px;
+    background: var(--border-color);
+    border-radius: 2px;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.panel-resizer:hover::after,
+.panel-resizer.resizing::after {
+    background: var(--primary-color);
+    transform: scaleX(1.5);
 }
 
 .task-list-header {

@@ -64,7 +64,7 @@
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
                         </svg>
-                        <span>Edit Mode — drag bars to reschedule, click names to rename</span>
+                        <span>Edit Mode - drag bars to reschedule, click names to rename</span>
                     </div>
                     <div class="edit-banner-actions">
                         <button class="edit-cancel-btn" id="editCancelBtn">Cancel</button>
@@ -117,9 +117,10 @@
 
                 <div class="gantt-container" id="ganttContainer">
                     <!-- Task List Panel (Left Side - Fixed) -->
-                    <div class="task-list-panel">
+                    <div class="task-list-panel" id="taskListPanel">
                         <div class="task-list-header">Tasks</div>
                         <div id="taskList"></div>
+                        <div class="panel-resizer" id="panelResizer" title="Drag to resize"></div>
                     </div>
 
                     <!-- Chart Panel (Right Side - Scrollable) -->
@@ -130,12 +131,32 @@
                 <div class="gantt-legend">
                     <div class="legend-items">
                         <div class="legend-item">
-                            <div class="legend-color completed"></div>
-                            <span>Completed</span>
+                            <div class="legend-color" style="background:#4a90d9"></div>
+                            <span>Research</span>
                         </div>
                         <div class="legend-item">
-                            <div class="legend-color at-risk"></div>
-                            <span>At Risk</span>
+                            <div class="legend-color" style="background:#17a2b8"></div>
+                            <span>Planning</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#7ed321"></div>
+                            <span>Design</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#9013fe"></div>
+                            <span>Implementation</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#d0021b"></div>
+                            <span>Testing</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#e67e22"></div>
+                            <span>Evaluation</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="legend-color" style="background:#50e3c2"></div>
+                            <span>Writing</span>
                         </div>
                     </div>
                     <button class="edit-mode-btn" id="editModeBtn" title="Edit tasks">

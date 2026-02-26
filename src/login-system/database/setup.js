@@ -52,6 +52,7 @@ db.serialize(() => {
             parent_task_id INTEGER,
             display_order INTEGER DEFAULT 0,
             colour TEXT DEFAULT '#4a90d9',
+            tag TEXT DEFAULT NULL,
             FOREIGN KEY (project_id) REFERENCES student_projects(project_id),
             FOREIGN KEY (parent_task_id) REFERENCES tasks(task_id)
         )
@@ -128,26 +129,38 @@ db.serialize(() => {
         insertProjectStmt.finalize();
 
         // Sample tasks for Gantt Chart Builder project (project_id: 1001)
-        // Task IDs will be: 1=Planning, 2=Requirements Milestone, 3=Design Phase, 4=Database Design,
-        // 5=UI Mockups, 6=Development Phase, 7=Backend, 8=Frontend, 9=Integration, 10=Testing, 11=Delivery Milestone
+        // Sept 2025 – April 2026 honours project timeline
+        // Task IDs (auto-increment order):
+        //  1=Project Kickoff, 2=Literature Review, 3=Requirements Gathering,
+        //  4=Requirements Complete (milestone), 5=System Architecture Design,
+        //  6=Database Schema Design, 7=UI/UX Mockups, 8=Design Sign-off (milestone),
+        //  9=Development Setup, 10=Backend API Development, 11=Frontend Development,
+        //  12=Gantt Chart Visualisation Engine, 13=System Integration,
+        //  14=System Testing & Bug Fixes, 15=User Study & Evaluation,
+        //  16=Dissertation Writing, 17=Final Submission (milestone)
         const sampleTasks = [
-            { project_id: 1001, task_name: 'Project Planning', description: 'Initial project planning and requirements gathering', start_date: '2025-01-06', end_date: '2025-01-12', duration: 7, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 1, colour: '#4a90d9' },
-            { project_id: 1001, task_name: 'Requirements Complete', description: 'Requirements documentation finalized', start_date: '2025-01-12', end_date: '2025-01-12', duration: 0, progress_percentage: 100, is_milestone: 1, parent_task_id: null, display_order: 2, colour: '#f5a623' },
-            { project_id: 1001, task_name: 'Design Phase', description: 'UI/UX design and system architecture', start_date: '2025-01-13', end_date: '2025-01-26', duration: 14, progress_percentage: 75, is_milestone: 0, parent_task_id: null, display_order: 3, colour: '#7ed321' },
-            { project_id: 1001, task_name: 'Database Design', description: 'Design database schema and relationships', start_date: '2025-01-13', end_date: '2025-01-19', duration: 7, progress_percentage: 100, is_milestone: 0, parent_task_id: 3, display_order: 4, colour: '#7ed321' },
-            { project_id: 1001, task_name: 'UI Mockups', description: 'Create user interface mockups', start_date: '2025-01-20', end_date: '2025-01-26', duration: 7, progress_percentage: 50, is_milestone: 0, parent_task_id: 3, display_order: 5, colour: '#7ed321' },
-            { project_id: 1001, task_name: 'Development Phase', description: 'Core development work', start_date: '2025-01-27', end_date: '2025-03-09', duration: 42, progress_percentage: 20, is_milestone: 0, parent_task_id: null, display_order: 6, colour: '#9013fe' },
-            { project_id: 1001, task_name: 'Backend Implementation', description: 'Server-side development', start_date: '2025-01-27', end_date: '2025-02-16', duration: 21, progress_percentage: 30, is_milestone: 0, parent_task_id: 6, display_order: 7, colour: '#9013fe' },
-            { project_id: 1001, task_name: 'Frontend Implementation', description: 'Client-side development', start_date: '2025-02-10', end_date: '2025-03-02', duration: 21, progress_percentage: 10, is_milestone: 0, parent_task_id: 6, display_order: 8, colour: '#9013fe' },
-            { project_id: 1001, task_name: 'Integration', description: 'Integrate frontend and backend', start_date: '2025-03-03', end_date: '2025-03-09', duration: 7, progress_percentage: 0, is_milestone: 0, parent_task_id: 6, display_order: 9, colour: '#9013fe' },
-            { project_id: 1001, task_name: 'Testing Phase', description: 'Testing and bug fixes', start_date: '2025-03-10', end_date: '2025-03-23', duration: 14, progress_percentage: 0, is_milestone: 0, parent_task_id: null, display_order: 10, colour: '#d0021b' },
-            { project_id: 1001, task_name: 'Integration', description: 'Integrate frontend and backend', start_date: '2026-03-03', end_date: '2026-03-09', duration: 7, progress_percentage: 0, is_milestone: 0, parent_task_id: 6, display_order: 9, colour: '#9013fe' },
-            { project_id: 1001, task_name: 'Project Delivery', description: 'Final project submission', start_date: '2025-03-24', end_date: '2025-03-24', duration: 0, progress_percentage: 0, is_milestone: 1, parent_task_id: null, display_order: 11, colour: '#f5a623' }
+            { project_id: 1001, task_name: 'Project Kickoff',                description: 'Initial supervisor meeting, project scope agreed and plan drafted',       start_date: '2025-09-22', end_date: '2025-09-22', duration: 0,  progress_percentage: 100, is_milestone: 1, parent_task_id: null, display_order: 1,  colour: '#17a2b8', tag: 'planning'        },
+            { project_id: 1001, task_name: 'Literature Review',              description: 'Review existing Gantt chart tools, project management systems and HWU system architecture', start_date: '2025-09-22', end_date: '2025-10-31', duration: 39, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 2,  colour: '#4a90d9', tag: 'research'        },
+            { project_id: 1001, task_name: 'Requirements Gathering',         description: 'Stakeholder interviews, analysis of current HWU system and user needs', start_date: '2025-10-06', end_date: '2025-10-24', duration: 18, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 3,  colour: '#17a2b8', tag: 'planning'        },
+            { project_id: 1001, task_name: 'Requirements Complete',          description: 'Functional and non-functional requirements document signed off',          start_date: '2025-10-24', end_date: '2025-10-24', duration: 0,  progress_percentage: 100, is_milestone: 1, parent_task_id: null, display_order: 4,  colour: '#17a2b8', tag: 'planning'        },
+            { project_id: 1001, task_name: 'System Architecture Design',     description: 'High-level architecture, technology stack decisions and component design', start_date: '2025-10-27', end_date: '2025-11-14', duration: 18, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 5,  colour: '#7ed321', tag: 'design'          },
+            { project_id: 1001, task_name: 'Database Schema Design',         description: 'Design relational schema for students, projects, tasks and dependencies', start_date: '2025-10-27', end_date: '2025-11-07', duration: 11, progress_percentage: 100, is_milestone: 0, parent_task_id: 5,    display_order: 6,  colour: '#7ed321', tag: 'design'          },
+            { project_id: 1001, task_name: 'UI/UX Mockups',                  description: 'Figma wireframes and interactive prototypes for all key screens',        start_date: '2025-11-03', end_date: '2025-11-21', duration: 18, progress_percentage: 100, is_milestone: 0, parent_task_id: 5,    display_order: 7,  colour: '#7ed321', tag: 'design'          },
+            { project_id: 1001, task_name: 'Design Sign-off',                description: 'Supervisor review and approval of architecture and UI designs',           start_date: '2025-11-21', end_date: '2025-11-21', duration: 0,  progress_percentage: 100, is_milestone: 1, parent_task_id: null, display_order: 8,  colour: '#7ed321', tag: 'design'          },
+            { project_id: 1001, task_name: 'Development Setup',              description: 'Configure Node.js/Express server, SQLite database and project scaffold',  start_date: '2025-11-24', end_date: '2025-11-28', duration: 4,  progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 9,  colour: '#9013fe', tag: 'implementation'  },
+            { project_id: 1001, task_name: 'Backend API Development',        description: 'REST API endpoints for authentication, projects, tasks and dependencies', start_date: '2025-12-01', end_date: '2026-01-09', duration: 39, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 10, colour: '#9013fe', tag: 'implementation'  },
+            { project_id: 1001, task_name: 'Frontend Development',           description: 'Login system, dashboard, project pages and task management UI',          start_date: '2025-12-15', end_date: '2026-01-30', duration: 46, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 11, colour: '#9013fe', tag: 'implementation'  },
+            { project_id: 1001, task_name: 'Gantt Chart Visualisation Engine', description: 'D3.js interactive Gantt chart with zoom, drag, dependencies and export', start_date: '2026-01-12', end_date: '2026-02-06', duration: 25, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 12, colour: '#9013fe', tag: 'implementation'  },
+            { project_id: 1001, task_name: 'System Integration',             description: 'Connect frontend, backend and Gantt chart module end-to-end',             start_date: '2026-02-09', end_date: '2026-02-20', duration: 11, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 13, colour: '#9013fe', tag: 'implementation'  },
+            { project_id: 1001, task_name: 'System Testing & Bug Fixes',     description: 'Functional, usability and edge-case testing with iterative bug fixing',  start_date: '2026-02-23', end_date: '2026-03-13', duration: 18, progress_percentage: 20,  is_milestone: 0, parent_task_id: null, display_order: 14, colour: '#d0021b', tag: 'testing'         },
+            { project_id: 1001, task_name: 'User Study & Evaluation',        description: 'Structured user study sessions with students and supervisors, data analysis', start_date: '2026-03-02', end_date: '2026-03-20', duration: 18, progress_percentage: 0,   is_milestone: 0, parent_task_id: null, display_order: 15, colour: '#e67e22', tag: 'evaluation'      },
+            { project_id: 1001, task_name: 'Dissertation Writing',           description: 'Full dissertation draft, supervisor feedback rounds and final revision',  start_date: '2026-02-23', end_date: '2026-04-10', duration: 46, progress_percentage: 5,   is_milestone: 0, parent_task_id: null, display_order: 16, colour: '#50e3c2', tag: 'writing'         },
+            { project_id: 1001, task_name: 'Final Submission',               description: 'Dissertation and project artefacts submitted via MACS portal',           start_date: '2026-04-11', end_date: '2026-04-11', duration: 0,  progress_percentage: 0,   is_milestone: 1, parent_task_id: null, display_order: 17, colour: '#50e3c2', tag: 'writing'         }
         ];
 
         const insertTaskStmt = db.prepare(`
-            INSERT INTO tasks (project_id, task_name, description, start_date, end_date, duration, progress_percentage, is_milestone, parent_task_id, display_order, colour)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            INSERT INTO tasks (project_id, task_name, description, start_date, end_date, duration, progress_percentage, is_milestone, parent_task_id, display_order, colour, tag)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `);
 
         sampleTasks.forEach(task => {
@@ -162,22 +175,44 @@ db.serialize(() => {
                 task.is_milestone,
                 task.parent_task_id,
                 task.display_order,
-                task.colour
+                task.colour,
+                task.tag || null
             );
         });
 
         insertTaskStmt.finalize();
 
         const sampleDependencies = [
-            { predecessor_task_id: 1, successor_task_id: 2, dependency_type: 'finish-to-start' },
-            { predecessor_task_id: 2, successor_task_id: 3, dependency_type: 'finish-to-start' },
-            { predecessor_task_id: 4, successor_task_id: 5, dependency_type: 'finish-to-start' },
-            { predecessor_task_id: 3, successor_task_id: 6, dependency_type: 'finish-to-start' },
-            { predecessor_task_id: 7, successor_task_id: 8, dependency_type: 'start-to-start' }, 
-            { predecessor_task_id: 7, successor_task_id: 9, dependency_type: 'finish-to-start' },
-            { predecessor_task_id: 8, successor_task_id: 9, dependency_type: 'finish-to-start' },
-            { predecessor_task_id: 9, successor_task_id: 10, dependency_type: 'finish-to-start' },
-            { predecessor_task_id: 10, successor_task_id: 11, dependency_type: 'finish-to-start' }
+            // Kickoff unlocks both Literature Review and Requirements Gathering
+            { predecessor_task_id: 1,  successor_task_id: 2,  dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 1,  successor_task_id: 3,  dependency_type: 'finish-to-start' },
+            // Requirements Gathering → Requirements Complete milestone
+            { predecessor_task_id: 3,  successor_task_id: 4,  dependency_type: 'finish-to-start' },
+            // Requirements Complete → System Architecture Design
+            { predecessor_task_id: 4,  successor_task_id: 5,  dependency_type: 'finish-to-start' },
+            // Within design: Database Schema → UI/UX Mockups (UI can start once schema is agreed)
+            { predecessor_task_id: 6,  successor_task_id: 7,  dependency_type: 'finish-to-start' },
+            // UI/UX Mockups complete → Design Sign-off milestone
+            { predecessor_task_id: 7,  successor_task_id: 8,  dependency_type: 'finish-to-start' },
+            // Design Sign-off → Development Setup
+            { predecessor_task_id: 8,  successor_task_id: 9,  dependency_type: 'finish-to-start' },
+            // Setup → Backend API Development
+            { predecessor_task_id: 9,  successor_task_id: 10, dependency_type: 'finish-to-start' },
+            // Frontend starts once Backend is underway (start-to-start overlap, 2-week lag built into dates)
+            { predecessor_task_id: 10, successor_task_id: 11, dependency_type: 'start-to-start' },
+            // Gantt Visualisation Engine needs Backend API ready
+            { predecessor_task_id: 10, successor_task_id: 12, dependency_type: 'finish-to-start' },
+            // Integration needs both Frontend and Gantt Engine complete
+            { predecessor_task_id: 11, successor_task_id: 13, dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 12, successor_task_id: 13, dependency_type: 'finish-to-start' },
+            // Testing follows Integration
+            { predecessor_task_id: 13, successor_task_id: 14, dependency_type: 'finish-to-start' },
+            // User Study overlaps with later Testing (start-to-start)
+            { predecessor_task_id: 14, successor_task_id: 15, dependency_type: 'start-to-start' },
+            // All three must finish before Final Submission
+            { predecessor_task_id: 14, successor_task_id: 17, dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 15, successor_task_id: 17, dependency_type: 'finish-to-start' },
+            { predecessor_task_id: 16, successor_task_id: 17, dependency_type: 'finish-to-start' }
         ];
 
 

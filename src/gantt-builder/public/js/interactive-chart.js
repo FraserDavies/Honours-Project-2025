@@ -5,6 +5,17 @@
 // API Base URL
 const API_URL = 'http://localhost:3000/api';
 
+// Tag colour map — each tag has a fixed colour used across the chart and legend
+const TAG_COLOURS = {
+    research:       '#4a90d9', // blue
+    planning:       '#17a2b8', // teal
+    design:         '#7ed321', // green
+    implementation: '#9013fe', // purple
+    testing:        '#d0021b', // red
+    evaluation:     '#e67e22', // orange
+    writing:        '#50e3c2'  // mint
+};
+
 // Get project ID from URL query parameter
 function getProjectIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -39,7 +50,8 @@ function transformTaskData(dbTasks) {
         description: task.description,
         startDate: parseDate(task.start_date),
         endDate: parseDate(task.end_date),
-        colour: task.colour || '#3b82f6',
+        colour: (task.tag && TAG_COLOURS[task.tag]) ? TAG_COLOURS[task.tag] : (task.colour || '#3b82f6'),
+        tag: task.tag || null,
         progress: task.progress_percentage || 0,
         isMilestone: task.is_milestone === 1,
         parentTaskId: task.parent_task_id,
