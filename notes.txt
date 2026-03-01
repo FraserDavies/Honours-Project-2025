@@ -406,3 +406,39 @@ After the test, ask:
 - "Is there anything you'd change?"
 
 ---
+
+
+tasks are now ordered by start date, then earliest end date, then alphabetical order
+
+
+
+Must Have (Core Features)
+
+[COMPLETE] Project data creation and management — title, description, start/end dates
+[COMPLETE] Task creation, editing, and deletion — with name, description, and dates
+[COMPLETE] Finish-to-Start task dependencies
+[COMPLETE] Gantt chart visualisation using D3.js
+[COMPLETE] Data persistence to SQLite database
+[COMPLETE] Milestone creation with specific dates
+
+Should Have (Expected Features)
+
+[TODO] Guided task creation interface with contextual help and validation
+[COMPLETE] Drag-and-drop timeline adjustment for tasks
+[COMPLETE] Automatic dependency adjustment when tasks are modified
+[COMPLETE] Progress tracking — marking tasks as not started, in progress, or completed
+[COMPLETE] Schedule status indicator — ahead/on track/behind
+[COMPLETE] Gantt chart export as PNG/JPEG
+[TODO] Supervisor view-only access
+[COMPLETE] Task hierarchy with subtasks under parent tasks
+[COMPLETE] Prevention of logically impossible schedules
+[COMPLETE] Timeline zoom and pan controls
+[COMPLETE] Hover tooltips showing task name, dates, duration, dependencies
+
+Could Have (Nice to Have)
+
+[COMPLETE] Kanban board alternative view
+[COMPLETE] Task categories/tags (e.g. Research, Writing)
+[NOT DOING] Additional dependency types — Start-to-Start, Finish-to-Finish, Start-to-Finish
+[MAYBE DOING] Critical path highlighting
+[TODO] Supervisor comment and feedback system

@@ -94,12 +94,52 @@
 
                     <div class="divider"></div>
 
-            
+                    <button class="btn btn-primary create-project-btn" id="createProjectBtn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="12" y1="5" x2="12" y2="19"/>
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                        </svg>
+                        Create New Gantt Chart
+                    </button>
                 </div>
             </div>
 
         </div>
     </main>
+
+    <!-- Create Project Modal -->
+    <div class="modal-overlay" id="createProjectModal">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h2 class="modal-title">Create New Gantt Chart</h2>
+            </div>
+            <div class="modal-body">
+                <div id="createProjectMessage" class="message"></div>
+                <div class="form-group">
+                    <label class="form-label" for="newProjectTitle">Project Title <span style="color:var(--color-error)">*</span></label>
+                    <input type="text" id="newProjectTitle" class="form-input modal-input" placeholder="Enter project title...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="newProjectDesc">Description</label>
+                    <textarea id="newProjectDesc" class="form-input modal-input" rows="3" placeholder="Enter project description..."></textarea>
+                </div>
+                <div class="modal-date-row">
+                    <div class="form-group modal-date-field">
+                        <label class="form-label" for="newProjectStart">Start Date <span style="color:var(--color-error)">*</span></label>
+                        <input type="date" id="newProjectStart" class="form-input modal-input">
+                    </div>
+                    <div class="form-group modal-date-field">
+                        <label class="form-label" for="newProjectEnd">End Date <span style="color:var(--color-error)">*</span></label>
+                        <input type="date" id="newProjectEnd" class="form-input modal-input">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary modal-btn" id="createProjectCancel">Cancel</button>
+                <button class="btn btn-primary modal-btn" id="createProjectSubmit">Create Project</button>
+            </div>
+        </div>
+    </div>
 
     <!-- ========== FOOTER ========== -->
     <footer class="footer">

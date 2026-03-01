@@ -439,7 +439,101 @@ body {
 }
 
 /* ========================================
-   10. FOOTER
+   10. CREATE PROJECT BUTTON & MODAL
+   ======================================== */
+.create-project-btn {
+    width: auto;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.9375rem;
+    margin-top: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modal-overlay.visible {
+    display: flex;
+}
+
+.modal-card {
+    background: var(--bg-white);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: modalIn 0.15s ease;
+}
+
+@keyframes modalIn {
+    from { transform: translateY(-12px); opacity: 0; }
+    to   { transform: translateY(0);     opacity: 1; }
+}
+
+.modal-header {
+    padding: 1.5rem 1.5rem 0;
+    border-bottom: 0;
+}
+
+.modal-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0;
+}
+
+.modal-body {
+    padding: 1.25rem 1.5rem;
+}
+
+.modal-input {
+    padding-left: 0.75rem;
+    font-size: 0.9375rem;
+}
+
+textarea.modal-input {
+    resize: vertical;
+    padding-top: 0.5rem;
+    min-height: 72px;
+}
+
+.modal-date-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.modal-date-field {
+    flex: 1;
+}
+
+.modal-footer {
+    padding: 0 1.5rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+}
+
+.modal-btn {
+    width: auto;
+    padding: 0.55rem 1.25rem;
+    font-size: 0.9375rem;
+}
+
+/* ========================================
+   11. FOOTER
    ======================================== */
 .footer {
     text-align: center;

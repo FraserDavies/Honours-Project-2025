@@ -10,6 +10,7 @@ const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
     // Drop existing tables to reset schema (if they exist)
+    db.run(`DROP TABLE IF EXISTS subtasks`);
     db.run(`DROP TABLE IF EXISTS dependencies`);
     db.run(`DROP TABLE IF EXISTS tasks`);
     db.run(`DROP TABLE IF EXISTS student_projects`);
@@ -32,6 +33,8 @@ db.serialize(() => {
             project_id INTEGER NOT NULL,
             project_name TEXT,
             project_description TEXT,
+            start_date TEXT DEFAULT NULL,
+            end_date TEXT DEFAULT NULL,
             FOREIGN KEY (student_id) REFERENCES students(student_id),
             UNIQUE(student_id, project_id)
         )
@@ -70,6 +73,20 @@ db.serialize(() => {
         )
     `);
 
+    // Create subtasks table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS subtasks (
+            subtask_id          INTEGER PRIMARY KEY AUTOINCREMENT,
+            parent_task_id      INTEGER NOT NULL,
+            subtask_name        TEXT NOT NULL,
+            progress_percentage INTEGER DEFAULT 0 CHECK(progress_percentage >= 0 AND progress_percentage <= 100),
+            start_date          TEXT NOT NULL,
+            end_date            TEXT NOT NULL,
+            display_order       INTEGER DEFAULT 0,
+            FOREIGN KEY (parent_task_id) REFERENCES tasks(task_id)
+        )
+    `);
+
     // Sample students data
     const sampleStudents = [
         { email: 'fd2010@hw.ac.uk', name: 'Fraser Davies' },
@@ -92,14 +109,14 @@ db.serialize(() => {
     // Sample project assignments (students can have multiple projects)
     // todo: lowkenuinly ask if there should be a staff mode (boolean variable)
     const sampleProjectAssignments = [
-        { email: 'fd2010@hw.ac.uk', project_id: 1001, project_name: 'Interactive Gantt Chart Builder', project_description: 'This project will see the development, evaluation and integration of an interactive Gantt chart builder for the current HWU project system. Some of the requirements may include: - Build an interface that guides students in writing correct milestones, detailed tasks, task hierarchies, and dependencies. - Generate an interactive Gantt chart for students and supervisors to explore. - Provide an export functionality to include the chart or data in a documentation. - Provide functionalities for students and supervisors to reflect on the progress of a project and reevaluate goals if needed. - Evaluate the tool and its guidance feature with a user study. - Develop and integrate the tool within the existing technological stack on which the HWU project system is built. This project will require a willingness to organise and run meetings with stakeholders (current system developers, supervisors, students, etc.). You should also be proficient with web programming, data management, UI/UX and willing to develop bespoke interactive data visualisation systems.' },
-        { email: 'fd2010@hw.ac.uk', project_id: 1002, project_name: 'AI Research Tool', project_description: 'Machine learning platform for academic research analysis' },
-        { email: 'fd2010@hw.ac.uk', project_id: 1003, project_name: 'Database Manager', project_description: 'SQLite database management and visualisation tool' },
-        { email: 'test@hw.ac.uk', project_id: 1004, project_name: 'Test Project', project_description: 'A sample project for testing purposes' },
-        { email: 'test@hw.ac.uk', project_id: 1005, project_name: 'Another Test', project_description: 'Secondary test project for validation' },
-        { email: 'demo@hw.ac.uk', project_id: 1006, project_name: 'Demo Project', project_description: 'Demonstration project showcasing system features' },
-        { email: 'aa2212@hw.ac.uk', project_id: 1007, project_name: 'Aadham Project 1', project_description: 'First project assignment' },
-        { email: 'aa2212@hw.ac.uk', project_id: 1008, project_name: 'Aadham Project 2', project_description: 'Second project assignment' }
+        { email: 'fd2010@hw.ac.uk', project_id: 1001, project_name: 'Interactive Gantt Chart Builder', project_description: 'This project will see the development, evaluation and integration of an interactive Gantt chart builder for the current HWU project system. Some of the requirements may include: - Build an interface that guides students in writing correct milestones, detailed tasks, task hierarchies, and dependencies. - Generate an interactive Gantt chart for students and supervisors to explore. - Provide an export functionality to include the chart or data in a documentation. - Provide functionalities for students and supervisors to reflect on the progress of a project and reevaluate goals if needed. - Evaluate the tool and its guidance feature with a user study. - Develop and integrate the tool within the existing technological stack on which the HWU project system is built. This project will require a willingness to organise and run meetings with stakeholders (current system developers, supervisors, students, etc.). You should also be proficient with web programming, data management, UI/UX and willing to develop bespoke interactive data visualisation systems.', start_date: '2025-09-22', end_date: '2026-04-11' },
+        { email: 'fd2010@hw.ac.uk', project_id: 1002, project_name: 'AI Research Tool', project_description: 'Machine learning platform for academic research analysis', start_date: null, end_date: null },
+        { email: 'fd2010@hw.ac.uk', project_id: 1003, project_name: 'Database Manager', project_description: 'SQLite database management and visualisation tool', start_date: null, end_date: null },
+        { email: 'test@hw.ac.uk', project_id: 1004, project_name: 'Test Project', project_description: 'A sample project for testing purposes', start_date: null, end_date: null },
+        { email: 'test@hw.ac.uk', project_id: 1005, project_name: 'Another Test', project_description: 'Secondary test project for validation', start_date: null, end_date: null },
+        { email: 'demo@hw.ac.uk', project_id: 1006, project_name: 'Demo Project', project_description: 'Demonstration project showcasing system features', start_date: null, end_date: null },
+        { email: 'aa2212@hw.ac.uk', project_id: 1007, project_name: 'Aadham Project 1', project_description: 'First project assignment', start_date: null, end_date: null },
+        { email: 'aa2212@hw.ac.uk', project_id: 1008, project_name: 'Aadham Project 2', project_description: 'Second project assignment', start_date: null, end_date: null }
     ];
 
     // Insert project assignments after getting student IDs
@@ -115,21 +132,21 @@ db.serialize(() => {
         });
 
         const insertProjectStmt = db.prepare(`
-            INSERT OR IGNORE INTO student_projects (student_id, project_id, project_name, project_description)
-            VALUES (?, ?, ?, ?)
+            INSERT OR IGNORE INTO student_projects (student_id, project_id, project_name, project_description, start_date, end_date)
+            VALUES (?, ?, ?, ?, ?, ?)
         `);
 
         sampleProjectAssignments.forEach(assignment => {
             const studentId = emailToId[assignment.email];
             if (studentId) {
-                insertProjectStmt.run(studentId, assignment.project_id, assignment.project_name, assignment.project_description);
+                insertProjectStmt.run(studentId, assignment.project_id, assignment.project_name, assignment.project_description, assignment.start_date || null, assignment.end_date || null);
             }
         });
 
         insertProjectStmt.finalize();
 
         // Sample tasks for Gantt Chart Builder project (project_id: 1001)
-        // Sept 2025 – April 2026 honours project timeline
+        // Sept 2025 - April 2026 honours project timeline
         // Task IDs (auto-increment order):
         //  1=Project Kickoff, 2=Literature Review, 3=Requirements Gathering,
         //  4=Requirements Complete (milestone), 5=System Architecture Design,

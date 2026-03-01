@@ -177,3 +177,109 @@ emailInput.addEventListener('keypress', (e) => {
         loginForm.dispatchEvent(new Event('submit'));
     }
 });
+
+// =============== CREATE PROJECT MODAL ===============
+const createProjectModal  = document.getElementById('createProjectModal');
+const createProjectBtn    = document.getElementById('createProjectBtn');
+const createProjectCancel = document.getElementById('createProjectCancel');
+const createProjectSubmit = document.getElementById('createProjectSubmit');
+const createProjectMsg    = document.getElementById('createProjectMessage');
+
+function showCreateProjectMessage(text, type) {
+    createProjectMsg.textContent = text;
+    createProjectMsg.className = `message show message-${type}`;
+}
+
+function clearCreateProjectForm() {
+    document.getElementById('newProjectTitle').value = '';
+    document.getElementById('newProjectDesc').value  = '';
+    document.getElementById('newProjectStart').value = '';
+    document.getElementById('newProjectEnd').value   = '';
+    createProjectMsg.classList.remove('show');
+}
+
+if (createProjectBtn) {
+    createProjectBtn.addEventListener('click', () => {
+        clearCreateProjectForm();
+        createProjectModal.classList.add('visible');
+    });
+}
+
+if (createProjectCancel) {
+    createProjectCancel.addEventListener('click', () => {
+        createProjectModal.classList.remove('visible');
+    });
+}
+
+if (createProjectModal) {
+    createProjectModal.addEventListener('click', (e) => {
+        if (e.target === createProjectModal) createProjectModal.classList.remove('visible');
+    });
+}
+
+if (createProjectSubmit) {
+    createProjectSubmit.addEventListener('click', async () => {
+        const title = document.getElementById('newProjectTitle').value.trim();
+        const desc  = document.getElementById('newProjectDesc').value.trim();
+        const start = document.getElementById('newProjectStart').value;
+        const end   = document.getElementById('newProjectEnd').value;
+
+        if (!title) {
+            showCreateProjectMessage('Project title is required.', 'error');
+            return;
+        }
+        if (!start || !end) {
+            showCreateProjectMessage('Start date and end date are required.', 'error');
+            return;
+        }
+        if (end < start) {
+            showCreateProjectMessage('End date cannot be before the start date.', 'error');
+            return;
+        }
+
+        const savedUser = localStorage.getItem('gantt_user');
+        if (!savedUser) return;
+        const user = JSON.parse(savedUser);
+
+        createProjectSubmit.disabled = true;
+        createProjectSubmit.textContent = 'Creating…';
+
+        try {
+            const resp = await fetch(`${API_URL}/projects`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    student_id:          user.student_id,
+                    project_name:        title,
+                    project_description: desc || null,
+                    start_date:          start,
+                    end_date:            end
+                })
+            });
+            const data = await resp.json();
+
+            if (data.success) {
+                // Add the new project to the cached user object so the dashboard
+                // shows it immediately without requiring a fresh login.
+                user.projects = user.projects || [];
+                user.projects.push({
+                    project_id:          data.project_id,
+                    project_name:        title,
+                    project_description: desc || null
+                });
+                localStorage.setItem('gantt_user', JSON.stringify(user));
+
+                window.location.href =
+                    `../../gantt-builder/public/gantt-chart.html?project=${data.project_id}&new=true`;
+            } else {
+                showCreateProjectMessage(data.message || 'Failed to create project.', 'error');
+                createProjectSubmit.disabled = false;
+                createProjectSubmit.textContent = 'Create Project';
+            }
+        } catch (err) {
+            showCreateProjectMessage('Unable to connect to server.', 'error');
+            createProjectSubmit.disabled = false;
+            createProjectSubmit.textContent = 'Create Project';
+        }
+    });
+}

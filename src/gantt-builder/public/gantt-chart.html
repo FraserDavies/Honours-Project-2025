@@ -67,6 +67,13 @@
                         <span>Edit Mode - drag bars to reschedule, click names to rename</span>
                     </div>
                     <div class="edit-banner-actions">
+                        <button class="add-task-btn" id="addTaskBtn" title="Add a new task">
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <line x1="12" y1="5" x2="12" y2="19"/>
+                                <line x1="5" y1="12" x2="19" y2="12"/>
+                            </svg>
+                            Add Task
+                        </button>
                         <button class="edit-cancel-btn" id="editCancelBtn">Cancel</button>
                         <button class="edit-save-btn" id="editSaveBtn">Save Changes</button>
                     </div>
@@ -95,6 +102,13 @@
                         <button class="zoom-btn zoom-reset" id="zoomReset" title="Reset Zoom">Reset</button>
                     </div>
                     <div class="toolbar-right">
+                        <button class="today-btn help-btn" id="helpBtn" title="Tutorial &amp; Help">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/>
+                                <circle cx="12" cy="17" r="1.5" fill="currentColor" stroke="none"/>
+                            </svg>
+                        </button>
                         <button class="today-btn" id="goToToday" title="Scroll to Today">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -103,6 +117,14 @@
                                 <line x1="3" y1="10" x2="21" y2="10"/>
                             </svg>
                             Today
+                        </button>
+                        <button class="today-btn" id="kanbanBtn" title="Kanban Board">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3"  y="3" width="5" height="18" rx="1"/>
+                                <rect x="10" y="3" width="5" height="11" rx="1"/>
+                                <rect x="17" y="3" width="4" height="15" rx="1"/>
+                            </svg>
+                            Kanban
                         </button>
                         <button class="today-btn" id="exportBtn" title="Export Chart">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -116,6 +138,59 @@
                 </div>
 
                 <div class="gantt-container" id="ganttContainer">
+
+                    <!-- Add Task Slide-out Panel (visible in edit mode only) -->
+                    <div class="add-task-panel" id="addTaskPanel">
+                        <div class="add-task-panel-header">
+                            <span>New Task</span>
+                            <button class="add-task-close" id="closeAddTaskPanel" title="Close">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="18" y1="6" x2="6" y2="18"/>
+                                    <line x1="6" y1="6" x2="18" y2="18"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="add-task-fields">
+                            <div class="add-task-field">
+                                <label for="newTaskName">Task Name</label>
+                                <input type="text" id="newTaskName" placeholder="Enter task name...">
+                            </div>
+
+                            <div class="add-task-field">
+                                <label>Tag</label>
+                                <div class="add-task-tag-row">
+                                    <div class="add-task-tag-swatch" id="addTaskTagSwatch"></div>
+                                    <select id="newTaskTag">
+                                        <option value="">No Tag</option>
+                                        <option value="research">Research</option>
+                                        <option value="planning">Planning</option>
+                                        <option value="design">Design</option>
+                                        <option value="implementation">Implementation</option>
+                                        <option value="testing">Testing</option>
+                                        <option value="evaluation">Evaluation</option>
+                                        <option value="writing">Writing</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="add-task-field add-task-milestone-row">
+                                <label>Milestone</label>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" id="newTaskMilestone">
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="add-task-drag-area">
+                            <p class="drag-hint">Drag the preview onto the chart to place</p>
+                            <div class="add-task-preview" id="addTaskPreview">
+                                <span class="add-task-preview-name" id="addTaskPreviewName">New Task</span>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Task List Panel (Left Side - Fixed) -->
                     <div class="task-list-panel" id="taskListPanel">
                         <div class="task-list-header">Tasks</div>
@@ -124,39 +199,75 @@
                     </div>
 
                     <!-- Chart Panel (Right Side - Scrollable) -->
-                    <div class="chart-panel" id="chartPanel"></div>
+                    <div class="chart-scroll" id="chartScroll">
+                        <div class="chart-panel" id="chartPanel"></div>
+                    </div>
+
+                    <!-- Empty State (shown when project has no tasks) -->
+                    <div class="gantt-empty-state" id="ganttEmptyState" style="display:none">
+                        <div class="empty-state-content">
+                            <svg class="empty-state-icon" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                                <line x1="8" y1="14" x2="16" y2="14"/>
+                            </svg>
+                            <h3 class="empty-state-title">No tasks yet</h3>
+                            <p class="empty-state-text">Get started by adding your first task</p>
+                            <button class="empty-state-btn" id="emptyStateAddTaskBtn">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <line x1="12" y1="5" x2="12" y2="19"/>
+                                    <line x1="5" y1="12" x2="19" y2="12"/>
+                                </svg>
+                                Add Task
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Legend -->
                 <div class="gantt-legend">
-                    <div class="legend-items">
-                        <div class="legend-item">
-                            <div class="legend-color" style="background:#4a90d9"></div>
-                            <span>Research</span>
+                    <div class="legend-left">
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <div class="legend-color" style="background:#4a90d9"></div>
+                                <span>Research</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background:#17a2b8"></div>
+                                <span>Planning</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background:#7ed321"></div>
+                                <span>Design</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background:#9013fe"></div>
+                                <span>Implementation</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background:#d0021b"></div>
+                                <span>Testing</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background:#e67e22"></div>
+                                <span>Evaluation</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color" style="background:#50e3c2"></div>
+                                <span>Writing</span>
+                            </div>
                         </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background:#17a2b8"></div>
-                            <span>Planning</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background:#7ed321"></div>
-                            <span>Design</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background:#9013fe"></div>
-                            <span>Implementation</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background:#d0021b"></div>
-                            <span>Testing</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background:#e67e22"></div>
-                            <span>Evaluation</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color" style="background:#50e3c2"></div>
-                            <span>Writing</span>
+                        <div class="legend-items">
+                            <div class="legend-item">
+                                <div class="legend-color completed"></div>
+                                <span>Completed</span>
+                            </div>
+                            <div class="legend-item">
+                                <div class="legend-color at-risk"></div>
+                                <span>At Risk</span>
+                            </div>
                         </div>
                     </div>
                     <button class="edit-mode-btn" id="editModeBtn" title="Edit tasks">
@@ -168,6 +279,9 @@
                     </button>
                 </div>
             </div>
+
+            <!-- Subtask Progress Popover -->
+            <div id="subtaskProgressPopover"></div>
 
             <!-- Tooltip Element -->
             <div class="gantt-tooltip" id="ganttTooltip">
@@ -210,6 +324,31 @@
                 <div class="export-actions">
                     <button class="export-cancel-btn" id="exportCancel">Cancel</button>
                     <button class="export-confirm-btn" id="exportConfirm">Export</button>
+                </div>
+            </div>
+        </div>
+        <!-- Tutorial Modal -->
+        <div class="export-modal-overlay" id="tutorialModal">
+            <div class="export-modal tutorial-modal">
+                <div class="tutorial-modal-header">
+                    <h3 class="export-modal-title" style="margin-bottom:0">How to Use the Gantt Chart Builder</h3>
+                    <button class="export-cancel-btn" id="tutorialClose">Close</button>
+                </div>
+                <div class="tutorial-modal-body">
+                    <p class="tutorial-placeholder">Tutorial content coming soon.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Kanban Board Modal -->
+        <div class="export-modal-overlay" id="kanbanModal">
+            <div class="kanban-modal">
+                <div class="kanban-modal-header">
+                    <h3 class="export-modal-title" style="margin-bottom:0">Kanban Board</h3>
+                    <button class="export-cancel-btn" id="kanbanClose">Close</button>
+                </div>
+                <div class="kanban-board" id="kanbanBoard">
+                    <!-- columns injected by JS -->
                 </div>
             </div>
         </div>

@@ -5,7 +5,7 @@
 // API Base URL
 const API_URL = 'http://localhost:3000/api';
 
-// Tag colour map — each tag has a fixed colour used across the chart and legend
+// Tag colour map - each tag has a fixed colour used across the chart and legend
 const TAG_COLOURS = {
     research:       '#4a90d9', // blue
     planning:       '#17a2b8', // teal
@@ -16,10 +16,72 @@ const TAG_COLOURS = {
     writing:        '#50e3c2'  // mint
 };
 
+// Cycle detection: DFS from succId through existing dep edges.
+// Returns true if adding predId → succId would form a cycle.
+function wouldCreateCycle(deps, predId, succId) {
+    if (predId === succId) return true; // self-loop
+    // Build adjacency list: predecessorId → [successorId, ...]
+    const adj = new Map();
+    for (const dep of deps) {
+        if (!adj.has(dep.predecessorTaskId)) adj.set(dep.predecessorTaskId, []);
+        adj.get(dep.predecessorTaskId).push(dep.successorTaskId);
+    }
+    // DFS from succId — if we reach predId a cycle would form
+    const visited = new Set();
+    const stack = [succId];
+    while (stack.length > 0) {
+        const node = stack.pop();
+        if (node === predId) return true;
+        if (visited.has(node)) continue;
+        visited.add(node);
+        for (const neighbour of (adj.get(node) || [])) stack.push(neighbour);
+    }
+    return false;
+}
+
+// Sort tasks: ascending start date, then earliest end date, then task name
+function sortTasks(tasks) {
+    tasks.sort((a, b) => {
+        if (a.startDate - b.startDate !== 0) return a.startDate - b.startDate;
+        if (a.endDate - b.endDate !== 0) return a.endDate - b.endDate;
+        return a.name.localeCompare(b.name);
+    });
+}
+
 // Get project ID from URL query parameter
 function getProjectIdFromUrl() {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get('project');
+}
+
+// Fetch project details (including boundary dates)
+async function fetchProjectBounds(projectId) {
+    const parseDate = d3.timeParse('%Y-%m-%d');
+    try {
+        const resp = await fetch(`${API_URL}/projects/${projectId}`);
+        const data = await resp.json();
+        if (data.success && data.project) {
+            return {
+                start: data.project.start_date ? parseDate(data.project.start_date) : null,
+                end:   data.project.end_date   ? parseDate(data.project.end_date)   : null
+            };
+        }
+        return { start: null, end: null };
+    } catch {
+        return { start: null, end: null };
+    }
+}
+
+// Fetch subtasks from database
+async function fetchSubtasks(projectId) {
+    try {
+        const response = await fetch(`${API_URL}/projects/${projectId}/subtasks`);
+        const data = await response.json();
+        return data.success ? data.subtasks : [];
+    } catch (error) {
+        console.error('Error fetching subtasks:', error);
+        return [];
+    }
 }
 
 // Fetch tasks from database
@@ -50,7 +112,9 @@ function transformTaskData(dbTasks) {
         description: task.description,
         startDate: parseDate(task.start_date),
         endDate: parseDate(task.end_date),
-        colour: (task.tag && TAG_COLOURS[task.tag]) ? TAG_COLOURS[task.tag] : (task.colour || '#3b82f6'),
+        colour: task.is_milestone === 1
+            ? '#f59e0b'
+            : (task.tag && TAG_COLOURS[task.tag]) ? TAG_COLOURS[task.tag] : (task.colour || '#3b82f6'),
         tag: task.tag || null,
         progress: task.progress_percentage || 0,
         isMilestone: task.is_milestone === 1,
@@ -106,21 +170,105 @@ document.addEventListener('DOMContentLoaded', async () => {
         return;
     }
 
-    // Fetch tasks and dependencies from database
-    const [dbTasks, dbDependencies] = await Promise.all([
+    // Fetch tasks, dependencies, subtasks, and project bounds from database
+    const [dbTasks, dbDependencies, dbSubtasks, projectBounds] = await Promise.all([
         fetchTasks(projectId),
-        fetchDependencies(projectId)
+        fetchDependencies(projectId),
+        fetchSubtasks(projectId),
+        fetchProjectBounds(projectId)
     ]);
 
-    if (dbTasks.length === 0) {
-        console.log('No tasks found for project:', projectId);
-        taskListEl.innerHTML = '<p class="no-tasks">No tasks found for this project.</p>';
-        return;
-    }
+    let projectStartDate = projectBounds.start; // null if no project bounds set
+    let projectEndDate   = projectBounds.end;
 
-    // Transform to chart format
+    // Transform to chart format (may be empty for a brand-new project)
     const taskData = transformTaskData(dbTasks);
+    sortTasks(taskData);
     const dependencyData = transformDependencyData(dbDependencies);
+
+    // =============== SUBTASK STATE ===============
+    const subtaskData    = new Map();   // taskId → subtask[] (chart-format objects)
+    const expandedTasks  = new Set();   // task IDs currently expanded (default: collapsed)
+    let pendingSubtaskDeletions = [];   // subtask DB IDs to DELETE on Save
+    let pendingNewSubtasks      = [];   // staged for POST: { subtaskRef, parent_task_id, start_date, end_date }
+    let pendingSubtaskChanges   = new Map(); // subtaskId (DB) → { subtask_name?, start_date?, end_date? }
+    let subtaskSnapshot         = null; // deep copy for Cancel restore
+
+    // Transform a DB subtask row into a chart-format object
+    const parseDate = d3.timeParse('%Y-%m-%d');
+    const transformSubtask = (sub) => {
+        const parent = taskData.find(t => t.id === sub.parent_task_id);
+        return {
+            id:                 1_000_000 + sub.subtask_id,
+            subtaskId:          sub.subtask_id,
+            parentId:           sub.parent_task_id,
+            name:               sub.subtask_name,
+            progress:           sub.progress_percentage || 0,
+            startDate:          parseDate(sub.start_date),
+            endDate:            parseDate(sub.end_date),
+            colour:             parent ? parent.colour : '#3b82f6',
+            isSubtask:          true,
+            isMilestone:        false,
+            hasSubtasks:        false,
+            isAddSubtaskMarker: false
+        };
+    };
+
+    // Load subtasks into map and mark parent tasks
+    dbSubtasks.forEach(sub => {
+        const subObj = transformSubtask(sub);
+        if (!subtaskData.has(sub.parent_task_id)) subtaskData.set(sub.parent_task_id, []);
+        subtaskData.get(sub.parent_task_id).push(subObj);
+    });
+    taskData.forEach(t => { t.hasSubtasks = subtaskData.has(t.id); });
+
+    // Build a flat list: tasks + expanded subtasks + add-subtask markers (edit mode)
+    const buildFlatList = () => {
+        const flat = [];
+        for (const task of taskData) {
+            flat.push(task);
+            if (expandedTasks.has(task.id)) {
+                const subs = subtaskData.get(task.id) || [];
+                flat.push(...subs);
+                if (isEditMode) {
+                    flat.push({
+                        id:                 2_000_000 + task.id,
+                        addSubtaskFor:      task.id,
+                        isAddSubtaskMarker: true,
+                        isSubtask:          false,
+                        isMilestone:        false,
+                        hasSubtasks:        false,
+                        name:               '+ Add Subtask',
+                        startDate:          task.startDate,
+                        endDate:            task.endDate,
+                        colour:             'transparent',
+                        progress:           0
+                    });
+                }
+            }
+        }
+        return flat;
+    };
+
+    // Declared here so renderAll and buildFlatList can reference it without TDZ issues
+    let isEditMode = false;
+
+    // Show/hide the empty state overlay (no tasks + not in edit mode)
+    const updateEmptyState = () => {
+        const emptyEl = document.getElementById('ganttEmptyState');
+        if (!emptyEl) return;
+        const isEmpty = taskData.length === 0 && !isEditMode;
+        emptyEl.style.display = isEmpty ? 'flex' : 'none';
+    };
+
+    // Re-render both the chart and task list from the flat list
+    const renderAll = () => {
+        const flat = buildFlatList();
+        ganttChart.render(flat);
+        taskList.render(flat);
+        if (isEditMode) taskList.enableEditMode();
+        updateEmptyState();
+    };
 
     // Instantiate components
     const ganttChart = new GanttChart('#chartPanel', {
@@ -132,10 +280,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const taskList = new TaskList('#taskList');
     const tooltip = new TooltipManager('#ganttTooltip');
 
+    taskList.setExpandedTasks(expandedTasks);
+
     // Render initial data
     ganttChart.setDependencies(dependencyData);
-    ganttChart.render(taskData);
-    taskList.render(taskData);
+    ganttChart.setProjectBounds(projectStartDate, projectEndDate);
+    renderAll();
 
     // Setup linked interactions
     const handleTaskHover = (event, d) => {
@@ -173,12 +323,27 @@ document.addEventListener('DOMContentLoaded', async () => {
     taskList
         .setItemHover(handleListHover)
         .setItemOut(handleListOut)
-        .setItemClick(handleListClick);
+        .setItemClick(handleListClick)
+        .setOnSubtaskClick((event, d) => {
+            if (isEditMode) return;
+            // Scroll so the subtask's start date is near the left edge
+            const startX = ganttChart.scaleX(d.startDate);
+            const scrollX = Math.max(0, startX - 48);
+            chartScrollEl.scrollLeft = scrollX;
+        });
 
     // Scroll to today on load
     setTimeout(() => {
         ganttChart.scrollToToday();
     }, 600);
+
+    // Keep the day/month axis pinned to the top as the user scrolls down
+    const chartScrollEl = document.getElementById('chartScroll');
+    if (chartScrollEl) {
+        chartScrollEl.addEventListener('scroll', () => {
+            ganttChart.updateAxisScroll(chartScrollEl.scrollTop);
+        });
+    }
 
     // =============== ZOOM CONTROLS ===============
     const zoomInBtn = document.getElementById('zoomIn');
@@ -284,7 +449,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             try {
                 // --- Dimensions ---
-                const taskListWidth = 250; // matches CSS .task-list-panel min/max-width
+                const taskListWidth = 310; // matches CSS .task-list-panel width
                 const svgWidth = +chartSvg.getAttribute('width');
                 const svgHeight = +chartSvg.getAttribute('height');
                 const fullWidth = taskListWidth + svgWidth;
@@ -411,17 +576,34 @@ document.addEventListener('DOMContentLoaded', async () => {
                         : task.name;
                     taskListGroup.appendChild(nameText);
 
-                    // Start date
+                    // Date range (above centre)
                     const dateText = document.createElementNS(ns, 'text');
                     dateText.setAttribute('x', taskListWidth - 8);
-                    dateText.setAttribute('y', centerY);
+                    dateText.setAttribute('y', centerY - 6);
                     dateText.setAttribute('dy', '0.35em');
                     dateText.setAttribute('text-anchor', 'end');
-                    dateText.setAttribute('font-size', '10px');
+                    dateText.setAttribute('font-size', '9px');
                     dateText.setAttribute('font-family', 'monospace');
                     dateText.setAttribute('fill', '#6c757d');
-                    dateText.textContent = d3.timeFormat('%d %b')(task.startDate);
+                    dateText.textContent = `${d3.timeFormat('%d %b')(task.startDate)} - ${d3.timeFormat('%d %b')(task.endDate)}`;
                     taskListGroup.appendChild(dateText);
+
+                    // Progress (below centre)
+                    const today = new Date(); today.setHours(0, 0, 0, 0);
+                    const progressFill = task.progress === 100
+                        ? '#10b981'
+                        : (task.progress < 100 && task.endDate < today ? '#f59e0b' : '#6c757d');
+                    const progressText = document.createElementNS(ns, 'text');
+                    progressText.setAttribute('x', taskListWidth - 8);
+                    progressText.setAttribute('y', centerY + 6);
+                    progressText.setAttribute('dy', '0.35em');
+                    progressText.setAttribute('text-anchor', 'end');
+                    progressText.setAttribute('font-size', '9px');
+                    progressText.setAttribute('font-family', 'monospace');
+                    progressText.setAttribute('font-weight', '600');
+                    progressText.setAttribute('fill', progressFill);
+                    progressText.textContent = `${task.progress}%`;
+                    taskListGroup.appendChild(progressText);
                 });
 
                 combinedSvg.appendChild(taskListGroup);
@@ -504,10 +686,132 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
+    // =============== KANBAN MODAL ===============
+    const kanbanBtn   = document.getElementById('kanbanBtn');
+    const kanbanModal = document.getElementById('kanbanModal');
+    const kanbanClose = document.getElementById('kanbanClose');
+
+    const fmt3 = d3.timeFormat('%d %b');
+
+    const renderKanbanBoard = () => {
+        const board = document.getElementById('kanbanBoard');
+        if (!board) return;
+
+        const parentTasks = taskData.filter(t => !t.isSubtask && !t.isAddSubtaskMarker);
+
+        const columns = [
+            { key: 'notStarted', label: 'Not Started', accent: '#94a3b8', fill: '#94a3b8', tasks: [] },
+            { key: 'inProgress', label: 'In Progress',  accent: '#f59e0b', fill: '#f59e0b', tasks: [] },
+            { key: 'done',       label: 'Completed',    accent: '#22c55e', fill: '#22c55e', tasks: [] },
+        ];
+
+        parentTasks.forEach(t => {
+            if (t.progress >= 100)     columns[2].tasks.push(t);
+            else if (t.progress > 0)   columns[1].tasks.push(t);
+            else                       columns[0].tasks.push(t);
+        });
+
+        // Determine the fill colour for a given progress value (matches column it would sit in)
+        const kanbanFill = (pct) => pct >= 100 ? '#22c55e' : pct > 0 ? '#f59e0b' : '#94a3b8';
+
+        board.innerHTML = columns.map(col => `
+            <div class="kanban-col">
+                <div class="kanban-col-header" style="border-bottom-color:${col.accent}">
+                    <span class="kanban-col-title">${col.label}</span>
+                    <span class="kanban-col-count">${col.tasks.length}</span>
+                </div>
+                ${col.tasks.length === 0
+                    ? `<div class="kanban-empty">No tasks</div>`
+                    : col.tasks.map(t => `
+                        <div class="kanban-card">
+                            <div class="kanban-card-top">
+                                <span class="kanban-dot" style="background:${t.colour || '#3b82f6'}"></span>
+                                <span class="kanban-card-name">${t.name}</span>
+                            </div>
+                            <div class="kanban-progress-wrap" data-task-id="${t.id}" data-fill="${col.fill}">
+                                <div class="kanban-progress-bar">
+                                    <div class="kanban-progress-fill"
+                                         style="width:${t.progress}%;background:${col.fill}"></div>
+                                </div>
+                                <input type="range" class="kanban-range"
+                                       min="0" max="100" step="1" value="${t.progress}">
+                            </div>
+                            <div class="kanban-card-meta">
+                                <span class="kanban-pct">${t.progress}% complete</span>
+                                <span>${fmt3(t.startDate)} – ${fmt3(t.endDate)}</span>
+                            </div>
+                        </div>`).join('')
+                }
+            </div>
+        `).join('');
+
+        // Wire each progress slider
+        board.querySelectorAll('.kanban-progress-wrap').forEach(wrap => {
+            const taskId = parseInt(wrap.dataset.taskId, 10);
+            const range  = wrap.querySelector('.kanban-range');
+            const fill   = wrap.querySelector('.kanban-progress-fill');
+            const card   = wrap.closest('.kanban-card');
+            const pctSpan = card ? card.querySelector('.kanban-pct') : null;
+
+            // Live visual update while dragging
+            range.addEventListener('input', () => {
+                const pct = parseInt(range.value, 10);
+                fill.style.width = pct + '%';
+                fill.style.background = kanbanFill(pct);
+                if (pctSpan) pctSpan.textContent = pct + '% complete';
+            });
+
+            // Save on release, then re-render so card moves to correct column
+            range.addEventListener('change', async () => {
+                const pct = parseInt(range.value, 10);
+                const task = taskData.find(t => t.id === taskId);
+                if (!task) return;
+                task.progress = pct;
+                try {
+                    await fetch(`${API_URL}/tasks/${taskId}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ progress_percentage: pct })
+                    });
+                } catch (err) {
+                    console.error('Kanban: failed to save progress:', err);
+                }
+                // Update the Gantt bar and task list panel progress display
+                ganttChart.updateTaskProgress(taskId, pct);
+                taskList.container.selectAll('.task-list-item')
+                    .filter(d => d.id === taskId)
+                    .select('.task-progress-input')
+                    .property('value', pct);
+                // Re-render the board so the card appears in its new column
+                renderKanbanBoard();
+            });
+        });
+    };
+
+    if (kanbanBtn) {
+        kanbanBtn.addEventListener('click', () => {
+            renderKanbanBoard();
+            kanbanModal.classList.add('visible');
+        });
+    }
+    if (kanbanClose) {
+        kanbanClose.addEventListener('click', () => kanbanModal.classList.remove('visible'));
+    }
+    if (kanbanModal) {
+        kanbanModal.addEventListener('click', e => {
+            if (e.target === kanbanModal) kanbanModal.classList.remove('visible');
+        });
+    }
+
     // =============== EDIT MODE ===============
-    let isEditMode = false;
     let pendingChanges = new Map(); // taskId -> { task_name?, start_date?, end_date? }
-    let taskSnapshot = null;       // snapshot of task data before editing
+    let pendingDepDeletions = [];   // dep IDs marked for deletion, committed on Save
+    let pendingNewTasks = [];       // new tasks staged for POST on Save (have temp negative IDs)
+    let pendingNewDependencies = []; // deps involving unsaved tasks — staged for POST after those tasks are saved
+    let tempIdCounter = 0;          // decrements for each new task: -1, -2, -3 …
+    let saveConfirmed = false; // set to true after user acknowledges violations to allow force-save
+    let taskSnapshot = null;        // full snapshot of taskData before editing
+    let dependencySnapshot = null;  // snapshot of dependencyData before editing
 
     const editModeBtn  = document.getElementById('editModeBtn');
     const editBanner   = document.getElementById('editModeBanner');
@@ -517,46 +821,90 @@ document.addEventListener('DOMContentLoaded', async () => {
     const enterEditMode = () => {
         isEditMode = true;
         pendingChanges.clear();
+        pendingDepDeletions = [];
+        pendingNewTasks = [];
+        pendingNewDependencies = [];
+        tempIdCounter = 0;
+        pendingSubtaskDeletions = [];
+        pendingNewSubtasks = [];
+        pendingSubtaskChanges.clear();
+        saveConfirmed = false;
 
-        // Snapshot task data so we can revert on cancel
-        taskSnapshot = taskData.map(t => ({
-            id: t.id,
-            name: t.name,
-            startDate: new Date(t.startDate),
-            endDate: new Date(t.endDate)
-        }));
+        // Full snapshot so cancel can restore taskData exactly (including removing added tasks)
+        taskSnapshot = taskData.map(t => ({ ...t, startDate: new Date(t.startDate), endDate: new Date(t.endDate) }));
+        dependencySnapshot = dependencyData.map(d => ({ ...d }));
+        subtaskSnapshot = new Map([...subtaskData].map(([k, v]) => [k, v.map(s => ({ ...s, startDate: new Date(s.startDate), endDate: new Date(s.endDate) }))]));
 
         ganttChart.enableEditMode();
-        taskList.enableEditMode();
+        renderAll();
 
         editBanner.classList.add('visible');
         editModeBtn.style.display = 'none';
     };
 
     const exitEditMode = (save) => {
-        if (!save && taskSnapshot) {
-            // Revert task data to snapshot
-            taskSnapshot.forEach(snap => {
-                const task = taskData.find(t => t.id === snap.id);
-                if (task) {
-                    task.name = snap.name;
-                    task.startDate = snap.startDate;
-                    task.endDate = snap.endDate;
-                }
-            });
+        if (!save) {
+            // Replace taskData entirely from snapshot — this reverts edits AND removes new tasks
+            if (taskSnapshot) {
+                taskData.length = 0;
+                taskSnapshot.forEach(t => taskData.push(t));
+            }
+            // Restore dependency data to snapshot
+            if (dependencySnapshot) {
+                dependencyData.length = 0;
+                dependencySnapshot.forEach(d => dependencyData.push(d));
+            }
+            // Restore subtask data from snapshot
+            if (subtaskSnapshot) {
+                subtaskData.clear();
+                subtaskSnapshot.forEach((v, k) => subtaskData.set(k, v.map(s => ({ ...s, startDate: new Date(s.startDate), endDate: new Date(s.endDate) }))));
+            }
+            // Re-flag hasSubtasks after restore
+            taskData.forEach(t => { t.hasSubtasks = subtaskData.has(t.id); });
         }
 
         pendingChanges.clear();
+        pendingDepDeletions = [];
+        pendingNewTasks = [];
+        pendingNewDependencies = [];
+        pendingSubtaskDeletions = [];
+        pendingNewSubtasks = [];
+        pendingSubtaskChanges.clear();
         taskSnapshot = null;
+        dependencySnapshot = null;
+        subtaskSnapshot = null;
+        saveConfirmed = false;
         isEditMode = false;
 
+        sortTasks(taskData);
+        if (addTaskPanel) addTaskPanel.classList.remove('open');
         ganttChart.disableEditMode();
-        taskList.disableEditMode();      // re-renders task list with current names
-        ganttChart.render(taskData);     // re-renders chart with final data
+        ganttChart.setDependencies(dependencyData);
+
+        // Close progress popover if open
+        const popover = document.getElementById('subtaskProgressPopover');
+        if (popover) popover.classList.remove('visible');
+
+        // Render using flat list (markers are excluded since isEditMode=false)
+        taskList.editMode = false;
+        const flat = buildFlatList();
+        ganttChart.render(flat);
+        taskList.render(flat);
 
         editBanner.classList.remove('visible');
         editModeBtn.style.display = '';
+        if (editSaveBtn) editSaveBtn.textContent = 'Save Changes';
+        updateEmptyState();
     };
+
+    // Callback: live update of task list dates while dragging/resizing
+    const fmtDate = d3.timeFormat('%d %b');
+    ganttChart.setTaskDateChangeLive(task => {
+        taskList.container.selectAll('.task-list-item')
+            .filter(d => d.id === task.id)
+            .select('.task-dates')
+            .text(`${fmtDate(task.startDate)} - ${fmtDate(task.endDate)}`);
+    });
 
     // Callback: task bar dragged to new dates
     ganttChart.setTaskDateChange(task => {
@@ -565,6 +913,156 @@ document.addEventListener('DOMContentLoaded', async () => {
             start_date: d3.timeFormat('%Y-%m-%d')(task.startDate),
             end_date:   d3.timeFormat('%Y-%m-%d')(task.endDate)
         });
+    });
+
+    // Callback: delete button clicked on a task row
+    taskList.setTaskDelete(async (task) => {
+        try {
+            const resp = await fetch(`${API_URL}/tasks/${task.id}`, { method: 'DELETE' });
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            const result = await resp.json();
+            if (!result.success) throw new Error(result.message);
+
+            // Remove from in-memory arrays
+            const idx = taskData.findIndex(t => t.id === task.id);
+            if (idx !== -1) taskData.splice(idx, 1);
+
+            for (let i = dependencyData.length - 1; i >= 0; i--) {
+                if (dependencyData[i].predecessorTaskId === task.id ||
+                    dependencyData[i].successorTaskId   === task.id) {
+                    dependencyData.splice(i, 1);
+                }
+            }
+
+            ganttChart.setDependencies(dependencyData);
+            renderAll();
+
+        } catch (err) {
+            console.error('Failed to delete task:', err);
+            alert(`Failed to delete task: ${err.message}`);
+        }
+    });
+
+    // Show a transient inline error in the edit banner (auto-clears after 3 s)
+    const showEditError = (message) => {
+        const info = editBanner.querySelector('.edit-banner-info');
+        if (!info) return;
+        const existing = info.querySelector('.edit-dep-error');
+        if (existing) existing.remove();
+        const el = document.createElement('span');
+        el.className = 'edit-save-error edit-dep-error';
+        el.textContent = message;
+        info.appendChild(el);
+        setTimeout(() => el.remove(), 3000);
+    };
+
+    // Callback: dependency drawn by dragging from one handle to another
+    ganttChart.setOnDependencyCreate(async (predId, succId, type) => {
+        // Ignore if this exact dependency already exists in memory
+        const existingInMemory = dependencyData.find(d => d.predecessorTaskId === predId && d.successorTaskId === succId);
+        if (existingInMemory) return;
+
+        // Cycle detection: reject if adding this edge would form a loop
+        if (wouldCreateCycle(dependencyData, predId, succId)) {
+            showEditError('Cannot add dependency: it would create a circular dependency.');
+            return;
+        }
+
+        // Rule: for finish-to-start, pred must end by succ start;
+        //       for start-to-start, pred must start by succ start.
+        const pred = taskData.find(t => t.id === predId);
+        const succ = taskData.find(t => t.id === succId);
+        const creationViolated = pred && succ && (
+            type === 'start-to-start'
+                ? pred.startDate > succ.startDate
+                : pred.endDate > succ.startDate
+        );
+        if (creationViolated) {
+            showEditError('Invalid dependency: predecessor must finish before successor starts.');
+            return;
+        }
+
+        // If either task is unsaved (temp negative ID), don't POST to DB yet —
+        // stage it and POST after the tasks are saved with real IDs.
+        if (predId < 0 || succId < 0) {
+            const tempDepId = --tempIdCounter; // unique temp negative ID
+            dependencyData.push({
+                id:                tempDepId,
+                predecessorTaskId: predId,
+                successorTaskId:   succId,
+                dependencyType:    type
+            });
+            pendingNewDependencies.push({
+                tempId:      tempDepId,
+                predTaskRef: pred,   // live reference — .id updated to real ID on Save
+                succTaskRef: succ,
+                type
+            });
+            ganttChart.setDependencies(dependencyData);
+            renderAll();
+            return;
+        }
+
+        try {
+            const resp = await fetch(`${API_URL}/projects/${projectId}/dependencies`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    predecessor_task_id: predId,
+                    successor_task_id:   succId,
+                    dependency_type:     type
+                })
+            });
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            const result = await resp.json();
+            if (!result.success) throw new Error(result.message || 'Failed to create dependency');
+
+            if (result.duplicate) {
+                // Server says it already exists. If it was staged for deletion, un-stage it.
+                const pendingIdx = pendingDepDeletions.indexOf(result.dependency_id);
+                if (pendingIdx !== -1) {
+                    pendingDepDeletions.splice(pendingIdx, 1);
+                    dependencyData.push({
+                        id:                result.dependency_id,
+                        predecessorTaskId: predId,
+                        successorTaskId:   succId,
+                        dependencyType:    type
+                    });
+                }
+            } else {
+                dependencyData.push({
+                    id:                result.dependency_id,
+                    predecessorTaskId: predId,
+                    successorTaskId:   succId,
+                    dependencyType:    type
+                });
+            }
+
+            ganttChart.setDependencies(dependencyData);
+            renderAll();
+
+        } catch (err) {
+            console.error('Failed to create dependency:', err);
+            alert(`Failed to create dependency: ${err.message}`);
+        }
+    });
+
+    // Callback: dependency line clicked in edit mode — stage for deletion (committed on Save)
+    ganttChart.setOnDependencyDelete((depId) => {
+        const idx = dependencyData.findIndex(d => d.id === depId);
+        if (idx !== -1) dependencyData.splice(idx, 1);
+
+        // If it's a staged-but-unsaved dep (temp negative ID), just remove it from
+        // pendingNewDependencies — no DB deletion needed.
+        const newDepIdx = pendingNewDependencies.findIndex(d => d.tempId === depId);
+        if (newDepIdx !== -1) {
+            pendingNewDependencies.splice(newDepIdx, 1);
+        } else {
+            pendingDepDeletions.push(depId);
+        }
+
+        ganttChart.setDependencies(dependencyData);
+        renderAll();
     });
 
     // Callback: task name edited in panel
@@ -582,12 +1080,464 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
     });
 
+    // Callback: progress % changed in task list — immediate save (works in both view and edit mode)
+    taskList.setTaskProgressChange(async (task) => {
+        try {
+            const resp = await fetch(`${API_URL}/tasks/${task.id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ progress_percentage: task.progress })
+            });
+            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+            const result = await resp.json();
+            if (!result.success) throw new Error(result.message);
+            ganttChart.updateTaskProgress(task.id, task.progress);
+
+            // If parent set to 100%, propagate to all subtasks
+            if (task.progress === 100) {
+                const subs = subtaskData.get(task.id) || [];
+                for (const sub of subs) {
+                    if (sub.progress !== 100) {
+                        sub.progress = 100;
+                        ganttChart.updateSubtaskProgress(sub.subtaskId, 100);
+                        await fetch(`${API_URL}/subtasks/${sub.subtaskId}`, {
+                            method: 'PATCH',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ progress_percentage: 100 })
+                        }).catch(() => {});
+                    }
+                }
+                if (subs.length > 0) renderAll();
+            }
+        } catch (err) {
+            console.error('Failed to update progress:', err);
+        }
+    });
+
+    // Helper: save subtask progress immediately and sync parent if all subtasks complete
+    const saveSubtaskProgress = async (subtaskId, progress) => {
+        // Find the subtask in memory
+        let targetSub = null, parentTask = null;
+        subtaskData.forEach((subs, parentId) => {
+            const found = subs.find(s => s.subtaskId === subtaskId);
+            if (found) { targetSub = found; parentTask = taskData.find(t => t.id === parentId); }
+        });
+        if (!targetSub) return;
+        targetSub.progress = progress;
+        ganttChart.updateSubtaskProgress(subtaskId, progress);
+
+        // Save to DB
+        try {
+            await fetch(`${API_URL}/subtasks/${subtaskId}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ progress_percentage: progress })
+            });
+        } catch (err) {
+            console.error('Failed to save subtask progress:', err);
+        }
+
+        // If all subtasks for the parent are 100%, set parent to 100%
+        if (parentTask) {
+            const subs = subtaskData.get(parentTask.id) || [];
+            if (subs.length > 0 && subs.every(s => s.progress === 100) && parentTask.progress !== 100) {
+                parentTask.progress = 100;
+                ganttChart.updateTaskProgress(parentTask.id, 100);
+                await fetch(`${API_URL}/tasks/${parentTask.id}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ progress_percentage: 100 })
+                }).catch(() => {});
+                renderAll();
+            }
+        }
+    };
+
+    // Callback: subtask progress changed in task list
+    taskList.setSubtaskProgressChange(async (sub) => {
+        await saveSubtaskProgress(sub.subtaskId, sub.progress);
+    });
+
+    // Callback: toggle expand/collapse for a task's subtasks
+    taskList.setOnToggleExpand((taskId) => {
+        if (expandedTasks.has(taskId)) expandedTasks.delete(taskId);
+        else expandedTasks.add(taskId);
+        renderAll();
+    });
+
+    // Callback: subtask name changed in edit mode
+    taskList.setSubtaskNameChange((sub) => {
+        pendingSubtaskChanges.set(sub.subtaskId, {
+            ...(pendingSubtaskChanges.get(sub.subtaskId) || {}),
+            subtask_name: sub.name
+        });
+    });
+
+    // Callback: add subtask button clicked in edit mode
+    taskList.setOnAddSubtask((parentTaskId) => {
+        const parentTask = taskData.find(t => t.id === parentTaskId);
+        if (!parentTask) return;
+
+        const tempSubtaskId = -(pendingNewSubtasks.length + 1); // temp negative ID
+        const newSub = {
+            id:                 1_000_000 + Math.abs(tempSubtaskId) + 900_000, // unique synthetic
+            subtaskId:          tempSubtaskId, // temp, replaced on Save
+            parentId:           parentTaskId,
+            name:               'New Subtask',
+            progress:           0,
+            startDate:          new Date(parentTask.startDate),
+            endDate:            new Date(parentTask.endDate),
+            colour:             parentTask.colour,
+            isSubtask:          true,
+            isMilestone:        false,
+            hasSubtasks:        false,
+            isAddSubtaskMarker: false
+        };
+
+        if (!subtaskData.has(parentTaskId)) subtaskData.set(parentTaskId, []);
+        subtaskData.get(parentTaskId).push(newSub);
+        parentTask.hasSubtasks = true;
+        expandedTasks.add(parentTaskId); // auto-expand so the new subtask is visible
+
+        pendingNewSubtasks.push({
+            subtaskRef:     newSub,
+            parent_task_id: parentTaskId,
+            start_date:     d3.timeFormat('%Y-%m-%d')(parentTask.startDate),
+            end_date:       d3.timeFormat('%Y-%m-%d')(parentTask.endDate)
+        });
+
+        renderAll();
+    });
+
+    // Callback: delete subtask in edit mode (deferred until Save)
+    taskList.setOnDeleteSubtask((sub) => {
+        const subs = subtaskData.get(sub.parentId) || [];
+        const idx = subs.findIndex(s => s.id === sub.id);
+        if (idx !== -1) subs.splice(idx, 1);
+        if (subs.length === 0) {
+            subtaskData.delete(sub.parentId);
+            const parent = taskData.find(t => t.id === sub.parentId);
+            if (parent) parent.hasSubtasks = false;
+        }
+
+        if (sub.subtaskId > 0) {
+            // Real DB subtask — stage for DELETE on Save
+            pendingSubtaskDeletions.push(sub.subtaskId);
+        } else {
+            // Temp (never saved) — remove from pendingNewSubtasks
+            const ni = pendingNewSubtasks.findIndex(s => s.subtaskRef === sub);
+            if (ni !== -1) pendingNewSubtasks.splice(ni, 1);
+        }
+        renderAll();
+    });
+
+    // Progress popover for subtask bar clicks
+    const subtaskPopover = document.getElementById('subtaskProgressPopover');
+    if (subtaskPopover) {
+        ganttChart.setOnSubtaskBarClick((subtaskId, clientX, clientY) => {
+            // Find current subtask progress
+            let currentProgress = 0;
+            subtaskData.forEach(subs => {
+                const found = subs.find(s => s.subtaskId === subtaskId);
+                if (found) currentProgress = found.progress;
+            });
+
+            subtaskPopover.innerHTML = `
+                <span style="font-size:0.7rem;color:var(--text-secondary);white-space:nowrap">Progress:</span>
+                <input type="number" min="0" max="100" value="${currentProgress}" style="width:3em;font-family:monospace;font-size:0.75rem;border:1px solid var(--border-color);border-radius:4px;padding:1px 4px">
+                <span style="font-size:0.7rem;color:var(--text-secondary)">%</span>
+                <button id="popoverConfirm" style="padding:2px 6px;border:none;border-radius:4px;background:var(--primary-color);color:white;cursor:pointer;font-size:0.7rem">✓</button>
+                <button id="popoverClose" style="padding:2px 6px;border:1px solid var(--border-color);border-radius:4px;background:white;cursor:pointer;font-size:0.7rem">✕</button>
+            `;
+            subtaskPopover.style.left = `${clientX + 8}px`;
+            subtaskPopover.style.top  = `${clientY - 24}px`;
+            subtaskPopover.classList.add('visible');
+
+            const inp = subtaskPopover.querySelector('input');
+            inp.focus();
+            inp.select();
+
+            document.getElementById('popoverConfirm').onclick = async () => {
+                const val = Math.min(100, Math.max(0, parseInt(inp.value) || 0));
+                subtaskPopover.classList.remove('visible');
+                await saveSubtaskProgress(subtaskId, val);
+                renderAll();
+            };
+            document.getElementById('popoverClose').onclick = () => {
+                subtaskPopover.classList.remove('visible');
+            };
+            inp.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') document.getElementById('popoverConfirm').click();
+                if (e.key === 'Escape') subtaskPopover.classList.remove('visible');
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (subtaskPopover.classList.contains('visible') && !subtaskPopover.contains(e.target)) {
+                subtaskPopover.classList.remove('visible');
+            }
+        });
+    }
+
+    // =============== ADD TASK PANEL ===============
+    const addTaskBtn          = document.getElementById('addTaskBtn');
+    const addTaskPanel        = document.getElementById('addTaskPanel');
+    const closeAddTaskPanelBtn = document.getElementById('closeAddTaskPanel');
+    const newTaskNameInput    = document.getElementById('newTaskName');
+    const newTaskTagSelect    = document.getElementById('newTaskTag');
+    const newTaskMilestone    = document.getElementById('newTaskMilestone');
+    const addTaskPreviewEl    = document.getElementById('addTaskPreview');
+    const addTaskTagSwatch    = document.getElementById('addTaskTagSwatch');
+
+    let currentTaskColour  = '#3b82f6';
+    let currentIsMilestone = false;
+
+    const getPreviewColour = () => {
+        if (newTaskMilestone.checked) return '#f59e0b';
+        const tag = newTaskTagSelect.value;
+        return (tag && TAG_COLOURS[tag]) ? TAG_COLOURS[tag] : '#3b82f6';
+    };
+
+    const updateAddTaskPreview = () => {
+        currentIsMilestone = newTaskMilestone.checked;
+        currentTaskColour  = getPreviewColour();
+        addTaskTagSwatch.style.background = currentTaskColour;
+
+        if (currentIsMilestone) {
+            addTaskPreviewEl.classList.add('milestone-preview');
+            addTaskPreviewEl.style.background = '';
+            addTaskPreviewEl.innerHTML = `<div class="milestone-preview-diamond" style="background:${currentTaskColour}"></div>
+                                          <span class="add-task-preview-name">${newTaskNameInput.value.trim() || 'Milestone'}</span>`;
+        } else {
+            addTaskPreviewEl.classList.remove('milestone-preview');
+            addTaskPreviewEl.style.background = currentTaskColour;
+            addTaskPreviewEl.innerHTML = `<span class="add-task-preview-name">${newTaskNameInput.value.trim() || 'New Task'}</span>`;
+        }
+    };
+
+    updateAddTaskPreview();
+
+    newTaskNameInput.addEventListener('input', updateAddTaskPreview);
+    newTaskTagSelect.addEventListener('change', updateAddTaskPreview);
+    newTaskMilestone.addEventListener('change', updateAddTaskPreview);
+
+    if (addTaskBtn) {
+        addTaskBtn.addEventListener('click', () => {
+            addTaskPanel.classList.toggle('open');
+        });
+    }
+
+    if (closeAddTaskPanelBtn) {
+        closeAddTaskPanelBtn.addEventListener('click', () => {
+            addTaskPanel.classList.remove('open');
+        });
+    }
+
+    // =============== DRAG NEW TASK TO CHART ===============
+    let isDraggingNewTask = false;
+    let addTaskGhost = null;
+
+    addTaskPreviewEl.addEventListener('mousedown', (e) => {
+        if (e.button !== 0 || !isEditMode) return;
+        isDraggingNewTask = true;
+
+        addTaskGhost = document.createElement('div');
+        addTaskGhost.className = 'add-task-ghost';
+        addTaskGhost.style.background = currentTaskColour;
+        addTaskGhost.textContent = newTaskNameInput.value.trim() || (currentIsMilestone ? 'Milestone' : 'New Task');
+        addTaskGhost.style.left = `${e.clientX - 60}px`;
+        addTaskGhost.style.top  = `${e.clientY - 14}px`;
+        document.body.appendChild(addTaskGhost);
+
+        requestAnimationFrame(() => {
+            if (addTaskGhost) addTaskGhost.classList.add('visible');
+        });
+
+        e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', (e) => {
+        if (!isDraggingNewTask || !addTaskGhost) return;
+        addTaskGhost.style.left = `${e.clientX - 60}px`;
+        addTaskGhost.style.top  = `${e.clientY - 14}px`;
+
+        const rect = chartScrollEl.getBoundingClientRect();
+        const over = e.clientX >= rect.left && e.clientX <= rect.right &&
+                     e.clientY >= rect.top  && e.clientY <= rect.bottom;
+        addTaskGhost.classList.toggle('over-chart', over);
+
+        if (over) {
+            const relX      = e.clientX - rect.left + chartScrollEl.scrollLeft;
+            const relY      = e.clientY - rect.top  + chartScrollEl.scrollTop - ganttChart.margin.top;
+            const startDate = d3.timeDay.round(ganttChart.scaleX.invert(relX));
+            const endDate   = currentIsMilestone ? new Date(startDate) : d3.timeDay.offset(startDate, 7);
+            const label     = newTaskNameInput.value.trim() || (currentIsMilestone ? 'Milestone' : 'New Task');
+            ganttChart.showDropPreview(startDate, endDate, label, currentTaskColour, currentIsMilestone, relY);
+        } else {
+            ganttChart.hideDropPreview();
+        }
+    });
+
+    document.addEventListener('mouseup', async (e) => {
+        if (!isDraggingNewTask) return;
+        isDraggingNewTask = false;
+
+        if (addTaskGhost) { addTaskGhost.remove(); addTaskGhost = null; }
+        ganttChart.hideDropPreview();
+
+        if (!isEditMode || !chartScrollEl) return;
+
+        const rect = chartScrollEl.getBoundingClientRect();
+        const over = e.clientX >= rect.left && e.clientX <= rect.right &&
+                     e.clientY >= rect.top  && e.clientY <= rect.bottom;
+        if (!over) return;
+
+        // Compute the dropped date from the X position within the scrollable chart
+        const relX    = e.clientX - rect.left + chartScrollEl.scrollLeft;
+        let startDate = d3.timeDay.round(ganttChart.scaleX.invert(relX));
+        let endDate   = currentIsMilestone
+            ? new Date(startDate)
+            : d3.timeDay.offset(startDate, 7);
+
+        // Clamp to project bounds so dropped tasks never land outside the timeline
+        if (projectStartDate && startDate < projectStartDate) {
+            startDate = new Date(projectStartDate.getTime());
+            endDate   = currentIsMilestone ? new Date(startDate) : d3.timeDay.offset(startDate, 7);
+        }
+        if (projectEndDate && endDate > projectEndDate) {
+            endDate = new Date(projectEndDate.getTime());
+            if (!currentIsMilestone && startDate >= endDate) {
+                startDate = d3.timeDay.offset(endDate, -7);
+                if (projectStartDate && startDate < projectStartDate) startDate = new Date(projectStartDate.getTime());
+            }
+        }
+
+        const taskName = newTaskNameInput.value.trim() || (currentIsMilestone ? 'Milestone' : 'New Task');
+        const tag      = newTaskTagSelect.value || null;
+
+        // Assign a temporary negative ID — replaced with the real DB ID on Save
+        const tempId = --tempIdCounter;
+        const newTask = {
+            id:           tempId,
+            name:         taskName,
+            description:  '',
+            startDate:    startDate,
+            endDate:      endDate,
+            colour:       currentTaskColour,
+            tag:          tag,
+            progress:     0,
+            isMilestone:  currentIsMilestone,
+            parentTaskId: null,
+            displayOrder: taskData.length + 1
+        };
+        taskData.push(newTask);
+        sortTasks(taskData);
+
+        // Stage for POST on Save
+        pendingNewTasks.push({
+            taskRef:      newTask,          // live reference so name edits are picked up
+            tempId,
+            start_date:   d3.timeFormat('%Y-%m-%d')(startDate),
+            end_date:     d3.timeFormat('%Y-%m-%d')(endDate),
+            is_milestone: currentIsMilestone ? 1 : 0,
+            tag,
+            colour:       currentTaskColour
+        });
+
+        // Re-render preserving edit mode
+        renderAll();
+
+        // Reset the form for the next task
+        newTaskNameInput.value   = '';
+        newTaskTagSelect.value   = '';
+        newTaskMilestone.checked = false;
+        updateAddTaskPreview();
+    });
+
     if (editModeBtn)   editModeBtn.addEventListener('click', enterEditMode);
     if (editCancelBtn) editCancelBtn.addEventListener('click', () => exitEditMode(false));
 
+    // Empty state "Add Task" button — enter edit mode and open the add task panel
+    const emptyStateAddTaskBtn = document.getElementById('emptyStateAddTaskBtn');
+    if (emptyStateAddTaskBtn) {
+        emptyStateAddTaskBtn.addEventListener('click', () => {
+            enterEditMode();
+            if (addTaskPanel) addTaskPanel.classList.add('open');
+        });
+    }
+
+    // =============== TUTORIAL MODAL ===============
+    const tutorialModal = document.getElementById('tutorialModal');
+    const tutorialClose = document.getElementById('tutorialClose');
+    const helpBtn       = document.getElementById('helpBtn');
+
+    if (helpBtn && tutorialModal) {
+        helpBtn.addEventListener('click', () => tutorialModal.classList.add('visible'));
+    }
+    if (tutorialClose) {
+        tutorialClose.addEventListener('click', () => tutorialModal.classList.remove('visible'));
+    }
+    if (tutorialModal) {
+        tutorialModal.addEventListener('click', (e) => {
+            if (e.target === tutorialModal) tutorialModal.classList.remove('visible');
+        });
+    }
+
+    // Auto-open tutorial on brand-new project (redirected from create form with ?new=true)
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('new') === 'true' && tutorialModal) {
+        // Clean the URL so refreshing doesn't re-trigger the modal
+        history.replaceState({}, '', `${window.location.pathname}?project=${projectId}`);
+        tutorialModal.classList.add('visible');
+    }
+
     if (editSaveBtn) {
         editSaveBtn.addEventListener('click', async () => {
-            if (pendingChanges.size === 0) { exitEditMode(true); return; }
+            if (pendingChanges.size === 0 && pendingDepDeletions.length === 0 &&
+                pendingNewTasks.length === 0 && pendingNewDependencies.length === 0 &&
+                pendingSubtaskDeletions.length === 0 && pendingNewSubtasks.length === 0 && pendingSubtaskChanges.size === 0) {
+                exitEditMode(true); return;
+            }
+
+            // Pre-save checks — run before any DB writes so the user can correct
+            // issues first. First offence: show combined warning and block.
+            // Second click ("Save Anyway") force-saves regardless.
+            if (!saveConfirmed) {
+                const warnings = [];
+
+                // 1. Dependency violations
+                const violated = ganttChart.getViolatedDependencies();
+                if (violated.length > 0) {
+                    const taskMap = new Map(taskData.map(t => [t.id, t]));
+                    const names = violated.map(d => {
+                        const p = taskMap.get(d.predecessorTaskId);
+                        const s = taskMap.get(d.successorTaskId);
+                        return p && s ? `"${p.name}" → "${s.name}"` : d.id;
+                    }).join(', ');
+                    warnings.push(`${violated.length} dep violation(s): ${names}`);
+                }
+
+                // 2. Project boundary violations
+                if (projectStartDate || projectEndDate) {
+                    const outOfBounds = taskData.filter(t => !t.isSubtask && !t.isAddSubtaskMarker && (
+                        (projectStartDate && t.startDate < projectStartDate) ||
+                        (projectEndDate   && t.endDate   > projectEndDate)
+                    ));
+                    if (outOfBounds.length > 0) {
+                        const names = outOfBounds.map(t => `"${t.name}"`).join(', ');
+                        warnings.push(`${outOfBounds.length} task(s) outside project bounds: ${names}`);
+                    }
+                }
+
+                if (warnings.length > 0) {
+                    showEditError(warnings.join(' | ') + ' — Click Save again to force save.');
+                    saveConfirmed = true;
+                    editSaveBtn.textContent = 'Save Anyway';
+                    editSaveBtn.disabled = false;
+                    return;
+                }
+            }
+            saveConfirmed = false;
 
             editSaveBtn.textContent = 'Saving...';
             editSaveBtn.disabled = true;
@@ -598,7 +1548,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             try {
                 for (const [taskId, changes] of pendingChanges) {
-                    console.log(`Saving task ${taskId}:`, changes);
+                    if (taskId < 0) continue; // temp ID — handled by POST below
                     const resp = await fetch(`${API_URL}/tasks/${taskId}`, {
                         method: 'PATCH',
                         headers: { 'Content-Type': 'application/json' },
@@ -609,6 +1559,103 @@ document.addEventListener('DOMContentLoaded', async () => {
                         throw new Error(body.message || `HTTP ${resp.status}`);
                     }
                 }
+                for (const depId of pendingDepDeletions) {
+                    const resp = await fetch(`${API_URL}/dependencies/${depId}`, { method: 'DELETE' });
+                    if (!resp.ok) {
+                        const body = await resp.json().catch(() => ({}));
+                        throw new Error(body.message || `HTTP ${resp.status}`);
+                    }
+                }
+                for (const staged of pendingNewTasks) {
+                    const resp = await fetch(`${API_URL}/projects/${projectId}/tasks`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            task_name:    staged.taskRef.name,  // picks up any in-session renames
+                            start_date:   staged.start_date,
+                            end_date:     staged.end_date,
+                            is_milestone: staged.is_milestone,
+                            tag:          staged.tag,
+                            colour:       staged.colour
+                        })
+                    });
+                    if (!resp.ok) {
+                        const body = await resp.json().catch(() => ({}));
+                        throw new Error(body.message || `HTTP ${resp.status}`);
+                    }
+                    const result = await resp.json();
+                    // Swap the temp ID out for the real DB ID in taskData
+                    if (staged.taskRef) staged.taskRef.id = result.task_id;
+                }
+                // POST dependencies that were staged because one/both tasks were unsaved.
+                // New task IDs are now real (updated in-place above), so use them directly.
+                for (const staged of pendingNewDependencies) {
+                    const predId = staged.predTaskRef.id;
+                    const succId = staged.succTaskRef.id;
+                    const resp = await fetch(`${API_URL}/projects/${projectId}/dependencies`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            predecessor_task_id: predId,
+                            successor_task_id:   succId,
+                            dependency_type:     staged.type
+                        })
+                    });
+                    if (!resp.ok) {
+                        const body = await resp.json().catch(() => ({}));
+                        throw new Error(body.message || `HTTP ${resp.status}`);
+                    }
+                    const result = await resp.json();
+                    // Replace the temp dep ID with the real one in dependencyData
+                    const dep = dependencyData.find(d => d.id === staged.tempId);
+                    if (dep) {
+                        dep.id                = result.dependency_id;
+                        dep.predecessorTaskId = predId;
+                        dep.successorTaskId   = succId;
+                    }
+                }
+                // DELETE staged subtasks
+                for (const subtaskId of pendingSubtaskDeletions) {
+                    const resp = await fetch(`${API_URL}/subtasks/${subtaskId}`, { method: 'DELETE' });
+                    if (!resp.ok) {
+                        const body = await resp.json().catch(() => ({}));
+                        throw new Error(body.message || `HTTP ${resp.status}`);
+                    }
+                }
+                // POST new subtasks
+                const fmt = d3.timeFormat('%Y-%m-%d');
+                for (const staged of pendingNewSubtasks) {
+                    const resp = await fetch(`${API_URL}/tasks/${staged.parent_task_id}/subtasks`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            subtask_name: staged.subtaskRef.name,
+                            start_date:   fmt(staged.subtaskRef.startDate),
+                            end_date:     fmt(staged.subtaskRef.endDate)
+                        })
+                    });
+                    if (!resp.ok) {
+                        const body = await resp.json().catch(() => ({}));
+                        throw new Error(body.message || `HTTP ${resp.status}`);
+                    }
+                    const result = await resp.json();
+                    staged.subtaskRef.subtaskId = result.subtask_id;
+                    staged.subtaskRef.id = 1_000_000 + result.subtask_id;
+                }
+                // PATCH changed subtasks (name changes; progress is saved immediately)
+                for (const [subtaskId, changes] of pendingSubtaskChanges) {
+                    if (subtaskId < 0) continue; // temp — handled by POST above
+                    const resp = await fetch(`${API_URL}/subtasks/${subtaskId}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(changes)
+                    });
+                    if (!resp.ok) {
+                        const body = await resp.json().catch(() => ({}));
+                        throw new Error(body.message || `HTTP ${resp.status}`);
+                    }
+                }
+
                 // Reset button before hiding the banner so it's clean next time
                 editSaveBtn.textContent = 'Save Changes';
                 editSaveBtn.disabled = false;
