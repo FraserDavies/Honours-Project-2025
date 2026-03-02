@@ -10,6 +10,9 @@ const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
     // Drop existing tables to reset schema (if they exist)
+    db.run(`DROP TABLE IF EXISTS comments`);
+    db.run(`DROP TABLE IF EXISTS supervisor_projects`);
+    db.run(`DROP TABLE IF EXISTS supervisors`);
     db.run(`DROP TABLE IF EXISTS subtasks`);
     db.run(`DROP TABLE IF EXISTS dependencies`);
     db.run(`DROP TABLE IF EXISTS tasks`);
@@ -87,6 +90,48 @@ db.serialize(() => {
         )
     `);
 
+    // Create supervisors table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS supervisors (
+            supervisor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            email TEXT UNIQUE NOT NULL,
+            name TEXT NOT NULL
+        )
+    `);
+
+    // Create supervisor_projects junction table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS supervisor_projects (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            supervisor_id INTEGER NOT NULL,
+            project_id INTEGER NOT NULL,
+            FOREIGN KEY (supervisor_id) REFERENCES supervisors(supervisor_id),
+            FOREIGN KEY (project_id) REFERENCES student_projects(project_id),
+            UNIQUE(supervisor_id, project_id)
+        )
+    `);
+
+    // Create comments table
+    db.run(`
+        CREATE TABLE IF NOT EXISTS comments (
+            comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            project_id INTEGER NOT NULL,
+            parent_comment_id INTEGER DEFAULT NULL,
+            author_email TEXT NOT NULL,
+            author_name TEXT NOT NULL,
+            author_role TEXT NOT NULL CHECK(author_role IN ('student', 'supervisor')),
+            content TEXT NOT NULL,
+            created_at TEXT DEFAULT (datetime('now')),
+            FOREIGN KEY (project_id) REFERENCES student_projects(project_id),
+            FOREIGN KEY (parent_comment_id) REFERENCES comments(comment_id)
+        )
+    `);
+
+
+    // =========================================
+    // Lowk anything below is not necesary as its just for seeding the database with sample data for testing and demonstration purposes. You can modify or remove this section as needed. 
+    // =========================================
+
     // Sample students data
     const sampleStudents = [
         { email: 'fd2010@hw.ac.uk', name: 'Fraser Davies' },
@@ -105,6 +150,21 @@ db.serialize(() => {
     });
 
     insertStudentStmt.finalize();
+
+    // Sample supervisors
+    const sampleSupervisors = [
+        { email: 'supervisor@hw.ac.uk', name: 'Dr Pierre Le Bras' }
+    ];
+
+    const insertSupervisorStmt = db.prepare(`
+        INSERT OR IGNORE INTO supervisors (email, name) VALUES (?, ?)
+    `);
+
+    sampleSupervisors.forEach(sup => {
+        insertSupervisorStmt.run(sup.email, sup.name);
+    });
+
+    insertSupervisorStmt.finalize();
 
     // Sample project assignments (students can have multiple projects)
     // todo: lowkenuinly ask if there should be a staff mode (boolean variable)
@@ -145,16 +205,16 @@ db.serialize(() => {
 
         insertProjectStmt.finalize();
 
-        // Sample tasks for Gantt Chart Builder project (project_id: 1001)
-        // Sept 2025 - April 2026 honours project timeline
-        // Task IDs (auto-increment order):
-        //  1=Project Kickoff, 2=Literature Review, 3=Requirements Gathering,
-        //  4=Requirements Complete (milestone), 5=System Architecture Design,
-        //  6=Database Schema Design, 7=UI/UX Mockups, 8=Design Sign-off (milestone),
-        //  9=Development Setup, 10=Backend API Development, 11=Frontend Development,
-        //  12=Gantt Chart Visualisation Engine, 13=System Integration,
-        //  14=System Testing & Bug Fixes, 15=User Study & Evaluation,
-        //  16=Dissertation Writing, 17=Final Submission (milestone)
+        // Link supervisors to projects (after supervisor rows exist)
+        db.get('SELECT supervisor_id FROM supervisors WHERE email = ?', ['supervisor@hw.ac.uk'], (err, sup) => {
+            if (sup) {
+                db.run(`INSERT OR IGNORE INTO supervisor_projects (supervisor_id, project_id) VALUES (?, ?)`,
+                    [sup.supervisor_id, 1001]);
+                db.run(`INSERT OR IGNORE INTO supervisor_projects (supervisor_id, project_id) VALUES (?, ?)`,
+                    [sup.supervisor_id, 1004]);
+            }
+        });
+
         const sampleTasks = [
             { project_id: 1001, task_name: 'Project Kickoff',                description: 'Initial supervisor meeting, project scope agreed and plan drafted',       start_date: '2025-09-22', end_date: '2025-09-22', duration: 0,  progress_percentage: 100, is_milestone: 1, parent_task_id: null, display_order: 1,  colour: '#17a2b8', tag: 'planning'        },
             { project_id: 1001, task_name: 'Literature Review',              description: 'Review existing Gantt chart tools, project management systems and HWU system architecture', start_date: '2025-09-22', end_date: '2025-10-31', duration: 39, progress_percentage: 100, is_milestone: 0, parent_task_id: null, display_order: 2,  colour: '#4a90d9', tag: 'research'        },
@@ -243,6 +303,48 @@ db.serialize(() => {
         });
 
         insertDepStmt.finalize();
+
+        // Sample comments for project 1001 — supervisor/student exchange
+        const sampleComments = [
+            {
+                id: 1, project_id: 1001, parent_comment_id: null,
+                author_email: 'supervisor@hw.ac.uk', author_name: 'Dr Pierre Le Bras', author_role: 'supervisor',
+                content: 'Good progress overall on the backend and frontend development phases. The REST API endpoints look well-structured. Before the user study phase, please make sure all endpoints have consistent error handling and input validation — this will be important for robustness during the evaluation.',
+                created_at: "datetime('now', '-35 days')"
+            },
+            {
+                id: 2, project_id: 1001, parent_comment_id: 1,
+                author_email: 'fd2010@hw.ac.uk', author_name: 'Fraser Davies', author_role: 'student',
+                content: 'Thanks Dr Le Bras! I\'ve already added validation on the task date inputs and dependency cycle detection. I\'ll make sure all error responses follow the same JSON format before the user study in March.',
+                created_at: "datetime('now', '-34 days')"
+            },
+            {
+                id: 3, project_id: 1001, parent_comment_id: null,
+                author_email: 'supervisor@hw.ac.uk', author_name: 'Dr Pierre Le Bras', author_role: 'supervisor',
+                content: 'The Gantt chart visualisation is looking very impressive — the D3.js drag-and-drop interaction feels smooth and the dependency lines are clear. One suggestion: consider adding a way to export just the task list as a table (CSV or PDF) alongside the chart export, as some users may prefer tabular data.',
+                created_at: "datetime('now', '-21 days')"
+            },
+            {
+                id: 4, project_id: 1001, parent_comment_id: null,
+                author_email: 'fd2010@hw.ac.uk', author_name: 'Fraser Davies', author_role: 'student',
+                content: 'Quick update: the system testing phase is taking a bit longer than planned due to some edge cases with the subtask date clamping and dependency validation when tasks are moved. I\'ve set progress to 20%. Expecting to wrap up by mid-March before the user study starts.',
+                created_at: "datetime('now', '-7 days')"
+            },
+            {
+                id: 5, project_id: 1001, parent_comment_id: 4,
+                author_email: 'supervisor@hw.ac.uk', author_name: 'Dr Pierre Le Bras', author_role: 'supervisor',
+                content: 'Thanks for the update. Quality is more important than sticking rigidly to the schedule — better to get the edge cases right now than to discover them during the user study. Keep me posted.',
+                created_at: "datetime('now', '-6 days')"
+            }
+        ];
+
+        sampleComments.forEach(c => {
+            db.run(
+                `INSERT INTO comments (comment_id, project_id, parent_comment_id, author_email, author_name, author_role, content, created_at)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ${c.created_at})`,
+                [c.id, c.project_id, c.parent_comment_id, c.author_email, c.author_name, c.author_role, c.content]
+            );
+        });
 
         console.log('Le Database is setup!!!!!!!!');
         console.log(`Database file location: ${dbPath}`);

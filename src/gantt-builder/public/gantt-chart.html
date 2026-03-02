@@ -289,6 +289,20 @@
                 <div class="tooltip-dates"></div>
                 <div class="tooltip-progress"></div>
             </div>
+
+            <!-- Comment Section -->
+            <div class="comment-section" id="commentSection">
+                <h2 class="comment-section-title">Supervisor Comments</h2>
+                <div id="commentList" class="comment-list">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="new-comment-area">
+                    <textarea id="newCommentText" class="comment-textarea" placeholder="Write a comment..." rows="3"></textarea>
+                    <div class="comment-submit-row">
+                        <button id="postCommentBtn" class="comment-post-btn">Post Comment</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Export Modal -->
@@ -329,13 +343,23 @@
         </div>
         <!-- Tutorial Modal -->
         <div class="export-modal-overlay" id="tutorialModal">
-            <div class="export-modal tutorial-modal">
-                <div class="tutorial-modal-header">
-                    <h3 class="export-modal-title" style="margin-bottom:0">How to Use the Gantt Chart Builder</h3>
-                    <button class="export-cancel-btn" id="tutorialClose">Close</button>
+            <div class="tutorial-modal-card">
+                <div class="tutorial-modal-top">
+                    <span class="tutorial-slide-counter" id="tutorialCounter">1 / 8</span>
+                    <h3 class="tutorial-modal-title" id="tutorialTitle">Welcome to the Gantt Chart Builder</h3>
+                    <button class="tutorial-close-btn" id="tutorialClose" title="Close tutorial">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+                        </svg>
+                    </button>
                 </div>
-                <div class="tutorial-modal-body">
-                    <p class="tutorial-placeholder">Tutorial content coming soon.</p>
+                <div class="tutorial-modal-content" id="tutorialContent">
+                    <!-- Slide content rendered by tutorial.js -->
+                </div>
+                <div class="tutorial-modal-footer">
+                    <button class="tutorial-nav-btn" id="tutorialPrev">Previous</button>
+                    <div class="tutorial-dots" id="tutorialDots"></div>
+                    <button class="tutorial-nav-btn tutorial-nav-btn--primary" id="tutorialNext">Next</button>
                 </div>
             </div>
         </div>
@@ -367,6 +391,7 @@
     <script src="/gantt-builder/public/js/task-list.js"></script>
     <script src="/gantt-builder/public/js/tooltip.js"></script>
     <script src="/gantt-builder/public/js/interactive-chart.js"></script>
+    <script src="/gantt-builder/public/js/tutorial.js"></script>
 
 </body>
 </html>

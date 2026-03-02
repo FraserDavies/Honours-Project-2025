@@ -96,6 +96,19 @@ function showDashboard(user) {
     document.getElementById('userName').textContent = user.name;
     document.getElementById('userEmail').textContent = user.email;
 
+    const isSupervisor = user.role === 'supervisor';
+
+    // Update projects title based on role
+    const projectsTitle = document.querySelector('.projects-title');
+    if (projectsTitle) {
+        projectsTitle.textContent = isSupervisor ? 'Supervised Projects' : 'Your Projects';
+    }
+
+    // Hide "Create New Gantt Chart" button for supervisors
+    if (createProjectBtn) {
+        createProjectBtn.style.display = isSupervisor ? 'none' : '';
+    }
+
     // Display user's projects
     const projectsContainer = document.getElementById('userProjects');
     projectsContainer.innerHTML = '';
@@ -104,7 +117,8 @@ function showDashboard(user) {
         user.projects.forEach(project => {
             const projectBadge = document.createElement('a');
             projectBadge.className = 'project-badge';
-            projectBadge.href = `../../gantt-builder/public/gantt-chart.html?project=${encodeURIComponent(project.project_id)}`;
+            const roleParam = isSupervisor ? '&role=supervisor' : '';
+            projectBadge.href = `../../gantt-builder/public/gantt-chart.html?project=${encodeURIComponent(project.project_id)}${roleParam}`;
             projectBadge.innerHTML = `
                 <span class="project-id">${project.project_id}</span>
                 ${project.project_name ? `<span class="project-name"> ${project.project_name}</span>` : ''}
@@ -112,7 +126,7 @@ function showDashboard(user) {
             projectsContainer.appendChild(projectBadge);
         });
     } else {
-        projectsContainer.innerHTML = '<p class="no-projects">No projects assigned</p>';
+        projectsContainer.innerHTML = `<p class="no-projects">${isSupervisor ? 'No supervised projects assigned' : 'No projects assigned'}</p>`;
     }
 
     // Get initials for avatar

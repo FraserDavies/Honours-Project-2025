@@ -738,7 +738,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                             </div>
                             <div class="kanban-card-meta">
                                 <span class="kanban-pct">${t.progress}% complete</span>
-                                <span>${fmt3(t.startDate)} – ${fmt3(t.endDate)}</span>
+                                <span>${fmt3(t.startDate)} - ${fmt3(t.endDate)}</span>
                             </div>
                         </div>`).join('')
                 }
@@ -1491,6 +1491,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         tutorialModal.classList.add('visible');
     }
 
+    // Supervisor view — hide Edit button so the chart is read-only
+    const isSupervisorView = urlParams.get('role') === 'supervisor';
+    if (isSupervisorView && editModeBtn) {
+        editModeBtn.style.display = 'none';
+    }
+
     if (editSaveBtn) {
         editSaveBtn.addEventListener('click', async () => {
             if (pendingChanges.size === 0 && pendingDepDeletions.length === 0 &&
@@ -1671,6 +1677,151 @@ document.addEventListener('DOMContentLoaded', async () => {
                 editSaveBtn.disabled = false;
             }
         });
+    }
+
+    // =============== COMMENT SECTION ===============
+    const commentSection = document.getElementById('commentSection');
+    if (commentSection) {
+        const commentListEl  = document.getElementById('commentList');
+        const newCommentText = document.getElementById('newCommentText');
+        const postCommentBtn = document.getElementById('postCommentBtn');
+
+        const savedUser  = localStorage.getItem('gantt_user');
+        const currentUser = savedUser ? JSON.parse(savedUser) : null;
+
+        const formatCommentDate = (dateStr) => {
+            const d = new Date(dateStr + (dateStr.includes('Z') ? '' : ' UTC'));
+            return d.toLocaleString('en-GB', {
+                day: '2-digit', month: 'short', year: 'numeric',
+                hour: '2-digit', minute: '2-digit'
+            });
+        };
+
+        const escapeHtml = (str) => str
+            .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+        const buildCommentEl = (comment, repliesMap, isReply) => {
+            const el = document.createElement('div');
+            el.className = isReply ? 'comment-item comment-reply-item' : 'comment-item';
+
+            const roleLabel = comment.author_role === 'supervisor' ? '(Supervisor)' : '(Student)';
+            el.innerHTML = `
+                <div class="comment-header">
+                    <span class="comment-author">${escapeHtml(comment.author_name)}</span>
+                    <span class="comment-role">${roleLabel}</span>
+                    <span class="comment-date">${formatCommentDate(comment.created_at)}</span>
+                </div>
+                <div class="comment-body">${escapeHtml(comment.content).replace(/\n/g, '<br>')}</div>
+                ${!isReply && currentUser ? '<button class="comment-reply-btn">Reply</button>' : ''}
+            `;
+
+            if (!isReply) {
+                const replies = repliesMap.get(comment.comment_id) || [];
+                if (replies.length > 0) {
+                    const repliesContainer = document.createElement('div');
+                    repliesContainer.className = 'comment-replies';
+                    replies.forEach(r => repliesContainer.appendChild(buildCommentEl(r, repliesMap, true)));
+                    el.appendChild(repliesContainer);
+                }
+
+                const replyBtn = el.querySelector('.comment-reply-btn');
+                if (replyBtn) {
+                    replyBtn.addEventListener('click', () => {
+                        const existing = el.querySelector('.reply-input-area');
+                        if (existing) { existing.remove(); return; }
+
+                        const replyArea = document.createElement('div');
+                        replyArea.className = 'reply-input-area';
+                        replyArea.innerHTML = `
+                            <textarea class="reply-textarea" placeholder="Write a reply..." rows="2"></textarea>
+                            <div class="reply-actions">
+                                <button class="reply-cancel-btn">Cancel</button>
+                                <button class="reply-submit-btn">Post Reply</button>
+                            </div>
+                        `;
+                        el.appendChild(replyArea);
+                        replyArea.querySelector('.reply-textarea').focus();
+
+                        replyArea.querySelector('.reply-cancel-btn').addEventListener('click', () => replyArea.remove());
+                        replyArea.querySelector('.reply-submit-btn').addEventListener('click', async () => {
+                            const content = replyArea.querySelector('.reply-textarea').value.trim();
+                            if (!content) return;
+                            await submitComment(content, comment.comment_id);
+                        });
+                    });
+                }
+            }
+
+            return el;
+        };
+
+        const renderComments = (comments) => {
+            if (!commentListEl) return;
+
+            if (comments.length === 0) {
+                commentListEl.innerHTML = '<p class="no-comments">No comments yet.</p>';
+                return;
+            }
+
+            const topLevel = comments.filter(c => !c.parent_comment_id);
+            const repliesMap = new Map();
+            comments.filter(c => c.parent_comment_id).forEach(c => {
+                if (!repliesMap.has(c.parent_comment_id)) repliesMap.set(c.parent_comment_id, []);
+                repliesMap.get(c.parent_comment_id).push(c);
+            });
+
+            commentListEl.innerHTML = '';
+            topLevel.forEach(c => commentListEl.appendChild(buildCommentEl(c, repliesMap, false)));
+        };
+
+        const loadComments = async () => {
+            try {
+                const resp = await fetch(`${API_URL}/projects/${projectId}/comments`);
+                const data = await resp.json();
+                if (data.success) renderComments(data.comments || []);
+            } catch (err) {
+                console.error('Failed to load comments:', err);
+            }
+        };
+
+        const submitComment = async (content, parentId = null) => {
+            if (!currentUser) return;
+            try {
+                const resp = await fetch(`${API_URL}/projects/${projectId}/comments`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        parent_comment_id: parentId,
+                        author_email: currentUser.email,
+                        author_name:  currentUser.name,
+                        author_role:  currentUser.role || 'student',
+                        content
+                    })
+                });
+                const data = await resp.json();
+                if (data.success) {
+                    if (!parentId && newCommentText) newCommentText.value = '';
+                    await loadComments();
+                }
+            } catch (err) {
+                console.error('Failed to post comment:', err);
+            }
+        };
+
+        if (postCommentBtn) {
+            if (!currentUser) {
+                postCommentBtn.disabled = true;
+                postCommentBtn.title = 'Log in to comment';
+            } else {
+                postCommentBtn.addEventListener('click', async () => {
+                    const content = newCommentText ? newCommentText.value.trim() : '';
+                    if (!content) return;
+                    await submitComment(content);
+                });
+            }
+        }
+
+        loadComments();
     }
 
     console.log(`Interactive Gantt Chart initialised for project ${projectId}`);

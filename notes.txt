@@ -423,13 +423,13 @@ Must Have (Core Features)
 
 Should Have (Expected Features)
 
-[TODO] Guided task creation interface with contextual help and validation
+[COMPLETE-ish] Guided task creation interface with contextual help and validation
 [COMPLETE] Drag-and-drop timeline adjustment for tasks
 [COMPLETE] Automatic dependency adjustment when tasks are modified
 [COMPLETE] Progress tracking — marking tasks as not started, in progress, or completed
 [COMPLETE] Schedule status indicator — ahead/on track/behind
 [COMPLETE] Gantt chart export as PNG/JPEG
-[TODO] Supervisor view-only access
+[COMPLETE] Supervisor view-only access
 [COMPLETE] Task hierarchy with subtasks under parent tasks
 [COMPLETE] Prevention of logically impossible schedules
 [COMPLETE] Timeline zoom and pan controls
@@ -440,5 +440,11 @@ Could Have (Nice to Have)
 [COMPLETE] Kanban board alternative view
 [COMPLETE] Task categories/tags (e.g. Research, Writing)
 [NOT DOING] Additional dependency types — Start-to-Start, Finish-to-Finish, Start-to-Finish
-[MAYBE DOING] Critical path highlighting
-[TODO] Supervisor comment and feedback system
+[NOT DOING] Critical path highlighting
+[COMPETE] Supervisor comment and feedback system
+
+
+
+
+
+

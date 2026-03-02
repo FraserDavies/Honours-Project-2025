@@ -40,6 +40,72 @@ const db = new sqlite3.Database(dbPath, (err) => {
         db.run(`ALTER TABLE student_projects ADD COLUMN end_date TEXT`, err => {
             if (err && !err.message.includes('duplicate column name')) console.error('Migration error (end_date):', err);
         });
+        // Supervisor and comments tables (idempotent)
+        db.run(`
+            CREATE TABLE IF NOT EXISTS supervisors (
+                supervisor_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                email TEXT UNIQUE NOT NULL,
+                name TEXT NOT NULL
+            )
+        `);
+        db.run(`
+            CREATE TABLE IF NOT EXISTS supervisor_projects (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                supervisor_id INTEGER NOT NULL,
+                project_id INTEGER NOT NULL,
+                FOREIGN KEY (supervisor_id) REFERENCES supervisors(supervisor_id),
+                FOREIGN KEY (project_id) REFERENCES student_projects(project_id),
+                UNIQUE(supervisor_id, project_id)
+            )
+        `);
+        db.run(`
+            CREATE TABLE IF NOT EXISTS comments (
+                comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                project_id INTEGER NOT NULL,
+                parent_comment_id INTEGER DEFAULT NULL,
+                author_email TEXT NOT NULL,
+                author_name TEXT NOT NULL,
+                author_role TEXT NOT NULL CHECK(author_role IN ('student', 'supervisor')),
+                content TEXT NOT NULL,
+                created_at TEXT DEFAULT (datetime('now')),
+                FOREIGN KEY (project_id) REFERENCES student_projects(project_id),
+                FOREIGN KEY (parent_comment_id) REFERENCES comments(comment_id)
+            )
+        `);
+        // Seed test supervisor account (idempotent)
+        db.run(`INSERT OR IGNORE INTO supervisors (email, name) VALUES ('supervisor@hw.ac.uk', 'Dr Pierre Le Bras')`);
+        db.run(`INSERT OR IGNORE INTO supervisor_projects (supervisor_id, project_id)
+                SELECT supervisor_id, 1001 FROM supervisors WHERE email = 'supervisor@hw.ac.uk'`);
+        db.run(`INSERT OR IGNORE INTO supervisor_projects (supervisor_id, project_id)
+                SELECT supervisor_id, 1004 FROM supervisors WHERE email = 'supervisor@hw.ac.uk'`);
+        // Seed sample comments for project 1001 if none exist yet
+        db.get(`SELECT COUNT(*) AS cnt FROM comments WHERE project_id = 1001`, [], (err, row) => {
+            if (err || (row && row.cnt > 0)) return;
+            const comments = [
+                [1, 1001, null,  'supervisor@hw.ac.uk', 'Dr Pierre Le Bras', 'supervisor',
+                 'Good progress overall on the backend and frontend development phases. The REST API endpoints look well-structured. Before the user study phase, please make sure all endpoints have consistent error handling and input validation — this will be important for robustness during the evaluation.',
+                 "datetime('now', '-35 days')"],
+                [2, 1001, 1,    'fd2010@hw.ac.uk', 'Fraser Davies', 'student',
+                 "Thanks Dr Le Bras! I've already added validation on the task date inputs and dependency cycle detection. I'll make sure all error responses follow the same JSON format before the user study in March.",
+                 "datetime('now', '-34 days')"],
+                [3, 1001, null,  'supervisor@hw.ac.uk', 'Dr Pierre Le Bras', 'supervisor',
+                 'The Gantt chart visualisation is looking very impressive — the D3.js drag-and-drop interaction feels smooth and the dependency lines are clear. One suggestion: consider adding a way to export just the task list as a table (CSV or PDF) alongside the chart export, as some users may prefer tabular data.',
+                 "datetime('now', '-21 days')"],
+                [4, 1001, null,  'fd2010@hw.ac.uk', 'Fraser Davies', 'student',
+                 "Quick update: the system testing phase is taking a bit longer than planned due to some edge cases with the subtask date clamping and dependency validation when tasks are moved. I've set progress to 20%. Expecting to wrap up by mid-March before the user study starts.",
+                 "datetime('now', '-7 days')"],
+                [5, 1001, 4,    'supervisor@hw.ac.uk', 'Dr Pierre Le Bras', 'supervisor',
+                 'Thanks for the update. Quality is more important than sticking rigidly to the schedule — better to get the edge cases right now than to discover them during the user study. Keep me posted.',
+                 "datetime('now', '-6 days')"],
+            ];
+            comments.forEach(([id, proj, parent, email, name, role, content, ts]) => {
+                db.run(
+                    `INSERT INTO comments (comment_id, project_id, parent_comment_id, author_email, author_name, author_role, content, created_at)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ${ts})`,
+                    [id, proj, parent, email, name, role, content]
+                );
+            });
+        });
     }
 });
 
@@ -70,7 +136,7 @@ app.post('/api/login', (req, res) => {
             }
 
             if (row) {
-                // User found - now get their projects
+                // Student found - get their projects
                 db.all(
                     'SELECT project_id, project_name, project_description FROM student_projects WHERE student_id = ? ORDER BY project_id',
                     [row.student_id],
@@ -90,17 +156,60 @@ app.post('/api/login', (req, res) => {
                                 student_id: row.student_id,
                                 email: row.email,
                                 name: row.name,
+                                role: 'student',
                                 projects: projects || []
                             }
                         });
                     }
                 );
             } else {
-                // User not found
-                res.status(401).json({
-                    success: false,
-                    message: 'Email not found. Please check your email address.'
-                });
+                // Not a student — check supervisors table
+                db.get(
+                    'SELECT supervisor_id, email, name FROM supervisors WHERE LOWER(email) = ?',
+                    [normalisedEmail],
+                    (err, sup) => {
+                        if (err) {
+                            console.error('Database error:', err);
+                            return res.status(500).json({ success: false, message: 'Database error' });
+                        }
+
+                        if (sup) {
+                            // Supervisor found — get their supervised projects
+                            db.all(
+                                `SELECT sp.project_id, sp.project_name, sp.project_description
+                                 FROM supervisor_projects svp
+                                 JOIN student_projects sp ON svp.project_id = sp.project_id
+                                 WHERE svp.supervisor_id = ?
+                                 ORDER BY sp.project_id`,
+                                [sup.supervisor_id],
+                                (err, projects) => {
+                                    if (err) {
+                                        console.error('Database error fetching supervised projects:', err);
+                                        return res.status(500).json({ success: false, message: 'Database error' });
+                                    }
+
+                                    res.json({
+                                        success: true,
+                                        message: 'Login successful',
+                                        user: {
+                                            supervisor_id: sup.supervisor_id,
+                                            email: sup.email,
+                                            name: sup.name,
+                                            role: 'supervisor',
+                                            projects: projects || []
+                                        }
+                                    });
+                                }
+                            );
+                        } else {
+                            // Email not found in either table
+                            res.status(401).json({
+                                success: false,
+                                message: 'Email not found. Please check your email address.'
+                            });
+                        }
+                    }
+                );
             }
         }
     );
@@ -560,6 +669,50 @@ app.delete('/api/subtasks/:subtaskId', (req, res) => {
         }
         res.json({ success: true });
     });
+});
+
+// =============== COMMENT ROUTES ===============
+
+// Get all comments for a project
+app.get('/api/projects/:projectId/comments', (req, res) => {
+    const { projectId } = req.params;
+    db.all(
+        `SELECT comment_id, parent_comment_id, author_email, author_name, author_role, content, created_at
+         FROM comments
+         WHERE project_id = ?
+         ORDER BY created_at ASC`,
+        [projectId],
+        (err, rows) => {
+            if (err) {
+                console.error('Error fetching comments:', err);
+                return res.status(500).json({ success: false, message: 'Database error' });
+            }
+            res.json({ success: true, comments: rows || [] });
+        }
+    );
+});
+
+// Post a new comment or reply
+app.post('/api/projects/:projectId/comments', (req, res) => {
+    const { projectId } = req.params;
+    const { parent_comment_id, author_email, author_name, author_role, content } = req.body;
+
+    if (!author_email || !author_name || !author_role || !content) {
+        return res.status(400).json({ success: false, message: 'author_email, author_name, author_role, and content are required' });
+    }
+
+    db.run(
+        `INSERT INTO comments (project_id, parent_comment_id, author_email, author_name, author_role, content)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        [projectId, parent_comment_id || null, author_email, author_name, author_role, content],
+        function(err) {
+            if (err) {
+                console.error('Error inserting comment:', err);
+                return res.status(500).json({ success: false, message: 'Database error' });
+            }
+            res.json({ success: true, comment_id: this.lastID });
+        }
+    );
 });
 
 // Start server
