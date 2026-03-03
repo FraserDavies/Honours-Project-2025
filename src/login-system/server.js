@@ -715,6 +715,39 @@ app.post('/api/projects/:projectId/comments', (req, res) => {
     );
 });
 
+// Add a project to a supervisor's supervised list
+app.post('/api/supervisors/:supervisorId/projects', (req, res) => {
+    const supervisorId = parseInt(req.params.supervisorId);
+    const { project_id } = req.body;
+
+    if (!project_id) {
+        return res.status(400).json({ success: false, message: 'project_id is required.' });
+    }
+
+    db.get(
+        'SELECT project_id, project_name, project_description FROM student_projects WHERE project_id = ?',
+        [parseInt(project_id)],
+        (err, project) => {
+            if (err) return res.status(500).json({ success: false, message: 'Database error.' });
+            if (!project) return res.status(404).json({ success: false, message: `Project ${project_id} not found.` });
+
+            db.run(
+                'INSERT INTO supervisor_projects (supervisor_id, project_id) VALUES (?, ?)',
+                [supervisorId, project.project_id],
+                function(err) {
+                    if (err) {
+                        if (err.message.includes('UNIQUE constraint failed')) {
+                            return res.status(409).json({ success: false, message: 'You are already supervising this project.' });
+                        }
+                        return res.status(500).json({ success: false, message: 'Database error.' });
+                    }
+                    res.json({ success: true, project });
+                }
+            );
+        }
+    );
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);

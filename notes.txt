@@ -444,6 +444,33 @@ Could Have (Nice to Have)
 [COMPETE] Supervisor comment and feedback system
 
 
+Conset form draft:
+
+Project title: Interactive Gantt Chart Builder
+
+The primary aim of this project is to design, develop, and evaluate an interactive Gantt chart builder that will be integrated into the existing HWU honours project management system. This tool will provide structured guidance to help students create comprehensive project plans while offering supervisors visibility into student progress and planning quality.
+
+Heriot-Watt University MACS department
+Principal Investigator: Fraser Davies (fd2010@hw.ac.uk)
+Dissertation Supervisor: Dr Pierre Le Bras
+
+The purpose of this usability test is to evaluate the usability and effectiveness of the Interactive Gantt Chart Builder by observing how first-time users interact with the system. Participants will be asked to complete a series of tasks covering the core features of the tool, including creating and editing a Gantt chart, navigating the interface, and using the supervisor view. The aim is to identify any aspects of the interface that are unclear, difficult to use, or behave unexpectedly, and to gather honest feedback that will inform the final evaluation of the system. The results will be used solely for the purposes of this dissertation project and will contribute to an assessment of whether the tool meets its usability requirements.
+
+Participation Clause:
+- Participation is entirely voluntary and consent can be withdrawn at any point during the study without penalty or obligation to provide a reason.
+- Participants are encouraged to answer all questions in the feedback questionnaire, though individual questions may be left blank if preferred.
+- Any questions a participant has regarding the study will be answered by the Principal Investigator before, during, or after the session.
+
+Data Collection & Privacy Clause:
+- Your response in the feedback questionnaire will be anonymized.
+- Personal information will not be shared with any 3rd-parties.
+- Personal information will be securely stored and GDPR regulations will be followed.
+- Data collected in the feedback questionnaire may be used by us in future reports.
+
+By agree to the below, you as a participant are acknowledging that you have read the preceding information and understand its contents. You are confirming that you are willingly choosing to participate in this study and that your participation is voluntary. You are also agreeing to allow the use of your results for academic and scientific purposes, and to the distribution of any recordings or transcripts of the session for research purposes, on the condition that your identity is not revealed.
+
+
+
 
 
 

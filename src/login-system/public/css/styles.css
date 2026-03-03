@@ -427,6 +427,37 @@ body {
     font-style: italic;
 }
 
+/* Add supervised project form */
+.add-supervised-project {
+    margin-top: 1rem;
+    text-align: left;
+}
+
+.add-project-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+}
+
+.add-project-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.add-project-input {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem;
+    width: 130px;
+    flex-shrink: 0;
+}
+
+.add-project-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+
 .divider {
     height: 1px;
     background: var(--border-color);

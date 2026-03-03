@@ -129,6 +129,87 @@ function showDashboard(user) {
         projectsContainer.innerHTML = `<p class="no-projects">${isSupervisor ? 'No supervised projects assigned' : 'No projects assigned'}</p>`;
     }
 
+    // Supervisor: add "Add supervised project" form below the list
+    const existingAddSection = document.getElementById('addSupervisedProject');
+    if (existingAddSection) existingAddSection.remove();
+
+    if (isSupervisor) {
+        const addSection = document.createElement('div');
+        addSection.id = 'addSupervisedProject';
+        addSection.className = 'add-supervised-project';
+        addSection.innerHTML = `
+            <p class="add-project-label">Add supervised project:</p>
+            <div class="add-project-row">
+                <input type="number" id="supervisorProjectIdInput" class="form-input add-project-input" placeholder="Project ID" min="1">
+                <button class="btn btn-primary add-project-btn" id="addSupervisedProjectBtn">Add</button>
+            </div>
+            <div id="addProjectMsg" class="message"></div>
+        `;
+        document.querySelector('.projects-section').appendChild(addSection);
+
+        document.getElementById('supervisorProjectIdInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') document.getElementById('addSupervisedProjectBtn').click();
+        });
+
+        document.getElementById('addSupervisedProjectBtn').addEventListener('click', async () => {
+            const input = document.getElementById('supervisorProjectIdInput');
+            const msgEl = document.getElementById('addProjectMsg');
+            const projectId = parseInt(input.value.trim());
+
+            if (!projectId || projectId < 1) {
+                msgEl.textContent = 'Please enter a valid project ID.';
+                msgEl.className = 'message show message-error';
+                return;
+            }
+
+            const savedUser = localStorage.getItem('gantt_user');
+            if (!savedUser) return;
+            const currentUser = JSON.parse(savedUser);
+
+            const btn = document.getElementById('addSupervisedProjectBtn');
+            btn.disabled = true;
+
+            try {
+                const resp = await fetch(`${API_URL}/supervisors/${currentUser.supervisor_id}/projects`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ project_id: projectId })
+                });
+                const data = await resp.json();
+
+                if (data.success) {
+                    currentUser.projects = currentUser.projects || [];
+                    currentUser.projects.push(data.project);
+                    localStorage.setItem('gantt_user', JSON.stringify(currentUser));
+
+                    const noProjects = projectsContainer.querySelector('.no-projects');
+                    if (noProjects) noProjects.remove();
+
+                    const badge = document.createElement('a');
+                    badge.className = 'project-badge';
+                    badge.href = `../../gantt-builder/public/gantt-chart.html?project=${data.project.project_id}&role=supervisor`;
+                    badge.innerHTML = `
+                        <span class="project-id">${data.project.project_id}</span>
+                        ${data.project.project_name ? `<span class="project-name"> ${data.project.project_name}</span>` : ''}
+                    `;
+                    projectsContainer.appendChild(badge);
+
+                    input.value = '';
+                    msgEl.textContent = `Project ${data.project.project_id} added.`;
+                    msgEl.className = 'message show message-success';
+                } else {
+                    msgEl.textContent = data.message || 'Failed to add project.';
+                    msgEl.className = 'message show message-error';
+                }
+            } catch (err) {
+                msgEl.textContent = 'Unable to connect to server.';
+                msgEl.className = 'message show message-error';
+            } finally {
+                btn.disabled = false;
+            }
+        });
+    }
+
     // Get initials for avatar
     const initials = user.name
         .split(' ')
