@@ -4,6 +4,57 @@
 \input{hwu_template/acm_settings}
 \input{hwu_template/packages}
 
+\usepackage{listings}
+\usepackage{xcolor}
+
+\lstdefinestyle{sqlstyle}{
+    language=SQL,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    stringstyle=\color{orange},
+    commentstyle=\color{gray}\itshape,
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=8pt,
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    frame=single,
+    rulecolor=\color{black!30},
+    backgroundcolor=\color{gray!8},
+    captionpos=b,
+}
+
+\lstdefinelanguage{JavaScript}{
+    keywords={const, let, var, function, return, await, async, if, else, 
+               for, while, new, true, false, null, undefined, of, in},
+    keywordstyle=\color{blue}\bfseries,
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{orange},
+    morestring=[b]',
+    morestring=[b]"
+}
+
+\lstdefinestyle{jsstyle}{
+    language=JavaScript,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue}\bfseries,
+    commentstyle=\color{gray}\itshape,
+    stringstyle=\color{orange},
+    numbers=left,
+    numberstyle=\tiny\color{gray},
+    numbersep=8pt,
+    breaklines=true,
+    showstringspaces=false,
+    frame=single,
+    rulecolor=\color{black!30},
+    backgroundcolor=\color{gray!8},
+    captionpos=b,
+}
+
 % document details
 % replace those with your details
 \def\docTitle{Interactive Gantt Chart Builder}
@@ -425,6 +476,85 @@ The feasibility analysis confirms technical viability through ASP.NET MVC framew
 
 Future work will focus on system implementation, comprehensive testing, and rigorous usability evaluation with honours students and supervisors to assess the tool's effectiveness in supporting successful dissertation project completion.
 
+\section{Implementation and Contributions} \label{cha:impl_contrib}
+
+This section documents the implementation of the Interactive Gantt Chart Builder, describing how the system was built, the key technical decisions made during development, and how the final implementation addresses the requirements defined in \cref{cha:meth_req_anal}. The system was implemented as a fully independent, locally-hosted web application using Node.js with Express, SQLite, and D3.js, diverging from the ASP.NET MVC stack proposed during the feasibility phase. This decision was taken following further technical consultation, which confirmed that a Node.js/Express architecture offered a more straightforward development workflow given the project's standalone scope and the absence of a requirement to directly integrate with the existing HWU system's backend during this phase.
+
+\subsection{System Architecture} \label{sec:impl_arch}
+
+The application follows a client-server architecture, with an Express server handling all REST API endpoints and a SQLite database managed via the \texttt{sqlite3} library providing persistent storage. The frontend consists of static HTML, CSS, and JavaScript files served directly by Express. Authentication uses a local email-based login system without passwords, with sessions managed via \texttt{localStorage} on the client side. The system is divided into two main modules: a login and dashboard module (\texttt{src/login-system}) and the Gantt chart builder module (\texttt{src/gantt-builder}), each with their own public assets and server-side routes. This separation keeps concerns distinct and allows each module to be reasoned about independently.
+
+\subsection{Database Design and Data Persistence} \label{sec:impl_db}
+
+The database schema, defined in \texttt{src/login-system/database/setup.js}, implements the core entities identified during requirements analysis. The schema comprises eight tables: \texttt{students}, \texttt{student\_projects}, \texttt{tasks}, \texttt{dependencies}, \texttt{subtasks}, \texttt{supervisors}, \texttt{supervisor\_projects}, and \texttt{comments}. This directly addresses the data persistence requirement \textbf{FR5}\label{fr:5} and underpins all other data-related requirements.
+
+The \texttt{students} table records each user's email address and display name, serving as the authentication source for the email-based login system. The \texttt{student\_projects} table stores the title, description, start date, and end date for each project, satisfying \textbf{FR1}\label{fr:1}. Projects are associated with students via a foreign key on \texttt{student\_id}, supporting a many-to-many relationship through this junction table.
+
+The \texttt{tasks} table stores the task name, description, start and end dates, a \texttt{progress\_percentage} field enforced by a \texttt{CHECK} constraint to the range 0--100, an \texttt{is\_milestone} integer flag, a \texttt{colour} field for tag-derived styling, a \texttt{display\_order} field, and a \texttt{tag} field for category assignment. A \texttt{parent\_task\_id} column provides a self-referencing foreign key back to \texttt{tasks(task\_id)}, supporting hierarchical grouping. This single table design supports \textbf{FR2}\label{fr:2}, \textbf{FR6}\label{fr:6}, \textbf{FR10}\label{fr:10}, \textbf{FR14}\label{fr:14}, and \textbf{FR19}\label{fr:19}. The \texttt{dependencies} table stores predecessor and successor task IDs alongside a \texttt{dependency\_type} field (defaulting to \texttt{'finish-to-start'}), supporting \textbf{FR3}\label{fr:3}. A separate \texttt{subtasks} table holds fine-grained subtask data — name, dates, progress, and a \texttt{parent\_task\_id} referencing the parent task — keeping subtask records distinct from top-level tasks. An excerpt of the core table definitions is shown below:
+
+\begin{lstlisting}[style=sqlstyle, caption={Core table definitions from setup.js}]
+    
+CREATE TABLE IF NOT EXISTS tasks (
+    task_id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    project_id          INTEGER NOT NULL,
+    task_name           TEXT    NOT NULL,
+    start_date          TEXT,
+    end_date            TEXT,
+    progress_percentage INTEGER DEFAULT 0
+        CHECK(progress_percentage >= 0 AND progress_percentage <= 100),
+    is_milestone        INTEGER DEFAULT 0,
+    parent_task_id      INTEGER,
+    display_order       INTEGER DEFAULT 0,
+    colour              TEXT    DEFAULT '#4a90d9',
+    tag                 TEXT    DEFAULT NULL,
+    FOREIGN KEY (project_id)     REFERENCES student_projects(project_id),
+    FOREIGN KEY (parent_task_id) REFERENCES tasks(task_id)
+);
+
+CREATE TABLE IF NOT EXISTS dependencies (
+    dependency_id       INTEGER PRIMARY KEY AUTOINCREMENT,
+    predecessor_task_id INTEGER NOT NULL,
+    successor_task_id   INTEGER NOT NULL,
+    dependency_type     TEXT    NOT NULL DEFAULT 'finish-to-start',
+    FOREIGN KEY (predecessor_task_id) REFERENCES tasks(task_id),
+    FOREIGN KEY (successor_task_id)   REFERENCES tasks(task_id)
+);
+\end{lstlisting}
+
+A noteworthy design consideration is that SQLite has no native date type; all dates are stored
+as \texttt{TEXT} in \texttt{YYYY-MM-DD} ISO 8601 format [TODO: REFERENCE TS]. This means date parsing is handled
+on the client side using D3's \texttt{d3.timeParse('\%Y-\%m-\%d')} when data is loaded, and
+dates are serialised back to strings with \texttt{d3.timeFormat('\%Y-\%m-\%d')} before being
+sent in API payloads.
+
+The \texttt{comments} table stores comment content, author email, author name, role (constrained
+to \texttt{'student'} or \texttt{'supervisor'} via a \texttt{CHECK}), a creation timestamp
+defaulting to \texttt{datetime('now')}, and an optional \texttt{parent\_comment\_id}
+self-reference for threaded replies, supporting \textbf{FR22}\label{fr:22}.
+
+Rather than running a separate migration tool, the server applies idempotent schema changes
+on startup using \texttt{ALTER TABLE ... ADD COLUMN} wrapped in error handlers that silently
+ignore \texttt{duplicate column name} errors. This allowed new columns such as
+\texttt{start\_date} and \texttt{end\_date} on \texttt{student\_projects} to be added to an
+existing database without requiring a full reset.
+
+All database interactions occur through REST API endpoints exposed by the Express server.
+The client communicates with these endpoints via the browser's \texttt{fetch} API, issuing
+\texttt{GET} requests to retrieve data and \texttt{POST}, \texttt{PATCH}, and \texttt{DELETE}
+requests to create, update, and remove records respectively. For example, loading a project's
+tasks and dependencies on page initialisation is performed in parallel using
+\texttt{Promise.all}:
+
+\begin{lstlisting}[style=jsstyle, caption={Parallel data fetch on page load (interactive-chart.js)}]
+    const [dbTasks, dbDependencies, dbSubtasks, projectBounds] = await Promise.all([
+    fetchTasks(projectId),
+    fetchDependencies(projectId),
+    fetchSubtasks(projectId),
+    fetchProjectBounds(projectId)
+]);
+\end{lstlisting}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % BACK MATTER
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -588,7 +718,7 @@ The development of the Interactive Gantt Chart Builder involves several identifi
         \hline
         Integration with HWU System & Low-Medium & Early stakeholder consultation established clear technical constraints. System inherits existing authentication infrastructure. Regular communication with developers will address emerging concerns. \\
         \hline
-        Timeline Delays & Medium & Project schedule incorporates buffer time. MoSCoW prioritisation allows scope adjustment whilst ensuring core functionality delivery. Regular supervisor meetings provide early warning of issues. \\
+        Timeline Delays & Medium & Project schedule incorporates buffer time. MoSCoW  allows scope adjustment whilst ensuring core functionality delivery. Regular supervisor meetings provide early warning of issues. \\
         \hline
         Usability Evaluation Recruitment & Low & Participants recruited from honours cohort with adequate notice and flexible scheduling. Expert review can supplement user testing if needed. \\
         \hline
@@ -596,7 +726,7 @@ The development of the Interactive Gantt Chart Builder involves several identifi
         \hline
         Data Security & Low & All data stored on secure HWU systems. Evaluation uses fictitious data. System follows established web security practices including input validation and secure database access. \\
         \hline
-    \end{tabularx}
+    \end{tabularx}prioritisation
     \caption{Project Risk Assessment}
     \label{tab:risks}
 \end{table}

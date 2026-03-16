@@ -20,7 +20,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
         console.error('Error connecting to database:', err);
     } else {
         console.log('Connected to SQLite database');
-        // Idempotent migrations — safe to run on an existing DB
+        // Idempotent migrations - safe to run on an existing DB
         db.run(`
             CREATE TABLE IF NOT EXISTS subtasks (
                 subtask_id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -83,19 +83,19 @@ const db = new sqlite3.Database(dbPath, (err) => {
             if (err || (row && row.cnt > 0)) return;
             const comments = [
                 [1, 1001, null,  'supervisor@hw.ac.uk', 'Dr Pierre Le Bras', 'supervisor',
-                 'Good progress overall on the backend and frontend development phases. The REST API endpoints look well-structured. Before the user study phase, please make sure all endpoints have consistent error handling and input validation — this will be important for robustness during the evaluation.',
+                 'Good progress overall on the backend and frontend development phases. The REST API endpoints look well-structured. Before the user study phase, please make sure all endpoints have consistent error handling and input validation - this will be important for robustness during the evaluation.',
                  "datetime('now', '-35 days')"],
                 [2, 1001, 1,    'fd2010@hw.ac.uk', 'Fraser Davies', 'student',
                  "Thanks Dr Le Bras! I've already added validation on the task date inputs and dependency cycle detection. I'll make sure all error responses follow the same JSON format before the user study in March.",
                  "datetime('now', '-34 days')"],
                 [3, 1001, null,  'supervisor@hw.ac.uk', 'Dr Pierre Le Bras', 'supervisor',
-                 'The Gantt chart visualisation is looking very impressive — the D3.js drag-and-drop interaction feels smooth and the dependency lines are clear. One suggestion: consider adding a way to export just the task list as a table (CSV or PDF) alongside the chart export, as some users may prefer tabular data.',
+                 'The Gantt chart visualisation is looking very impressive - the D3.js drag-and-drop interaction feels smooth and the dependency lines are clear. One suggestion: consider adding a way to export just the task list as a table (CSV or PDF) alongside the chart export, as some users may prefer tabular data.',
                  "datetime('now', '-21 days')"],
                 [4, 1001, null,  'fd2010@hw.ac.uk', 'Fraser Davies', 'student',
                  "Quick update: the system testing phase is taking a bit longer than planned due to some edge cases with the subtask date clamping and dependency validation when tasks are moved. I've set progress to 20%. Expecting to wrap up by mid-March before the user study starts.",
                  "datetime('now', '-7 days')"],
                 [5, 1001, 4,    'supervisor@hw.ac.uk', 'Dr Pierre Le Bras', 'supervisor',
-                 'Thanks for the update. Quality is more important than sticking rigidly to the schedule — better to get the edge cases right now than to discover them during the user study. Keep me posted.',
+                 'Thanks for the update. Quality is more important than sticking rigidly to the schedule - better to get the edge cases right now than to discover them during the user study. Keep me posted.',
                  "datetime('now', '-6 days')"],
             ];
             comments.forEach(([id, proj, parent, email, name, role, content, ts]) => {
@@ -163,7 +163,7 @@ app.post('/api/login', (req, res) => {
                     }
                 );
             } else {
-                // Not a student — check supervisors table
+                // Not a student - check supervisors table
                 db.get(
                     'SELECT supervisor_id, email, name FROM supervisors WHERE LOWER(email) = ?',
                     [normalisedEmail],
@@ -174,7 +174,7 @@ app.post('/api/login', (req, res) => {
                         }
 
                         if (sup) {
-                            // Supervisor found — get their supervised projects
+                            // Supervisor found - get their supervised projects
                             db.all(
                                 `SELECT sp.project_id, sp.project_name, sp.project_description
                                  FROM supervisor_projects svp

@@ -20,12 +20,15 @@
 \contentsline {subsection}{\numberline {4.3}Interface Mock-ups}{13}{subsection.4.3}%
 \contentsline {subsection}{\numberline {4.4}Limitations and Risks}{13}{subsection.4.4}%
 \contentsline {section}{\numberline {5}Conclusion}{14}{section.5}%
-\contentsline {section}{References}{15}{section*.8}%
-\contentsline {section}{\numberline {A}Use Case Diagrams}{18}{appendix.A}%
-\contentsline {section}{\numberline {B}Mock Up}{20}{appendix.B}%
-\contentsline {section}{\numberline {C}Project Management}{21}{appendix.C}%
-\contentsline {subsection}{\numberline {C.1}Gantt Chart}{21}{subsection.C.1}%
-\contentsline {subsection}{\numberline {C.2}Risks}{22}{subsection.C.2}%
-\contentsline {subsection}{\numberline {C.3}PLES Issues}{24}{subsection.C.3}%
-\contentsline {section}{\numberline {D}Generative AI}{24}{appendix.D}%
+\contentsline {section}{\numberline {6}Implementation and Contributions}{14}{section.6}%
+\contentsline {subsection}{\numberline {6.1}System Architecture}{15}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Database Design and Data Persistence}{15}{subsection.6.2}%
+\contentsline {section}{References}{18}{section*.8}%
+\contentsline {section}{\numberline {A}Use Case Diagrams}{21}{appendix.A}%
+\contentsline {section}{\numberline {B}Mock Up}{23}{appendix.B}%
+\contentsline {section}{\numberline {C}Project Management}{24}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}Gantt Chart}{24}{subsection.C.1}%
+\contentsline {subsection}{\numberline {C.2}Risks}{25}{subsection.C.2}%
+\contentsline {subsection}{\numberline {C.3}PLES Issues}{27}{subsection.C.3}%
+\contentsline {section}{\numberline {D}Generative AI}{27}{appendix.D}%
 \contentsfinish 
