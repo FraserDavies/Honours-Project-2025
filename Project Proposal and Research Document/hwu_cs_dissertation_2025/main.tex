@@ -486,6 +486,18 @@ The application follows a client-server architecture, with an Express server han
 
 \subsection{Database Design and Data Persistence} \label{sec:impl_db}
 
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=0.95\textwidth]{images/ER-diagram.png}}
+
+    % add a caption
+    \caption{Entity-Relationship Diagram.}
+    \label{fig:ER_Diagram}
+    \Description{An Entity-Relationship Diagram of the database schema for the Interactive Gantt Chart Builder system. The diagram shows the relationships between the core entities: Students, Projects, Tasks, and Dependencies.}
+\end{figure}
+
 The database schema, defined in \texttt{src/login-system/database/setup.js}, implements the core entities identified during requirements analysis. The schema comprises eight tables: \texttt{students}, \texttt{student\_projects}, \texttt{tasks}, \texttt{dependencies}, \texttt{subtasks}, \texttt{supervisors}, \texttt{supervisor\_projects}, and \texttt{comments}. This directly addresses the data persistence requirement \textbf{FR5}\label{fr:5} and underpins all other data-related requirements.
 
 The \texttt{students} table records each user's email address and display name, serving as the authentication source for the email-based login system. The \texttt{student\_projects} table stores the title, description, start date, and end date for each project, satisfying \textbf{FR1}\label{fr:1}. Projects are associated with students via a foreign key on \texttt{student\_id}, supporting a many-to-many relationship through this junction table.
