@@ -6,6 +6,8 @@
 
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage[htt]{hyphenat}
+\setlength{\emergencystretch}{3em}
 
 \lstdefinestyle{sqlstyle}{
     language=SQL,
@@ -466,16 +468,6 @@ The primary limitations of this project relate to scope and evaluation constrain
 
 Technical risks are minimal given the use of established technologies (ASP.NET MVC, Entity Framework, D3.js) and straightforward integration with existing HWU infrastructure. The main implementation risk involves ensuring the interactive visualisation performs adequately with complex project schedules containing numerous tasks and dependencies, though preliminary testing with D3.js mock-ups suggests this is manageable within the specified performance requirements (NFR3).
 
-\section{Conclusion} \label{cha:conclusion}
-
-This report establishes the foundation for developing an Interactive Gantt Chart Builder specifically designed for honours project students at Heriot-Watt University. The background research demonstrates that whilst Gantt charts rank as the fourth most widely used project management tool among professionals \cite{besner_2008}, their application in individual student dissertation contexts remains underexplored in academic literature.
-
-The proposed system addresses genuine challenges faced by students managing substantial individual projects over extended periods \cite{Shives2015}. Through systematic requirement analysis using MoSCoW prioritisation \cite{moscow_method_2020}, this research has identified 22 functional and 7 non-functional requirements organised as user stories \cite{cohn_user_2009}. These encompass core capabilities including project data management, task dependencies, interactive D3.js-based visualisation \cite{geeksforgeeks_d3js_2025}, progress tracking, and supervisor access.
-
-The feasibility analysis confirms technical viability through ASP.NET MVC framework with Entity Framework and SQLite, ensuring seamless integration with HWU's existing infrastructure. The evaluation methodology combines system testing \cite{geeksforgeeks_unit_vs_system_testing} to validate functional correctness with user-centred usability evaluation \cite{brooke_1995} to assess practical utility, ensuring the system effectively supports students in planning and managing their honours projects. Collectively, these strategies establish a robust framework for achieving the seven objectives defined in \cref{sec:intro_aim}.
-
-Future work will focus on system implementation, comprehensive testing, and rigorous usability evaluation with honours students and supervisors to assess the tool's effectiveness in supporting successful dissertation project completion.
-
 \section{Implementation and Contributions} \label{cha:impl_contrib}
 
 This section documents the implementation of the Interactive Gantt Chart Builder, describing how the system was built, the key technical decisions made during development, and how the final implementation addresses the requirements defined in \cref{cha:meth_req_anal}. The system was implemented as a fully independent, locally-hosted web application using Node.js with Express, SQLite, and D3.js, diverging from the ASP.NET MVC stack proposed during the feasibility phase. This decision was taken following further technical consultation, which confirmed that a Node.js/Express architecture offered a more straightforward development workflow given the project's standalone scope and the absence of a requirement to directly integrate with the existing HWU system's backend during this phase.
@@ -490,7 +482,7 @@ The application follows a client-server architecture, with an Express server han
     % centres the image on the page
     \centering
     % load the image and set its width on the page
-    \fbox{\includegraphics[width=0.95\textwidth]{images/ER-diagram.png}}
+    \fbox{\includegraphics[width=0.95\textwidth]{images/ER-Diagram.jpeg}}
 
     % add a caption
     \caption{Entity-Relationship Diagram.}
@@ -502,7 +494,7 @@ The database schema, defined in \texttt{src/login-system/database/setup.js}, imp
 
 The \texttt{students} table records each user's email address and display name, serving as the authentication source for the email-based login system. The \texttt{student\_projects} table stores the title, description, start date, and end date for each project, satisfying \textbf{FR1}\label{fr:1}. Projects are associated with students via a foreign key on \texttt{student\_id}, supporting a many-to-many relationship through this junction table.
 
-The \texttt{tasks} table stores the task name, description, start and end dates, a \texttt{progress\_percentage} field enforced by a \texttt{CHECK} constraint to the range 0--100, an \texttt{is\_milestone} integer flag, a \texttt{colour} field for tag-derived styling, a \texttt{display\_order} field, and a \texttt{tag} field for category assignment. A \texttt{parent\_task\_id} column provides a self-referencing foreign key back to \texttt{tasks(task\_id)}, supporting hierarchical grouping. This single table design supports \textbf{FR2}\label{fr:2}, \textbf{FR6}\label{fr:6}, \textbf{FR10}\label{fr:10}, \textbf{FR14}\label{fr:14}, and \textbf{FR19}\label{fr:19}. The \texttt{dependencies} table stores predecessor and successor task IDs alongside a \texttt{dependency\_type} field (defaulting to \texttt{'finish-to-start'}), supporting \textbf{FR3}\label{fr:3}. A separate \texttt{subtasks} table holds fine-grained subtask data — name, dates, progress, and a \texttt{parent\_task\_id} referencing the parent task — keeping subtask records distinct from top-level tasks. An excerpt of the core table definitions is shown below:
+The \texttt{tasks} table stores the task name, description, start and end dates, a \texttt{progress\_percentage} field enforced by a \texttt{CHECK} constraint to the range 0--100, an \texttt{is\_milestone} integer flag, a \texttt{colour} field for tag-derived styling, a \texttt{display\_order} field, and a \texttt{tag} field for category assignment. A \texttt{parent\_task\_id} column provides a self-referencing foreign key back to \texttt{tasks(task\_id)}, supporting hierarchical grouping. This single table design supports \textbf{FR2}\label{fr:2}, \textbf{FR6}\label{fr:6}, \textbf{FR10}\label{fr:10}, \textbf{FR14}\label{fr:14}, and \textbf{FR19}\label{fr:19}. The \texttt{dependencies} table stores predecessor and successor task IDs alongside a \texttt{dependency\_type} field (defaulting to \texttt{'finish-to-start'}), supporting \textbf{FR3}\label{fr:3}. A separate \texttt{subtasks} table holds fine-grained subtask data (name, dates, progress, and a \texttt{parent\_task\_id} referencing the parent task) keeping subtask records distinct from top-level tasks. An excerpt of the core table definitions is shown below:
 
 \begin{lstlisting}[style=sqlstyle, caption={Core table definitions from setup.js}]
     
@@ -511,7 +503,7 @@ CREATE TABLE IF NOT EXISTS tasks (
     project_id          INTEGER NOT NULL,
     task_name           TEXT    NOT NULL,
     start_date          TEXT,
-    end_date            TEXT,
+    end_date            TEXT,   
     progress_percentage INTEGER DEFAULT 0
         CHECK(progress_percentage >= 0 AND progress_percentage <= 100),
     is_milestone        INTEGER DEFAULT 0,
@@ -534,7 +526,7 @@ CREATE TABLE IF NOT EXISTS dependencies (
 \end{lstlisting}
 
 A noteworthy design consideration is that SQLite has no native date type; all dates are stored
-as \texttt{TEXT} in \texttt{YYYY-MM-DD} ISO 8601 format [TODO: REFERENCE TS]. This means date parsing is handled
+as \texttt{TEXT} in \texttt{YYYY-MM-DD} ISO 8601 format \cite{sqlite_datatypes}. This means date parsing is handled
 on the client side using D3's \texttt{d3.timeParse('\%Y-\%m-\%d')} when data is loaded, and
 dates are serialised back to strings with \texttt{d3.timeFormat('\%Y-\%m-\%d')} before being
 sent in API payloads.
@@ -565,6 +557,316 @@ tasks and dependencies on page initialisation is performed in parallel using
     fetchProjectBounds(projectId)
 ]);
 \end{lstlisting}
+
+% \subsection{Gantt Chart Visualisation} \label{sec:impl_gantt}
+
+% The core visualisation is implemented as a \texttt{GanttChart} class in
+% \texttt{src/gantt-builder/public/js/gantt-chart.js}, addressing \textbf{FR4}\label{fr:4}.
+% The chart is constructed as a multi-layer SVG element using D3.js
+% \cite{geeksforgeeks_d3js_2025, w3schools_d3js_2025}. Layers are appended in z-order to
+% a main \texttt{<g>} chart area to ensure correct visual stacking: row backgrounds, grid
+% lines, dependency lines, a drop preview layer, task bars, task labels, the today indicator
+% line, project boundary markers, dependency handle circles, and a dependency drag layer.
+% The axis groups responsible for the day and month headers are appended directly to the root
+% SVG element rather than to the scrolling chart area, which is what produces the sticky
+% header behaviour as the user scrolls vertically. Most layers use a keyed D3 data join
+% pattern (\texttt{.data(tasks,~d~=>~d.id).join(enter,~update,~exit)}) so that only changed
+% elements are updated on re-render, rather than rebuilding the entire SVG on every state
+% change. The dependency lines layer is an exception: because each dependency is composed of
+% three sub-elements (two connector segments and a stepped path), it clears its contents
+% before each redraw rather than relying on a pure enter/update/exit cycle.
+
+% Horizontal positioning is handled by a \texttt{d3.scaleTime()} scale that maps dates to
+% pixel positions, while vertical positioning uses a \texttt{d3.scaleBand()} scale that maps
+% task IDs to row heights with configurable padding. A daily tick axis is generated via
+% \texttt{d3.axisTop()}, and month boundary labels are produced by iterating over dates
+% returned by \texttt{d3.timeMonths()}. Smooth transitions are applied to bar position and
+% width changes using \texttt{.transition().duration(500)}, providing visual feedback when
+% data is updated.
+
+% Milestones (\textbf{FR6}\label{fr:6-vis}) are rendered as diamond-shaped \texttt{<polygon>}
+% elements rather than rectangles, centred on their single date position. A darker stroke
+% derived using \texttt{d3.color(hex).darker(0.5)} is applied to the diamond outline to
+% improve visual contrast against the fill. For regular task bars, the stroke colour is
+% determined separately by a status function: a green border (\texttt{\#10b981}) indicates a
+% completed task (100\% progress), and an amber border (\texttt{\#f59e0b}) indicates a task
+% that is overdue but not yet complete, directly supporting the schedule status indicator
+% requirement \textbf{FR11}\label{fr:11}. Task categories (\textbf{FR19}\label{fr:19-vis})
+% are reflected through bar fill colours, with seven fixed tags; Research, Planning,
+% Design, Implementation, Testing, Evaluation, and Writing. Each of these tags are mapped to a
+% distinct hex colour via a \texttt{TAG\_COLOURS} constant defined in \texttt{interactive-chart.js}.
+
+\subsection{Gantt Chart Visualisation} \label{sec:impl_gantt}
+
+The core visualisation is implemented as a \texttt{GanttChart} class in                                                                                                      
+\texttt{src/gantt-builder/public/js/gantt-chart.js}, addressing \textbf{FR4}\label{fr:4}.
+The chart is constructed as a multi-layer SVG element using D3.js
+\cite{geeksforgeeks_d3js_2025, w3schools_d3js_2025}. Layers are appended in z-order to
+a main \texttt{<g>} chart area to ensure correct visual stacking: row backgrounds, grid
+lines, dependency lines, a drop preview layer, task bars, task labels, the today indicator
+line, project boundary markers, dependency handle circles, and a dependency drag layer.
+The axis groups responsible for the day and month headers are appended directly to the root
+SVG element rather than to the scrolling chart area, which is what produces the sticky
+header behaviour as the user scrolls vertically. Most layers use a keyed D3 data join
+pattern (\texttt{.data(tasks,~d~=>~d.id).join(enter,~update,~exit)}) so that only changed
+elements are updated on re-render, rather than rebuilding the entire SVG on every state
+change. The dependency lines layer is an exception: because each dependency is composed of
+three sub-elements (two connector segments and a stepped path), it clears its contents
+before each redraw rather than relying on a pure enter/update/exit cycle.
+
+Horizontal positioning is handled by a \texttt{d3.scaleTime()} scale that maps dates to
+pixel positions, while vertical positioning uses a \texttt{d3.scaleBand()} scale that maps
+task IDs to row heights with configurable padding. A daily tick axis is generated via
+\texttt{d3.axisTop()}, and month boundary labels are produced by iterating over dates
+returned by \texttt{d3.timeMonths()}. Both scales are constructed together whenever the
+data or zoom level changes, as shown below:
+
+\begin{lstlisting}[style=jsstyle, caption={Scale initialisation in GanttChart (gantt-chart.js)}]
+// X Scale: Time scale mapping dates to pixel positions
+this.scaleX = d3.scaleTime()
+    .domain(this.dateExtent)
+    .range([0, this.chartWidth]);
+
+// Y Scale: Band scale mapping task IDs to row positions
+this.scaleY = d3.scaleBand()
+    .domain(this.data.map(d => d.id))
+    .range([0, this.chartHeight])
+    .padding(0.2);
+\end{lstlisting}
+
+Smooth transitions are applied to bar position and width changes using
+\texttt{.transition().duration(500)}, providing visual feedback when data is updated.
+The progress overlay on each bar is also animated, with its width computed as a
+proportion of the full bar width:
+
+\begin{lstlisting}[style=jsstyle, caption={Animated bar and progress overlay update (gantt-chart.js)}]
+bars.select('.task-bar')
+    .transition().duration(500)
+    .attr('x', d => this.scaleX(d.startDate) + this.pixelShaving)
+    .attr('y', d => this.scaleY(d.id) +
+        (this.scaleY.bandwidth() - this.barHeight) / 2)
+    .attr('width', d => Math.max(0,
+        this.scaleX(d.endDate) - this.scaleX(d.startDate)
+        - (this.pixelShaving * 2)));
+
+bars.select('.task-bar-progress')
+    .transition().duration(500)
+    .attr('width', d => {
+        const fullWidth = this.scaleX(d.endDate) - this.scaleX(d.startDate)
+            - (this.pixelShaving * 2);
+        return Math.max(0, fullWidth * ((d.progress || 0) / 100));
+    });
+\end{lstlisting}
+
+Dependency lines are drawn using a D3 path generator configured with the
+\texttt{d3.curveStepAfter} interpolator, which produces the characteristic right-angled
+routing between predecessor and successor bars:
+
+\begin{lstlisting}[style=jsstyle, caption={Dependency line path generator (gantt-chart.js)}]
+const lineGenerator = d3.line()
+    .curve(d3.curveStepAfter)
+    .x(d => d.x)
+    .y(d => d.y);
+\end{lstlisting}
+
+Milestones (\textbf{FR6}\label{fr:6-vis}) are rendered as diamond-shaped \texttt{<polygon>}
+elements rather than rectangles, centred on their single date position. A darker stroke
+derived using \texttt{d3.color(hex).darker(0.5)} is applied to the diamond outline to
+improve visual contrast against the fill. For regular task bars, the stroke colour is
+determined separately by a status function: a green border (\texttt{\#10b981}) indicates a
+completed task (100\% progress), and an amber border (\texttt{\#f59e0b}) indicates a task
+that is overdue but not yet complete, directly supporting the schedule status indicator
+requirement \textbf{FR11}\label{fr:11}. Task categories (\textbf{FR19}\label{fr:19-vis})
+are reflected through bar fill colours, with seven fixed tags; Research, Planning,
+Design, Implementation, Testing, Evaluation, and Writing. Each of these tags are mapped to a
+distinct hex colour via a \texttt{TAG\_COLOURS} constant defined in
+\texttt{interactive-chart.js}.
+
+
+\subsection{Interactive Timeline Adjustment} \label{sec:impl_drag}
+
+Drag-and-drop timeline adjustment (\textbf{FR8}\label{fr:8}) is implemented using four
+separate \texttt{d3.drag()} behaviours: one for moving an entire task bar, one for
+left-edge resizing (adjusting the start date), one for right-edge resizing (adjusting the
+end date), and one for milestone dragging. All drag behaviours are gated behind an
+\texttt{editMode} flag so that dragging is only active when the user has explicitly enabled
+editing. Date snapping is achieved by converting pixel deltas to day deltas using
+\texttt{Math.round(totalDelta~/ dayWidth)} and then advancing dates via
+\texttt{d3.timeDay.offset(originalDate,~daysDelta)}, ensuring tasks always snap to
+whole-day boundaries. An \texttt{rAF}-based auto-scroll loop activates when the cursor
+approaches the horizontal edges of the scroll container, allowing users to drag tasks
+beyond the visible viewport.
+
+Timeline zoom (\textbf{FR16}\label{fr:16}) is controlled through a \texttt{dayWidth}
+property that defines the number of pixels rendered per day. Zoom level is expressed as a
+percentage relative to a default \texttt{dayWidth} of 35px. Zooming in increments this
+percentage by 25 points, zooming out decrements it by 25 points, and a reset function
+restores 100\%. After each zoom change the chart re-renders, recomputing
+\texttt{d3.scaleTime()}'s output range from the updated \texttt{dayWidth} and recalculating
+the total SVG width as \texttt{dayCount * dayWidth}, causing all bars, labels, and grid
+lines to reflow accordingly. A ``Go to Today'' button computes the scroll offset via
+\texttt{scaleX(today)} and centres the current date in the viewport.
+
+\subsection{Task Dependencies} \label{sec:impl_deps}
+
+Finish-to-Start task dependencies (\textbf{FR3}\label{fr:3-impl}) are created interactively
+in edit mode by dragging from circular handle elements that appear at the left and right
+edges of each task bar. The interaction is implemented using a custom three-phase event
+approach rather than \texttt{d3.drag()}: a \texttt{mousedown} listener on the handle circles
+begins the drag and appends a rubber-band line to a dedicated SVG layer; native
+\texttt{document} listeners for \texttt{mousemove} and \texttt{mouseup} then track cursor
+movement and finalise the connection respectively. Mouse coordinates are converted to SVG
+space using \texttt{svg.node().getBoundingClientRect()}, and \texttt{document.elementFrom%
+Point()} is used on \texttt{mouseup} to identify the target handle the user released onto.
+
+The connection type is resolved from which sides were joined: dragging from a left handle to
+another left handle produces a start-to-start dependency, while any other combination
+produces the more common finish-to-start type. Before a dependency is committed, two
+validation checks are applied. First, a depth-first search cycle detection algorithm
+(\texttt{wouldCreateCycle}) traverses the current dependency adjacency list to ensure the
+new edge would not form a circular relationship. Second, a creation-time violation check
+rejects any dependency that would be immediately violated. For example, a finish-to-start
+dependency where the predecessor already ends after the successor starts. These checks
+together partially satisfy \textbf{FR15}\label{fr:15}. If both pass, the dependency is added
+to the in-memory graph and rendered immediately. Dependencies involving tasks that have not
+yet been saved to the database (identified by temporary negative IDs) are staged in a
+\texttt{pendingNewDependencies} array and only POSTed to the server after those tasks
+receive real IDs on save.
+
+Dependency lines are redrawn on every drag frame during task movement (\textbf{FR9}\label{fr:9}) 
+by calling \texttt{\#updateDependencyLines(0)} with a zero transition duration
+to provide real-time visual feedback without animation overhead. Violated dependencies apear
+when a predecessor ends after its successor starts, they are detected per-line and styled as
+orange dashed lines via the \texttt{dependency-violated} CSS class. In edit mode, hovering
+over a dependency line highlights it red and clicking it removes it, both from the in-memory
+graph and, on save, from the database. On saving, all remaining violations are checked and
+the user must confirm before changes are committed, further supporting
+\textbf{FR15}\label{fr:15-save}.
+
+\subsection{Progress Tracking and Schedule Status} \label{sec:impl_progress}
+
+Progress tracking (\textbf{FR10}\label{fr:10-impl}) is implemented through a numeric
+\texttt{progress\_percentage} field on each task, editable via a number input in the task
+list panel. The progress value drives a semi-transparent white overlay on the task bar
+whose width is proportional to the completion percentage, animated using
+\texttt{.transition().duration(500)}. The same colour logic is mirrored in the task list
+panel, where the progress input's text colour changes to reflect status providing a consistent 
+at-a-glance status across both views. The colours are denoted as the following; green for
+complete, amber for overdue, and grey (\texttt{var(--text-secondary)}) otherwise.
+
+Schedule status (\textbf{FR11}\label{fr:11}) is determined by the
+\texttt{\#getTaskStatusStyle(task)} method: a task is considered completed if
+\texttt{progress === 100}, shown with a green border (\texttt{\#10b981}), and at risk if
+\texttt{progress < 100} and the end date has passed today, shown with an amber border
+(\texttt{\#f59e0b}). Tasks with neither condition return no border style. A today indicator
+line, rendered via a single-element D3 data join (\texttt{.data([today]).join('line')}),
+provides a persistent vertical reference for the current date, accompanied by a
+\texttt{`Today'} label above the axis. The indicator is only rendered when the current date
+falls within the chart's visible date extent; if the user scrolls or zooms to a range that
+does not include today, the element is removed entirely.
+
+\subsection{Task Hierarchy and Subtasks} \label{sec:impl_subtasks}
+
+Subtask support (\textbf{FR14}\label{fr:14-impl}) is implemented through a \texttt{subtasks}
+database table and a client-side \texttt{subtaskData} Map that associates subtask arrays
+with their parent task IDs. Expand state is tracked via an \texttt{expandedTasks} Set, with
+all tasks collapsed by default on load. A \texttt{buildFlatList()} function interleaves
+subtasks beneath their expanded parents to produce the single ordered array consumed by both
+\texttt{GanttChart} and \texttt{TaskList} on every render. To avoid ID collisions on the
+shared \texttt{d3.scaleBand()} domain, subtask objects are assigned synthetic IDs of
+\texttt{1\,000\,000 + subtask\_id}, ensuring they occupy distinct row positions without
+conflicting with top-level task IDs. Subtasks inherit their parent task's colour, providing
+a clear visual grouping on the chart.
+
+Subtask bars are rendered at a reduced height of 14px compared to 24px for parent task bars.
+An expand/collapse chevron on parent rows controls visibility. In edit mode, an ``Add
+Subtask'' marker row appears after the last subtask of an expanded parent, providing a clear
+interaction affordance. Subtask additions, deletions, and name or date changes are all staged
+in pending collections during edit mode and only committed to the database on Save,
+consistent with the rest of the edit mode transaction model.
+
+\subsection{Additional Features} \label{sec:impl_additional}
+
+A Kanban board view (\textbf{FR18}\label{fr:18}) was implemented as a modal overlay that
+organises tasks into three columns based on progress: Not Started (0\%), In Progress
+(1--99\%), and Completed (100\%). Each card includes a range slider whose progress fill and
+percentage label update live while dragging; on release, the new value is PATCHed to the
+database, the Gantt bar is updated in place, and the board re-renders so the card moves to
+the correct column immediately.
+
+Hover tooltips (\textbf{FR17}\label{fr:17}) are managed by a \texttt{TooltipManager} class
+that wraps a pre-existing \texttt{<div>} element and positions it relative to the cursor
+using \texttt{event.clientX} and \texttt{event.clientY} offsets. The tooltip displays the
+task name, formatted start and end dates via \texttt{d3.timeFormat('\%d \%b \%Y')}, and
+current progress. For milestones, only the single milestone date is shown and the progress
+field is omitted.
+
+Gantt chart export (\textbf{FR12}\label{fr:12}) is implemented by constructing a combined
+SVG element in memory that embeds inline CSS, clones the live chart SVG, and reconstructs
+the task list as SVG text elements. This combined SVG is serialised with
+\texttt{XMLSerializer}, drawn onto a \texttt{<canvas>} at twice the resolution for
+sharpness, and exported as either a \textbf{PDF} via jsPDF or a \textbf{JPEG} via
+\texttt{canvas.toBlob()}.
+
+Supervisor view-only access (\textbf{FR13}\label{fr:13}) is enforced by the login endpoint,
+which checks the \texttt{students} table first and falls back to the \texttt{supervisors}
+table, returning a \texttt{role} field in the response. When \texttt{role ===
+'supervisor'}, the edit mode button is hidden and no drag or edit interactions are wired,
+ensuring supervisors can only read the chart.
+
+A guided task creation interface (\textbf{FR7}\label{fr:7}) is provided through a slide-out
+panel in edit mode with inline validation that prevents end dates being set before start
+dates. A contextual help button opens an eight-slide tutorial modal, each slide rendering a
+live mini-Gantt chart using real \texttt{GanttChart} instances populated with hardcoded demo
+data, illustrating system concepts in context.
+
+
+
+
+% Must Have (Core Features)
+
+% [COMPLETE] Project data creation and management — title, description, start/end dates
+% [COMPLETE] Task creation, editing, and deletion — with name, description, and dates
+% [COMPLETE] Finish-to-Start task dependencies
+% [COMPLETE] Gantt chart visualisation using D3.js
+% [COMPLETE] Data persistence to SQLite database
+% [COMPLETE] Milestone creation with specific dates
+
+% Should Have (Expected Features)
+
+% [COMPLETE-ish] Guided task creation interface with contextual help and validation
+% [COMPLETE] Drag-and-drop timeline adjustment for tasks
+% [COMPLETE] Automatic dependency adjustment when tasks are modified
+% [COMPLETE] Progress tracking — marking tasks as not started, in progress, or completed
+% [COMPLETE] Schedule status indicator — ahead/on track/behind
+% [COMPLETE] Gantt chart export as PNG/JPEG
+% [COMPLETE] Supervisor view-only access
+% [COMPLETE] Task hierarchy with subtasks under parent tasks
+% [COMPLETE] Prevention of logically impossible schedules
+% [COMPLETE] Timeline zoom and pan controls
+% [COMPLETE] Hover tooltips showing task name, dates, duration, dependencies
+
+% Could Have (Nice to Have)
+
+% [COMPLETE] Kanban board alternative view
+% [COMPLETE] Task categories/tags (e.g. Research, Writing)
+% [NOT DOING] Additional dependency types — Start-to-Start, Finish-to-Finish, Start-to-Finish
+% [NOT DOING] Critical path highlighting
+% [COMPETE] Supervisor comment and feedback system
+
+
+
+
+\section{Conclusion} \label{cha:conclusion}
+
+This report establishes the foundation for developing an Interactive Gantt Chart Builder specifically designed for honours project students at Heriot-Watt University. The background research demonstrates that whilst Gantt charts rank as the fourth most widely used project management tool among professionals \cite{besner_2008}, their application in individual student dissertation contexts remains underexplored in academic literature.
+
+The proposed system addresses genuine challenges faced by students managing substantial individual projects over extended periods \cite{Shives2015}. Through systematic requirement analysis using MoSCoW prioritisation \cite{moscow_method_2020}, this research has identified 22 functional and 7 non-functional requirements organised as user stories \cite{cohn_user_2009}. These encompass core capabilities including project data management, task dependencies, interactive D3.js-based visualisation \cite{geeksforgeeks_d3js_2025}, progress tracking, and supervisor access.
+
+The feasibility analysis confirms technical viability through ASP.NET MVC framework with Entity Framework and SQLite, ensuring seamless integration with HWU's existing infrastructure. The evaluation methodology combines system testing \cite{geeksforgeeks_unit_vs_system_testing} to validate functional correctness with user-centred usability evaluation \cite{brooke_1995} to assess practical utility, ensuring the system effectively supports students in planning and managing their honours projects. Collectively, these strategies establish a robust framework for achieving the seven objectives defined in \cref{sec:intro_aim}.
+
+Future work will focus on system implementation, comprehensive testing, and rigorous usability evaluation with honours students and supervisors to assess the tool's effectiveness in supporting successful dissertation project completion.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

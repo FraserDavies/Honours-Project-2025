@@ -34,45 +34,47 @@ Warning--page numbers missing in both pages and numpages fields in hassen_use_20
 Warning--empty address in myers_2012
 Warning--empty year in tacticalpm_fs_dependency
 Warning--using n.d. in tacticalpm_fs_dependency
-You've used 49 entries,
+Warning--empty year in sqlite_datatypes
+Warning--using n.d. in sqlite_datatypes
+You've used 50 entries,
             6273 wiz_defined-function locations,
-            1825 strings with 27942 characters,
-and the built_in function-call counts, 42318 in all, are:
-= -- 5265
-> -- 1135
+            1830 strings with 28067 characters,
+and the built_in function-call counts, 43015 in all, are:
+= -- 5334
+> -- 1152
 < -- 0
-+ -- 341
-- -- 488
-* -- 2628
-:= -- 4322
-add.period$ -- 266
-call.type$ -- 49
-change.case$ -- 277
-chr.to.int$ -- 47
-cite$ -- 63
-duplicate$ -- 3801
-empty$ -- 2718
-format.name$ -- 504
-if$ -- 9822
++ -- 345
+- -- 495
+* -- 2666
+:= -- 4400
+add.period$ -- 272
+call.type$ -- 50
+change.case$ -- 282
+chr.to.int$ -- 48
+cite$ -- 66
+duplicate$ -- 3867
+empty$ -- 2769
+format.name$ -- 511
+if$ -- 9983
 int.to.chr$ -- 4
 int.to.str$ -- 1
 missing$ -- 64
-newline$ -- 557
-num.names$ -- 345
-pop$ -- 1342
+newline$ -- 567
+num.names$ -- 352
+pop$ -- 1382
 preamble$ -- 1
-purify$ -- 644
+purify$ -- 652
 quote$ -- 0
-skip$ -- 1507
+skip$ -- 1527
 stack$ -- 0
-substring$ -- 3042
-swap$ -- 307
+substring$ -- 3077
+swap$ -- 311
 text.length$ -- 76
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1288
-warning$ -- 14
-while$ -- 346
+type$ -- 1318
+warning$ -- 16
+while$ -- 353
 width$ -- 0
-write$ -- 1054
-(There were 17 warnings)
+write$ -- 1074
+(There were 19 warnings)

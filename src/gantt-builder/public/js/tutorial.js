@@ -183,7 +183,7 @@
                 </div>
                 <div class="tut-feature-card">
                     <p class="tut-feature-card-title">Export</p>
-                    <p class="tut-feature-card-desc">Export your Gantt chart as a PDF or PNG image to share with your team or include in reports.</p>
+                    <p class="tut-feature-card-desc">Export your Gantt chart as a PDF or JPEG image to share with your team or include in reports.</p>
                 </div>
             </div>
             <div class="tut-hint">Each of the six features above is demonstrated in its own slide. Use the dots at the bottom to jump to any slide, or click <strong>Next</strong> to proceed in order.</div>
@@ -997,8 +997,8 @@
                     <p class="tut-export-card-desc">Generates a printable PDF document containing the full Gantt chart, including all tasks, bars, dependency lines, and the date axis. Ideal for attaching to reports or printing.</p>
                 </div>
                 <div class="tut-export-card">
-                    <p class="tut-export-card-title">Export as PNG</p>
-                    <p class="tut-export-card-desc">Saves a high-quality PNG image of the chart exactly as it appears on screen. Useful for embedding in presentations or sharing via email or messaging apps.</p>
+                    <p class="tut-export-card-title">Export as JPEG</p>
+                    <p class="tut-export-card-desc">Saves a high-quality JPEG image of the chart exactly as it appears on screen. Useful for embedding in presentations or sharing via email or messaging apps.</p>
                 </div>
             </div>
             <div class="tut-instructions" style="margin-top:4px">

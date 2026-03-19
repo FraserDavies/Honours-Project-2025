@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  17 MAR 2026 00:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  19 MAR 2026 19:27
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -831,11 +831,23 @@ Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 \TX@delta=\dimen278
 \TX@cols=\count356
 \TX@ftn=\toks44
+) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/hyphenat\hyphenat.sty
+Package: hyphenat 2009/09/02 v2.3c hyphenation utilities
+
+
+Package hyphenat Warning: *******************************
+(hyphenat)                * You have used the htt option.
+(hyphenat)                * You are likely to get many Font Warning messages.
+(hyphenat)                * These can usually be ignored.
+(hyphenat)                *******************************.
+
+\langwohyphens=\language79
+LaTeX Info: Redefining \_ on input line 43.
 ) (hwu_template/format.tex
 Package hyperref Info: Option `colorlinks' set `true' on input line 67.
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 76.
-Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 76.
+Package hyperref Info: Option `colorlinks' set `true' on input line 78.
+Package hyperref Info: Option `pdfdisplaydoctitle' set `true' on input line 78.
 \c@theorem=\count357
  Include comment 'screenonly' Excluding comment 'printonly' Include comment 'anonsuppress' (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
@@ -845,132 +857,139 @@ File: l3backend-pdftex.def 2025-10-09 L3 backend support: PDF output (pdfTeX)
 LaTeX Warning: Unused global option(s):
     [titlepage].
 
-(main.aux)
+(main.aux
+
+LaTeX Warning: Label `fr:11' multiply defined.
+
+
+LaTeX Warning: Label `fr:11@cref' multiply defined.
+
+)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 76.
-LaTeX Font Info:    Trying to load font information for OML+nxlmi on input line 76.
+LaTeX Font Info:    Checking defaults for OML/nxlmi/m/it on input line 78.
+LaTeX Font Info:    Trying to load font information for OML+nxlmi on input line 78.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/newtx\omlnxlmi.fd
 File: omlnxlmi.fd 2013/11/19 Fontinst v1.933 font definitions for OML/nxlmi.
 )
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 76.
-LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 76.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 78.
+LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 78.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 76.
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 76.
-LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line 76.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 78.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 78.
+LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line 78.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/newtx\lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 76.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 76.
-LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input line 76.
+LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 78.
+LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input line 78.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/newtx\lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 76.
+LaTeX Font Info:    ... okay on input line 78.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 76.
-LaTeX Font Info:    Trying to load font information for OT1+LinuxLibertineT-TLF on input line 76.
+(Font)              scaled to size 10.0pt on input line 78.
+LaTeX Font Info:    Trying to load font information for OT1+LinuxLibertineT-TLF on input line 78.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/libertine\ot1linuxlibertinet-tlf.fd
 File: OT1LinuxLibertineT-TLF.fd 2017/03/20 (autoinst) Font definitions for OT1/LinuxLibertineT-TLF.
 )
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.0pt on input line 76.
+(Font)              scaled to size 10.0pt on input line 78.
 <<ot1.cmap>>
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 7.3pt on input line 76.
+(Font)              scaled to size 7.3pt on input line 78.
 LaTeX Font Info:    Font shape `OT1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 5.5pt on input line 76.
+(Font)              scaled to size 5.5pt on input line 78.
 LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 10.0pt on input line 76.
+(Font)              scaled to size 10.0pt on input line 78.
 <<oml.cmap>>
 LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 7.3pt on input line 76.
+(Font)              scaled to size 7.3pt on input line 78.
 LaTeX Font Info:    Font shape `OML/nxlmi/m/it' will be
-(Font)              scaled to size 5.5pt on input line 76.
+(Font)              scaled to size 5.5pt on input line 78.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 10.0pt on input line 76.
+(Font)              scaled to size 10.0pt on input line 78.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 7.3pt on input line 76.
+(Font)              scaled to size 7.3pt on input line 78.
 LaTeX Font Info:    Font shape `LMS/ntxsy/m/n' will be
-(Font)              scaled to size 5.5pt on input line 76.
+(Font)              scaled to size 5.5pt on input line 78.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 10.0pt on input line 76.
+(Font)              scaled to size 10.0pt on input line 78.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 7.3pt on input line 76.
+(Font)              scaled to size 7.3pt on input line 78.
 LaTeX Font Info:    Font shape `LMX/ntxexx/m/n' will be
-(Font)              scaled to size 5.5pt on input line 76.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 76.
+(Font)              scaled to size 5.5pt on input line 78.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 78.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 76.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 78.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 76.
+LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 78.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxmia.fd
 File: untxmia.fd 2024/04/09 Fontinst v1.933 font definitions for U/ntxmia.
 )
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 10.0pt on input line 76.
+(Font)              scaled to size 10.0pt on input line 78.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 7.3pt on input line 76.
+(Font)              scaled to size 7.3pt on input line 78.
 LaTeX Font Info:    Font shape `U/ntxmia/m/it' will be
-(Font)              scaled to size 5.5pt on input line 76.
-LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 76.
+(Font)              scaled to size 5.5pt on input line 78.
+LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 78.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxsym.fd
 File: untxsym.fd 2023/08/16 Fontinst v1.933 font definitions for U/ntxsym.
 )
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 10.0pt on input line 76.
+(Font)              scaled to size 10.0pt on input line 78.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 7.3pt on input line 76.
+(Font)              scaled to size 7.3pt on input line 78.
 LaTeX Font Info:    Font shape `U/ntxsym/m/n' will be
-(Font)              scaled to size 5.5pt on input line 76.
-LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 76.
+(Font)              scaled to size 5.5pt on input line 78.
+LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 78.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 10.0pt on input line 76.
+(Font)              scaled to size 10.0pt on input line 78.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 7.3pt on input line 76.
+(Font)              scaled to size 7.3pt on input line 78.
 LaTeX Font Info:    Font shape `U/ntxsyc/m/n' will be
-(Font)              scaled to size 5.5pt on input line 76.
+(Font)              scaled to size 5.5pt on input line 78.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 10.0pt on input line 76.
+(Font)              scaled to size 10.0pt on input line 78.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 7.3pt on input line 76.
+(Font)              scaled to size 7.3pt on input line 78.
 LaTeX Font Info:    Font shape `U/ntxexa/m/n' will be
-(Font)              scaled to size 5.5pt on input line 76.
-LaTeX Info: Command `\dddot' is already robust on input line 76.
-LaTeX Info: Command `\ddddot' is already robust on input line 76.
-LaTeX Info: Redefining \microtypecontext on input line 76.
-Package microtype Info: Applying patch `item' on input line 76.
-Package microtype Info: Applying patch `toc' on input line 76.
-Package microtype Info: Applying patch `eqnum' on input line 76.
-Package microtype Info: Applying patch `footnote' on input line 76.
-Package microtype Info: Applying patch `verbatim' on input line 76.
-LaTeX Info: Redefining \microtypesetup on input line 76.
+(Font)              scaled to size 5.5pt on input line 78.
+LaTeX Info: Command `\dddot' is already robust on input line 78.
+LaTeX Info: Command `\ddddot' is already robust on input line 78.
+LaTeX Info: Redefining \microtypecontext on input line 78.
+Package microtype Info: Applying patch `item' on input line 78.
+Package microtype Info: Applying patch `toc' on input line 78.
+Package microtype Info: Applying patch `eqnum' on input line 78.
+Package microtype Info: Applying patch `footnote' on input line 78.
+Package microtype Info: Applying patch `verbatim' on input line 78.
+LaTeX Info: Redefining \microtypesetup on input line 78.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
@@ -985,7 +1004,7 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `LinuxLibertineT-TLF' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-Package hyperref Info: Link coloring ON on input line 76.
+Package hyperref Info: Link coloring ON on input line 78.
  (main.out) (main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
@@ -1005,7 +1024,13 @@ Package hyperref Info: Link coloring ON on input line 76.
 \everyMPtoPDFconversion=\toks46
 ) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+ (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/grfext\grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
@@ -1053,7 +1078,153 @@ Package caption Info: float package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count367
- (hwu_template/titlepage.tex
+LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 78.
+ (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\t1zi4.fd
+File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
+)
+LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
+(Font)              scaled to size 12.0pt on input line 78.
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `zi4' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/m/it' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/m/sl' undefined
+(Font)              using `T1/zi4/m/it' instead on input line 78.
+
+LaTeX Font Info:    Font shape `T1/zi4/m/it' will be
+(Font)              scaled to size 12.0pt on input line 78.
+LaTeX Font Info:    Font shape `T1/zi4/m/scit' will be
+(Font)              scaled to size 12.0pt on input line 78.
+LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
+(Font)              scaled to size 12.0pt on input line 78.
+
+LaTeX Font Warning: Font shape `T1/zi4/b/it' undefined
+(Font)              using `T1/zi4/b/n' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/b/sl' undefined
+(Font)              using `T1/zi4/b/it' instead on input line 78.
+
+LaTeX Font Info:    Font shape `T1/zi4/b/it' will be
+(Font)              scaled to size 12.0pt on input line 78.
+LaTeX Font Info:    Font shape `T1/zi4/b/scit' will be
+(Font)              scaled to size 12.0pt on input line 78.
+LaTeX Font Info:    Font shape `T1/zi4/bx/n' in size <12> not available
+(Font)              Font shape `T1/zi4/b/n' tried instead on input line 78.
+LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
+(Font)              scaled to size 12.0pt on input line 78.
+
+LaTeX Font Warning: Font shape `T1/zi4/bx/it' undefined
+(Font)              using `T1/zi4/bx/n' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/bx/sl' undefined
+(Font)              using `T1/zi4/bx/it' instead on input line 78.
+
+LaTeX Font Info:    Font shape `T1/zi4/bx/it' in size <12> not available
+(Font)              Font shape `T1/zi4/b/n' tried instead on input line 78.
+LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
+(Font)              scaled to size 12.0pt on input line 78.
+LaTeX Font Info:    Font shape `T1/zi4/bx/scit' in size <12> not available
+(Font)              Font shape `T1/zi4/b/scit' tried instead on input line 78.
+LaTeX Font Info:    Font shape `T1/zi4/b/scit' will be
+(Font)              scaled to size 12.0pt on input line 78.
+
+LaTeX Font Warning: Font shape `T1/zi4/sbx/scit' undefined
+(Font)              using `T1/zi4/bx/scit' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/sbx/n' undefined
+(Font)              using `T1/zi4/bx/n' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/sbx/it' undefined
+(Font)              using `T1/zi4/bx/it' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/bx/sl' undefined
+(Font)              using `T1/zi4/bx/it' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/sbx/it' undefined
+(Font)              using `T1/zi4/bx/it' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/bc/scit' undefined
+(Font)              using `T1/zi4/c/scit' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/c/n' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/c/it' undefined
+(Font)              using `T1/zi4/c/n' instead on input line 78.
+
+LaTeX Font Info:    Font shape `T1/zi4/c/n' will be
+(Font)              scaled to size 12.0pt on input line 78.
+
+LaTeX Font Warning: Font shape `T1/zi4/c/sl' undefined
+(Font)              using `T1/zi4/c/it' instead on input line 78.
+
+LaTeX Font Info:    Font shape `T1/zi4/c/it' will be
+(Font)              scaled to size 12.0pt on input line 78.
+
+LaTeX Font Warning: Font shape `T1/zi4/c/scit' undefined
+(Font)              using `T1/zi4/c/sc' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/c/sc' undefined
+(Font)              using `T1/zi4/c/n' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/lc/sc' undefined
+(Font)              using `T1/zi4/c/sc' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/lc/n' undefined
+(Font)              using `T1/zi4/c/n' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/lc/it' undefined
+(Font)              using `T1/zi4/c/it' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/c/sl' undefined
+(Font)              using `T1/zi4/c/it' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/lc/it' undefined
+(Font)              using `T1/zi4/c/it' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/c/scit' undefined
+(Font)              using `T1/zi4/c/sc' instead on input line 78.
+
+LaTeX Font Info:    Font shape `T1/zi4/c/sc' will be
+(Font)              scaled to size 12.0pt on input line 78.
+Package microtype Info: Character `029' is missing
+(microtype)             in font `T1/zi4/c/sc/12'.
+(microtype)             Ignoring protrusion settings for this character.
+
+LaTeX Font Warning: Font shape `T1/zi4/m/ui' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/bx/ui' undefined
+(Font)              using `T1/zi4/bx/n' instead on input line 78.
+
+
+LaTeX Font Warning: Font shape `T1/zi4/m/In' undefined
+(Font)              using `T1/zi4/m/n' instead on input line 78.
+
+(hwu_template/titlepage.tex
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 24.88pt on input line 7.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/b/n' will be
@@ -1068,7 +1239,7 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 14.4pt on input line 12.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 14.4pt on input line 13.
-<images/hwcoa_bw.jpg, id=138, 61.6704pt x 65.5248pt>
+<images/hwcoa_bw.jpg, id=162, 61.6704pt x 65.5248pt>
 File: images/hwcoa_bw.jpg Graphic file (type jpg)
 <use images/hwcoa_bw.jpg>
 Package pdftex.def Info: images/hwcoa_bw.jpg  used on input line 22.
@@ -1265,7 +1436,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 [5.6{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_afusau.enc}])
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 128.
+(Font)              scaled to size 14.4pt on input line 130.
 
 Underfull \vbox (badness 1895) has occurred while \output is active []
 
@@ -1281,7 +1452,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 ]
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/sc' will be
-(Font)              scaled to size 10.0pt on input line 188.
+(Font)              scaled to size 10.0pt on input line 190.
  [2.8{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_omcwp2.enc}]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1317,7 +1488,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 
 [7.13]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 286.
+(Font)              scaled to size 12.0pt on input line 288.
 
 Underfull \vbox (badness 1009) has occurred while \output is active []
 
@@ -1344,11 +1515,6 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
 [11.17]
-Overfull \hbox (6.17804pt too wide) in paragraph at lines 430--431
-[]\T1/LinuxLibertineT-TLF/m/n/12 (-20) Qualitative feed-back will be gath-ered through post-task ques-tion-naires and semi-structured
- []
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [12.18]
@@ -1359,24 +1525,26 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[13.19] [14.20]
-LaTeX Font Info:    Trying to load font information for T1+zi4 on input line 485.
- (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\t1zi4.fd
-File: t1zi4.fd 2018/01/14 T1/zi4 (Inconsolata)
-)
-LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 12.0pt on input line 485.
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `zi4' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-<images/ER-diagram.png, id=438, 774.7344pt x 504.9264pt>
-File: images/ER-diagram.png Graphic file (type png)
-<use images/ER-diagram.png>
-Package pdftex.def Info: images/ER-diagram.png  used on input line 493.
-(pdftex.def)             Requested size: 413.73114pt x 269.64372pt.
+[13.19]
+<images/ER-Diagram.jpeg, id=462, 760.7622pt x 509.5035pt>
+File: images/ER-Diagram.jpeg Graphic file (type jpg)
+<use images/ER-Diagram.jpeg>
+Package pdftex.def Info: images/ER-Diagram.jpeg  used on input line 485.
+(pdftex.def)             Requested size: 413.73114pt x 277.08693pt.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 10.95pt on input line 496.
+(Font)              scaled to size 10.95pt on input line 488.
+ [14.20{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-t1-4.enc}] (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2025/10/06 1.11 listings language file
+)
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 499.
+LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
+(Font)              scaled to size 10.95pt on input line 499.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 10.95pt on input line 501.
+LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
+(Font)              scaled to size 8.0pt on input line 501.
+LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
+(Font)              scaled to size 10.95pt on input line 501.
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1385,37 +1553,29 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[15.21{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-t1-4.enc} <./images/ER-diagram.png>]
-Overfull \hbox (24.6425pt too wide) in paragraph at lines 505--506
-[]\T1/LinuxLibertineT-TLF/m/n/12 (-20) The \T1/zi4/m/n/12 tasks \T1/LinuxLibertineT-TLF/m/n/12 (-20) ta-ble stores the task name, de-scrip-tion, start and end dates, a \T1/zi4/m/n/12 progress_percentage
- []
-
-(C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
-File: lstlang1.sty 2025/10/06 1.11 listings language file
-)
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 507.
-LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 507.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.95pt on input line 509.
-LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 509.
-LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
-(Font)              scaled to size 10.95pt on input line 509.
-LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 520.
+[15.21 <./images/ER-Diagram.jpeg>]
+LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 512.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\ts1zi4.fd
 File: ts1zi4.fd 2018/01/14 TS1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 520.
+(Font)              scaled to size 10.95pt on input line 512.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zi4' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
+ [16.22{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-ts1.enc}]
+Underfull \hbox (badness 7030) in paragraph at lines 601--616
+\T1/LinuxLibertineT-TLF/m/n/12 (+20) The core vi-su-al-i-sa-tion is im-ple-mented as a \T1/zi4/c/sc/12 GanttChart \T1/LinuxLibertineT-TLF/m/n/12 (+20) class in \T1/zi4/c/sc/12 src/gantt-
+ []
 
-Underfull \vbox (badness 1509) has occurred while \output is active []
 
- [16.22{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-ts1.enc}] (hwu_template/references.tex
+Underfull \hbox (badness 4899) in paragraph at lines 601--616
+\T1/zi4/c/sc/12 builder/public/js/gantt-chart.js\T1/LinuxLibertineT-TLF/m/n/12 (+20) , ad-dress-ing \T1/LinuxLibertineT-TLF/b/n/12 (+20) FR4[][]\T1/LinuxLibertineT-TLF/m/n/12 (+20) . The chart is con-structed
+ []
+
+LaTeX Font Info:    Font shape `T1/zi4/m/it' will be
+(Font)              scaled to size 10.95pt on input line 625.
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1423,7 +1583,36 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[17.23] (main.bbl
+[17.23]
+Underfull \hbox (badness 2521) in paragraph at lines 661--664
+[]\T1/LinuxLibertineT-TLF/m/n/12 (+20) Dependency lines are drawn us-ing a D3 path gen-er-a-tor con-fig-ured with the
+ []
+
+
+Underfull \hbox (badness 2726) in paragraph at lines 672--684
+[]\T1/LinuxLibertineT-TLF/m/n/12 (+20) Milestones (\T1/LinuxLibertineT-TLF/b/n/12 (+20) FR6[][]\T1/LinuxLibertineT-TLF/m/n/12 (+20) ) are ren-dered as diamond-shaped \T1/zi4/c/sc/12 <poly-gon> \T1/LinuxLibertineT-TLF/m/n/12 (+20) el-e-ments rather
+ []
+
+[18.24]
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[19.25]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [20.26]
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[21.27] (hwu_template/references.tex [22.28] (main.bbl
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 10.0pt on input line 43.
 LaTeX Info: Redefining \tempurl on input line 73.
@@ -1449,7 +1638,15 @@ LaTeX Info: Redefining \tempurl on input line 247.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [18.24]
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[23.29]
 LaTeX Info: Redefining \tempurl on input line 296.
 LaTeX Info: Redefining \tempurl on input line 310.
 LaTeX Info: Redefining \tempurl on input line 379.
@@ -1470,7 +1667,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 566--577
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-
+ [24.30]
+LaTeX Info: Redefining \tempurl on input line 586.
+LaTeX Info: Redefining \tempurl on input line 623.
+LaTeX Info: Redefining \tempurl on input line 650.
+))
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1478,49 +1679,25 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[19.25]
-LaTeX Info: Redefining \tempurl on input line 586.
-LaTeX Info: Redefining \tempurl on input line 612.
-LaTeX Info: Redefining \tempurl on input line 639.
-)) [20.26]
-<images/Log in Use Case Diagram.png, id=575, 691.383pt x 392.667pt>
+[25.31]
+<images/Log in Use Case Diagram.png, id=668, 691.383pt x 392.667pt>
 File: images/Log in Use Case Diagram.png Graphic file (type png)
 <use images/Log in Use Case Diagram.png>
-Package pdftex.def Info: images/Log in Use Case Diagram.png  used on input line 590.
+Package pdftex.def Info: images/Log in Use Case Diagram.png  used on input line 892.
 (pdftex.def)             Requested size: 435.50787pt x 247.34557pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 590--591
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 892--893
  [][] 
  []
 
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 14.0pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.0pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
-
-[21.27 <./images/Log in Use Case Diagram.png>]
-<images/Create and Manage Gantt Chart Use Case Diagram.png, id=582, 671.50874pt x 515.526pt>
+[26.32 <./images/Log in Use Case Diagram.png>]
+<images/Create and Manage Gantt Chart Use Case Diagram.png, id=676, 671.50874pt x 515.526pt>
 File: images/Create and Manage Gantt Chart Use Case Diagram.png Graphic file (type png)
 <use images/Create and Manage Gantt Chart Use Case Diagram.png>
-Package pdftex.def Info: images/Create and Manage Gantt Chart Use Case Diagram.png  used on input line 604.
+Package pdftex.def Info: images/Create and Manage Gantt Chart Use Case Diagram.png  used on input line 906.
 (pdftex.def)             Requested size: 435.50787pt x 334.3485pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 604--605
- [][] 
- []
-
-[22.28
-
- <./images/Create and Manage Gantt Chart Use Case Diagram.png>]
-<images/Mock-ups.png, id=588, 1155.1155pt x 684.75826pt>
-File: images/Mock-ups.png Graphic file (type png)
-<use images/Mock-ups.png>
-Package pdftex.def Info: images/Mock-ups.png  used on input line 619.
-(pdftex.def)             Requested size: 435.50787pt x 258.17337pt.
-
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 619--620
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 906--907
  [][] 
  []
 
@@ -1531,34 +1708,55 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[23.29 <./images/Mock-ups.png>]
-<images/Gantt Chart.png, id=595, 3083.52pt x 1646.15pt>
-File: images/Gantt Chart.png Graphic file (type png)
-<use images/Gantt Chart.png>
-Package pdftex.def Info: images/Gantt Chart.png  used on input line 636.
-(pdftex.def)             Requested size: 435.50787pt x 232.494pt.
+[27.33
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 636--637
+ <./images/Create and Manage Gantt Chart Use Case Diagram.png>]
+<images/Mock-ups.png, id=682, 1155.1155pt x 684.75826pt>
+File: images/Mock-ups.png Graphic file (type png)
+<use images/Mock-ups.png>
+Package pdftex.def Info: images/Mock-ups.png  used on input line 921.
+(pdftex.def)             Requested size: 435.50787pt x 258.17337pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 921--922
  [][] 
  []
 
-[24.30
+[28.34 <./images/Mock-ups.png>]
+<images/Gantt Chart.png, id=689, 3083.52pt x 1646.15pt>
+File: images/Gantt Chart.png Graphic file (type png)
+<use images/Gantt Chart.png>
+Package pdftex.def Info: images/Gantt Chart.png  used on input line 938.
+(pdftex.def)             Requested size: 435.50787pt x 232.494pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 938--939
+ [][] 
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[29.35
 
  <./images/Gantt Chart.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 741--741
+Underfull \hbox (badness 10000) in paragraph at lines 1043--1043
 []|\T1/LinuxLibertineT-TLF/m/n/10.95 (+20) Usability Eval-u-a-tion
  []
 
 
-Underfull \hbox (badness 3701) in paragraph at lines 741--741
+Underfull \hbox (badness 3701) in paragraph at lines 1043--1043
 []|\T1/LinuxLibertineT-TLF/m/n/10.95 (+20) Requirements clearly doc-u-mented and pri-ori-tised.
  []
 
 
-Overfull \hbox (57.68974pt too wide) in paragraph at lines 741--742
+Overfull \hbox (57.68974pt too wide) in paragraph at lines 1043--1044
  [][]\T1/LinuxLibertineT-TLF/m/n/10.95 (-20) prioritisation 
  []
 
+[30.36{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_ki75ao.enc}]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1566,40 +1764,39 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[25.31{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_ki75ao.enc}] [26.32]
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 14.0pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.0pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
-
-(C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-pdfdoc.def
+[31.37] (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) [27.33
+) [32.38
 
 ] (main.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
  ***********
+
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 0BB0E66E2ECEF82AD8E6743DC2361000;5314.
+(rerunfilecheck)             Checksum: 2F31B6F374513FE202DCF00879C08C88;6619.
  ) 
 Here is how much of TeX's memory you used:
- 27235 strings out of 467871
- 461608 string characters out of 5418375
- 1300577 words of memory out of 5000000
- 54723 multiletter control sequences out of 15000+600000
- 874417 words of font info for 547 fonts, out of 8000000 for 9000
+ 27536 strings out of 467871
+ 466660 string characters out of 5418375
+ 1302745 words of memory out of 5000000
+ 54939 multiletter control sequences out of 15000+600000
+ 876949 words of font info for 562 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
- 90i,13n,131p,2239b,2482s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,13n,131p,2239b,2450s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4b.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinBiolinumT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTB.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTBI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txsys.pfb>
-Output written on main.pdf (33 pages, 1288360 bytes).
+Output written on main.pdf (38 pages, 1420163 bytes).
 PDF statistics:
- 712 PDF objects out of 1000 (max. 8388607)
- 167 named destinations out of 1000 (max. 500000)
- 135479 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 817 PDF objects out of 1000 (max. 8388607)
+ 212 named destinations out of 1000 (max. 500000)
+ 137063 words of extra memory for PDF output out of 154059 (max. 10000000)
 

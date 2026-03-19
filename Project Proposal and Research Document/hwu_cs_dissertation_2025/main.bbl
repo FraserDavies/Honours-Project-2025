@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{49}
+\begin{thebibliography}{50}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -588,6 +588,17 @@
 \tempurl}
 \newblock
 \shownote{Uploaded on YouTube by Smartsheet. Accessed: 30/09/2025}.
+
+
+\bibitem[{SQLite Development Team}({[n.\,d.]})]%
+        {sqlite_datatypes}
+\bibfield{author}{\bibinfo{person}{{SQLite Development Team}}.}
+  \bibinfo{year}{[n.\,d.]}\natexlab{}.
+\newblock \bibinfo{title}{Datatypes In {SQLite}}.
+\newblock \bibinfo{howpublished}{\url{https://www.sqlite.org/datatype3.html}}.
+\newblock
+\newblock
+\shownote{Accessed: 17/03/2026}.
 
 
 \bibitem[Staff(2025)]%
