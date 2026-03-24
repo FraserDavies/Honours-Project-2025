@@ -470,6 +470,33 @@ Data Collection & Privacy Clause:
 By agree to the below, you as a participant are acknowledging that you have read the preceding information and understand its contents. You are confirming that you are willingly choosing to participate in this study and that your participation is voluntary. You are also agreeing to allow the use of your results for academic and scientific purposes, and to the distribution of any recordings or transcripts of the session for research purposes, on the condition that your identity is not revealed.
 
 
+w/b 23/03/2026
+
+Meeting with Kavin + supervisor meeting
+
+Look at pages 198 and 201 of the sus usibility book for eval of sus
+
+Supervisor feedback: 
+- fix bug with the subtasks not moving with the parent task
+- Make the kanban slider circle always apear
+
+Kavin feedback:
+- Good system will be easy to implement, database structure matches the same as the project system
+- Only chalnage with the implementation would be that the current system is in chtml and uses C# to handle backend, there shouldnt be too much issue integrating the current javascript but will need to be changed/amended to handle this different language
+- Features potentially to add in the future:
+    - A filter based on the nature of the task/search bar on the tasks
+    - Milestone grouping
+- How this can be implemented; There is 2 ways this can be done:
+    1 - The gantt chart builder is hosted as a seperate entity and will be linked to the current project system 
+        Pros: less code needing changed, Cons: database system will need redone so it can handle the large datasets and run smoothly
+    2 - The gantt chart builder is implemented wihtin the current project site  
+        Pros: Its integrated so can use the current system architecture, Cons: More current js code will need to be changed to accomidate for the different language used
+
+Integration of the gantt chart into the project system will begin around mid april 2026
+
+
+
+
 
 
 
