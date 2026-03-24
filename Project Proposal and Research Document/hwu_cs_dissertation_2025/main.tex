@@ -820,9 +820,6 @@ dates. A contextual help button opens an eight-slide tutorial modal, each slide 
 live mini-Gantt chart using real \texttt{GanttChart} instances populated with hardcoded demo
 data, illustrating system concepts in context.
 
-
-
-
 % Must Have (Core Features)
 
 % [COMPLETE] Project data creation and management — title, description, start/end dates
@@ -855,6 +852,78 @@ data, illustrating system concepts in context.
 % [COMPETE] Supervisor comment and feedback system
 
 
+\subsection{Requirements Coverage Summary} \label{sec:impl_coverage}
+
+All six Must Have functional requirements (FR1--FR6) were fully implemented. Nine of the
+eleven Should Have functional requirements were fully implemented. FR7 (guided task creation
+interface) was partially addressed: inline date validation is present in the add-task panel,
+and a contextual help button opens an eight-slide tutorial modal that teaches users how to
+operate the system. However, a fully guided step-by-step task creation wizard  (one that
+actively directs users through each field in sequence) was not implemented; the tutorial
+serves as a reference guide rather than an in-context creation assistant. FR9 (automatic
+dependency adjustment) was also partially addressed: dependency violations are highlighted in
+real time during drag using orange dashed lines, giving users immediate visual feedback, but
+fully cascading date shifts to downstream successor tasks were not implemented.
+
+Of the five Could Have requirements, FR18, FR19, and FR22 were fully implemented. FR20
+(additional dependency types) was partially addressed. The dependency handle architecture
+naturally produces two types: dragging from a right handle to any handle creates a
+finish-to-start dependency, while dragging from a left handle to another left handle creates
+a start-to-start dependency. The rendering and violation detection logic is structured as a
+branching dispatch on \texttt{dependencyType}, making it straightforward to extend with
+further types:
+
+\begin{lstlisting}[style=jsstyle, caption={Dependency type branching in \texttt{\#updateDependencyLines} (gantt-chart.js)}]
+if (dep.dependencyType === 'start-to-start') {
+    // route line from predecessor start to successor start
+} else {
+    // default: finish-to-start
+    // route line from predecessor end to successor start
+}
+\end{lstlisting}
+
+Despite this extensibility, finish-to-finish and start-to-finish types were deliberately
+deferred. Finish-to-start is the dependency type that most naturally aligns with the chart's
+linear time axis and ascending start-date sort order, expressing the unambiguous constraint
+that one task must complete before another begins. Supporting additional types would require
+users to reason about less intuitive constraints adding cognitive load without a clear benefit 
+for the target user group of individual dissertation students. Keeping the dependency model 
+focused on the most common type produced a more streamlined and accessible interaction. FR21
+(critical path highlighting) was deferred as noted in the original MoSCoW analysis.
+
+Both Must Have non-functional requirements (NFR1--NFR2) were addressed through
+browser-standard technologies and local data storage. The Should Have non-functional
+requirements NFR3, NFR4, and NFR5 were targeted throughout development, with NFR5
+representing a partial implementation given the chart's horizontal scrolling nature on small
+screens.
+
+
+% \subsection{Bug Fixes and Edge Cases} \label{sec:impl_bugs}
+% Several bugs were identified and resolved during development. The first concerned the save pipeline for subtasks added to tasks that had not yet been persisted to the         
+% database. New tasks are assigned a temporary negative client-side ID until saved; subtasks captured this temporary value and froze it as their \texttt{parent_task_id}. When
+%   the save ran, the server assigned real IDs to the new tasks but the pending subtask entries still referenced the stale negative value, causing a 404 on                      
+%   \texttt{/api/tasks/-1/subtasks} and aborting the save. The fix records the old temporary ID before overwriting it, then patches any pending subtask entries that still       
+%   reference it. A related issue meant that a failed save followed by a retry would re-POST all items in the pending arrays, including those already written on the first
+%   attempt, producing duplicate rows. This was resolved by converting both save loops to \texttt{while} loops that shift each item off the array immediately after a confirmed  
+%   successful POST, so retries only process items not yet persisted.
+
+%   A further issue allowed subtasks to be added to milestone tasks, which represent single-point-in-time events and have no meaningful duration for child tasks. The fix          
+% conditionally omits the add-subtask button when \texttt{d.isMilestone} is true, removes the corresponding click handler from milestone rows, and adds a defensive early
+%   return in the \texttt{setOnAddSubtask} callback.                                                                                                                             
+                                                                                                                                                                               
+%   A timing bug was found in the tutorial auto-open flow triggered by a \texttt{?new=true} URL parameter on project creation. Because \texttt{interactive-chart.js} is            
+% \texttt{async} and suspends at its first \texttt{await}, \texttt{tutorial.js} completed its synchronous \texttt{init()} during that suspension window without rendering slide   
+% content. When \texttt{interactive-chart.js} later made the modal visible, the first slide was blank. The fix moves responsibility for auto-opening entirely into            
+%   \texttt{tutorial.js}, which reads the URL parameter directly, calls \texttt{openTutorial()}, and invokes \texttt{goToSlide(0)} in the correct order.                         
+
+%   After saving a newly created task, two client-side data structures — \texttt{expandedTasks} and \texttt{subtaskData} — remained keyed on the old temporary ID, causing         
+% subtasks to become orphaned and the task to appear collapsed after save. The post-save migration was extended to remap both structures to the real database ID. Additionally,   
+% attempting to delete an unsaved task issued a \texttt{DELETE} request to the server unnecessarily, returning a 404. The fix checks whether \texttt{task.id} is negative and,
+%    if so, removes the task purely from client-side state without making any network request.                                                                                   
+
+%   A minor visual bug was also found in the Kanban board progress slider, where the drag handle appeared above the track rather than centred on it. In WebKit-based browsers the   
+% \texttt{::webkit-slider-thumb} pseudo-element is not automatically centred on a custom-height track; the fix adds an explicit \texttt{margin-top} of \texttt{-5px}, derived
+%   from $-\frac{\text{thumbHeight} - \text{trackHeight}}{2} = -\frac{14 - 4}{2}$, to align the 14,px thumb with the 4,px progress track.
 
 
 \section{Conclusion} \label{cha:conclusion}

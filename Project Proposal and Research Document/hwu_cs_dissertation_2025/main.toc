@@ -28,13 +28,14 @@
 \contentsline {subsection}{\numberline {5.6}Progress Tracking and Schedule Status}{20}{subsection.5.6}%
 \contentsline {subsection}{\numberline {5.7}Task Hierarchy and Subtasks}{21}{subsection.5.7}%
 \contentsline {subsection}{\numberline {5.8}Additional Features}{21}{subsection.5.8}%
-\contentsline {section}{\numberline {6}Conclusion}{22}{section.6}%
-\contentsline {section}{References}{23}{section*.9}%
-\contentsline {section}{\numberline {A}Use Case Diagrams}{26}{appendix.A}%
-\contentsline {section}{\numberline {B}Mock Up}{28}{appendix.B}%
-\contentsline {section}{\numberline {C}Project Management}{29}{appendix.C}%
-\contentsline {subsection}{\numberline {C.1}Gantt Chart}{29}{subsection.C.1}%
-\contentsline {subsection}{\numberline {C.2}Risks}{30}{subsection.C.2}%
-\contentsline {subsection}{\numberline {C.3}PLES Issues}{32}{subsection.C.3}%
-\contentsline {section}{\numberline {D}Generative AI}{32}{appendix.D}%
+\contentsline {subsection}{\numberline {5.9}Requirements Coverage Summary}{22}{subsection.5.9}%
+\contentsline {section}{\numberline {6}Conclusion}{23}{section.6}%
+\contentsline {section}{References}{24}{section*.9}%
+\contentsline {section}{\numberline {A}Use Case Diagrams}{27}{appendix.A}%
+\contentsline {section}{\numberline {B}Mock Up}{29}{appendix.B}%
+\contentsline {section}{\numberline {C}Project Management}{30}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}Gantt Chart}{30}{subsection.C.1}%
+\contentsline {subsection}{\numberline {C.2}Risks}{31}{subsection.C.2}%
+\contentsline {subsection}{\numberline {C.3}PLES Issues}{33}{subsection.C.3}%
+\contentsline {section}{\numberline {D}Generative AI}{33}{appendix.D}%
 \contentsfinish 

@@ -621,10 +621,26 @@ document.addEventListener('DOMContentLoaded', async () => {
                 // --- Clone chart SVG into a translated group ---
                 const chartGroup = document.createElementNS(ns, 'g');
                 chartGroup.setAttribute('transform', `translate(${taskListWidth}, 0)`);
+
+                // The axis groups use updateAxisScroll(scrollTop) to stay sticky while
+                // the user scrolls.  Before cloning we must reset them to scrollTop=0
+                // so the axis appears at the top of the exported image, not offset.
+                const exportScrollTop = chartScrollEl ? chartScrollEl.scrollTop : 0;
+                if (exportScrollTop > 0) ganttChart.updateAxisScroll(0);
+
                 // Clone all children of the chart SVG
                 Array.from(chartSvg.childNodes).forEach(child => {
                     chartGroup.appendChild(child.cloneNode(true));
                 });
+
+                // Restore the live axis position
+                if (exportScrollTop > 0) ganttChart.updateAxisScroll(exportScrollTop);
+
+                // Strip edit-mode-only elements from the clone so they never appear in exports
+                chartGroup.querySelectorAll(
+                    '.dep-handles-layer, .dep-drag-layer, .task-resize-handle, .task-resize-indicator'
+                ).forEach(el => el.remove());
+
                 combinedSvg.appendChild(chartGroup);
 
                 // --- Render SVG to canvas ---
@@ -813,7 +829,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let taskSnapshot = null;        // full snapshot of taskData before editing
     let dependencySnapshot = null;  // snapshot of dependencyData before editing
 
-    const editModeBtn  = document.getElementById('editModeBtn');
+    const editModeBtn         = document.getElementById('editModeBtn');
+    const editModeBtnToolbar  = document.getElementById('editModeBtnToolbar');
     const editBanner   = document.getElementById('editModeBanner');
     const editCancelBtn = document.getElementById('editCancelBtn');
     const editSaveBtn  = document.getElementById('editSaveBtn');
@@ -840,6 +857,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         editBanner.classList.add('visible');
         editModeBtn.style.display = 'none';
+        if (editModeBtnToolbar) editModeBtnToolbar.style.display = 'none';
     };
 
     const exitEditMode = (save) => {
@@ -893,6 +911,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         editBanner.classList.remove('visible');
         editModeBtn.style.display = '';
+        if (editModeBtnToolbar) editModeBtnToolbar.style.display = '';
         if (editSaveBtn) editSaveBtn.textContent = 'Save Changes';
         updateEmptyState();
     };
@@ -918,19 +937,42 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Callback: delete button clicked on a task row
     taskList.setTaskDelete(async (task) => {
         try {
-            const resp = await fetch(`${API_URL}/tasks/${task.id}`, { method: 'DELETE' });
-            if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-            const result = await resp.json();
-            if (!result.success) throw new Error(result.message);
+            if (task.id < 0) {
+                // Unsaved (temp) task — remove from pending and in-memory state only,
+                // no DB call needed.
+                const pi = pendingNewTasks.findIndex(s => s.taskRef === task);
+                if (pi !== -1) pendingNewTasks.splice(pi, 1);
 
-            // Remove from in-memory arrays
+                // Drop any pending subtasks that belong to this temp task
+                for (let i = pendingNewSubtasks.length - 1; i >= 0; i--) {
+                    if (pendingNewSubtasks[i].parent_task_id === task.id) {
+                        pendingNewSubtasks.splice(i, 1);
+                    }
+                }
+            } else {
+                const resp = await fetch(`${API_URL}/tasks/${task.id}`, { method: 'DELETE' });
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                const result = await resp.json();
+                if (!result.success) throw new Error(result.message);
+            }
+
+            // Remove from in-memory state (same for both saved and unsaved tasks)
             const idx = taskData.findIndex(t => t.id === task.id);
             if (idx !== -1) taskData.splice(idx, 1);
+
+            subtaskData.delete(task.id);
+            expandedTasks.delete(task.id);
 
             for (let i = dependencyData.length - 1; i >= 0; i--) {
                 if (dependencyData[i].predecessorTaskId === task.id ||
                     dependencyData[i].successorTaskId   === task.id) {
                     dependencyData.splice(i, 1);
+                }
+            }
+            for (let i = pendingNewDependencies.length - 1; i >= 0; i--) {
+                if (pendingNewDependencies[i].predTaskRef.id === task.id ||
+                    pendingNewDependencies[i].succTaskRef.id === task.id) {
+                    pendingNewDependencies.splice(i, 1);
                 }
             }
 
@@ -1176,7 +1218,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Callback: add subtask button clicked in edit mode
     taskList.setOnAddSubtask((parentTaskId) => {
         const parentTask = taskData.find(t => t.id === parentTaskId);
-        if (!parentTask) return;
+        if (!parentTask || parentTask.isMilestone) return;
 
         const tempSubtaskId = -(pendingNewSubtasks.length + 1); // temp negative ID
         const newSub = {
@@ -1454,7 +1496,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         updateAddTaskPreview();
     });
 
-    if (editModeBtn)   editModeBtn.addEventListener('click', enterEditMode);
+    if (editModeBtn)         editModeBtn.addEventListener('click', enterEditMode);
+    if (editModeBtnToolbar)  editModeBtnToolbar.addEventListener('click', enterEditMode);
     if (editCancelBtn) editCancelBtn.addEventListener('click', () => exitEditMode(false));
 
     // Empty state "Add Task" button — enter edit mode and open the add task panel
@@ -1483,18 +1526,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    // Auto-open tutorial on brand-new project (redirected from create form with ?new=true)
+    // Clean the ?new=true param from the URL so refreshing doesn't re-trigger the tutorial.
+    // The tutorial open/render is handled by tutorial.js which reads ?new=true during its
+    // own init() — that way goToSlide(0) is called correctly and the first slide isn't blank.
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('new') === 'true' && tutorialModal) {
-        // Clean the URL so refreshing doesn't re-trigger the modal
+    if (urlParams.get('new') === 'true') {
         history.replaceState({}, '', `${window.location.pathname}?project=${projectId}`);
-        tutorialModal.classList.add('visible');
     }
 
     // Supervisor view — hide Edit button so the chart is read-only
     const isSupervisorView = urlParams.get('role') === 'supervisor';
     if (isSupervisorView && editModeBtn) {
         editModeBtn.style.display = 'none';
+        if (editModeBtnToolbar) editModeBtnToolbar.style.display = 'none';
     }
 
     if (editSaveBtn) {
@@ -1572,7 +1616,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         throw new Error(body.message || `HTTP ${resp.status}`);
                     }
                 }
-                for (const staged of pendingNewTasks) {
+                // Process new tasks one-at-a-time, shifting each off the front after a
+                // successful save.  This ensures a retry never re-POSTs already-saved tasks.
+                while (pendingNewTasks.length > 0) {
+                    const staged = pendingNewTasks[0];
                     const resp = await fetch(`${API_URL}/projects/${projectId}/tasks`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -1590,8 +1637,29 @@ document.addEventListener('DOMContentLoaded', async () => {
                         throw new Error(body.message || `HTTP ${resp.status}`);
                     }
                     const result = await resp.json();
+                    const realId   = result.task_id;
+                    const oldTempId = staged.taskRef ? staged.taskRef.id : null;
                     // Swap the temp ID out for the real DB ID in taskData
-                    if (staged.taskRef) staged.taskRef.id = result.task_id;
+                    if (staged.taskRef) staged.taskRef.id = realId;
+                    if (oldTempId !== null) {
+                        // Fix pending subtask fetch URLs
+                        for (const ps of pendingNewSubtasks) {
+                            if (ps.parent_task_id === oldTempId) ps.parent_task_id = realId;
+                        }
+                        // Re-key expandedTasks so the task stays expanded after save
+                        if (expandedTasks.has(oldTempId)) {
+                            expandedTasks.delete(oldTempId);
+                            expandedTasks.add(realId);
+                        }
+                        // Re-key subtaskData and update parentId on each subtask object
+                        if (subtaskData.has(oldTempId)) {
+                            const subs = subtaskData.get(oldTempId);
+                            subs.forEach(s => { s.parentId = realId; });
+                            subtaskData.set(realId, subs);
+                            subtaskData.delete(oldTempId);
+                        }
+                    }
+                    pendingNewTasks.shift(); // remove only after success so retry skips it
                 }
                 // POST dependencies that were staged because one/both tasks were unsaved.
                 // New task IDs are now real (updated in-place above), so use them directly.
@@ -1628,9 +1696,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                         throw new Error(body.message || `HTTP ${resp.status}`);
                     }
                 }
-                // POST new subtasks
+                // POST new subtasks — same shift-on-success pattern to prevent retry duplicates
                 const fmt = d3.timeFormat('%Y-%m-%d');
-                for (const staged of pendingNewSubtasks) {
+                while (pendingNewSubtasks.length > 0) {
+                    const staged = pendingNewSubtasks[0];
                     const resp = await fetch(`${API_URL}/tasks/${staged.parent_task_id}/subtasks`, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -1647,6 +1716,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     const result = await resp.json();
                     staged.subtaskRef.subtaskId = result.subtask_id;
                     staged.subtaskRef.id = 1_000_000 + result.subtask_id;
+                    pendingNewSubtasks.shift(); // remove only after success
                 }
                 // PATCH changed subtasks (name changes; progress is saved immediately)
                 for (const [subtaskId, changes] of pendingSubtaskChanges) {

@@ -2367,6 +2367,7 @@
     cursor: ew-resize;
     opacity: 0;
     transition: opacity 0.15s, transform 0.15s;
+    margin-top: -5px; /* centre 14px thumb on 4px track: -((14-4)/2) */
 }
 
 .kanban-range::-moz-range-thumb {

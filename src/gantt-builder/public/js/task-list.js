@@ -74,7 +74,7 @@ class TaskList {
                 <span class="task-name">${d.name}</span>
                 <span class="task-dates">${fmt(d.startDate)} - ${fmt(d.endDate)}</span>
                 <span class="task-progress"><input type="number" class="task-progress-input" min="0" max="100" value="${d.progress}" style="color:${col}" title="Progress %"><span class="task-progress-pct" style="color:${col}">%</span></span>
-                <button class="task-add-subtask-btn" title="Add subtask">+</button>
+                ${!d.isMilestone ? `<button class="task-add-subtask-btn" title="Add subtask">+</button>` : ''}
             `;
         };
 
@@ -127,9 +127,9 @@ class TaskList {
                 self.onTaskDelete(d);
             });
 
-        // Wire add-subtask (+) buttons on task rows
+        // Wire add-subtask (+) buttons on task rows (milestones cannot have subtasks)
         this.container.selectAll('.task-list-item')
-            .filter(d => !d.isSubtask && !d.isAddSubtaskMarker)
+            .filter(d => !d.isSubtask && !d.isAddSubtaskMarker && !d.isMilestone)
             .select('.task-add-subtask-btn')
             .on('click', function(event, d) {
                 event.stopPropagation();

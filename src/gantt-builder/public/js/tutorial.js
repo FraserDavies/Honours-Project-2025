@@ -1103,6 +1103,13 @@
             if (e.target === modal) closeTutorial();
         });
 
+        // Auto-open for new projects. tutorial.js checks this itself so it can call
+        // openTutorial() (which renders slide 0) rather than relying on interactive-chart.js
+        // adding the 'visible' class externally — that path never calls goToSlide(0).
+        if (new URLSearchParams(window.location.search).get('new') === 'true') {
+            openTutorial();
+        }
+
         if (prevBtn) {
             prevBtn.addEventListener('click', () => {
                 if (currentSlide > 0) goToSlide(currentSlide - 1);
