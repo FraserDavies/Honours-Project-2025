@@ -706,7 +706,7 @@ class GanttChart {
             .on('end', function(event, d) {
                 self.#stopAutoScroll();
                 d3.select(this.parentNode).classed('dragging', false);
-                self.onTaskDateChange(d);
+                self.onTaskDateChange(d, { originalStart, originalEnd });
             });
     }
 
@@ -770,7 +770,7 @@ class GanttChart {
             })
             .on('end', function(event, d) {
                 self.#stopAutoScroll();
-                self.onTaskDateChange(d);
+                self.onTaskDateChange(d, { originalStart, originalEnd: originalStart });
             });
     }
 
@@ -850,7 +850,7 @@ class GanttChart {
             .on('end', function(event, d) {
                 self.#stopAutoScroll();
                 d3.select(this.parentNode).classed('dragging', false);
-                self.onTaskDateChange(d);
+                self.onTaskDateChange(d, { originalStart, originalEnd });
             });
     }
 
@@ -929,7 +929,7 @@ class GanttChart {
             .on('end', function(event, d) {
                 self.#stopAutoScroll();
                 d3.select(this.parentNode).classed('dragging', false);
-                self.onTaskDateChange(d);
+                self.onTaskDateChange(d, { originalStart, originalEnd });
             });
     }
 

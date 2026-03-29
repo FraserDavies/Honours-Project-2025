@@ -925,13 +925,57 @@ document.addEventListener('DOMContentLoaded', async () => {
             .text(`${fmtDate(task.startDate)} - ${fmtDate(task.endDate)}`);
     });
 
-    // Callback: task bar dragged to new dates
-    ganttChart.setTaskDateChange(task => {
+    // Callback: task bar dragged/resized to new dates
+    // originalDates = { originalStart, originalEnd } provided by gantt-chart.js drag end
+    ganttChart.setTaskDateChange((task, originalDates) => {
         pendingChanges.set(task.id, {
             ...(pendingChanges.get(task.id) || {}),
             start_date: d3.timeFormat('%Y-%m-%d')(task.startDate),
             end_date:   d3.timeFormat('%Y-%m-%d')(task.endDate)
         });
+
+        // Shift/clamp subtasks to follow parent task movement
+        const subs = subtaskData.get(task.id);
+        if (!subs || subs.length === 0 || !originalDates) return;
+
+        const { originalStart, originalEnd } = originalDates;
+        const startDelta = task.startDate - originalStart; // ms
+        const endDelta   = task.endDate   - originalEnd;
+        const msPerDay   = 86400000;
+
+        // Pure move: both ends shifted by the same amount → shift subtasks by that amount.
+        // Resize: clamp subtasks to stay within the new parent bounds.
+        const isMove = Math.abs(startDelta - endDelta) < msPerDay / 2;
+
+        const fmtYMD = d3.timeFormat('%Y-%m-%d');
+        subs.forEach(sub => {
+            if (isMove) {
+                sub.startDate = new Date(sub.startDate.getTime() + startDelta);
+                sub.endDate   = new Date(sub.endDate.getTime()   + startDelta);
+            } else {
+                // Clamp to new parent bounds
+                if (sub.startDate < task.startDate) sub.startDate = new Date(task.startDate);
+                if (sub.endDate   > task.endDate)   sub.endDate   = new Date(task.endDate);
+                if (sub.startDate > sub.endDate)    sub.startDate = new Date(sub.endDate);
+            }
+            // Record the change for Save
+            if (sub.subtaskId > 0) {
+                pendingSubtaskChanges.set(sub.subtaskId, {
+                    ...(pendingSubtaskChanges.get(sub.subtaskId) || {}),
+                    start_date: fmtYMD(sub.startDate),
+                    end_date:   fmtYMD(sub.endDate)
+                });
+            } else {
+                // Temp (unsaved) subtask — update the pendingNewSubtasks entry
+                const ps = pendingNewSubtasks.find(s => s.subtaskRef === sub);
+                if (ps) {
+                    ps.start_date = fmtYMD(sub.startDate);
+                    ps.end_date   = fmtYMD(sub.endDate);
+                }
+            }
+        });
+
+        renderAll();
     });
 
     // Callback: delete button clicked on a task row

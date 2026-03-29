@@ -109,12 +109,35 @@ Thank you all for your support and belief in this project.
 
 % Abstract
 \abstract{
-Project management is critical for students in higher education, particularly those undertaking substantial individual projects such as honours dissertations. Despite the widespread adoption of Gantt charts as the fourth most used project management tool among professionals\cite{besner_2008}, their application in individual student dissertation contexts remains underexplored in academic literature. This dissertation investigates the development of an Interactive Gantt Chart Builder specifically designed for honours project students at Heriot-Watt University. The primary objective is to design, develop, and evaluate an interactive web-based tool that guides students through creating comprehensive project plans whilst offering supervisors visibility into student progress and planning quality.
-% TODO: citation doesnt work here no clue why
+Project management is critical for students in higher education, particularly 
+those undertaking substantial individual projects such as honours dissertations. 
+Despite the widespread adoption of Gantt charts as the fourth most used project 
+management tool among professionals \cite{besner_2008}, their application in 
+individual student dissertation contexts remains underexplored in academic 
+literature. This dissertation investigates the design, development, and evaluation 
+of an Interactive Gantt Chart Builder specifically designed for honours project 
+students at Heriot-Watt University, with the primary objective of producing an 
+interactive web-based tool that guides students through creating comprehensive 
+project plans whilst offering supervisors visibility into student progress and 
+planning quality.
 
-The research methodology combines systematic requirement analysis using MoSCoW prioritisation, identifying 22 functional and 7 non-functional requirements organised as user stories, with comprehensive background research examining Gantt chart design principles, project management methodologies, and interactive visualisation techniques in educational contexts. The proposed system will be implemented using ASP.NET MVC framework with Entity Framework and SQLite, integrating D3.js for interactive visualisation capabilities that enable drag-and-drop interactions and dynamic chart rendering.
+The system was implemented as a standalone web application using Node.js with 
+Express, SQLite, and D3.js, integrating interactive visualisation capabilities 
+including drag-and-drop timeline editing, task dependencies with cycle detection, 
+progress tracking, a Kanban board view, and supervisor view-only access. 
+Requirements were gathered and prioritised using the MoSCoW method, identifying 
+22 functional and 7 non-functional requirements organised as user stories. Of the 
+22 functional requirements, all six Must Have requirements were fully implemented, 
+nine of eleven Should Have requirements were fully implemented, and three of five 
+Could Have requirements were delivered.
 
-The evaluation methodology combines system testing to validate functional correctness with user-centred usability evaluation employing the System Usability Scale (SUS) and task-based assessment with honours students. This research addresses genuine challenges faced by students managing extended individual projects, including the psychological barriers to maintaining detailed project schedules and the tension between planning effort and adaptive flexibility. The findings will contribute to understanding how interactive project management tools can effectively support individual academic projects whilst developing students' project management competencies.
+The evaluation methodology combines system testing against a requirements 
+traceability matrix to validate functional correctness with user-centred usability 
+evaluation employing the System Usability Scale (SUS) and task-based assessment 
+with honours students. This research addresses genuine challenges faced by students 
+managing extended individual projects, including the psychological barriers to 
+maintaining detailed project schedules and the tension between planning effort and 
+adaptive flexibility.
 }
 
 \input{hwu_template/contents}
@@ -169,6 +192,7 @@ The organisation of this report is as follows:
     \item \cref{cha:back}: Presents the background research, discussing related work found in the technical literature and its relevance to the project.
     \item \cref{cha:method}: Describes the research methodology, including requirements gathering, system design approach, and evaluation methods.
     \item \cref{cha:feasibility}: Examines the technical and practical feasibility of the proposed system, including technology selection and integration with HWU's infrastructure.
+    \item \cref{cha:impl_contrib} Documents the implementation of the Interactive Gantt Chart Builder, detailing the system architecture, database design, core visualisation features, and the key technical decisions made during development.
     \item \cref{cha:conclusion}: Summarises the findings, discusses the implications of the work, and outlines potential directions for future research and development.
 \end{itemize}
 % Background Research
@@ -470,11 +494,28 @@ Technical risks are minimal given the use of established technologies (ASP.NET M
 
 \section{Implementation and Contributions} \label{cha:impl_contrib}
 
-This section documents the implementation of the Interactive Gantt Chart Builder, describing how the system was built, the key technical decisions made during development, and how the final implementation addresses the requirements defined in \cref{cha:meth_req_anal}. The system was implemented as a fully independent, locally-hosted web application using Node.js with Express, SQLite, and D3.js, diverging from the ASP.NET MVC stack proposed during the feasibility phase. This decision was taken following further technical consultation, which confirmed that a Node.js/Express architecture offered a more straightforward development workflow given the project's standalone scope and the absence of a requirement to directly integrate with the existing HWU system's backend during this phase.
+The system was implemented as a fully independent, locally-hosted web application using Node.js with Express, SQLite, and D3.js, diverging from the ASP.NET MVC stack proposed during the feasibility phase. This decision was taken following further technical consultation and reflection on the project's actual scope. The original ASP.NET proposal was made under the assumption that the Gantt chart builder would need to integrate directly with the existing HWU honours project system at projects.hw.ac.uk. As the system was ultimately developed as a standalone prototype, that integration constraint no longer applied, and a reassessment of the technology stack was warranted.
+
+Node.js with Express proved to be a more natural fit for several reasons. The most significant is that the entire application, from the server-side API through to the D3.js frontend visualisation, is written in JavaScript. This means there is no language boundary between the backend and the frontend, which simplifies development considerably and keeps the codebase cohesive. Node.js is also particularly well suited to the kind of iterative, prototype-driven work this project involved, offering rapid development cycles through its lightweight architecture and the breadth of the npm package ecosystem \cite{leobit_nodejs_aspnet_2025}. In practical terms, this gave direct access to \texttt{better-sqlite3}, a synchronous SQLite binding that integrates cleanly with Express without the need for a separate ORM layer such as Entity Framework. On balance, Node.js and Express were the more pragmatic choice for a time-constrained individual project of this scale.
 
 \subsection{System Architecture} \label{sec:impl_arch}
 
 The application follows a client-server architecture, with an Express server handling all REST API endpoints and a SQLite database managed via the \texttt{sqlite3} library providing persistent storage. The frontend consists of static HTML, CSS, and JavaScript files served directly by Express. Authentication uses a local email-based login system without passwords, with sessions managed via \texttt{localStorage} on the client side. The system is divided into two main modules: a login and dashboard module (\texttt{src/login-system}) and the Gantt chart builder module (\texttt{src/gantt-builder}), each with their own public assets and server-side routes. This separation keeps concerns distinct and allows each module to be reasoned about independently.
+
+Authentication is intentionally lightweight, reflecting the system's role as a 
+prototype that inherits its user base from the existing HWU honours project system. 
+Rather than implementing a separate registration and password system, users log in 
+by entering only their email address. The server looks this up against the 
+\texttt{students} table and, if a matching record is found, returns the student's 
+details along with a \texttt{role} field set to \texttt{'student'}. If no match is 
+found in the students table, the same lookup is performed against the 
+\texttt{supervisors} table, returning \texttt{role: 'supervisor'} on a successful 
+match. The returned user object is stored in \texttt{localStorage} on the client 
+side and used throughout the session to gate access to edit functionality and to 
+scope data fetches to the correct student. This approach was agreed upon during 
+stakeholder consultation with Dr Kayvan Karim, who confirmed that a simple 
+email-based login was appropriate given that student records would already exist 
+in the project system prior to use.
 
 \subsection{Database Design and Data Persistence} \label{sec:impl_db}
 
@@ -897,44 +938,287 @@ requirements NFR3, NFR4, and NFR5 were targeted throughout development, with NFR
 representing a partial implementation given the chart's horizontal scrolling nature on small
 screens.
 
+\subsection{Bug Fixes and Edge Cases}
+\label{sec:impl_bugs}
 
-% \subsection{Bug Fixes and Edge Cases} \label{sec:impl_bugs}
-% Several bugs were identified and resolved during development. The first concerned the save pipeline for subtasks added to tasks that had not yet been persisted to the         
-% database. New tasks are assigned a temporary negative client-side ID until saved; subtasks captured this temporary value and froze it as their \texttt{parent_task_id}. When
-%   the save ran, the server assigned real IDs to the new tasks but the pending subtask entries still referenced the stale negative value, causing a 404 on                      
-%   \texttt{/api/tasks/-1/subtasks} and aborting the save. The fix records the old temporary ID before overwriting it, then patches any pending subtask entries that still       
-%   reference it. A related issue meant that a failed save followed by a retry would re-POST all items in the pending arrays, including those already written on the first
-%   attempt, producing duplicate rows. This was resolved by converting both save loops to \texttt{while} loops that shift each item off the array immediately after a confirmed  
-%   successful POST, so retries only process items not yet persisted.
+The majority of the bugs described in this section were identified during the 
+usability evaluation study, where participants interacting with the system under 
+realistic conditions exposed edge cases that had not surfaced during development 
+testing. All identified issues were resolved following the conclusion of the user 
+study and prior to the final stakeholder demonstration with Dr Kayvan Karim.
+% [TODO: remember to update this with something linking ot the future sections when i describe i had a meeting wiht kavin]
+Several bugs were identified and resolved during development. The first concerned 
+the save pipeline for subtasks added to tasks that had not yet been persisted to the 
+database. New tasks are assigned a temporary negative client-side ID until saved; 
+subtasks captured this temporary value and froze it as their \texttt{parent\_task\_id}. 
+When the save ran, the server assigned real IDs to the new tasks but the pending 
+subtask entries still referenced the stale negative value, causing a 404 on 
+\texttt{/api/tasks/-1/subtasks} and aborting the save. The fix records the old 
+temporary ID before overwriting it, then patches any pending subtask entries that 
+still reference it. A related issue meant that a failed save followed by a retry 
+would re-POST all items in the pending arrays, including those already written on 
+the first attempt, producing duplicate rows. This was resolved by converting both 
+save loops to \texttt{while} loops that shift each item off the array immediately 
+after a confirmed successful POST, so retries only process items not yet persisted.
 
-%   A further issue allowed subtasks to be added to milestone tasks, which represent single-point-in-time events and have no meaningful duration for child tasks. The fix          
-% conditionally omits the add-subtask button when \texttt{d.isMilestone} is true, removes the corresponding click handler from milestone rows, and adds a defensive early
-%   return in the \texttt{setOnAddSubtask} callback.                                                                                                                             
-                                                                                                                                                                               
-%   A timing bug was found in the tutorial auto-open flow triggered by a \texttt{?new=true} URL parameter on project creation. Because \texttt{interactive-chart.js} is            
-% \texttt{async} and suspends at its first \texttt{await}, \texttt{tutorial.js} completed its synchronous \texttt{init()} during that suspension window without rendering slide   
-% content. When \texttt{interactive-chart.js} later made the modal visible, the first slide was blank. The fix moves responsibility for auto-opening entirely into            
-%   \texttt{tutorial.js}, which reads the URL parameter directly, calls \texttt{openTutorial()}, and invokes \texttt{goToSlide(0)} in the correct order.                         
+A further issue allowed subtasks to be added to milestone tasks, which represent 
+single-point-in-time events and have no meaningful duration for child tasks. The fix 
+conditionally omits the add-subtask button when \texttt{d.isMilestone} is true, 
+removes the corresponding click handler from milestone rows, and adds a defensive 
+early return in the \texttt{setOnAddSubtask} callback.
 
-%   After saving a newly created task, two client-side data structures — \texttt{expandedTasks} and \texttt{subtaskData} — remained keyed on the old temporary ID, causing         
-% subtasks to become orphaned and the task to appear collapsed after save. The post-save migration was extended to remap both structures to the real database ID. Additionally,   
-% attempting to delete an unsaved task issued a \texttt{DELETE} request to the server unnecessarily, returning a 404. The fix checks whether \texttt{task.id} is negative and,
-%    if so, removes the task purely from client-side state without making any network request.                                                                                   
+A timing bug was found in the tutorial auto-open flow triggered by a 
+\texttt{?new=true} URL parameter on project creation. Because 
+\texttt{interactive-chart.js} is \texttt{async} and suspends at its first 
+\texttt{await}, \texttt{tutorial.js} completed its synchronous \texttt{init()} 
+during that suspension window without rendering slide content. When 
+\texttt{interactive-chart.js} later made the modal visible, the first slide was 
+blank. The fix moves responsibility for auto-opening entirely into 
+\texttt{tutorial.js}, which reads the URL parameter directly, calls 
+\texttt{openTutorial()}, and invokes \texttt{goToSlide(0)} in the correct order.
 
-%   A minor visual bug was also found in the Kanban board progress slider, where the drag handle appeared above the track rather than centred on it. In WebKit-based browsers the   
-% \texttt{::webkit-slider-thumb} pseudo-element is not automatically centred on a custom-height track; the fix adds an explicit \texttt{margin-top} of \texttt{-5px}, derived
-%   from $-\frac{\text{thumbHeight} - \text{trackHeight}}{2} = -\frac{14 - 4}{2}$, to align the 14,px thumb with the 4,px progress track.
+After saving a newly created task, two client-side data structures, 
+\texttt{expandedTasks} and \texttt{subtaskData}, remained keyed on the old temporary 
+ID, causing subtasks to become orphaned and the task to appear collapsed after save. 
+The post-save migration was extended to remap both structures to the real database 
+ID. Additionally, attempting to delete an unsaved task issued a \texttt{DELETE} 
+request to the server unnecessarily, returning a 404. The fix checks whether 
+\texttt{task.id} is negative and, if so, removes the task purely from client-side 
+state without making any network request.
+
+A minor visual bug was also found in the Kanban board progress slider, where the 
+drag handle appeared above the track rather than centred on it. In WebKit-based 
+browsers the \texttt{::-webkit-slider-thumb} pseudo-element is not automatically 
+centred on a custom-height track. The fix applies an explicit \texttt{margin-top} 
+of \texttt{-5px}, derived from the formula 
+$-\frac{\textit{thumbHeight} - \textit{trackHeight}}{2} = -\frac{14 - 4}{2}$, 
+to align the 14px thumb with the 4px progress track.
+
+
+\section{Evaluation} \label{cha:eval}
+
+This section presents the evaluation of the Interactive Gantt Chart Builder across
+three complementary strands: requirements-based system testing against the
+functional and non-functional requirements defined in \cref{cha:meth_req_anal}, a user study
+with honours students employing the System Usability Scale (SUS) \cite{brooke_1995}
+alongside task-based and qualitative feedback, and stakeholder demonstrations with
+the project supervisor (Dr Pierre Le Bras) and Dr Kayvan Karim.
+
+\subsection{Requirements Testing} \label{sec:eval_req}
+
+System testing was conducted informally against the MoSCoW requirements defined in
+\cref{cha:meth_req_anal}, verifying each requirement through direct interaction with the running
+application. All six Must Have functional requirements (FR1--FR6) were confirmed as
+fully implemented and functioning correctly. Project creation and management (FR1),
+task creation, editing and deletion (FR2), Finish-to-Start dependencies (FR3),
+D3.js-based Gantt chart visualisation (FR4), SQLite data persistence (FR5), and
+milestone creation (FR6) all behaved as specified under both normal and edge-case
+conditions.
+
+Of the eleven Should Have requirements, nine were verified as fully complete. FR7
+(guided task creation interface) was marked as partially complete: inline date
+validation and a contextual eight-slide tutorial modal are present, but a fully
+guided step-by-step creation wizard was not implemented. FR9 (automatic dependency
+adjustment) was also partially complete, as dependency violations are highlighted
+visually in real time during drag, but fully cascading date shifts to downstream
+tasks were not implemented. All remaining Should Have requirements were fully
+verified, covering drag-and-drop adjustment (FR8), progress tracking (FR10),
+schedule status indicator (FR11), export (FR12), supervisor view-only access (FR13),
+task hierarchy (FR14), prevention of impossible schedules (FR15), zoom and pan
+(FR16), and hover tooltips (FR17).
+
+Of the five Could Have requirements, FR18 (Kanban board), FR19 (task categories and
+tags), and FR22 (supervisor comment and feedback system) were fully implemented and
+verified. FR20 (additional dependency types) was partially addressed through the
+start-to-start interaction described in \cref{sec:impl_deps}, and FR21 (critical path
+highlighting) was deferred as planned.
+
+Both Must Have non-functional requirements were satisfied. NFR1 (browser
+compatibility) was verified across Chrome, Firefox, and Edge, and NFR2 (data
+security and GDPR compliance) was met through local data storage and the use of
+anonymised fictitious data during evaluation. NFR3 (response time) was satisfied in
+practice, with the chart rendering and responding to interactions well within the
+two-second threshold for all tested project sizes. NFR4 (intuitive interface) and
+NFR5 (mobile-friendly design) were assessed through the usability study described
+below, with NFR5 representing a partial implementation due to the chart's horizontal
+scrolling behaviour on smaller screens.
+
+\subsection{User Study} \label{sec:eval_user_study}
+
+\subsubsection{Participants and Study Design}
+
+Fifteen participants were recruited from the target population of honours students at
+Heriot-Watt University, all of whom had prior experience creating project plans for
+university assignments or dissertations. Approximately ten participants reported regular
+or occasional prior use of Gantt chart tools such as TeamGantt, Microsoft Project, or
+Excel, while the remaining five had little or no prior experience and relied primarily
+on informal to-do lists. The majority rated themselves as either Very Confident or
+Extremely Confident in using computers, with one participant reporting no confidence
+at all, which provided a useful spread of technical backgrounds across the group.
+
+The study employed an exploratory think-aloud methodology \cite{humayoun_2012}.
+Participants were given an empty project and invited to interact with the system
+freely, without instruction, while verbalising their thoughts and actions. The
+researcher observed and took notes throughout, recording any areas of difficulty,
+confusion, or unexpected behaviour. This free-exploration approach was supplemented
+by a small number of directed prompts: if a participant had not naturally discovered
+a feature by a certain point in the session, they were asked to attempt specific
+activities, including creating a milestone, creating a task, creating a dependency
+between tasks, navigating and reading a pre-populated Gantt chart, using the
+hover tooltips, finding and enabling edit mode, renaming and repositioning tasks,
+using the Kanban board progress view, and exporting the chart. The time taken to
+complete each activity and the correctness of the outcome were noted by the
+researcher. Following the hands-on session, the database was also checked to confirm
+whether the data created by participants had been persisted correctly. Participants
+then completed the ten-item SUS questionnaire \cite{brooke_1995}, a set of background
+experience and demographic questions, self-reported task difficulty ratings for each
+feature, and a set of open-ended feedback questions.
+
+The SUS was selected as the primary quantitative instrument for this study for
+several reasons. It is one of the most widely used and psychometrically well-validated
+post-study usability questionnaires available, offering strong reliability, validity,
+and sensitivity to differences between systems, and it requires no licence fee
+\cite{SAURO2012185}. It is also notably sensitive at relatively small sample sizes,
+making it well-suited to a study of fifteen participants \cite{SAURO2012185}.
+Scoring followed the standard procedure described by Sauro and Lewis \cite{SAURO2012185}:
+for each odd-numbered item the score contribution is the scale position minus one, and
+for each even-numbered item it is five minus the scale position, giving each item a
+contribution between zero and four. The sum of all ten contributions is then multiplied
+by 2.5 to produce a final score on a scale of zero to one hundred \cite{SAURO2012185}.
+
+\subsubsection{SUS Results}
+
+The individual SUS scores for the fifteen participants were: 77.5, 80.0, 100.0, 92.5,
+85.0, 100.0, 97.5, 90.0, 67.5, 100.0, 85.0, 97.5, 70.0, 75.0, and 100.0. The mean SUS
+score was \textbf{87.8}, which corresponds to an adjective rating of \textbf{Excellent}
+on Bangor et al.'s scale \cite{bangor_sus_2009}. Scores ranged from 67.5 to
+100.0, with four participants awarding the maximum possible score and eleven of fifteen
+scoring 80.0 or above.
+
+This result suggests that the Interactive Gantt Chart Builder substantially exceeds
+typical usability expectations for a first-iteration prototype. The design decisions
+made throughout development, particularly the edit mode interaction model, the
+contextual tutorial, and the visual clarity of the chart, all appear to have contributed
+positively to the overall usability of the system (NFR4). For context, an average SUS
+score across a wide range of systems sits at approximately 68, with scores above 80
+considered above average and scores above 85 considered excellent
+\cite{bangor_sus_2009}\cite{SAURO2012185}. The system's mean of 87.8 therefore places
+it well above both of these thresholds, which is an encouraging result for a prototype
+tool aimed at students with varying levels of prior project management experience.
+
+\subsubsection{Task Difficulty Ratings}
+
+Self-reported task difficulty ratings were broadly positive across all features,
+with the vast majority of tasks rated as either Very Easy or Easy. The features
+participants found most straightforward were opening the Kanban board, creating
+tasks, dragging and resizing tasks on the timeline, and working through the
+tutorial. These results are encouraging as they cover several of the core
+interactive features of the system, suggesting that the drag-and-drop interaction
+model (FR8) and the Kanban board view (FR18) were well designed for discoverability
+and ease of use.
+
+The features participants found relatively more challenging were milestones, task
+dependencies, progress bar usage, and adding and managing subtasks. Several
+participants noted an initial unfamiliarity with the drag interaction that resolved
+quickly once they began using it, suggesting a minor learning curve rather than a
+fundamental usability problem. One participant recorded a Neutral rating for a
+specific feature and one indicated they had not used a particular task during the
+session, both of which fall within the normal variation expected across a group of
+fifteen participants with differing backgrounds.
+
+\subsubsection{Qualitative Feedback}
+
+The tutorial modal received consistently positive feedback from participants.
+Comments described it as ``brilliant'' and noted that it ``gave me confidence'' and
+``helped a lot.'' This is a particularly meaningful result given that the tutorial was
+implemented as part of FR7 specifically to address the challenge of onboarding users
+who have no prior project management experience. The positive reception supports the
+view that even a reference-style guide, rather than a fully guided wizard, can be
+effective in reducing the initial barrier to engaging with an unfamiliar tool
+\cite{Shives2015}.
+
+Participants also offered a number of constructive suggestions for future
+development. The most commonly raised request was the ability to customise task
+colours independently of the predefined tag categories, reflecting a desire for
+greater visual personalisation. Other suggestions included grouping the edit
+controls together in the interface, moving the edit mode toggle higher up the page
+for faster access, and improving the subtask user interface to make the task
+hierarchy clearer. These suggestions sit well alongside the task difficulty data,
+where subtask management was identified as one of the more challenging aspects of
+the system, and they provide a clear set of actionable improvements for future
+iterations of the tool.
+
+\subsection{Stakeholder Evaluation} \label{sec:eval_stakeholder}
+
+\subsubsection{Supervisor Feedback}
+
+Following the user study, feedback was received from the project supervisor
+identifying two issues for resolution prior to the final stakeholder demonstration.
+The first was a bug whereby subtasks did not move with their parent task when the
+parent was dragged to a new position on the timeline. The second was a visual
+inconsistency in the Kanban board where the progress slider drag handle did not
+always appear, which affected the usability of the progress update interaction. Both
+issues were resolved before the final meeting with Dr Kayvan Karim, as described in
+\cref{sec:impl_bugs}.
+
+\subsubsection{Stakeholder Demonstration with Dr Kayvan Karim}
+
+A final demonstration of the completed system was conducted with Dr Kayvan Karim,
+the key technical stakeholder for the HWU honours project system at
+projects.hw.ac.uk. Dr Karim's overall assessment was positive. He confirmed that
+the system is well-suited for integration and that the database structure aligns
+closely with the schema used by the existing project system, which would simplify
+the integration process considerably.
+
+Dr Karim outlined two practical pathways through which the Gantt chart builder
+could be brought into the existing system. The first is to host it as a separate,
+independently-deployed application that is linked to from the current project pages.
+This approach requires fewer changes to the existing codebase but would require the
+database layer to be adapted to handle the scale of the live system's datasets. The
+second option is to integrate the builder directly within the existing project site,
+which would take advantage of the current architecture but would require more
+substantial work to bridge the JavaScript-based frontend with the C\# backend used
+by the existing system. Dr Karim noted that this language difference was the primary
+technical challenge in either scenario, though it was considered manageable rather
+than a blocker. Integration work is planned to begin in mid-April 2026.
+
+Dr Karim also suggested a number of features worth considering for future
+development, including a search bar and filter mechanism based on task type or tag,
+and milestone grouping functionality. These suggestions align naturally with the
+Could Have requirements deferred during this phase of development and provide a
+useful starting point for the next iteration of the system.
+
+\subsection{Evaluation Summary} \label{sec:eval_summary}
+
+Taken together, the evaluation provides strong evidence that the Interactive Gantt
+Chart Builder meets its stated objectives. All Must Have requirements were fully
+implemented and verified, nine of eleven Should Have requirements were fully
+delivered with two partially addressed, and three of five Could Have requirements
+were completed. The mean SUS score of 87.8 places the system in the Excellent
+category on Bangor et al.'s adjective scale \cite{bangor_sus_2009}, well above the
+commonly cited average of 68, and the qualitative feedback highlighted the tutorial
+and the drag-and-drop interaction model as particular strengths. Subtask management
+and dependency creation were identified as areas for improvement in future
+iterations. The positive stakeholder assessment from Dr Karim, combined with a
+confirmed integration timeline beginning in April 2026, validates both the technical
+feasibility of the system and its potential to provide genuine value within the HWU
+honours project ecosystem.
+
+
+
 
 
 \section{Conclusion} \label{cha:conclusion}
 
-This report establishes the foundation for developing an Interactive Gantt Chart Builder specifically designed for honours project students at Heriot-Watt University. The background research demonstrates that whilst Gantt charts rank as the fourth most widely used project management tool among professionals \cite{besner_2008}, their application in individual student dissertation contexts remains underexplored in academic literature.
+This dissertation has designed, developed, and evaluated an Interactive Gantt Chart Builder specifically for honours project students at Heriot-Watt University. The background research demonstrates that whilst Gantt charts rank as the fourth most widely used project management tool among professionals \cite{besner_2008}, their application in individual student dissertation contexts remains underexplored in academic literature.
 
-The proposed system addresses genuine challenges faced by students managing substantial individual projects over extended periods \cite{Shives2015}. Through systematic requirement analysis using MoSCoW prioritisation \cite{moscow_method_2020}, this research has identified 22 functional and 7 non-functional requirements organised as user stories \cite{cohn_user_2009}. These encompass core capabilities including project data management, task dependencies, interactive D3.js-based visualisation \cite{geeksforgeeks_d3js_2025}, progress tracking, and supervisor access.
+The proposed system addresses genuine challenges faced by students managing substantial individual projects over extended periods \cite{Shives2015}. Through systematic requirement analysis using MoSCoW prioritisation \cite{moscow_method_2020}, this research identified 22 functional and 7 non-functional requirements organised as user stories \cite{cohn_user_2009}. These encompass core capabilities including project data management, task dependencies, interactive D3.js-based visualisation \cite{geeksforgeeks_d3js_2025}, progress tracking, and supervisor access.
 
-The feasibility analysis confirms technical viability through ASP.NET MVC framework with Entity Framework and SQLite, ensuring seamless integration with HWU's existing infrastructure. The evaluation methodology combines system testing \cite{geeksforgeeks_unit_vs_system_testing} to validate functional correctness with user-centred usability evaluation \cite{brooke_1995} to assess practical utility, ensuring the system effectively supports students in planning and managing their honours projects. Collectively, these strategies establish a robust framework for achieving the seven objectives defined in \cref{sec:intro_aim}.
+The feasibility analysis confirmed technical viability, and the system was subsequently implemented using a Node.js and Express backend with a SQLite database and a D3.js SVG-based frontend. This stack was chosen for its lightweight footprint, ease of local deployment, and compatibility with the data structures used by HWU's existing project management infrastructure. The implementation delivers all six Must Have functional requirements and nine of the eleven Should Have requirements in full, with the remaining two partially addressed. Three of the five Could Have requirements were also completed, including a Kanban board view, task categories and tags, and a supervisor comment system.
 
-Future work will focus on system implementation, comprehensive testing, and rigorous usability evaluation with honours students and supervisors to assess the tool's effectiveness in supporting successful dissertation project completion.
+The system was evaluated through a fifteen-participant think-aloud user study with honours students, requirements-based system testing, and a stakeholder demonstration with Dr Kayvan Karim, the technical lead for the HWU project management system. The mean SUS score of 87.8 places the system in the Excellent category on Bangor et al.'s adjective scale \cite{bangor_sus_2009}, well above the commonly cited average of 68 \cite{SAURO2012185}. Qualitative feedback was particularly positive regarding the tutorial modal and the drag-and-drop interaction model, whilst subtask management and dependency creation were identified as areas for future improvement. Dr Karim's assessment confirmed that the database structure aligns closely with the existing HWU system and that integration is technically feasible, with work planned to begin in mid-April 2026.
+
+Future work will focus on integrating the builder into the live HWU project management system, addressing the participant feedback through improved subtask and dependency interfaces, and extending the feature set with task colour customisation, a search and filter mechanism, and milestone grouping functionality as suggested during the stakeholder demonstration.
 
 
 

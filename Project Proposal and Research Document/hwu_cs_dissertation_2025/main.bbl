@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{50}
+\begin{thebibliography}{53}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -86,6 +86,19 @@
 \newblock
 \newblock
 \shownote{Accessed: 12/11/2025}.
+
+
+\bibitem[Bangor et~al\mbox{.}(2009)]%
+        {bangor_sus_2009}
+\bibfield{author}{\bibinfo{person}{Aaron Bangor}, \bibinfo{person}{Philip
+  Kortum}, {and} \bibinfo{person}{James Miller}.}
+  \bibinfo{year}{2009}\natexlab{}.
+\newblock \showarticletitle{Determining What Individual {SUS} Scores Mean:
+  Adding an Adjective Rating Scale}.
+\newblock \bibinfo{journal}{\emph{Journal of Usability Studies}}
+  \bibinfo{volume}{4}, \bibinfo{number}{3} (\bibinfo{year}{2009}),
+  \bibinfo{pages}{114--123}.
+\newblock
 
 
 \bibitem[Bednjanec and Tretinjak(2013)]%
@@ -406,6 +419,18 @@
 \shownote{Nielsen Norman Group. Accessed: 18/11/2025}.
 
 
+\bibitem[Leobit(2025)]%
+        {leobit_nodejs_aspnet_2025}
+\bibfield{author}{\bibinfo{person}{Leobit}.} \bibinfo{year}{2025}\natexlab{}.
+\newblock \bibinfo{title}{ASP.NET Core vs Node.js: Finding the Best Fit for
+  Your App Development}.
+\newblock
+  \bibinfo{howpublished}{\url{https://leobit.com/blog/asp-dot-net-core-vs-node-js/}}.
+\newblock
+\newblock
+\shownote{Accessed: 26/03/2026}.
+
+
 \bibitem[Ltd.(2025)]%
         {visualisingdata_resources}
 \bibfield{author}{\bibinfo{person}{Visualising~Data Ltd.}}
@@ -547,6 +572,20 @@
   \bibinfo{year}{2015}), \bibinfo{pages}{251}.
 \newblock
 \href{https://doi.org/10.1504/IJPOM.2015.070792}{doi:\nolinkurl{10.1504/IJPOM.2015.070792}}
+
+
+\bibitem[Sauro and Lewis(2012)]%
+        {SAURO2012185}
+\bibfield{author}{\bibinfo{person}{Jeff Sauro} {and} \bibinfo{person}{James~R.
+  Lewis}.} \bibinfo{year}{2012}\natexlab{}.
+\newblock \showarticletitle{Chapter 8 - Standardized Usability Questionnaires}.
+\newblock In \bibinfo{booktitle}{\emph{Quantifying the User Experience}},
+  \bibfield{editor}{\bibinfo{person}{Jeff Sauro} {and}
+  \bibinfo{person}{James~R. Lewis}} (Eds.). \bibinfo{publisher}{Morgan
+  Kaufmann}, \bibinfo{address}{Boston}, \bibinfo{pages}{185--240}.
+\newblock
+\showISBNx{978-0-12-384968-7}
+\href{https://doi.org/10.1016/B978-0-12-384968-7.00008-4}{doi:\nolinkurl{10.1016/B978-0-12-384968-7.00008-4}}
 
 
 \bibitem[Sherugar and Budiu(2024)]%

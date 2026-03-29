@@ -6,8 +6,8 @@
 \contentsline {subsection}{\numberline {1.1}Background and Motivation}{1}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Aim and Objectives}{1}{subsection.1.2}%
 \contentsline {subsection}{\numberline {1.3}Organisation}{2}{subsection.1.3}%
-\contentsline {section}{\numberline {2}Background Research}{2}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Gantt Charts and Project Management}{2}{subsection.2.1}%
+\contentsline {section}{\numberline {2}Background Research}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Gantt Charts and Project Management}{3}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Gantt Charts in Educational Contexts}{4}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Interactive Data Visualisation}{6}{subsection.2.3}%
 \contentsline {section}{\numberline {3}Methodology}{7}{section.3}%
@@ -18,24 +18,36 @@
 \contentsline {subsection}{\numberline {4.1}Stakeholder Meetings}{13}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Tools}{13}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Interface Mock-ups}{13}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Limitations and Risks}{13}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.4}Limitations and Risks}{14}{subsection.4.4}%
 \contentsline {section}{\numberline {5}Implementation and Contributions}{14}{section.5}%
-\contentsline {subsection}{\numberline {5.1}System Architecture}{14}{subsection.5.1}%
-\contentsline {subsection}{\numberline {5.2}Database Design and Data Persistence}{14}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Gantt Chart Visualisation}{17}{subsection.5.3}%
-\contentsline {subsection}{\numberline {5.4}Interactive Timeline Adjustment}{19}{subsection.5.4}%
-\contentsline {subsection}{\numberline {5.5}Task Dependencies}{19}{subsection.5.5}%
-\contentsline {subsection}{\numberline {5.6}Progress Tracking and Schedule Status}{20}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.1}System Architecture}{15}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Database Design and Data Persistence}{15}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Gantt Chart Visualisation}{18}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}Interactive Timeline Adjustment}{20}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}Task Dependencies}{20}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}Progress Tracking and Schedule Status}{21}{subsection.5.6}%
 \contentsline {subsection}{\numberline {5.7}Task Hierarchy and Subtasks}{21}{subsection.5.7}%
-\contentsline {subsection}{\numberline {5.8}Additional Features}{21}{subsection.5.8}%
-\contentsline {subsection}{\numberline {5.9}Requirements Coverage Summary}{22}{subsection.5.9}%
-\contentsline {section}{\numberline {6}Conclusion}{23}{section.6}%
-\contentsline {section}{References}{24}{section*.9}%
-\contentsline {section}{\numberline {A}Use Case Diagrams}{27}{appendix.A}%
-\contentsline {section}{\numberline {B}Mock Up}{29}{appendix.B}%
-\contentsline {section}{\numberline {C}Project Management}{30}{appendix.C}%
-\contentsline {subsection}{\numberline {C.1}Gantt Chart}{30}{subsection.C.1}%
-\contentsline {subsection}{\numberline {C.2}Risks}{31}{subsection.C.2}%
-\contentsline {subsection}{\numberline {C.3}PLES Issues}{33}{subsection.C.3}%
-\contentsline {section}{\numberline {D}Generative AI}{33}{appendix.D}%
+\contentsline {subsection}{\numberline {5.8}Additional Features}{22}{subsection.5.8}%
+\contentsline {subsection}{\numberline {5.9}Requirements Coverage Summary}{23}{subsection.5.9}%
+\contentsline {subsection}{\numberline {5.10}Bug Fixes and Edge Cases}{24}{subsection.5.10}%
+\contentsline {section}{\numberline {6}Evaluation}{25}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Requirements Testing}{25}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}User Study}{26}{subsection.6.2}%
+\contentsline {subsubsection}{\numberline {6.2.1}Participants and Study Design}{26}{subsubsection.6.2.1}%
+\contentsline {subsubsection}{\numberline {6.2.2}SUS Results}{27}{subsubsection.6.2.2}%
+\contentsline {subsubsection}{\numberline {6.2.3}Task Difficulty Ratings}{27}{subsubsection.6.2.3}%
+\contentsline {subsubsection}{\numberline {6.2.4}Qualitative Feedback}{27}{subsubsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.3}Stakeholder Evaluation}{28}{subsection.6.3}%
+\contentsline {subsubsection}{\numberline {6.3.1}Supervisor Feedback}{28}{subsubsection.6.3.1}%
+\contentsline {subsubsection}{\numberline {6.3.2}Stakeholder Demonstration with Dr Kayvan Karim}{28}{subsubsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.4}Evaluation Summary}{29}{subsection.6.4}%
+\contentsline {section}{\numberline {7}Conclusion}{29}{section.7}%
+\contentsline {section}{References}{31}{section*.9}%
+\contentsline {section}{\numberline {A}Use Case Diagrams}{34}{appendix.A}%
+\contentsline {section}{\numberline {B}Mock Up}{36}{appendix.B}%
+\contentsline {section}{\numberline {C}Project Management}{37}{appendix.C}%
+\contentsline {subsection}{\numberline {C.1}Gantt Chart}{37}{subsection.C.1}%
+\contentsline {subsection}{\numberline {C.2}Risks}{38}{subsection.C.2}%
+\contentsline {subsection}{\numberline {C.3}PLES Issues}{40}{subsection.C.3}%
+\contentsline {section}{\numberline {D}Generative AI}{40}{appendix.D}%
 \contentsfinish 
