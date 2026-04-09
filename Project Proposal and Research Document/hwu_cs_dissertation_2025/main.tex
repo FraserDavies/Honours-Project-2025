@@ -131,13 +131,18 @@ Requirements were gathered and prioritised using the MoSCoW method, identifying
 nine of eleven Should Have requirements were fully implemented, and three of five 
 Could Have requirements were delivered.
 
-The evaluation methodology combines system testing against a requirements 
-traceability matrix to validate functional correctness with user-centred usability 
-evaluation employing the System Usability Scale (SUS) and task-based assessment 
-with honours students. This research addresses genuine challenges faced by students 
-managing extended individual projects, including the psychological barriers to 
-maintaining detailed project schedules and the tension between planning effort and 
-adaptive flexibility.
+The system was evaluated through a fifteen-participant think-aloud user study with
+honours students, requirements-based system testing, and a stakeholder demonstration
+with the technical lead for the HWU project management system. The study produced a
+mean System Usability Scale score of 87.8, corresponding to an adjective rating of
+Excellent, well above the commonly cited average of 68. Qualitative feedback was
+particularly positive regarding the tutorial modal and the drag-and-drop interaction
+model, whilst subtask management and dependency creation were identified as areas for
+future improvement. The stakeholder assessment confirmed that the database structure
+is compatible with the existing HWU system, with integration work planned to begin
+in April 2026. These results demonstrate that an interactive, student-focused Gantt
+chart tool is both technically feasible and practically usable within the target
+academic context. 
 }
 
 \input{hwu_template/contents}
@@ -639,6 +644,18 @@ tasks and dependencies on page initialisation is performed in parallel using
 
 \subsection{Gantt Chart Visualisation} \label{sec:impl_gantt}
 
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=1\textwidth]{images/gantt chart dashbord.png}}
+
+    % add a caption
+    \caption{Screenshot of the Interactive Gantt Chart Builder's dashbord}
+    \label{fig: gantt_chart_dashboard}
+    \Description{A screenshot of the main dashbord of the interactive gantt chart, showing how tasks milestones and dependencies look using the multi-layered svg style.}
+\end{figure}
+
 The core visualisation is implemented as a \texttt{GanttChart} class in                                                                                                      
 \texttt{src/gantt-builder/public/js/gantt-chart.js}, addressing \textbf{FR4}\label{fr:4}.
 The chart is constructed as a multi-layer SVG element using D3.js
@@ -649,17 +666,18 @@ line, project boundary markers, dependency handle circles, and a dependency drag
 The axis groups responsible for the day and month headers are appended directly to the root
 SVG element rather than to the scrolling chart area, which is what produces the sticky
 header behaviour as the user scrolls vertically. Most layers use a keyed D3 data join
-pattern (\texttt{.data(tasks,~d~=>~d.id).join(enter,~update,~exit)}) so that only changed
+pattern (\texttt{.data(tasks,~d~=>~d.id).join(enter,~update,~exit)}) 
+\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025} so that only changed
 elements are updated on re-render, rather than rebuilding the entire SVG on every state
 change. The dependency lines layer is an exception: because each dependency is composed of
 three sub-elements (two connector segments and a stepped path), it clears its contents
 before each redraw rather than relying on a pure enter/update/exit cycle.
 
-Horizontal positioning is handled by a \texttt{d3.scaleTime()} scale that maps dates to
-pixel positions, while vertical positioning uses a \texttt{d3.scaleBand()} scale that maps
+Horizontal positioning is handled by a \texttt{d3.scaleTime()}\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025} scale that maps dates to
+pixel positions, while vertical positioning uses a \texttt{d3.scaleBand()}\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025} scale that maps
 task IDs to row heights with configurable padding. A daily tick axis is generated via
-\texttt{d3.axisTop()}, and month boundary labels are produced by iterating over dates
-returned by \texttt{d3.timeMonths()}. Both scales are constructed together whenever the
+\texttt{d3.axisTop()}\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025}, and month boundary labels are produced by iterating over dates
+returned by \texttt{d3.timeMonths()}\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025}. Both scales are constructed together whenever the
 data or zoom level changes, as shown below:
 
 \begin{lstlisting}[style=jsstyle, caption={Scale initialisation in GanttChart (gantt-chart.js)}]
@@ -676,7 +694,7 @@ this.scaleY = d3.scaleBand()
 \end{lstlisting}
 
 Smooth transitions are applied to bar position and width changes using
-\texttt{.transition().duration(500)}, providing visual feedback when data is updated.
+\texttt{.transition().duration(500)} \cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025}, providing visual feedback when data is updated.
 The progress overlay on each bar is also animated, with its width computed as a
 proportion of the full bar width:
 
@@ -712,7 +730,7 @@ const lineGenerator = d3.line()
 
 Milestones (\textbf{FR6}\label{fr:6-vis}) are rendered as diamond-shaped \texttt{<polygon>}
 elements rather than rectangles, centred on their single date position. A darker stroke
-derived using \texttt{d3.color(hex).darker(0.5)} is applied to the diamond outline to
+derived using \texttt{d3.color(hex).darker(0.5)} \cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025} is applied to the diamond outline to
 improve visual contrast against the fill. For regular task bars, the stroke colour is
 determined separately by a status function: a green border (\texttt{\#10b981}) indicates a
 completed task (100\% progress), and an amber border (\texttt{\#f59e0b}) indicates a task
@@ -727,24 +745,52 @@ distinct hex colour via a \texttt{TAG\_COLOURS} constant defined in
 \subsection{Interactive Timeline Adjustment} \label{sec:impl_drag}
 
 Drag-and-drop timeline adjustment (\textbf{FR8}\label{fr:8}) is implemented using four
-separate \texttt{d3.drag()} behaviours: one for moving an entire task bar, one for
+separate \texttt{d3.drag()}\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025} behaviours: one for moving an entire task bar, one for
 left-edge resizing (adjusting the start date), one for right-edge resizing (adjusting the
 end date), and one for milestone dragging. All drag behaviours are gated behind an
 \texttt{editMode} flag so that dragging is only active when the user has explicitly enabled
 editing. Date snapping is achieved by converting pixel deltas to day deltas using
 \texttt{Math.round(totalDelta~/ dayWidth)} and then advancing dates via
-\texttt{d3.timeDay.offset(originalDate,~daysDelta)}, ensuring tasks always snap to
+\texttt{d3.timeDay.offset(originalDate,~daysDelta)}\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025}, ensuring tasks always snap to
 whole-day boundaries. An \texttt{rAF}-based auto-scroll loop activates when the cursor
 approaches the horizontal edges of the scroll container, allowing users to drag tasks
 beyond the visible viewport.
+
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=1\textwidth]{images/Drag and drop example.png}}
+
+    % add a caption
+    \caption{Screenshot of the drag and drop ghost task.}
+    \label{fig: gantt_chart_ghost_task}
+    \Description{A screenshot of the interactive drag-and-drop timeline adjustment feature, showing a ghost task bar following the cursor as the user drags to adjust a task's start and end dates.}
+\end{figure}
+
+
+New tasks can also be placed on the chart directly via a drag-to-drop interaction from 
+the slide-out add-task panel. When the user drags the task preview element from
+the panel, a floating \texttt{div} ghost element is appended to the document body and 
+tracks the cursor via \texttt{mousemove} (\cref{fig: gantt_chart_ghost_task}). When the cursor 
+crosses into the chart scroll container, the ghost acquires an \texttt{over-chart} CSS 
+class and \texttt{ganttChart.showDropPreview()}\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025} is simultaneously called to render a second,
+SVG-native preview inside the \texttt{dropPreview} layer. This SVG preview displays 
+a semi-transparent dashed bar (or diamond for milestones) snapped to the nearest  
+row, with a subtle full-width row highlight behind it. The target row is resolved 
+by dividing \texttt{cursorY} by \texttt{rowHeight} and flooring the result, and the
+start date is computed in real time by inverting the cursor's X position through 
+\texttt{ganttChart.scaleX.invert()}\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025}, rounded to the nearest day via
+\texttt{d3.timeDay.round()}\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025}. On release, the drop position is used to initialise 
+the new task's start date, with the end date defaulting to seven days later.
 
 Timeline zoom (\textbf{FR16}\label{fr:16}) is controlled through a \texttt{dayWidth}
 property that defines the number of pixels rendered per day. Zoom level is expressed as a
 percentage relative to a default \texttt{dayWidth} of 35px. Zooming in increments this
 percentage by 25 points, zooming out decrements it by 25 points, and a reset function
 restores 100\%. After each zoom change the chart re-renders, recomputing
-\texttt{d3.scaleTime()}'s output range from the updated \texttt{dayWidth} and recalculating
-the total SVG width as \texttt{dayCount * dayWidth}, causing all bars, labels, and grid
+\texttt{d3.scaleTime()}'s \cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025} output range from the updated \texttt{dayWidth} and recalculating
+the total SVG width as \texttt{dayCount * dayWidth} \cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025}, causing all bars, labels, and grid
 lines to reflow accordingly. A ``Go to Today'' button computes the scroll offset via
 \texttt{scaleX(today)} and centres the current date in the viewport.
 
@@ -753,12 +799,12 @@ lines to reflow accordingly. A ``Go to Today'' button computes the scroll offset
 Finish-to-Start task dependencies (\textbf{FR3}\label{fr:3-impl}) are created interactively
 in edit mode by dragging from circular handle elements that appear at the left and right
 edges of each task bar. The interaction is implemented using a custom three-phase event
-approach rather than \texttt{d3.drag()}: a \texttt{mousedown} listener on the handle circles
+approach rather than \texttt{d3.drag()}: a \texttt{mousedown} \cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025} listener on the handle circles
 begins the drag and appends a rubber-band line to a dedicated SVG layer; native
 \texttt{document} listeners for \texttt{mousemove} and \texttt{mouseup} then track cursor
 movement and finalise the connection respectively. Mouse coordinates are converted to SVG
 space using \texttt{svg.node().getBoundingClientRect()}, and \texttt{document.elementFrom%
-Point()} is used on \texttt{mouseup} to identify the target handle the user released onto.
+Point()} \cite{w3schools_getboundingclientrect} is used on \texttt{mouseup} to identify the target handle the user released onto.
 
 The connection type is resolved from which sides were joined: dragging from a left handle to
 another left handle produces a start-to-start dependency, while any other combination
@@ -786,10 +832,22 @@ the user must confirm before changes are committed, further supporting
 
 \subsection{Progress Tracking and Schedule Status} \label{sec:impl_progress}
 
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=1\textwidth]{images/progress screenshot.png}}
+
+    % add a caption
+    \caption{Screenshot of the Interactive Gantt Chart Builder's Progress Tracking on a Task}
+    \label{fig: progress_screenshot}
+    \Description{A screenshot of an example of how progress tracking is shown.}
+\end{figure}
+
 Progress tracking (\textbf{FR10}\label{fr:10-impl}) is implemented through a numeric
 \texttt{progress\_percentage} field on each task, editable via a number input in the task
 list panel. The progress value drives a semi-transparent white overlay on the task bar
-whose width is proportional to the completion percentage, animated using
+whose width is proportional to the completion percentage \cref{fig: progress_screenshot}, animated using
 \texttt{.transition().duration(500)}. The same colour logic is mirrored in the task list
 panel, where the progress input's text colour changes to reflect status providing a consistent 
 at-a-glance status across both views. The colours are denoted as the following; green for
@@ -800,7 +858,7 @@ Schedule status (\textbf{FR11}\label{fr:11}) is determined by the
 \texttt{progress === 100}, shown with a green border (\texttt{\#10b981}), and at risk if
 \texttt{progress < 100} and the end date has passed today, shown with an amber border
 (\texttt{\#f59e0b}). Tasks with neither condition return no border style. A today indicator
-line, rendered via a single-element D3 data join (\texttt{.data([today]).join('line')}),
+line, rendered via a single-element D3 data join (\texttt{.data([today]).join('line')}) \cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025},
 provides a persistent vertical reference for the current date, accompanied by a
 \texttt{`Today'} label above the axis. The indicator is only rendered when the current date
 falls within the chart's visible date extent; if the user scrolls or zooms to a range that
@@ -828,26 +886,38 @@ consistent with the rest of the edit mode transaction model.
 
 \subsection{Additional Features} \label{sec:impl_additional}
 
-A Kanban board view (\textbf{FR18}\label{fr:18}) was implemented as a modal overlay that
-organises tasks into three columns based on progress: Not Started (0\%), In Progress
-(1--99\%), and Completed (100\%). Each card includes a range slider whose progress fill and
-percentage label update live while dragging; on release, the new value is PATCHed to the
-database, the Gantt bar is updated in place, and the board re-renders so the card moves to
-the correct column immediately.
-
 Hover tooltips (\textbf{FR17}\label{fr:17}) are managed by a \texttt{TooltipManager} class
 that wraps a pre-existing \texttt{<div>} element and positions it relative to the cursor
 using \texttt{event.clientX} and \texttt{event.clientY} offsets. The tooltip displays the
-task name, formatted start and end dates via \texttt{d3.timeFormat('\%d \%b \%Y')}, and
+task name, formatted start and end dates via \texttt{d3.timeFormat('\%d \%b \%Y')}\cite{bostock_d3, geeksforgeeks_d3js_2025, w3schools_d3js_2025}, and
 current progress. For milestones, only the single milestone date is shown and the progress
 field is omitted.
 
-Gantt chart export (\textbf{FR12}\label{fr:12}) is implemented by constructing a combined
+Gantt chart export (\textbf{FR12}\label{fr:12}) (\cref{fig:Gantt_Chart_By_The_Builder}) is implemented by constructing a combined
 SVG element in memory that embeds inline CSS, clones the live chart SVG, and reconstructs
 the task list as SVG text elements. This combined SVG is serialised with
 \texttt{XMLSerializer}, drawn onto a \texttt{<canvas>} at twice the resolution for
 sharpness, and exported as either a \textbf{PDF} via jsPDF or a \textbf{JPEG} via
 \texttt{canvas.toBlob()}.
+
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=1\textwidth]{images/kanban board view.png}}
+
+    % add a caption
+    \caption{Screenshot of the Interactive Gantt Chart Builder's Kanban Board View}
+    \label{fig: kanban_board_view}
+    \Description{A screenshot of the Kanban Board, showing how tasks and milestones can be easily tracked.}
+\end{figure}
+
+A Kanban board view (\textbf{FR18}\label{fr:18}) was implemented as a modal overlay that
+organises tasks into three columns based on progress: Not Started (0\%), In Progress
+(1--99\%), and Completed (100\%) (\cref{fig: kanban_board_view}). Each card includes a range slider whose progress fill and
+percentage label update live while dragging; on release, the new value is PATCHed to the
+database, the Gantt bar is updated in place, and the board re-renders so the card moves to
+the correct column immediately.
 
 Supervisor view-only access (\textbf{FR13}\label{fr:13}) is enforced by the login endpoint,
 which checks the \texttt{students} table first and falls back to the \texttt{supervisors}
@@ -1218,6 +1288,10 @@ The feasibility analysis confirmed technical viability, and the system was subse
 
 The system was evaluated through a fifteen-participant think-aloud user study with honours students, requirements-based system testing, and a stakeholder demonstration with Dr Kayvan Karim, the technical lead for the HWU project management system. The mean SUS score of 87.8 places the system in the Excellent category on Bangor et al.'s adjective scale \cite{bangor_sus_2009}, well above the commonly cited average of 68 \cite{SAURO2012185}. Qualitative feedback was particularly positive regarding the tutorial modal and the drag-and-drop interaction model, whilst subtask management and dependency creation were identified as areas for future improvement. Dr Karim's assessment confirmed that the database structure aligns closely with the existing HWU system and that integration is technically feasible, with work planned to begin in mid-April 2026.
 
+Several limitations of the current work should be acknowledged. The system was evaluated as a standalone prototype; usability within the fully integrated HWU environment may differ once the JavaScript frontend must interact with the existing C\# backend, and this cannot be assessed until integration is complete. The email-only authentication model is a deliberate simplification appropriate for a prototype that inherits its user base from the existing project system, but it is not production-ready and would require a more robust mechanism before live deployment. Automatic cascading of dates to downstream tasks when a predecessor is moved was not implemented, meaning users must manually resolve dependency violations rather than having the chart adapt for them. Mobile usability also remains a partial limitation, as the horizontal scrolling nature of the chart is suited to desktop use but offers a reduced experience on smaller screens. The user study, whilst sufficient in scale for SUS evaluation, was conducted with fifteen participants from a single department at Heriot-Watt University within a single academic cycle, which may not fully represent the range of dissertation students across disciplines or institutions, and the presence of an observer during the think-aloud sessions may have introduced some degree of performance bias.
+
+Despite these limitations, the evaluation results offer meaningful insight into the design decisions made throughout development. A mean SUS score of 87.8 for a first-iteration prototype with no prior user testing is an encouraging result, and suggests that the core interaction model was well-calibrated for the target audience. The strong reception of the tutorial modal is especially significant: it validates the decision to implement a reference-style guide rather than a fully guided wizard, demonstrating that lightweight onboarding can meaningfully reduce the barrier to entry for users with no prior project management experience. The free-exploration study design also revealed a clear discoverability gradient across the feature set: task creation, drag-and-drop timeline editing, and the Kanban board were discovered and used with little difficulty, whilst subtask management and dependency creation consistently required more guidance. This pattern provides direct, actionable direction for the next iteration of the interface. Finally, Dr Karim's confirmation that the database schema already aligns with HWU's existing project system is a significant result in itself, as it means the integration pathway does not require a schema redesign and substantially reduces the technical risk of the next phase of development.
+
 Future work will focus on integrating the builder into the live HWU project management system, addressing the participant feedback through improved subtask and dependency interfaces, and extending the feature set with task colour customisation, a search and filter mechanism, and milestone grouping functionality as suggested during the stakeholder demonstration.
 
 
@@ -1252,18 +1326,12 @@ Future work will focus on integrating the builder into the live HWU project mana
 
 \clearpage
 
-\begin{figure}[ht]
-    % centres the image on the page
-    \centering
-    % load the image and set its width on the page
-    \fbox{\includegraphics[width=1\textwidth]{images/Create and Manage Gantt Chart Use Case Diagram.png}}
 
-    % add a caption
-    \caption{Create and Manage Project Use Case Diagram.}
-    \label{fig:Use_Case_Diagram_Create_and_Manage_Gantt_Chart}
-    \Description{A Use Case Diagram of the functionality of the Interactive Gantt Chart Builder system. The diagram shows three actors: Students, Supervisors, and The HWU project database. The Students actor has use cases for Create Project, Define Milestones, Add Tasks, Set Task Dependencies, and View the details of the Gantt Chart.}
-\end{figure}
-\newpage
+
+
+
+
+
 
 \section{Mock Up} \label{cha:mock_up}
 
@@ -1296,6 +1364,20 @@ Future work will focus on integrating the builder into the live HWU project mana
     \Description{A Gantt Chart showing the planned timeline for the Interactive Gantt Chart Builder project. The chart displays tasks along a timeline with milestones indicated.}
 \end{figure}
 \textbf{Legend:} Red diamonds are milestones; Light blue boxes are tasks; White boxes are supper tasks.
+
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=1\textwidth]{images/interactive-gantt-chart-builder (4).jpg}}
+
+    % add a caption
+    \caption{Gantt Chart}
+    \label{fig:Gantt_Chart_By_The_Builder}
+    \Description{A Gantt Chart showing the planned timeline for the Interactive Gantt Chart Builder project made on the interactive gantt chart. The chart displays tasks along a timeline with milestones indicated.}
+\end{figure}
+
+\textbf{Legend:} Orange diamonds are milestones; Coloured boxes are tasks with custom colours representing each task type; Black lines represent dependency lines between tasks.
 
 \begin{table}[htbp]
     \centering
@@ -1367,6 +1449,132 @@ Future work will focus on integrating the builder into the live HWU project mana
     \label{tab:schedule}
 \end{table}
 
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    
+    \begin{tabularx}{\textwidth}{| X | l | l |}
+        \hline
+        \textbf{Task / Milestone} & \textbf{Date / Period} & \textbf{Tag} \\
+        \hline
+        
+        \multicolumn{3}{|l|}{\textit{\textbf{Semester 1: Setup \& Ethics}}} \\
+        \hline
+        \textbf{Project Allocations Completed} & \textbf{19 Sep 2025} & Planning \\
+        \hline
+        Initial Supervisor Meeting & 22 Sep 2025 & Planning \\
+        \hline
+        Literature Search \& Reading & 25 Sep - 9 Oct 2025 & Research \\
+        \hline
+        Refine Research Questions & 2 Oct - 9 Oct 2025 & Research \\
+        \hline
+        Draft Ethics Application & 10 Oct - 20 Oct 2025 & Planning \\
+        \hline
+        Review Ethics with Supervisor & 20 Oct - 23 Oct 2025 & Planning \\
+        \hline
+        \textbf{Ethics Submission Deadline} & \textbf{24 Oct 2025} & Planning \\
+        \hline
+        
+        \multicolumn{3}{|l|}{\textit{\textbf{Semester 1: First Deliverables}}} \\
+        \hline
+        Draft Introduction (D1) & 27 Oct - 6 Nov 2025 & Writing \\
+        \hline
+        Draft Literature Review (D2) & 30 Oct - 13 Nov 2025 & Writing \\
+        \hline
+        Define Methodology \& Tools & 3 Nov - 10 Nov 2025 & Planning \\
+        \hline
+        Review Drafts with Supervisor & 14 Nov - 19 Nov 2025 & Writing \\
+        \hline
+        Final Polish D1 \& D2 & 17 Nov - 20 Nov 2025 & Writing \\
+        \hline
+        \textbf{First Deliverables (D1 \& D2) Due} & \textbf{20 Nov 2025} & Writing \\
+        \hline
+        Setup Dev Environment & 21 Nov - 28 Nov 2025 & Implementation \\
+        \hline
+        Core Implementation Sprint 1 & 28 Nov - 19 Dec 2025 & Implementation \\
+        \hline
+        
+        \multicolumn{3}{|l|}{\textit{\textbf{Winter: Dev \& Review}}} \\
+        \hline
+        \textbf{Marks \& Feedback Released} & \textbf{19 Dec 2025} & Evaluation \\
+        \hline
+        Review D1/D2 Feedback & 5 Jan - 9 Jan 2026 & Evaluation \\
+        \hline
+        Adjust Plan based on Feedback & 8 Jan - 12 Jan 2026 & Planning \\
+        \hline
+        Deep Implementation/Coding & 10 Jan - 20 Feb 2026 & Implementation \\
+        \hline
+        Login System Implementation & 19 Jan - 26 Jan 2026 & Implementation \\
+        \hline
+        Gantt Chart Page \& Dependencies & 26 Jan - 3 Feb 2026 & Implementation \\
+        \hline
+        Progress Bar \& Core Features & 3 Feb - 10 Feb 2026 & Implementation \\
+        \hline
+        Export Button \& Styling & 10 Feb - 17 Feb 2026 & Implementation \\
+        \hline
+        Additional Features: Tags, Subtasks, Slidable Tasks & 17 Feb - 24 Feb 2026 & Implementation \\
+        \hline
+        
+        \multicolumn{3}{|l|}{\textit{\textbf{Semester 2: Execution \& Writing}}} \\
+        \hline
+        Data Collection/Usability Testing & 10 Feb - 25 Feb 2026 & Testing \\
+        \hline
+        Analyse Results & 20 Feb - 1 Mar 2026 & Evaluation \\
+        \hline
+        Tutorial, Supervisor Mode \& Comment System & 2 Mar - 3 Mar 2026 & Implementation \\
+        \hline
+        Bug Fixes \& User Charts & 3 Mar - 24 Mar 2026 & Testing \\
+        \hline
+        Draft Results Chapter & 1 Mar - 10 Mar 2026 & Writing \\
+        \hline
+        Implementation Write-up & 16 Mar - 19 Mar 2026 & Writing \\
+        \hline
+        Draft Discussion/Evaluation & 11 Mar - 20 Mar 2026 & Writing \\
+        \hline
+        Final Writing: Abstract \& Conclusion & 20 Mar - 25 Mar 2026 & Writing \\
+        \hline
+        Final Proofreading & 24 Mar - 26 Mar 2026 & Writing \\
+        \hline
+        \textbf{Final Deliverables (D3) Due} & \textbf{26 Mar 2026} & Writing \\
+        \hline
+        \textbf{First Draft Submitted to Supervisor} & \textbf{29 Mar 2026} & Writing \\
+        \hline
+        
+    \end{tabularx}
+    \caption{Project Schedule - Revised (Used withe the gantt chart made with the builder)}
+    \label{tab:schedule}
+\end{table}
+
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    
+    \begin{tabularx}{\textwidth}{| X | l | l |}
+        \hline
+        \textbf{Task / Milestone} & \textbf{Date / Period} & \textbf{Tag} \\
+        \hline
+
+        \multicolumn{3}{|l|}{\textit{\textbf{End Game}}} \\
+        \hline
+        Prepare Presentation Slides & 28 Mar - 7 Apr 2026 & Design \\
+        \hline
+        Mock/Presentation Practice & 3 Apr - 8 Apr 2026 & Planning \\
+        \hline
+        \textbf{Q\&A Session (D5)} & \textbf{9 Apr 2026} & Evaluation \\
+        \hline
+        \textbf{Final Marks Released} & \textbf{17 Apr 2026} & Evaluation \\
+        \hline
+        
+    \end{tabularx}
+    \caption{Project Schedule - Revised (Used withe the gantt chart made with the builder)}
+    \label{tab:schedule}
+\end{table}
+
+
 \newpage
 \subsection{Risks}
 
@@ -1399,7 +1607,6 @@ The development of the Interactive Gantt Chart Builder involves several identifi
 \end{table}
 \clearpage
 
-
 Overall, the project's risk profile is manageable, with most risks rated as low to medium severity. The use of proven technologies, early stakeholder engagement, and flexible requirements prioritisation provide a robust foundation for successful project completion.
 
 \subsection{PLES Issues}
@@ -1418,11 +1625,204 @@ The development and evaluation of the Interactive Gantt Chart Builder addresses 
 \textbf{Ethical:} In line with the University's ethical approval process, all evaluation participants will provide informed consent via information sheets, retaining the right to withdraw at any time without penalty. To mitigate harm, the system uses fictitious project data during testing, ensuring no student's actual academic work is at risk during the beta phase.
 
 \textbf{Social:} The tool promotes digital inclusion by addressing the needs of students with varying levels of project management experience. To ensure equitable access, the interface aims to meet WCAG 2.1 AA accessibility standards \cite{W3C_WCAG_21}, complying with the Equality Act 2010 \cite{Equality_Act_2010}, ensuring that students with visual or motor impairments can utilise the educational tool effectively.
+
+\section{Summary of Changes}
+
+The conclusion was moved to section 7 and edited to flow better. Section 5 was changed to Implementation.
+
+\clearpage
+
+\section{Questionaire Results}
+
+\begin{table}[htbp]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.3}
+    
+    \begin{tabular}{| c | *{10}{c|} }
+        \hline
+        \textbf{User} & \textbf{Q1} & \textbf{Q2} & \textbf{Q3} & \textbf{Q4} & \textbf{Q5} & \textbf{Q6} & \textbf{Q7} & \textbf{Q8} & \textbf{Q9} & \textbf{Q10} \\
+        \hline
+        1  & 4 & 1 & 5 & 1 & 4 & 1 & 5 & 1 & 5 & 3 \\ \hline
+        2  & 4 & 1 & 4 & 2 & 4 & 2 & 4 & 1 & 4 & 2 \\ \hline
+        3  & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 \\ \hline
+        4  & 5 & 1 & 5 & 2 & 5 & 2 & 5 & 1 & 4 & 1 \\ \hline
+        5  & 5 & 1 & 5 & 4 & 5 & 2 & 5 & 1 & 4 & 2 \\ \hline
+        6  & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 \\ \hline
+        7  & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 2 \\ \hline
+        8  & 5 & 2 & 5 & 1 & 5 & 2 & 4 & 1 & 4 & 2 \\ \hline
+        9  & 5 & 3 & 4 & 3 & 5 & 2 & 4 & 3 & 4 & 4 \\ \hline
+        10 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 \\ \hline
+        11 & 5 & 2 & 4 & 2 & 5 & 2 & 4 & 1 & 4 & 1 \\ \hline
+        12 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 4 & 1 \\ \hline
+        13 & 5 & 3 & 4 & 2 & 4 & 2 & 4 & 2 & 4 & 4 \\ \hline
+        14 & 4 & 2 & 4 & 2 & 4 & 2 & 4 & 2 & 4 & 2 \\ \hline
+        15 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 & 5 & 1 \\ \hline
+    \end{tabular}
+    \caption{User Survey Responses (Q1-Q10)}
+    \label{tab:survey_data}
+\end{table}
+
+Table listed as 1-5, 1 being strongly disagree and 5 being strongly agree. The mean SUS score calculated from these responses is 87.8, which corresponds to an adjective rating of Excellent on Bangor et al.'s scale \cite{bangor_sus_2009}.
+
+\clearpage
+
+\begin{table}[htbp]
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.3}
+    
+    \begin{tabularx}{\textwidth}{| c | *{8}{X |}}
+        \hline
+        \textbf{User} & \textbf{Q1} & \textbf{Q2} & \textbf{Q3} & \textbf{Q4} & \textbf{Q5} & \textbf{Q6} & \textbf{Q7} & \textbf{Q8} \\ \hline
+        1  & Very Easy & Easy      & Very Easy & Very Easy   & Very Easy & Very Easy & Very Easy & Very Easy \\ \hline
+        2  & Easy      & Easy      & Easy      & Very Easy   & Easy      & Easy      & Very Easy & Easy      \\ \hline
+        3  & Very Easy & Very Easy & Very Easy & Very Easy   & Very Easy & Very Easy & Very Easy & Very Easy \\ \hline
+        4  & Very Easy & Very Easy & Very Easy & Very Easy   & Very Easy & Very Easy & Very Easy & Very Easy \\ \hline
+        5  & Very Easy & Very Easy & Very Easy & Very Easy   & Very Easy & Very Easy & Very Easy & Very Easy \\ \hline
+        6  & Very Easy & Very Easy & Very Easy & Very Easy   & Very Easy & Very Easy & Very Easy & Very Easy \\ \hline
+        7  & Very Easy & Easy      & Very Easy & Very Easy   & Easy      & Easy      & Very Easy & Very Easy \\ \hline
+        8  & Very Easy & Very Easy & Easy      & Very Easy   & Very Easy & Very Easy & Very Easy & Easy      \\ \hline
+        9  & Very Easy & Very Easy & Very Easy & Very Easy   & Neutral   & Very Easy & Very Easy & Very Easy \\ \hline
+        10 & Very Easy & Very Easy & Very Easy & Very Easy   & Very Easy & Very Easy & Very Easy & Very Easy \\ \hline
+        11 & Very Easy & Very Easy & Very Easy & Very Easy   & Very Easy & Very Easy & Very Easy & Very Easy \\ \hline
+        12 & Very Easy & Very Easy & Very Easy & Very Easy   & Very Easy & Very Easy & Very Easy & Very Easy \\ \hline
+        13 & Very Easy & Easy      & Easy      & Did not use & Easy      & Very Easy & Very Easy & Very Easy \\ \hline
+        14 & Very Easy & Very Easy & Easy      & Very Easy   & Easy      & Very Easy & Very Easy & Very Easy \\ \hline
+        15 & Very Easy & Very Easy & Very Easy & Very Easy   & Easy      & Very Easy & Very Easy & Very Easy \\ \hline
+    \end{tabularx}
+    \caption{User Ease-of-Use Ratings for Core Features}
+    \label{tab:feature_usability}
+\end{table}
+
+\clearpage
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.4}
+
+    \begin{tabularx}{\textwidth}{| c | X | X |}
+        \hline
+        \textbf{User} & \textbf{Easiest Part} & \textbf{Most Difficult Part} \\
+        \hline
+        1 & Opening the kanban board & Getting used to dragging \\ \hline
+        2 & Dragging bars & Don't know \\ \hline
+        3 & Kanban & Milestones are slightly hard \\ \hline
+        4 & Creating new tasks & N/a \\ \hline
+        5 & Dependencies were straight forward & The small bugs that still exist \\ \hline
+        6 & Going through the tutorial & 0 \\ \hline
+        7 & Making a task & Task progress \\ \hline
+        8 & Creating the tasks & I think the dependence's \\ \hline
+        9 & Creating the actual project & Using the progress bar \\ \hline
+        10 & Creating tasks & Remembering to do a dependency \\ \hline
+        11 & Adding in tasks & Shortening tasks \\ \hline
+        12 & Making new tasks & Adding subtasks \\ \hline
+        13 & Creating subtasks, the plans & Creating new individual tasks \\ \hline
+        14 & Adding a task, and resizing & Adding a subtask \\ \hline
+        15 & Dragging in tasks & Making a subtask \\ \hline
+    \end{tabularx}
+    \caption{User Feedback: Ease of Use and Challenges}
+    \label{tab:qualitative_feedback_1}
+\end{table}
+
+\clearpage
+
+\begin{table}[H]
+    \centering
+    \small
+    \renewcommand{\arraystretch}{1.4}
+
+    \begin{tabularx}{\textwidth}{| c | X | X | X |}
+        \hline
+        \textbf{User} & \textbf{Missing Anything?} & \textbf{Tutorial Helpfulness} & \textbf{Other Feedback} \\
+        \hline
+        1 & No & It did help & Make the colour choices... \\ \hline
+        2 & No & I closed it but opened it & Nah \\ \hline
+        3 & No & Yes it did help, I read it & Nope \\ \hline
+        4 & No & Yes. It helped & No, it's all ready class \\ \hline
+        5 & No & Yes, absolutely explained... & Just minor bug tweaks. \\ \hline
+        6 & No & Tutorial was great and very... & No \\ \hline
+        7 & Nah & Absolutely. A clear and... & I would add the ability to... \\ \hline
+        8 & Nope & It was helpful & Dependence's, since we... \\ \hline
+        9 & No really no & Yes it did, it gave me... & Nah. \\ \hline
+        10 & No & Yes it was great & No \\ \hline
+        11 & No & Yes it great & No \\ \hline
+        12 & No & 0 & 0 \\ \hline
+        13 & Change colour for different... & Yes, the tutorial was bril... & Group edit button with the... \\ \hline
+        14 & Assign roles to people & Helped a lot & Move the edit to the top \\ \hline
+        15 & Nah & Tutorial helped understand... & Do more with subtasks \\ \hline
+    \end{tabularx}
+    \caption{User Feedback: Tutorial and Suggestions}
+    \label{tab:qualitative_feedback_2}
+\end{table}
+
+\clearpage
+\section{Consent Form}
+
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=1\textwidth]{images/consent 1.jpeg}}
+
+    % add a caption
+    \caption{Consent Form}
+    \label{fig:Consent_Form_1}
+    \Description{A screenshot of the consent form.}
+\end{figure}
+
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=1\textwidth]{images/consent 2.jpeg}}
+
+    % add a caption
+    \caption{Consent Form}
+    \label{fig:Consent_Form_2}
+    \Description{A screenshot of the consent form.}
+\end{figure}
+
+\begin{figure}[ht]
+    % centres the image on the page
+    \centering
+    % load the image and set its width on the page
+    \fbox{\includegraphics[width=1\textwidth]{images/consent 3.jpeg}}
+
+    % add a caption
+    \caption{Consent Form}
+    \label{fig:Consent_Form_3}
+    \Description{A screenshot of the consent form.}
+\end{figure}
+
+\newpage
+\clearpage
+
+
+
+
 \section{Generative AI}
 
 % Rest of appendices...
-Generative artificial intelligence tools were used during the preparation of this dissertation to assist with literature search and reference discovery, and to support writing quality through spelling, grammar, punctuation, and sentence structure improvements. Generative AI was also used in troubleshooting isues with text editors such as LaTex in the creation of this document. All references identified through AI assistance were systematically verified by hand to ensure legitimacy, relevance, and that cited content accurately supported the claims made. Generative AI functioned solely as a supportive tool rather than a generator of primary content or ideas.
+Generative artificial intelligence tools were used during the preparation of this 
+dissertation to assist with literature search and reference discovery, and to support 
+writing quality through spelling, grammar, punctuation, and sentence structure 
+improvements. Generative AI was also used in troubleshooting isues with text editors 
+such as LaTex in the creation of this document. All references identified through AI 
+assistance were systematically verified by hand to ensure legitimacy, relevance, and 
+that cited content accurately supported the claims made. Generative AI functioned solely 
+as a supportive tool rather than a generator of primary content or ideas.
 
-
+During the implementation phase, generative AI tools were used in a number of 
+supporting capacities. AI assistance was used to generate realistic dummy data for 
+seeding the database during development and testing, and to reformat code, 
+particularly CSS stylesheets, to improve consistency and readability. AI tools were 
+also used to help identify and fix errors during debugging, and as a sounding board 
+for discussing potential solutions to technical problems encountered throughout 
+development. Throughout the implementation phase, AI was used extensively as a 
+spelling and grammar checker when writing code comments and documentation. In all 
+cases, the underlying logic, architectural decisions, and implementation choices 
+remained the work of the author, with AI serving only as a supportive aid.
 
 \end{document}

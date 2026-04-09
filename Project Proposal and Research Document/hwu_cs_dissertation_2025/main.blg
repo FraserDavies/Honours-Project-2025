@@ -16,10 +16,15 @@ Warning--entry type for "Equality_Act_2010" isn't style-file defined
 --line 629 of file references.bib
 Reallocating 'singl_function' (item size: 4) to 100 items.
 Reallocating 'wiz_functions' (item size: 4) to 9000 items.
+Warning--no key, author in w3schools_getboundingclientrect
+Warning--to sort, need author or key in w3schools_getboundingclientrect
 Reallocating 'glb_str_end' (item size: 4) to 20 items.
 Reallocating 'glb_str_ptr' (item size: 4) to 20 items.
 Reallocating 'global_strs' (item size: 1) to 4000000 items.
+Warning--no key, author in w3schools_getboundingclientrect
+Warning--no key, author in w3schools_getboundingclientrect
 Reallocating 'singl_function' (item size: 4) to 100 items.
+Warning--no key, author in w3schools_getboundingclientrect
 Warning--empty year in chartmaker_directory
 Warning--using n.d. in chartmaker_directory
 Warning--empty address in BednjanecAndrea2013AoGc
@@ -36,45 +41,45 @@ Warning--empty year in tacticalpm_fs_dependency
 Warning--using n.d. in tacticalpm_fs_dependency
 Warning--empty year in sqlite_datatypes
 Warning--using n.d. in sqlite_datatypes
-You've used 53 entries,
+You've used 55 entries,
             6273 wiz_defined-function locations,
-            1850 strings with 28718 characters,
-and the built_in function-call counts, 46356 in all, are:
-= -- 5789
-> -- 1239
+            1859 strings with 28957 characters,
+and the built_in function-call counts, 47748 in all, are:
+= -- 5942
+> -- 1256
 < -- 0
-+ -- 372
-- -- 547
-* -- 2881
-:= -- 4737
-add.period$ -- 289
-call.type$ -- 53
-change.case$ -- 300
-chr.to.int$ -- 51
-cite$ -- 69
-duplicate$ -- 4146
-empty$ -- 2964
-format.name$ -- 551
-if$ -- 10770
++ -- 377
+- -- 554
+* -- 2965
+:= -- 4851
+add.period$ -- 299
+call.type$ -- 55
+change.case$ -- 309
+chr.to.int$ -- 53
+cite$ -- 80
+duplicate$ -- 4290
+empty$ -- 3068
+format.name$ -- 558
+if$ -- 11085
 int.to.chr$ -- 4
 int.to.str$ -- 1
 missing$ -- 69
-newline$ -- 595
-num.names$ -- 375
-pop$ -- 1463
+newline$ -- 622
+num.names$ -- 382
+pop$ -- 1516
 preamble$ -- 1
-purify$ -- 694
+purify$ -- 719
 quote$ -- 0
-skip$ -- 1637
+skip$ -- 1700
 stack$ -- 0
-substring$ -- 3379
-swap$ -- 342
+substring$ -- 3482
+swap$ -- 354
 text.length$ -- 114
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 1394
-warning$ -- 16
-while$ -- 378
+type$ -- 1454
+warning$ -- 21
+while$ -- 385
 width$ -- 0
-write$ -- 1136
-(There were 19 warnings)
+write$ -- 1182
+(There were 24 warnings)

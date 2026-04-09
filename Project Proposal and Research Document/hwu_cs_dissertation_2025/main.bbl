@@ -2,7 +2,7 @@
 %%% Do NOT edit. File created by BibTeX with style
 %%% ACM-Reference-Format-Journals [18-Jan-2012].
 
-\begin{thebibliography}{53}
+\begin{thebibliography}{55}
 
 %%% ====================================================================
 %%% NOTE TO THE USER: you can override these defaults by providing
@@ -35,6 +35,21 @@
 \providecommand\bibinfo[2]{#2}
 \providecommand\natexlab[1]{#1}
 \providecommand\showeprint[2][]{arXiv:#2}
+
+\bibitem[w3s(2026)]%
+        {w3schools_getboundingclientrect}
+W3Schools \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{HTML DOM Element getBoundingClientRect()
+  Method}}.
+\newblock W3Schools.
+\newblock
+\urldef\tempurl%
+\url{https://www.w3schools.com/jsref/met_element_getboundingclientrect.asp}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Accessed: 2026-04-09}.
+
 
 \bibitem[Academiac(2018)]%
         {academiac_gantt_phd_2018}
@@ -126,6 +141,20 @@
 \newblock
 \showeprint{https://onlinelibrary.wiley.com/doi/pdf/10.1002/pmj.20033}
 \href{https://doi.org/10.1002/pmj.20033}{doi:\nolinkurl{10.1002/pmj.20033}}
+
+
+\bibitem[Bostock(2026)]%
+        {bostock_d3}
+\bibfield{author}{\bibinfo{person}{Mike Bostock}.}
+  \bibinfo{year}{2026}\natexlab{}.
+\newblock \bibinfo{booktitle}{\emph{D3.js: Data-Driven Documents}}.
+\newblock
+\urldef\tempurl%
+\url{https://d3js.org/}
+\showURL{%
+\tempurl}
+\newblock
+\shownote{Accessed: 2026-04-09}.
 
 
 \bibitem[{British Computer Society}(2025)]%

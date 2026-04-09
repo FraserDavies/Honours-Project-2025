@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  28 MAR 2026 22:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.11.12)  9 APR 2026 13:53
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -822,7 +822,7 @@ Package: array 2025/09/25 v2.6n Tabular extension package (FMi)
 \extratabsurround=\skip89
 \backup@length=\skip90
 \ar@cellbox=\box67
-)) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
+) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/tools\tabularx.sty
 Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 \TX@col@width=\dimen274
 \TX@old@table=\dimen275
@@ -831,7 +831,7 @@ Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
 \TX@delta=\dimen278
 \TX@cols=\count356
 \TX@ftn=\toks44
-) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/hyphenat\hyphenat.sty
+)) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/hyphenat\hyphenat.sty
 Package: hyphenat 2009/09/02 v2.3c hyphenation utilities
 
 
@@ -863,6 +863,18 @@ LaTeX Warning: Label `fr:11' multiply defined.
 
 
 LaTeX Warning: Label `fr:11@cref' multiply defined.
+
+
+LaTeX Warning: Label `tab:schedule' multiply defined.
+
+
+LaTeX Warning: Label `tab:schedule@cref' multiply defined.
+
+
+LaTeX Warning: Label `tab:schedule' multiply defined.
+
+
+LaTeX Warning: Label `tab:schedule@cref' multiply defined.
 
 )
 \openout1 = `main.aux'.
@@ -1239,7 +1251,7 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 (Font)              scaled to size 14.4pt on input line 12.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 14.4pt on input line 13.
-<images/hwcoa_bw.jpg, id=190, 61.6704pt x 65.5248pt>
+<images/hwcoa_bw.jpg, id=202, 61.6704pt x 65.5248pt>
 File: images/hwcoa_bw.jpg Graphic file (type jpg)
 <use images/hwcoa_bw.jpg>
 Package pdftex.def Info: images/hwcoa_bw.jpg  used on input line 22.
@@ -1404,6 +1416,9 @@ LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
 \tf@toc=\write5
 \openout5 = `main.toc'.
 
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 LaTeX Font Info:    Trying to load font information for T1+LinuxBiolinumT-TLF on input line 11.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/libertine\t1linuxbiolinumt-tlf.fd
 File: T1LinuxBiolinumT-TLF.fd 2017/03/20 (autoinst) Font definitions for T1/LinuxBiolinumT-TLF.
@@ -1434,9 +1449,12 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[5.6{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_afusau.enc}])
+[5.6{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_25tcsq.enc}{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_afusau.enc}]
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/sc' will be
+(Font)              scaled to size 10.0pt on input line 11.
+ [6.7{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_omcwp2.enc}])
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 14.4pt on input line 153.
+(Font)              scaled to size 14.4pt on input line 158.
 
 Underfull \vbox (badness 1895) has occurred while \output is active []
 
@@ -1448,14 +1466,12 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[1.7
+[1.8
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/sc' will be
-(Font)              scaled to size 10.0pt on input line 214.
- [2.8{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_omcwp2.enc}]
+ [2.9]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1463,10 +1479,10 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[3.9]
+[3.10]
 Underfull \vbox (badness 1895) has occurred while \output is active []
 
- [4.10]
+ [4.11]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1474,10 +1490,13 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[5.11]
+[5.12]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [6.12]
+ [6.13]
+
+LaTeX Warning: Reference `fig:Use_Case_Diagram_Create_and_Manage_Gantt_Chart' on page 7 undefined on input line 291.
+
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1485,13 +1504,13 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[7.13]
+[7.14]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 312.
+(Font)              scaled to size 12.0pt on input line 317.
 
 Underfull \vbox (badness 1009) has occurred while \output is active []
 
- [8.14]
+ [8.15]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1499,10 +1518,10 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[9.15]
+[9.16]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [10.16]
+ [10.17]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1510,10 +1529,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[11.17]
-Underfull \vbox (badness 2126) has occurred while \output is active []
-
- [12.18]
+[11.18] [12.19]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1524,17 +1540,17 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[13.19]
+[13.20]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [14.20{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-t1-4.enc}]
-<images/ER-Diagram.jpeg, id=511, 760.7622pt x 509.5035pt>
+ [14.21{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-t1-4.enc}]
+<images/ER-Diagram.jpeg, id=531, 760.7622pt x 509.5035pt>
 File: images/ER-Diagram.jpeg Graphic file (type jpg)
 <use images/ER-Diagram.jpeg>
-Package pdftex.def Info: images/ER-Diagram.jpeg  used on input line 526.
+Package pdftex.def Info: images/ER-Diagram.jpeg  used on input line 531.
 (pdftex.def)             Requested size: 413.73114pt x 277.08693pt.
 LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/n' will be
-(Font)              scaled to size 10.95pt on input line 529.
+(Font)              scaled to size 10.95pt on input line 534.
 
 Underfull \vbox (badness 3168) has occurred while \output is active []
 
@@ -1546,29 +1562,29 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[15.21] (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+[15.22] (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
 File: lstlang1.sty 2025/10/06 1.11 listings language file
 )
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 540.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 545.
 LaTeX Font Info:    Font shape `T1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 540.
+(Font)              scaled to size 10.95pt on input line 545.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 10.95pt on input line 542.
+(Font)              scaled to size 10.95pt on input line 547.
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 8.0pt on input line 542.
+(Font)              scaled to size 8.0pt on input line 547.
 LaTeX Font Info:    Font shape `T1/zi4/b/n' will be
-(Font)              scaled to size 10.95pt on input line 542.
-LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 553.
+(Font)              scaled to size 10.95pt on input line 547.
+LaTeX Font Info:    Trying to load font information for TS1+zi4 on input line 558.
  (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/latex/inconsolata\ts1zi4.fd
 File: ts1zi4.fd 2018/01/14 TS1/zi4 (Inconsolata)
 )
 LaTeX Font Info:    Font shape `TS1/zi4/m/n' will be
-(Font)              scaled to size 10.95pt on input line 553.
+(Font)              scaled to size 10.95pt on input line 558.
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `zi4' (encoding: TS1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [16.22{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-ts1.enc} <./images/ER-Diagram.jpeg>]
+ [16.23{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/inconsolata/i4-ts1.enc} <./images/ER-Diagram.jpeg>]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1576,26 +1592,86 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[17.23]
-Underfull \hbox (badness 7030) in paragraph at lines 642--657
-\T1/LinuxLibertineT-TLF/m/n/12 (+20) The core vi-su-al-i-sa-tion is im-ple-mented as a \T1/zi4/c/sc/12 GanttChart \T1/LinuxLibertineT-TLF/m/n/12 (+20) class in \T1/zi4/c/sc/12 src/gantt-
+[17.24]
+<images/gantt chart dashbord.png, id=581, 916.02225pt x 581.17125pt>
+File: images/gantt chart dashbord.png Graphic file (type png)
+<use images/gantt chart dashbord.png>
+Package pdftex.def Info: images/gantt chart dashbord.png  used on input line 651.
+(pdftex.def)             Requested size: 435.50787pt x 276.30751pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 651--652
+ [][] 
  []
 
 
-Underfull \hbox (badness 4899) in paragraph at lines 642--657
+Underfull \hbox (badness 4060) in paragraph at lines 659--675
+[]\T1/LinuxLibertineT-TLF/m/n/12 (+20) The core vi-su-al-i-sa-tion is im-ple-mented as a \T1/zi4/c/sc/12 GanttChart \T1/LinuxLibertineT-TLF/m/n/12 (+20) class in \T1/zi4/c/sc/12 src/gantt-
+ []
+
+
+Underfull \hbox (badness 4899) in paragraph at lines 659--675
 \T1/zi4/c/sc/12 builder/public/js/gantt-chart.js\T1/LinuxLibertineT-TLF/m/n/12 (+20) , ad-dress-ing \T1/LinuxLibertineT-TLF/b/n/12 (+20) FR4[][]\T1/LinuxLibertineT-TLF/m/n/12 (+20) . The chart is con-structed
  []
 
+[18.25 <./images/gantt chart dashbord.png>]
 LaTeX Font Info:    Font shape `T1/zi4/m/it' will be
-(Font)              scaled to size 10.95pt on input line 666.
-[18.24]
-Underfull \hbox (badness 2521) in paragraph at lines 702--705
+(Font)              scaled to size 10.95pt on input line 684.
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[19.26]
+Underfull \hbox (badness 2521) in paragraph at lines 720--723
 []\T1/LinuxLibertineT-TLF/m/n/12 (+20) Dependency lines are drawn us-ing a D3 path gen-er-a-tor con-fig-ured with the
  []
 
 
-Underfull \hbox (badness 2726) in paragraph at lines 713--725
+Underfull \hbox (badness 2726) in paragraph at lines 731--743
 []\T1/LinuxLibertineT-TLF/m/n/12 (+20) Milestones (\T1/LinuxLibertineT-TLF/b/n/12 (+20) FR6[][]\T1/LinuxLibertineT-TLF/m/n/12 (+20) ) are ren-dered as diamond-shaped \T1/zi4/c/sc/12 <poly-gon> \T1/LinuxLibertineT-TLF/m/n/12 (+20) el-e-ments rather
+ []
+
+<images/Drag and drop example.png, id=654, 347.79938pt x 179.16937pt>
+File: images/Drag and drop example.png Graphic file (type png)
+<use images/Drag and drop example.png>
+Package pdftex.def Info: images/Drag and drop example.png  used on input line 763.
+(pdftex.def)             Requested size: 435.50787pt x 224.36304pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 763--764
+ [][] 
+ []
+
+[20.27]
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[21.28 <./images/Drag and drop example.png>]
+<images/progress screenshot.png, id=690, 196.93575pt x 30.71475pt>
+File: images/progress screenshot.png Graphic file (type png)
+<use images/progress screenshot.png>
+Package pdftex.def Info: images/progress screenshot.png  used on input line 839.
+(pdftex.def)             Requested size: 435.50787pt x 67.93303pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 839--840
+ [][] 
+ []
+
+[22.29 <./images/progress screenshot.png>]
+<images/kanban board view.png, id=706, 743.77875pt x 517.935pt>
+File: images/kanban board view.png Graphic file (type png)
+<use images/kanban board view.png>
+Package pdftex.def Info: images/kanban board view.png  used on input line 907.
+(pdftex.def)             Requested size: 435.50787pt x 303.2792pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 907--908
+ [][] 
  []
 
 
@@ -1605,7 +1681,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[19.25] [20.26]
+[23.30] [24.31 <./images/kanban board view.png>]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1613,27 +1689,30 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[21.27]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[25.32]
+Underfull \vbox (badness 1895) has occurred while \output is active []
 
- [22.28]
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 14.0pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.0pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
-
-[23.29]
+ [26.33]
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/n' will be
-(Font)              scaled to size 6.6pt on input line 994.
+(Font)              scaled to size 6.6pt on input line 1064.
+
+Underfull \vbox (badness 1694) has occurred while \output is active []
+
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[27.34{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}]
+LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
+(Font)              scaled to size 12.0pt on input line 1120.
 
 Underfull \vbox (badness 1895) has occurred while \output is active []
 
- [24.30]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
+ [28.35]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1641,10 +1720,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[25.31{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_oexx6f.enc}]
-LaTeX Font Info:    Font shape `T1/LinuxBiolinumT-TLF/m/it' will be
-(Font)              scaled to size 12.0pt on input line 1050.
- [26.32]
+[29.36] [30.37]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1652,10 +1728,7 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[27.33] [28.34]
-Underfull \vbox (badness 3168) has occurred while \output is active []
-
-
+[31.38] [32.39] (hwu_template/references.tex
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1663,29 +1736,41 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[29.35] (hwu_template/references.tex [30.36] (main.bbl
+[33.40] (main.bbl
 LaTeX Font Info:    Font shape `T1/LinuxLibertineT-TLF/m/it' will be
 (Font)              scaled to size 10.0pt on input line 43.
-LaTeX Info: Redefining \tempurl on input line 73.
+LaTeX Info: Redefining \tempurl on input line 61.
+LaTeX Info: Redefining \tempurl on input line 88.
 
-Underfull \hbox (badness 1629) in paragraph at lines 67--78
+Underfull \hbox (badness 1629) in paragraph at lines 82--93
 []\T1/LinuxLibertineT-TLF/m/n/10 (+20) ArchiMetric. 2024.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Com-pre-hen-sive Guide on Use Cases and the Con-cepts of Ex-tend and In-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 120--129
+Underfull \hbox (badness 10000) in paragraph at lines 135--144
 []\T1/LinuxLibertineT-TLF/m/n/10 (+20) Claude Besner and Brian Hobbs. 2008.  Project man-age-ment prac-tice, generic
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 120--129
+Underfull \hbox (badness 10000) in paragraph at lines 135--144
 \T1/LinuxLibertineT-TLF/m/n/10 (+20) or con-tex-tual: A re-al-ity check.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Project Man-age-ment Jour-nal \T1/LinuxLibertineT-TLF/m/n/10 (+20) 39, 1 (2008), 16--33.
  []
 
-LaTeX Info: Redefining \tempurl on input line 139.
-LaTeX Info: Redefining \tempurl on input line 204.
-LaTeX Info: Redefining \tempurl on input line 245.
-LaTeX Info: Redefining \tempurl on input line 260.
+LaTeX Info: Redefining \tempurl on input line 153.
+LaTeX Info: Redefining \tempurl on input line 168.
+LaTeX Info: Redefining \tempurl on input line 233.
+LaTeX Info: Redefining \tempurl on input line 274.
+LaTeX Info: Redefining \tempurl on input line 289.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [34.41]
+LaTeX Info: Redefining \tempurl on input line 338.
+LaTeX Info: Redefining \tempurl on input line 352.
+LaTeX Info: Redefining \tempurl on input line 421.
+LaTeX Info: Redefining \tempurl on input line 494.
+LaTeX Info: Redefining \tempurl on input line 533.
+LaTeX Info: Redefining \tempurl on input line 549.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -1697,55 +1782,29 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[31.37]
-LaTeX Info: Redefining \tempurl on input line 309.
-LaTeX Info: Redefining \tempurl on input line 323.
-LaTeX Info: Redefining \tempurl on input line 392.
-LaTeX Info: Redefining \tempurl on input line 465.
-LaTeX Info: Redefining \tempurl on input line 504.
-LaTeX Info: Redefining \tempurl on input line 520.
- [32.38]
-LaTeX Info: Redefining \tempurl on input line 611.
+[35.42]
+LaTeX Info: Redefining \tempurl on input line 640.
 
-Underfull \hbox (badness 10000) in paragraph at lines 605--616
+Underfull \hbox (badness 10000) in paragraph at lines 634--645
 []\T1/LinuxLibertineT-TLF/m/n/10 (+20) Katie Shives. 2015.  \T1/LinuxLibertineT-TLF/m/it/10 (+20) Us-ing Project Man-age-ment Ap-proaches to Tame Your Dis-ser-ta-tion\T1/LinuxLibertineT-TLF/m/n/10 (+20) .
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 605--616
+Underfull \hbox (badness 10000) in paragraph at lines 634--645
 [][]$\T1/LinuxLibertineT-TLF/m/n/10 (+20) https : / / www . insidehighered . com / blogs / gradhacker / using -[] project -[] management -[] approaches -[] tame -[]
  []
 
-LaTeX Info: Redefining \tempurl on input line 625.
-LaTeX Info: Redefining \tempurl on input line 662.
-LaTeX Info: Redefining \tempurl on input line 689.
-))
-
-Package fancyhdr Warning: \headheight is too small (13.0pt): 
-(fancyhdr)                Make it at least 14.0pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.0pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
-
-[33.39]
-<images/Log in Use Case Diagram.png, id=782, 691.383pt x 392.667pt>
+LaTeX Info: Redefining \tempurl on input line 654.
+LaTeX Info: Redefining \tempurl on input line 691.
+LaTeX Info: Redefining \tempurl on input line 718.
+)) [36.43]
+<images/Log in Use Case Diagram.png, id=890, 691.383pt x 392.667pt>
 File: images/Log in Use Case Diagram.png Graphic file (type png)
 <use images/Log in Use Case Diagram.png>
-Package pdftex.def Info: images/Log in Use Case Diagram.png  used on input line 1245.
+Package pdftex.def Info: images/Log in Use Case Diagram.png  used on input line 1319.
 (pdftex.def)             Requested size: 435.50787pt x 247.34557pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 1245--1246
- [][] 
- []
-
-[34.40 <./images/Log in Use Case Diagram.png>]
-<images/Create and Manage Gantt Chart Use Case Diagram.png, id=790, 671.50874pt x 515.526pt>
-File: images/Create and Manage Gantt Chart Use Case Diagram.png Graphic file (type png)
-<use images/Create and Manage Gantt Chart Use Case Diagram.png>
-Package pdftex.def Info: images/Create and Manage Gantt Chart Use Case Diagram.png  used on input line 1259.
-(pdftex.def)             Requested size: 435.50787pt x 334.3485pt.
-
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 1259--1260
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 1319--1320
  [][] 
  []
 
@@ -1756,29 +1815,42 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[35.41
-
- <./images/Create and Manage Gantt Chart Use Case Diagram.png>]
-<images/Mock-ups.png, id=796, 1155.1155pt x 684.75826pt>
+[37.44 <./images/Log in Use Case Diagram.png>]
+<images/Mock-ups.png, id=897, 1155.1155pt x 684.75826pt>
 File: images/Mock-ups.png Graphic file (type png)
 <use images/Mock-ups.png>
-Package pdftex.def Info: images/Mock-ups.png  used on input line 1274.
+Package pdftex.def Info: images/Mock-ups.png  used on input line 1342.
 (pdftex.def)             Requested size: 435.50787pt x 258.17337pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 1274--1275
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 1342--1343
  [][] 
  []
 
-[36.42 <./images/Mock-ups.png>]
-<images/Gantt Chart.png, id=803, 3083.52pt x 1646.15pt>
+[38.45
+
+ <./images/Mock-ups.png>]
+<images/Gantt Chart.png, id=904, 3083.52pt x 1646.15pt>
 File: images/Gantt Chart.png Graphic file (type png)
 <use images/Gantt Chart.png>
-Package pdftex.def Info: images/Gantt Chart.png  used on input line 1291.
+Package pdftex.def Info: images/Gantt Chart.png  used on input line 1359.
 (pdftex.def)             Requested size: 435.50787pt x 232.494pt.
 
-Overfull \hbox (6.79999pt too wide) in paragraph at lines 1291--1292
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 1359--1360
  [][] 
  []
+
+<images/interactive-gantt-chart-builder (4).jpg, id=905, 5018.75pt x 4015.0pt>
+File: images/interactive-gantt-chart-builder (4).jpg Graphic file (type jpg)
+<use images/interactive-gantt-chart-builder (4).jpg>
+Package pdftex.def Info: images/interactive-gantt-chart-builder (4).jpg  used on input line 1372.
+(pdftex.def)             Requested size: 435.50787pt x 348.34647pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 1372--1373
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 120.40073pt on input line 1548.
 
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
@@ -1787,24 +1859,24 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[37.43
+[39.46
 
  <./images/Gantt Chart.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 1396--1396
+Underfull \hbox (badness 10000) in paragraph at lines 1604--1604
 []|\T1/LinuxLibertineT-TLF/m/n/10.95 (+20) Usability Eval-u-a-tion
  []
 
 
-Underfull \hbox (badness 3701) in paragraph at lines 1396--1396
+Underfull \hbox (badness 3701) in paragraph at lines 1604--1604
 []|\T1/LinuxLibertineT-TLF/m/n/10.95 (+20) Requirements clearly doc-u-mented and pri-ori-tised.
  []
 
 
-Overfull \hbox (57.68974pt too wide) in paragraph at lines 1396--1397
+Overfull \hbox (57.68974pt too wide) in paragraph at lines 1604--1605
  [][]\T1/LinuxLibertineT-TLF/m/n/10.95 (-20) prioritisation 
  []
 
-[38.44{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_ki75ao.enc}]
+[40.47 <./images/interactive-gantt-chart-builder (4).jpg>]
 
 Package fancyhdr Warning: \headheight is too small (13.0pt): 
 (fancyhdr)                Make it at least 14.0pt, for example:
@@ -1812,11 +1884,113 @@ Package fancyhdr Warning: \headheight is too small (13.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
 
-[39.45] (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-pdfdoc.def
+[41.48{C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/libertine/lbtn_ki75ao.enc}] [42.49]
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[43.50] [44.51
+
+]
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[45.52
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 1693--1693
+[]|\T1/LinuxLibertineT-TLF/m/n/10 (+20) Did not
+ []
+
+[46.53
+
+]
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[47.54
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 1755--1755
+[]|\T1/LinuxLibertineT-TLF/m/n/10.95 (+20) Tutorial was great and
+ []
+
+
+Underfull \hbox (badness 2401) in paragraph at lines 1755--1755
+[]|\T1/LinuxLibertineT-TLF/m/n/10.95 (+20) Change colour for dif-fer-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1755--1755
+[]|\T1/LinuxLibertineT-TLF/m/n/10.95 (+20) Tutorial helped un-der-
+ []
+
+[48.55
+
+]
+<images/consent 1.jpeg, id=967, 1200.485pt x 705.63625pt>
+File: images/consent 1.jpeg Graphic file (type jpg)
+<use images/consent 1.jpeg>
+Package pdftex.def Info: images/consent 1.jpeg  used on input line 1767.
+(pdftex.def)             Requested size: 435.50787pt x 255.98846pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 1767--1768
+ [][] 
+ []
+
+<images/consent 2.jpeg, id=968, 1169.36874pt x 877.2775pt>
+File: images/consent 2.jpeg Graphic file (type jpg)
+<use images/consent 2.jpeg>
+Package pdftex.def Info: images/consent 2.jpeg  used on input line 1779.
+(pdftex.def)             Requested size: 435.50787pt x 326.72937pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 1779--1780
+ [][] 
+ []
+
+<images/consent 3.jpeg, id=969, 1185.42876pt x 386.44376pt>
+File: images/consent 3.jpeg Graphic file (type jpg)
+<use images/consent 3.jpeg>
+Package pdftex.def Info: images/consent 3.jpeg  used on input line 1791.
+(pdftex.def)             Requested size: 435.50787pt x 141.97362pt.
+
+Overfull \hbox (6.79999pt too wide) in paragraph at lines 1791--1792
+ [][] 
+ []
+
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+[49.56
+
+ <./images/consent 1.jpeg>] [50.57 <./images/consent 2.jpeg> <./images/consent 3.jpeg>]
+
+Package fancyhdr Warning: \headheight is too small (13.0pt): 
+(fancyhdr)                Make it at least 14.0pt, for example:
+(fancyhdr)                \setlength{\headheight}{14.0pt}.
+(fancyhdr)                You might also make \topmargin smaller:
+(fancyhdr)                \addtolength{\topmargin}{-1.0pt}.
+
+(C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-pdfdoc.def
 File: se-pdfdoc.def 2019/11/29 v1.12 stringenc: PDFDocEncoding
 ) (C:\Users\frase\AppData\Local\Programs\MiKTeX\tex/generic/stringenc\se-utf8.def
 File: se-utf8.def 2019/11/29 v1.12 stringenc: UTF-8
-) [40.46
+) [51.58
 
 ] (main.aux)
  ***********
@@ -1828,23 +2002,26 @@ L3 programming layer <2025-10-24>
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 
+LaTeX Warning: There were undefined references.
+
+
 LaTeX Warning: There were multiply-defined labels.
 
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 82CA17EB903AFA6703E961567900FB0B;7863.
+(rerunfilecheck)             Checksum: F64C730B791E7719863CB7D325658E7D;8300.
  ) 
 Here is how much of TeX's memory you used:
- 27673 strings out of 467871
- 469540 string characters out of 5418375
- 1287849 words of memory out of 5000000
- 54980 multiletter control sequences out of 15000+600000
- 904528 words of font info for 604 fonts, out of 8000000 for 9000
+ 27794 strings out of 467871
+ 472528 string characters out of 5418375
+ 1341178 words of memory out of 5000000
+ 55064 multiletter control sequences out of 15000+600000
+ 910048 words of font info for 608 fonts, out of 8000000 for 9000
  1302 hyphenation exceptions out of 8191
  90i,13n,131p,2239b,2466s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4b.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/inconsolata/Inconsolata-zi4r.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinBiolinumT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinBiolinumTI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineT.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTB.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTBI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/libertine/LinLibertineTI.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txmiaX.pfb><C:/Users/frase/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/txsys.pfb>
-Output written on main.pdf (46 pages, 1513844 bytes).
+Output written on main.pdf (58 pages, 3941430 bytes).
 PDF statistics:
- 950 PDF objects out of 1000 (max. 8388607)
- 243 named destinations out of 1000 (max. 500000)
- 151455 words of extra memory for PDF output out of 154059 (max. 10000000)
+ 1108 PDF objects out of 1200 (max. 8388607)
+ 273 named destinations out of 1000 (max. 500000)
+ 155610 words of extra memory for PDF output out of 184870 (max. 10000000)
 
